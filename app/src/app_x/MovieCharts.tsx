@@ -182,7 +182,7 @@ function formatValue(key: AttributeKey, value: number | null): string {
 }
 
 function formatPercentile(value: number | undefined): string {
-  return typeof value === "number" ? `${value.toFixed(1)} percentile` : "No percentile";
+  return typeof value === "number" ? `${value.toFixed(1)} plotted percentile` : "No percentile";
 }
 
 function getLetterboxdUrl(movie: MoviePoint): string | null {
@@ -254,12 +254,14 @@ function Graph({
   const [activeMovie, setActiveMovie] = useState<MoviePoint | null>(null);
   const plotted = useMemo(
     () =>
-      movies.filter(
-        (movie) =>
-          typeof movie[pair.x] === "number" &&
-          typeof movie[pair.y] === "number" &&
-          (movie[pair.x] as number) > 0 &&
-          (movie[pair.y] as number) > 0,
+      computePercentiles(
+        movies.filter(
+          (movie) =>
+            typeof movie[pair.x] === "number" &&
+            typeof movie[pair.y] === "number" &&
+            (movie[pair.x] as number) > 0 &&
+            (movie[pair.y] as number) > 0,
+        ),
       ),
     [movies, pair.x, pair.y],
   );
