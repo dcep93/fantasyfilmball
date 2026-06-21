@@ -35,7 +35,19 @@ export const DEFAULT_SCORING_RULES: ScoringRuleSet = {
       id: "budget-alchemy",
       name: "Budget Alchemy",
       subtitle: "Rewards high domestic gross with a moderate production budget.",
-      formula: "250 * G / (1 + abs(B - 2))",
+      formula: "300 * G / (1 + 3 * abs(B - 1.5))",
+    },
+    {
+      id: "tiny-thunder",
+      name: "Tiny Thunder",
+      subtitle: "Rewards substantial Letterboxd rating volume despite low domestic gross.",
+      formula: "300 * sqrt(R) / (1 + G)",
+    },
+    {
+      id: "disasterpiece",
+      name: "Disasterpiece",
+      subtitle: "Rewards low Letterboxd average with high production budget.",
+      formula: "175 * B * (3 - A)",
     },
     {
       id: "cult-furnace",
@@ -48,18 +60,6 @@ export const DEFAULT_SCORING_RULES: ScoringRuleSet = {
       name: "Rotten Crowd",
       subtitle: "Rewards low Letterboxd average with substantial rating volume.",
       formula: "250 * (3 - A) * sqrt(R)",
-    },
-    {
-      id: "tiny-thunder",
-      name: "Tiny Thunder",
-      subtitle: "Rewards high Letterboxd average and substantial rating volume despite low domestic gross.",
-      formula: "200 * (A - 3) * sqrt(R) / (1 + G)",
-    },
-    {
-      id: "disasterpiece",
-      name: "Disasterpiece",
-      subtitle: "Rewards low Letterboxd average with high production budget.",
-      formula: "175 * B * (3 - A)",
     },
   ],
 };

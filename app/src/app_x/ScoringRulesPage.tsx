@@ -6,12 +6,15 @@ import {
   DEFAULT_SCORING_RULES,
   SCORE_INPUT_HELP,
   evaluateFormula,
-  normalizeRuleSet,
   slugifyPosition,
   type ScoringPosition,
   type ScoringRuleSet,
 } from "./scoringRules";
-import type { UniverseState } from "./LeagueConsole";
+import {
+  SELECTED_LEAGUE_STORAGE_KEY,
+  findLeagueSummary,
+  type UniverseState,
+} from "./leagueModel";
 
 type Props = {
   client: FirebaseClient;
@@ -19,22 +22,6 @@ type Props = {
   onSignOut: () => void;
   universeState: UniverseState;
   user: User;
-};
-
-type LeagueProfile = {
-  email: string;
-  playerId: string;
-  playerLabel: string;
-};
-
-type ScoringRulesTransaction = {
-  createdAt: number;
-  fee: number;
-  kind: "scoringRules";
-  playerId: string;
-  playerLabel: string;
-  rules: ScoringRuleSet;
-  txnId: string;
 };
 
 type MovieRow = {
@@ -47,6 +34,10 @@ type MovieRow = {
 
 const DATA_URL = "/movie_charts/2025/movie_2025_data.csv";
 
+function timestamp() {
+  return Date.now();
+}
+
 export default function ScoringRulesPage({
   client,
   onNavigate,
@@ -57,6 +48,9 @@ export default function ScoringRulesPage({
   const [movies, setMovies] = useState<MovieRow[]>([]);
   const [movieError, setMovieError] = useState<string | null>(null);
   const [message, setMessage] = useState<string | null>(null);
+  const [selectedKey, setSelectedKey] = useState(() =>
+    window.localStorage.getItem(SELECTED_LEAGUE_STORAGE_KEY),
+  );
 
   useEffect(() => {
     let active = true;
@@ -84,43 +78,24 @@ export default function ScoringRulesPage({
     };
   }, []);
 
-  const leagueData = useMemo(
-    () => readLeagueData(universeState.status === "ready" ? universeState.value : {}),
-    [universeState],
+  const selectedLeague = useMemo(
+    () => findLeagueSummary(universeState.status === "ready" ? universeState.value : {}, selectedKey),
+    [selectedKey, universeState],
   );
-  const currentProfile = leagueData.profilesByUid.get(user.uid);
-  const commissionerProfile = leagueData.profiles.find((profile) => profile.playerId === "1");
-  const currentRules = leagueData.scoringRules ?? DEFAULT_SCORING_RULES;
-  const isCommissioner = currentProfile?.playerId === "1";
+  const currentRules = selectedLeague?.league.scoring ?? DEFAULT_SCORING_RULES;
+  const isCommissioner = Boolean(selectedLeague && selectedLeague.commissionerUid === user.uid);
 
   async function saveRules(rules: ScoringRuleSet) {
-    if (!currentProfile || !isCommissioner) {
-      throw new Error("Only the commissioner can edit scoring rules.");
+    if (!selectedLeague || !isCommissioner) {
+      throw new Error("Only this league's commissioner can edit scoring positions and formulas.");
     }
 
-    const ownTransactions = leagueData.rawTransactionsByUid.get(user.uid) ?? {};
-    const txnId = nextTxnId(currentProfile, ownTransactions);
-    const transaction: ScoringRulesTransaction = {
-      createdAt: Date.now(),
-      fee: 0,
-      kind: "scoringRules",
-      playerId: currentProfile.playerId,
-      playerLabel: currentProfile.playerLabel,
-      rules,
-      txnId,
-    };
-
     await update(ref(client.database, `users/${user.uid}`), {
-      league: {
-        ...(leagueData.rawLeagueByUid.get(user.uid) ?? {}),
-        transactions: {
-          ...ownTransactions,
-          [txnId]: transaction,
-        },
-      },
+      [`leagues/${selectedLeague.league.leagueId}/scoring`]: rules,
+      [`leagues/${selectedLeague.league.leagueId}/updatedAt`]: timestamp(),
       updatedAt: serverTimestamp(),
     });
-    setMessage(`Scoring rules saved as transaction ${txnId}.`);
+    setMessage("Scoring positions and formulas saved.");
   }
 
   return (
@@ -130,8 +105,8 @@ export default function ScoringRulesPage({
           <p className="ffb-kicker">FantasyFilmBall</p>
           <h1>Scoring rules</h1>
           <p className="ffb-muted">
-            Everyone can read the active rules. Only player 1, the commissioner, can write a new
-            scoring-rule transaction.
+            Everyone can view active scoring positions and formulas. Only the selected league's
+            commissioner can edit them.
           </p>
         </div>
         <nav className="ffb-nav" aria-label="Primary">
@@ -150,50 +125,69 @@ export default function ScoringRulesPage({
         </nav>
       </header>
 
-      <section className="ffb-score-summary">
-        <div>
-          <p className="ffb-label">Active rule set</p>
-          <h2>{currentRules.season}</h2>
-          <p>{SCORE_INPUT_HELP}</p>
-          <p className="ffb-source">
-            Commissioner: {commissionerProfile?.playerLabel ?? "not registered yet"}
-          </p>
-        </div>
-        <div>
-          <p className="ffb-label">Positions</p>
-          <strong>{currentRules.positions.length}</strong>
-        </div>
-      </section>
-
-      {message ? <p className="ffb-toast">{message}</p> : null}
-      {movieError ? <p className="ffb-error">{movieError}</p> : null}
-
-      {isCommissioner ? (
-        <ScoringEditor
-          key={`${currentRules.updatedAt}-${currentRules.positions.length}`}
-          rules={currentRules}
-          onSave={saveRules}
-        />
-      ) : (
-        <section className="ffb-panel">
-          <p className="ffb-label">Read only</p>
-          <h2>Commissioner edits are locked</h2>
-          <p>
-            Your player id is {currentProfile?.playerId ?? "not registered"}. Only player 1 can
-            record scoring-rule changes.
-          </p>
+      {!selectedLeague ? (
+        <section className="ffb-panel ffb-centered-panel">
+          <p className="ffb-label">No league selected</p>
+          <h2>Choose a league first</h2>
+          <p>Use the league console to start a league, request to join, or select a readable league.</p>
+          <button type="button" onClick={() => onNavigate("/app")}>
+            Open League Console
+          </button>
         </section>
-      )}
+      ) : (
+        <>
+          <section className="ffb-score-summary">
+            <div>
+              <p className="ffb-label">Active rule set</p>
+              <h2>{selectedLeague.league.name}</h2>
+              <p>{SCORE_INPUT_HELP}</p>
+              <p className="ffb-source">
+                Commissioner: {selectedLeague.commissionerLabel}
+                {selectedLeague.commissionerEmail ? ` (${selectedLeague.commissionerEmail})` : ""}
+              </p>
+            </div>
+            <div>
+              <p className="ffb-label">Positions</p>
+              <strong>{currentRules.positions.length}</strong>
+            </div>
+          </section>
 
-      <section className="ffb-scoring-tables">
-        {currentRules.positions.map((position) => (
-          <PositionTable
-            key={position.id}
-            movies={movies}
-            position={position}
-          />
-        ))}
-      </section>
+          {message ? <p className="ffb-toast">{message}</p> : null}
+          {movieError ? <p className="ffb-error">{movieError}</p> : null}
+
+          {isCommissioner ? (
+            <ScoringEditor
+              key={`${currentRules.updatedAt}-${currentRules.positions.length}`}
+              rules={currentRules}
+              onSave={saveRules}
+            />
+          ) : (
+            <section className="ffb-panel ffb-centered-panel">
+              <p className="ffb-label">Read only</p>
+              <h2>Commissioner edits are locked</h2>
+              <p>
+                This page is using {selectedLeague.league.name}. Only {selectedLeague.commissionerLabel}
+                can edit its scoring positions and formulas.
+              </p>
+              <button
+                type="button"
+                onClick={() => {
+                  window.localStorage.removeItem(SELECTED_LEAGUE_STORAGE_KEY);
+                  setSelectedKey(null);
+                }}
+              >
+                Change League
+              </button>
+            </section>
+          )}
+
+          <section className="ffb-scoring-tables">
+            {currentRules.positions.map((position) => (
+              <PositionTable key={position.id} movies={movies} position={position} />
+            ))}
+          </section>
+        </>
+      )}
     </main>
   );
 }
@@ -240,7 +234,7 @@ function ScoringEditor({
       await onSave({
         positions: normalized,
         season: season.trim() || DEFAULT_SCORING_RULES.season,
-        updatedAt: Date.now(),
+        updatedAt: timestamp(),
       });
     } catch (error: unknown) {
       setErrorMessage(error instanceof Error ? error.message : "Could not save scoring rules.");
@@ -396,100 +390,6 @@ function PositionTable({
       </div>
     </article>
   );
-}
-
-function readLeagueData(value: unknown) {
-  const users = isRecord(value) && isRecord(value.users) ? value.users : {};
-  const profiles: LeagueProfile[] = [];
-  const profilesByUid = new Map<string, LeagueProfile>();
-  const scoringRulesTransactions: ScoringRulesTransaction[] = [];
-  const rawLeagueByUid = new Map<string, Record<string, unknown>>();
-  const rawTransactionsByUid = new Map<string, Record<string, unknown>>();
-
-  for (const [uid, userRoot] of Object.entries(users)) {
-    if (!isRecord(userRoot) || !isRecord(userRoot.league)) {
-      continue;
-    }
-
-    rawLeagueByUid.set(uid, userRoot.league);
-
-    const profile = readProfile(userRoot.league.profile);
-    if (profile) {
-      profiles.push(profile);
-      profilesByUid.set(uid, profile);
-    }
-
-    const transactions = isRecord(userRoot.league.transactions) ? userRoot.league.transactions : {};
-    rawTransactionsByUid.set(uid, transactions);
-
-    if (profile?.playerId !== "1") {
-      continue;
-    }
-
-    for (const rawTransaction of Object.values(transactions)) {
-      const transaction = readScoringRulesTransaction(rawTransaction);
-      if (transaction) {
-        scoringRulesTransactions.push(transaction);
-      }
-    }
-  }
-
-  const scoringRules = scoringRulesTransactions.sort((left, right) => right.createdAt - left.createdAt)[0]?.rules;
-
-  return {
-    profiles,
-    profilesByUid,
-    rawLeagueByUid,
-    rawTransactionsByUid,
-    scoringRules,
-  };
-}
-
-function readProfile(value: unknown): LeagueProfile | null {
-  if (!isRecord(value)) {
-    return null;
-  }
-
-  const email = typeof value.email === "string" ? value.email : null;
-  const playerId = typeof value.playerId === "string" ? value.playerId : null;
-  const playerLabel = typeof value.playerLabel === "string" ? value.playerLabel : null;
-
-  return email && playerId && playerLabel ? { email, playerId, playerLabel } : null;
-}
-
-function readScoringRulesTransaction(value: unknown): ScoringRulesTransaction | null {
-  if (!isRecord(value) || value.kind !== "scoringRules") {
-    return null;
-  }
-
-  const createdAt = typeof value.createdAt === "number" ? value.createdAt : null;
-  const playerId = typeof value.playerId === "string" ? value.playerId : null;
-  const playerLabel = typeof value.playerLabel === "string" ? value.playerLabel : null;
-  const txnId = typeof value.txnId === "string" ? value.txnId : null;
-  const rules = normalizeRuleSet(value.rules);
-
-  if (!createdAt || !playerId || !playerLabel || !txnId || !rules) {
-    return null;
-  }
-
-  const fee = typeof value.fee === "number" ? value.fee : 0;
-
-  return { createdAt, fee, kind: "scoringRules", playerId, playerLabel, rules, txnId };
-}
-
-function nextTxnId(profile: LeagueProfile, transactions: Record<string, unknown>) {
-  const nextIndex =
-    Object.keys(transactions)
-      .filter((txnId) => txnId.startsWith(`${profile.playerId}.`))
-      .map((txnId) => Number(txnId.split(".")[1]))
-      .filter((value) => Number.isInteger(value) && value > 0)
-      .reduce((max, value) => Math.max(max, value), 0) + 1;
-
-  return `${profile.playerId}.${nextIndex}`;
-}
-
-function isRecord(value: unknown): value is Record<string, unknown> {
-  return Boolean(value) && typeof value === "object" && !Array.isArray(value);
 }
 
 function parseCsvLine(line: string): string[] {

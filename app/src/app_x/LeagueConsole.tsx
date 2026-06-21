@@ -1,542 +1,41 @@
-import { useEffect, useMemo, useState, type FormEvent, type ReactNode } from "react";
+import { useMemo, useState, type FormEvent, type ReactNode } from "react";
 import type { User } from "firebase/auth";
 import { ref, serverTimestamp, update } from "firebase/database";
 import type { FirebaseClient } from "./firebaseClient";
-import { normalizeRuleSet, type ScoringRuleSet } from "./scoringRules";
-
-export type UniverseState =
-  | { status: "idle" }
-  | { status: "loading" }
-  | { status: "ready"; value: unknown }
-  | { status: "error"; message: string };
+import {
+  DEFAULT_LEAGUE_ID,
+  SELECTED_LEAGUE_STORAGE_KEY,
+  STARTING_STUBS,
+  decodeBidPayload,
+  findLeagueSummary,
+  makeDefaultLeague,
+  membershipKey,
+  nextTxnId,
+  obfuscateBidPayload,
+  readLeagueSummaries,
+  readMemberships,
+  readOwnTransactions,
+  readTransactions,
+  stubBalance,
+  type BidPayload,
+  type LeagueMember,
+  type LeagueSummary,
+  type LeagueTransaction,
+  type UniverseState,
+} from "./leagueModel";
 
 type LeagueConsoleProps = {
   client: FirebaseClient;
-  user: User;
-  universeState: UniverseState;
   onNavigate: (pathname: string) => void;
   onSignOut: () => void;
+  universeState: UniverseState;
+  user: User;
 };
 
-type UserRoot = {
-  email?: unknown;
-  league?: unknown;
-};
-
-type LeagueState = {
-  profile?: LeagueProfile;
-  transactions?: Record<string, LeagueTransaction>;
-};
-
-export type LeagueProfile = {
-  email: string;
-  playerId: string;
-  playerLabel: string;
-  passphraseSalt: string;
-  passphraseVerifier: string;
-  updatedAt: number;
-};
-
-type EncryptedPayload = {
-  iv: string;
-  ciphertext: string;
-};
-
-type BidPayload = {
-  amount: number;
-  auctionId: string;
-  dropFilmId: string | null;
-  filmId: string;
-  salt: string;
-  submittedAt: number;
-};
-
-type TransactionBase = {
-  createdAt: number;
-  fee: number;
-  playerId: string;
-  playerLabel: string;
-  txnId: string;
-};
-
-type BidCommitTransaction = TransactionBase & {
-  auctionDeadline: number;
-  commitment: string;
-  encryptedPayload: EncryptedPayload;
-  kind: "bidCommit";
-  revealGraceMs: number;
-};
-
-type BidRevealTransaction = TransactionBase & {
-  commitment: string;
-  kind: "bidReveal";
-  payload: BidPayload;
-  revealForTxnId: string;
-};
-
-type SimpleTransaction = TransactionBase & {
-  filmId: string;
-  kind: "pickup" | "drop";
-};
-
-type LineupTransaction = TransactionBase & {
-  filmId: string;
-  kind: "lineup";
-  position: string;
-};
-
-type OscarPickTransaction = TransactionBase & {
-  filmId: string;
-  kind: "oscarPick";
-};
-
-type MemberAddTransaction = TransactionBase & {
-  email: string;
-  kind: "memberAdd";
-  memberLabel: string;
-  memberPlayerId: string;
-};
-
-type ScoringRulesTransaction = TransactionBase & {
-  kind: "scoringRules";
-  rules: ScoringRuleSet;
-};
-
-type LeagueTransaction =
-  | BidCommitTransaction
-  | BidRevealTransaction
-  | MemberAddTransaction
-  | OscarPickTransaction
-  | ScoringRulesTransaction
-  | SimpleTransaction
-  | LineupTransaction;
-
-type Session = {
-  key: CryptoKey;
-  passphrase: string;
-  profile: LeagueProfile;
-};
-
-const STARTING_STUBS = 1000;
-const REVEAL_GRACE_MS = 48 * 60 * 60 * 1000;
-const UNREVEALED_PENALTY = 25;
 const EMPTY_UNIVERSE = {};
 
-const PASS_STORAGE_PREFIX = "fantasyfilmball.passphrase.";
-const PROFILE_STORAGE_PREFIX = "fantasyfilmball.show-passphrase.";
-
-function isRecord(value: unknown): value is Record<string, unknown> {
-  return Boolean(value) && typeof value === "object" && !Array.isArray(value);
-}
-
-function asString(value: unknown): string | null {
-  return typeof value === "string" && value.trim() ? value : null;
-}
-
-function asNumber(value: unknown): number | null {
-  return typeof value === "number" && Number.isFinite(value) ? value : null;
-}
-
-function getUsers(value: unknown): Record<string, UserRoot> {
-  if (!isRecord(value)) {
-    return {};
-  }
-
-  const users = value.users;
-  if (!isRecord(users)) {
-    return {};
-  }
-
-  return users as Record<string, UserRoot>;
-}
-
-function parseLeague(value: unknown): LeagueState {
-  if (!isRecord(value)) {
-    return {};
-  }
-
-  const profile = parseProfile(value.profile);
-  const transactions = parseTransactions(value.transactions);
-  return { profile, transactions };
-}
-
-function parseProfile(value: unknown): LeagueProfile | undefined {
-  if (!isRecord(value)) {
-    return undefined;
-  }
-
-  const email = asString(value.email);
-  const playerId = asString(value.playerId);
-  const playerLabel = asString(value.playerLabel);
-  const passphraseSalt = asString(value.passphraseSalt);
-  const passphraseVerifier = asString(value.passphraseVerifier);
-  const updatedAt = asNumber(value.updatedAt);
-
-  if (!email || !playerId || !playerLabel || !passphraseSalt || !passphraseVerifier || !updatedAt) {
-    return undefined;
-  }
-
-  return {
-    email,
-    passphraseSalt,
-    passphraseVerifier,
-    playerId,
-    playerLabel,
-    updatedAt,
-  };
-}
-
-function parseTransactions(value: unknown): Record<string, LeagueTransaction> {
-  if (!isRecord(value)) {
-    return {};
-  }
-
-  const transactions: Record<string, LeagueTransaction> = {};
-
-  for (const [txnId, raw] of Object.entries(value)) {
-    const transaction = parseTransaction(raw);
-    if (transaction && transaction.txnId === txnId) {
-      transactions[txnId] = transaction;
-    }
-  }
-
-  return transactions;
-}
-
-function parseTransaction(value: unknown): LeagueTransaction | null {
-  if (!isRecord(value)) {
-    return null;
-  }
-
-  const kind = asString(value.kind);
-  const createdAt = asNumber(value.createdAt);
-  const fee = asNumber(value.fee);
-  const playerId = asString(value.playerId);
-  const playerLabel = asString(value.playerLabel);
-  const txnId = asString(value.txnId);
-
-  if (!kind || !createdAt || fee === null || !playerId || !playerLabel || !txnId) {
-    return null;
-  }
-
-  if (kind === "bidCommit") {
-    const auctionDeadline = asNumber(value.auctionDeadline);
-    const commitment = asString(value.commitment);
-    const revealGraceMs = asNumber(value.revealGraceMs);
-    const encryptedPayload = parseEncryptedPayload(value.encryptedPayload);
-
-    if (!auctionDeadline || !commitment || !revealGraceMs || !encryptedPayload) {
-      return null;
-    }
-
-    return {
-      auctionDeadline,
-      commitment,
-      createdAt,
-      encryptedPayload,
-      fee,
-      kind,
-      playerId,
-      playerLabel,
-      revealGraceMs,
-      txnId,
-    };
-  }
-
-  if (kind === "bidReveal") {
-    const commitment = asString(value.commitment);
-    const revealForTxnId = asString(value.revealForTxnId);
-    const payload = parseBidPayload(value.payload);
-
-    if (!commitment || !revealForTxnId || !payload) {
-      return null;
-    }
-
-    return {
-      commitment,
-      createdAt,
-      fee,
-      kind,
-      payload,
-      playerId,
-      playerLabel,
-      revealForTxnId,
-      txnId,
-    };
-  }
-
-  if (kind === "pickup" || kind === "drop") {
-    const filmId = asString(value.filmId);
-    if (!filmId) {
-      return null;
-    }
-
-    return { createdAt, fee, filmId, kind, playerId, playerLabel, txnId };
-  }
-
-  if (kind === "oscarPick") {
-    const filmId = asString(value.filmId);
-    if (!filmId) {
-      return null;
-    }
-
-    return { createdAt, fee, filmId, kind, playerId, playerLabel, txnId };
-  }
-
-  if (kind === "lineup") {
-    const filmId = asString(value.filmId);
-    const position = asString(value.position);
-    if (!filmId || !position) {
-      return null;
-    }
-
-    return { createdAt, fee, filmId, kind, playerId, playerLabel, position, txnId };
-  }
-
-  if (kind === "memberAdd") {
-    const email = asString(value.email);
-    const memberLabel = asString(value.memberLabel);
-    const memberPlayerId = asString(value.memberPlayerId);
-
-    if (!email || !memberLabel || !memberPlayerId) {
-      return null;
-    }
-
-    return {
-      createdAt,
-      email,
-      fee,
-      kind,
-      memberLabel,
-      memberPlayerId,
-      playerId,
-      playerLabel,
-      txnId,
-    };
-  }
-
-  if (kind === "scoringRules") {
-    const rules = normalizeRuleSet(value.rules);
-
-    if (!rules) {
-      return null;
-    }
-
-    return {
-      createdAt,
-      fee,
-      kind,
-      playerId,
-      playerLabel,
-      rules,
-      txnId,
-    };
-  }
-
-  return null;
-}
-
-function parseEncryptedPayload(value: unknown): EncryptedPayload | null {
-  if (!isRecord(value)) {
-    return null;
-  }
-
-  const iv = asString(value.iv);
-  const ciphertext = asString(value.ciphertext);
-  return iv && ciphertext ? { ciphertext, iv } : null;
-}
-
-function parseBidPayload(value: unknown): BidPayload | null {
-  if (!isRecord(value)) {
-    return null;
-  }
-
-  const amount = asNumber(value.amount);
-  const auctionId = asString(value.auctionId);
-  const dropFilmId = typeof value.dropFilmId === "string" ? value.dropFilmId : null;
-  const filmId = asString(value.filmId);
-  const salt = asString(value.salt);
-  const submittedAt = asNumber(value.submittedAt);
-
-  if (amount === null || !auctionId || !filmId || !salt || !submittedAt) {
-    return null;
-  }
-
-  return { amount, auctionId, dropFilmId, filmId, salt, submittedAt };
-}
-
-function encodeBase64(bytes: Uint8Array): string {
-  return window.btoa(String.fromCharCode(...bytes));
-}
-
-function decodeBase64(value: string): Uint8Array {
-  return Uint8Array.from(window.atob(value), (char) => char.charCodeAt(0));
-}
-
-function toArrayBuffer(bytes: Uint8Array): ArrayBuffer {
-  return bytes.slice().buffer;
-}
-
-function randomBase64(byteCount = 16): string {
-  const bytes = new Uint8Array(byteCount);
-  crypto.getRandomValues(bytes);
-  return encodeBase64(bytes);
-}
-
-function bufferToHex(buffer: ArrayBuffer): string {
-  return Array.from(new Uint8Array(buffer))
-    .map((byte) => byte.toString(16).padStart(2, "0"))
-    .join("");
-}
-
-function canonicalString(value: unknown): string {
-  if (value === null || typeof value !== "object") {
-    return JSON.stringify(value);
-  }
-
-  if (Array.isArray(value)) {
-    return `[${value.map((item) => canonicalString(item)).join(",")}]`;
-  }
-
-  return `{${Object.entries(value as Record<string, unknown>)
-    .sort(([left], [right]) => left.localeCompare(right))
-    .map(([key, item]) => `${JSON.stringify(key)}:${canonicalString(item)}`)
-    .join(",")}}`;
-}
-
-async function sha256Hex(value: string): Promise<string> {
-  const encoded = new TextEncoder().encode(value);
-  return bufferToHex(await crypto.subtle.digest("SHA-256", encoded));
-}
-
-async function deriveKey(passphrase: string, email: string, uid: string, salt: string) {
-  const baseKey = await crypto.subtle.importKey(
-    "raw",
-    new TextEncoder().encode(passphrase),
-    "PBKDF2",
-    false,
-    ["deriveKey"],
-  );
-
-  return crypto.subtle.deriveKey(
-    {
-      hash: "SHA-256",
-      iterations: 210_000,
-      name: "PBKDF2",
-      salt: new TextEncoder().encode(`${uid}:${email}:${salt}`),
-    },
-    baseKey,
-    { length: 256, name: "AES-GCM" },
-    true,
-    ["decrypt", "encrypt"],
-  );
-}
-
-async function verifierForKey(key: CryptoKey): Promise<string> {
-  const raw = await crypto.subtle.exportKey("raw", key);
-  return sha256Hex(`${bufferToHex(raw)}:fantasyfilmball-verifier-v1`);
-}
-
-async function encryptPayload(key: CryptoKey, payload: BidPayload): Promise<EncryptedPayload> {
-  const iv = new Uint8Array(12);
-  crypto.getRandomValues(iv);
-
-  const ciphertext = await crypto.subtle.encrypt(
-    { iv, name: "AES-GCM" },
-    key,
-    new TextEncoder().encode(canonicalString(payload)),
-  );
-
-  return {
-    ciphertext: encodeBase64(new Uint8Array(ciphertext)),
-    iv: encodeBase64(iv),
-  };
-}
-
-async function decryptPayload(key: CryptoKey, encryptedPayload: EncryptedPayload): Promise<BidPayload> {
-  const plaintext = await crypto.subtle.decrypt(
-    { iv: toArrayBuffer(decodeBase64(encryptedPayload.iv)), name: "AES-GCM" },
-    key,
-    toArrayBuffer(decodeBase64(encryptedPayload.ciphertext)),
-  );
-
-  const parsed = JSON.parse(new TextDecoder().decode(plaintext));
-  const payload = parseBidPayload(parsed);
-  if (!payload) {
-    throw new Error("Decrypted bid payload was not valid.");
-  }
-
-  return payload;
-}
-
-function toDatetimeLocal(timestamp: number): string {
-  const date = new Date(timestamp);
-  const offset = date.getTimezoneOffset() * 60_000;
-  return new Date(timestamp - offset).toISOString().slice(0, 16);
-}
-
-function formatDate(timestamp: number): string {
-  return new Intl.DateTimeFormat(undefined, {
-    dateStyle: "medium",
-    timeStyle: "short",
-  }).format(timestamp);
-}
-
-function getUserLeague(universeValue: unknown, uid: string): LeagueState {
-  return parseLeague(getUsers(universeValue)[uid]?.league);
-}
-
-function getAllTransactions(universeValue: unknown): LeagueTransaction[] {
-  return Object.values(getUsers(universeValue))
-    .flatMap((root) => Object.values(parseLeague(root.league).transactions ?? {}))
-    .sort((left, right) => left.createdAt - right.createdAt);
-}
-
-function getRevealMap(transactions: LeagueTransaction[]): Map<string, BidRevealTransaction> {
-  const reveals = new Map<string, BidRevealTransaction>();
-
-  for (const transaction of transactions) {
-    if (transaction.kind === "bidReveal") {
-      reveals.set(transaction.revealForTxnId, transaction);
-    }
-  }
-
-  return reveals;
-}
-
-function nextTxnId(profile: LeagueProfile, transactions: Record<string, LeagueTransaction>) {
-  const nextIndex =
-    Object.keys(transactions)
-      .filter((txnId) => txnId.startsWith(`${profile.playerId}.`))
-      .map((txnId) => Number(txnId.split(".")[1]))
-      .filter((value) => Number.isInteger(value) && value > 0)
-      .reduce((max, value) => Math.max(max, value), 0) + 1;
-
-  return `${profile.playerId}.${nextIndex}`;
-}
-
-function feeForTransaction(transaction: LeagueTransaction) {
-  return transaction.kind === "bidReveal" ? 0 : transaction.fee;
-}
-
-function computeStubBalance(profile: LeagueProfile, transactions: LeagueTransaction[], now: number) {
-  const reveals = getRevealMap(transactions);
-  const ownTransactions = transactions.filter((transaction) => transaction.playerId === profile.playerId);
-  const fees = ownTransactions.reduce((total, transaction) => total + feeForTransaction(transaction), 0);
-  const penalties = ownTransactions
-    .filter(
-      (transaction): transaction is BidCommitTransaction =>
-        transaction.kind === "bidCommit" &&
-        !reveals.has(transaction.txnId) &&
-        transaction.auctionDeadline + transaction.revealGraceMs < now,
-    )
-    .length * UNREVEALED_PENALTY;
-
-  return STARTING_STUBS - fees - penalties;
-}
-
-function playerLabel(user: User) {
-  return user.email?.split("@")[0] ?? "player";
+function timestamp() {
+  return Date.now();
 }
 
 export default function LeagueConsole({
@@ -546,120 +45,22 @@ export default function LeagueConsole({
   universeState,
   user,
 }: LeagueConsoleProps) {
-  const [session, setSession] = useState<Session | null>(null);
+  const [selectedKey, setSelectedKey] = useState(() =>
+    window.localStorage.getItem(SELECTED_LEAGUE_STORAGE_KEY),
+  );
   const [message, setMessage] = useState<string | null>(null);
-  const [isTestingRules, setIsTestingRules] = useState(false);
-
   const universeValue = useMemo(
     () => (universeState.status === "ready" ? universeState.value : EMPTY_UNIVERSE),
     [universeState],
   );
-  const league = useMemo(() => getUserLeague(universeValue, user.uid), [universeValue, user.uid]);
-  const transactions = useMemo(() => getAllTransactions(universeValue), [universeValue]);
+  const selectedLeague = useMemo(
+    () => findLeagueSummary(universeValue, selectedKey),
+    [selectedKey, universeValue],
+  );
 
-  useEffect(() => {
-    if (!session || universeState.status !== "ready") {
-      return;
-    }
-
-    let cancelled = false;
-
-    const activeSession = session;
-
-    async function revealDueBids() {
-      const ownTransactions = Object.values(league.transactions ?? {});
-      const reveals = getRevealMap(transactions);
-      const dueCommits = ownTransactions.filter(
-        (transaction): transaction is BidCommitTransaction =>
-          transaction.kind === "bidCommit" &&
-          transaction.auctionDeadline <= Date.now() &&
-          !reveals.has(transaction.txnId),
-      );
-
-      if (dueCommits.length === 0) {
-        return;
-      }
-
-      const nextTransactions = { ...(league.transactions ?? {}) };
-      let wroteReveal = false;
-
-      for (const commit of dueCommits) {
-        try {
-          const payload = await decryptPayload(activeSession.key, commit.encryptedPayload);
-          const commitment = await sha256Hex(canonicalString(payload));
-
-          if (commitment !== commit.commitment) {
-            continue;
-          }
-
-          const txnId = nextTxnId(activeSession.profile, nextTransactions);
-          nextTransactions[txnId] = {
-            commitment,
-            createdAt: Date.now(),
-            fee: 0,
-            kind: "bidReveal",
-            payload,
-            playerId: activeSession.profile.playerId,
-            playerLabel: activeSession.profile.playerLabel,
-            revealForTxnId: commit.txnId,
-            txnId,
-          };
-          wroteReveal = true;
-        } catch {
-          // A wrong passphrase cannot reveal the payload; the passphrase gate should catch that first.
-        }
-      }
-
-      if (!cancelled && wroteReveal) {
-        await writeLeague({ transactions: nextTransactions });
-        setMessage(`Revealed ${dueCommits.length} due bid${dueCommits.length === 1 ? "" : "s"}.`);
-      }
-    }
-
-    revealDueBids().catch((error: unknown) => {
-      const errorMessage = error instanceof Error ? error.message : "Auto-reveal failed.";
-      setMessage(errorMessage);
-    });
-
-    return () => {
-      cancelled = true;
-    };
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [session, universeState.status]);
-
-  async function writeLeague(patch: Partial<LeagueState>) {
-    if (!session) {
-      throw new Error("Passphrase session is not unlocked.");
-    }
-
-    await update(ref(client.database, `users/${user.uid}`), {
-      email: user.email,
-      league: {
-        ...league,
-        ...patch,
-      },
-      updatedAt: serverTimestamp(),
-    });
-  }
-
-  async function writeProfile(profile: LeagueProfile) {
-    await update(ref(client.database, `users/${user.uid}`), {
-      email: user.email,
-      league: {
-        ...league,
-        profile,
-      },
-      updatedAt: serverTimestamp(),
-    });
-  }
-
-  async function writeTransaction(transaction: LeagueTransaction) {
-    await writeLeague({
-      transactions: {
-        ...(league.transactions ?? {}),
-        [transaction.txnId]: transaction,
-      },
-    });
+  function selectLeague(key: string) {
+    window.localStorage.setItem(SELECTED_LEAGUE_STORAGE_KEY, key);
+    setSelectedKey(key);
   }
 
   async function testIllegalWrite() {
@@ -668,12 +69,8 @@ export default function LeagueConsole({
         ? "rules-sanity-check-someone-else"
         : "rules-sanity-check-other-user";
 
-    setIsTestingRules(true);
-    setMessage(null);
-
     try {
       await update(ref(client.database, `users/${forbiddenUid}`), {
-        email: user.email,
         league: { attemptedBy: user.uid },
         updatedAt: serverTimestamp(),
       });
@@ -682,8 +79,6 @@ export default function LeagueConsole({
       const errorMessage =
         error instanceof Error ? error.message : "Firebase blocked the write.";
       setMessage(`Blocked as expected: ${errorMessage}`);
-    } finally {
-      setIsTestingRules(false);
     }
   }
 
@@ -711,119 +106,31 @@ export default function LeagueConsole({
     );
   }
 
-  if (!session) {
-    return (
-      <Shell onNavigate={onNavigate} onSignOut={onSignOut}>
-        <PassphraseGate
-          existingProfile={league.profile}
-          user={user}
-          onUnlock={setSession}
-          onWriteProfile={writeProfile}
-        />
-      </Shell>
-    );
-  }
-
   return (
     <Shell onNavigate={onNavigate} onSignOut={onSignOut}>
-      <LeagueDashboard
-        message={message}
-        profile={session.profile}
-        transactions={transactions}
-        userTransactions={league.transactions ?? {}}
-        onBid={async (draft) => {
-          const payload: BidPayload = {
-            amount: draft.amount,
-            auctionId: draft.auctionId,
-            dropFilmId: draft.dropFilmId,
-            filmId: draft.filmId,
-            salt: randomBase64(18),
-            submittedAt: Date.now(),
-          };
-          const commitment = await sha256Hex(canonicalString(payload));
-          const txnId = nextTxnId(session.profile, league.transactions ?? {});
-
-          await writeTransaction({
-            auctionDeadline: draft.auctionDeadline,
-            commitment,
-            createdAt: Date.now(),
-            encryptedPayload: await encryptPayload(session.key, payload),
-            fee: 1,
-            kind: "bidCommit",
-            playerId: session.profile.playerId,
-            playerLabel: session.profile.playerLabel,
-            revealGraceMs: REVEAL_GRACE_MS,
-            txnId,
-          });
-
-          setMessage(`Sealed bid ${txnId} was committed. The film stays private until reveal.`);
-        }}
-        onSimpleMove={async (kind, filmId) => {
-          const txnId = nextTxnId(session.profile, league.transactions ?? {});
-          await writeTransaction({
-            createdAt: Date.now(),
-            fee: 1,
-            filmId,
-            kind,
-            playerId: session.profile.playerId,
-            playerLabel: session.profile.playerLabel,
-            txnId,
-          });
-          setMessage(`${kind === "pickup" ? "Pickup" : "Drop"} ${txnId} logged.`);
-        }}
-        onLineup={async (filmId, position) => {
-          const txnId = nextTxnId(session.profile, league.transactions ?? {});
-          await writeTransaction({
-            createdAt: Date.now(),
-            fee: 1,
-            filmId,
-            kind: "lineup",
-            playerId: session.profile.playerId,
-            playerLabel: session.profile.playerLabel,
-            position,
-            txnId,
-          });
-          setMessage(`Lineup shuffle ${txnId} logged.`);
-        }}
-        onOscarPick={async (filmId) => {
-          const txnId = nextTxnId(session.profile, league.transactions ?? {});
-          await writeTransaction({
-            createdAt: Date.now(),
-            fee: 0,
-            filmId,
-            kind: "oscarPick",
-            playerId: session.profile.playerId,
-            playerLabel: session.profile.playerLabel,
-            txnId,
-          });
-          setMessage(`Oscar pick ${txnId} logged for ${filmId}.`);
-        }}
-        onMemberAdd={async (email, memberPlayerId, memberLabel) => {
-          const txnId = nextTxnId(session.profile, league.transactions ?? {});
-          await writeTransaction({
-            createdAt: Date.now(),
-            email,
-            fee: 1,
-            kind: "memberAdd",
-            memberLabel,
-            memberPlayerId,
-            playerId: session.profile.playerId,
-            playerLabel: session.profile.playerLabel,
-            txnId,
-          });
-          setMessage(`Member add ${txnId} logged for ${email}.`);
-        }}
-        onShowPassphrase={() => {
-          window.localStorage.setItem(`${PROFILE_STORAGE_PREFIX}${user.uid}`, "shown");
-          setMessage(`Saved passphrase on this device: ${session.passphrase}`);
-        }}
-        onForgetPassphrase={() => {
-          window.localStorage.removeItem(`${PASS_STORAGE_PREFIX}${user.uid}`);
-          setMessage("Forgot the saved passphrase on this device.");
-        }}
-        onTestIllegalWrite={testIllegalWrite}
-        isTestingRules={isTestingRules}
-      />
+      {message ? <p className="ffb-toast">{message}</p> : null}
+      {selectedLeague ? (
+        <LeagueDashboard
+          client={client}
+          onClearSelection={() => {
+            window.localStorage.removeItem(SELECTED_LEAGUE_STORAGE_KEY);
+            setSelectedKey(null);
+          }}
+          onMessage={setMessage}
+          onTestIllegalWrite={testIllegalWrite}
+          summary={selectedLeague}
+          universeValue={universeValue}
+          user={user}
+        />
+      ) : (
+        <LeagueDiscovery
+          client={client}
+          onMessage={setMessage}
+          onSelect={selectLeague}
+          universeValue={universeValue}
+          user={user}
+        />
+      )}
     </Shell>
   );
 }
@@ -867,185 +174,271 @@ function Shell({
   );
 }
 
-function PassphraseGate({
-  existingProfile,
-  onUnlock,
-  onWriteProfile,
+function LeagueDiscovery({
+  client,
+  onMessage,
+  onSelect,
+  universeValue,
   user,
 }: {
-  existingProfile?: LeagueProfile;
-  onUnlock: (session: Session) => void;
-  onWriteProfile: (profile: LeagueProfile) => Promise<void>;
+  client: FirebaseClient;
+  onMessage: (message: string | null) => void;
+  onSelect: (key: string) => void;
+  universeValue: unknown;
   user: User;
 }) {
-  const savedPassphrase = window.localStorage.getItem(`${PASS_STORAGE_PREFIX}${user.uid}`) ?? "";
-  const [passphrase, setPassphrase] = useState(savedPassphrase);
-  const [playerId, setPlayerId] = useState(existingProfile?.playerId ?? "1");
-  const [remember, setRemember] = useState(Boolean(savedPassphrase));
-  const [showSaved, setShowSaved] = useState(false);
-  const [isUnlocking, setIsUnlocking] = useState(false);
-  const [errorMessage, setErrorMessage] = useState<string | null>(null);
+  const [leagueName, setLeagueName] = useState("FantasyFilmBall");
+  const [leagueId, setLeagueId] = useState(DEFAULT_LEAGUE_ID);
+  const [searchId, setSearchId] = useState(DEFAULT_LEAGUE_ID);
+  const [isWriting, setIsWriting] = useState(false);
+  const memberships = readMemberships(universeValue, user.uid);
+  const allLeagues = readLeagueSummaries(universeValue);
+  const searchMatches = readLeagueSummaries(universeValue, searchId.trim() || DEFAULT_LEAGUE_ID);
 
-  async function submit(event: FormEvent) {
+  async function startLeague(event: FormEvent) {
     event.preventDefault();
-    setErrorMessage(null);
-    setIsUnlocking(true);
+    setIsWriting(true);
+    onMessage(null);
 
     try {
-      const email = user.email ?? "";
-      const salt = existingProfile?.passphraseSalt ?? randomBase64(18);
-      const key = await deriveKey(passphrase, email, user.uid, salt);
-      const verifier = await verifierForKey(key);
+      const cleanLeagueId = leagueId.trim() || DEFAULT_LEAGUE_ID;
+      const league = makeDefaultLeague(user, leagueName, cleanLeagueId);
+      const key = membershipKey(user.uid, cleanLeagueId);
 
-      if (existingProfile && existingProfile.passphraseVerifier !== verifier) {
-        throw new Error("That passphrase does not match this league profile.");
-      }
+      await update(ref(client.database, `users/${user.uid}`), {
+        displayName: user.displayName,
+        email: user.email,
+        [`leagueMemberships/${key}`]: {
+          commissionerUid: user.uid,
+          leagueId: cleanLeagueId,
+          requestedAt: timestamp(),
+          status: "active",
+          updatedAt: timestamp(),
+        },
+        [`leagues/${cleanLeagueId}`]: league,
+        updatedAt: serverTimestamp(),
+      });
 
-      const profile: LeagueProfile =
-        existingProfile ?? {
-          email,
-          passphraseSalt: salt,
-          passphraseVerifier: verifier,
-          playerId,
-          playerLabel: playerLabel(user),
-          updatedAt: Date.now(),
-        };
-
-      if (!existingProfile) {
-        await onWriteProfile(profile);
-      }
-
-      if (remember) {
-        window.localStorage.setItem(`${PASS_STORAGE_PREFIX}${user.uid}`, passphrase);
-      } else {
-        window.localStorage.removeItem(`${PASS_STORAGE_PREFIX}${user.uid}`);
-      }
-
-      onUnlock({ key, passphrase, profile });
+      onSelect(key);
+      onMessage(`Started ${league.name}.`);
     } catch (error: unknown) {
-      const message =
-        error instanceof Error ? error.message : "Could not unlock the league console.";
-      setErrorMessage(message);
+      onMessage(error instanceof Error ? error.message : "Could not start league.");
     } finally {
-      setIsUnlocking(false);
+      setIsWriting(false);
+    }
+  }
+
+  async function requestJoin(summary: LeagueSummary) {
+    setIsWriting(true);
+    onMessage(null);
+
+    try {
+      const key = summary.membershipKey;
+      const now = timestamp();
+
+      await update(ref(client.database, `users/${user.uid}`), {
+        displayName: user.displayName,
+        email: user.email,
+        [`leagueMemberships/${key}`]: {
+          commissionerUid: summary.commissionerUid,
+          leagueId: summary.league.leagueId,
+          requestedAt: now,
+          status: "requested",
+          updatedAt: now,
+        },
+        updatedAt: serverTimestamp(),
+      });
+      onSelect(key);
+      onMessage(`Requested to join ${summary.league.name}.`);
+    } catch (error: unknown) {
+      onMessage(error instanceof Error ? error.message : "Could not request to join.");
+    } finally {
+      setIsWriting(false);
     }
   }
 
   return (
-    <section className="ffb-passphrase" aria-labelledby="passphrase-title">
-      <div>
-        <p className="ffb-label">Passphrase required</p>
-        <h2 id="passphrase-title">
-          {existingProfile ? "Unlock your bid vault" : "Create your bid vault"}
-        </h2>
-        <p>
-          League data stays hidden until your passphrase is verified. The app can prove the
-          passphrase is right, but it never stores the passphrase in Firebase.
-        </p>
-      </div>
-
-      <form className="ffb-form" onSubmit={submit}>
-        {!existingProfile ? (
+    <>
+      <section className="ffb-league-grid ffb-league-grid--forms">
+        <form className="ffb-panel ffb-form" onSubmit={startLeague}>
+          <p className="ffb-label">Commissioner</p>
+          <h2>Start a league</h2>
           <label>
-            Player id
-            <select value={playerId} onChange={(event) => setPlayerId(event.target.value)}>
-              <option value="1">1</option>
-              <option value="2">2</option>
-              <option value="3">3</option>
-              <option value="4">4</option>
-              <option value="5">5</option>
-              <option value="6">6</option>
-            </select>
+            League name
+            <input value={leagueName} onChange={(event) => setLeagueName(event.target.value)} />
           </label>
-        ) : null}
-        <label>
-          Passphrase
-          <input
-            autoComplete="current-password"
-            minLength={8}
-            required
-            type="password"
-            value={passphrase}
-            onChange={(event) => setPassphrase(event.target.value)}
-          />
-        </label>
-        <label className="ffb-check">
-          <input
-            checked={remember}
-            type="checkbox"
-            onChange={(event) => setRemember(event.target.checked)}
-          />
-          Remember on this device
-        </label>
-        <div className="ffb-actions">
-          <button className="ffb-primary" disabled={isUnlocking} type="submit">
-            {isUnlocking ? "Unlocking" : "Unlock"}
+          <label>
+            League id
+            <input value={leagueId} onChange={(event) => setLeagueId(event.target.value)} />
+          </label>
+          <button className="ffb-primary" disabled={isWriting} type="submit">
+            {isWriting ? "Starting" : "Start League"}
           </button>
-          {savedPassphrase ? (
-            <button type="button" onClick={() => setShowSaved((value) => !value)}>
-              {showSaved ? "Hide Saved" : "Show Saved"}
-            </button>
-          ) : null}
+        </form>
+
+        <div className="ffb-panel ffb-form">
+          <p className="ffb-label">Player</p>
+          <h2>Find a league</h2>
+          <label>
+            League id
+            <input value={searchId} onChange={(event) => setSearchId(event.target.value)} />
+          </label>
+          <p className="ffb-muted">
+            If multiple commissioners use the same league id, pick by commissioner and created
+            date.
+          </p>
         </div>
-        {showSaved ? <p className="ffb-source">Saved passphrase: {savedPassphrase}</p> : null}
-        {errorMessage ? <p className="ffb-error">{errorMessage}</p> : null}
-      </form>
+
+        <div className="ffb-panel">
+          <p className="ffb-label">Your leagues</p>
+          <h2>{Object.keys(memberships).length}</h2>
+          <p>Membership pointers live in your own Firebase folder.</p>
+        </div>
+      </section>
+
+      <LeagueList
+        emptyText="No matching leagues yet."
+        memberships={memberships}
+        onRequestJoin={requestJoin}
+        onSelect={onSelect}
+        title="Matching leagues"
+        isWriting={isWriting}
+        leagues={searchMatches}
+        user={user}
+      />
+
+      {allLeagues.length > searchMatches.length ? (
+        <LeagueList
+          emptyText="No leagues have been created yet."
+          memberships={memberships}
+          onRequestJoin={requestJoin}
+          onSelect={onSelect}
+          title="All readable leagues"
+          isWriting={isWriting}
+          leagues={allLeagues}
+          user={user}
+        />
+      ) : null}
+    </>
+  );
+}
+
+function LeagueList({
+  emptyText,
+  isWriting,
+  leagues,
+  memberships,
+  onRequestJoin,
+  onSelect,
+  title,
+  user,
+}: {
+  emptyText: string;
+  isWriting: boolean;
+  leagues: LeagueSummary[];
+  memberships: ReturnType<typeof readMemberships>;
+  onRequestJoin: (summary: LeagueSummary) => Promise<void>;
+  onSelect: (key: string) => void;
+  title: string;
+  user: User;
+}) {
+  return (
+    <section className="ffb-log" aria-labelledby={`${title.replace(/\W+/g, "-")}-title`}>
+      <div className="ffb-universe-head">
+        <div>
+          <p className="ffb-label">League picker</p>
+          <h2 id={`${title.replace(/\W+/g, "-")}-title`}>{title}</h2>
+        </div>
+        <span>{leagues.length}</span>
+      </div>
+      <div className="ffb-card-list">
+        {leagues.length > 0 ? (
+          leagues.map((summary) => {
+            const membership = memberships[summary.membershipKey];
+            const member = summary.league.members[user.uid];
+            const isKicked = summary.league.kicked[user.uid] || member?.status === "kicked";
+            const isActive = member?.status === "active";
+
+            return (
+              <article className="ffb-log-item" key={summary.membershipKey}>
+                <p className="ffb-log-meta">
+                  {summary.league.leagueId} · {new Date(summary.league.createdAt).toLocaleDateString()}
+                </p>
+                <h3>{summary.league.name}</h3>
+                <p className="ffb-muted">
+                  Commissioner: {summary.commissionerLabel}
+                  {summary.commissionerEmail ? ` (${summary.commissionerEmail})` : ""}
+                </p>
+                <div className="ffb-actions">
+                  <button type="button" onClick={() => onSelect(summary.membershipKey)}>
+                    {isActive ? "Enter" : "View"}
+                  </button>
+                  {!isActive && !isKicked ? (
+                    <button
+                      className="ffb-primary"
+                      disabled={isWriting || membership?.status === "requested"}
+                      type="button"
+                      onClick={() => onRequestJoin(summary)}
+                    >
+                      {membership?.status === "requested" ? "Requested" : "Request to Join"}
+                    </button>
+                  ) : null}
+                  {isKicked ? <span className="ffb-badge">Kicked</span> : null}
+                </div>
+              </article>
+            );
+          })
+        ) : (
+          <p className="ffb-muted">{emptyText}</p>
+        )}
+      </div>
     </section>
   );
 }
 
 function LeagueDashboard({
-  isTestingRules,
-  message,
-  onBid,
-  onForgetPassphrase,
-  onLineup,
-  onMemberAdd,
-  onOscarPick,
-  onShowPassphrase,
-  onSimpleMove,
+  client,
+  onClearSelection,
+  onMessage,
   onTestIllegalWrite,
-  profile,
-  transactions,
-  userTransactions,
+  summary,
+  universeValue,
+  user,
 }: {
-  isTestingRules: boolean;
-  message: string | null;
-  onBid: (draft: {
-    amount: number;
-    auctionDeadline: number;
-    auctionId: string;
-    dropFilmId: string | null;
-    filmId: string;
-  }) => Promise<void>;
-  onForgetPassphrase: () => void;
-  onLineup: (filmId: string, position: string) => Promise<void>;
-  onShowPassphrase: () => void;
-  onOscarPick: (filmId: string) => Promise<void>;
-  onSimpleMove: (kind: "pickup" | "drop", filmId: string) => Promise<void>;
-  onMemberAdd: (email: string, memberPlayerId: string, memberLabel: string) => Promise<void>;
+  client: FirebaseClient;
+  onClearSelection: () => void;
+  onMessage: (message: string | null) => void;
   onTestIllegalWrite: () => Promise<void>;
-  profile: LeagueProfile;
-  transactions: LeagueTransaction[];
-  userTransactions: Record<string, LeagueTransaction>;
+  summary: LeagueSummary;
+  universeValue: unknown;
+  user: User;
 }) {
-  const [busyAction, setBusyAction] = useState<string | null>(null);
-  const [now, setNow] = useState(() => Date.now());
+  const [isWriting, setIsWriting] = useState(false);
+  const transactions = readTransactions(universeValue, summary);
+  const ownTransactions = readOwnTransactions(universeValue, user.uid, summary);
+  const currentMember = summary.league.members[user.uid];
+  const isCommissioner = summary.commissionerUid === user.uid;
+  const isActive = currentMember?.status === "active";
+  const isKicked = Boolean(summary.league.kicked[user.uid] || currentMember?.status === "kicked");
+  const pendingRequests = getPendingRequests(universeValue, summary);
+  const balance = currentMember ? stubBalance(currentMember, transactions) : STARTING_STUBS;
 
-  useEffect(() => {
-    const interval = window.setInterval(() => setNow(Date.now()), 60_000);
-    return () => window.clearInterval(interval);
-  }, []);
+  async function writeOwnTransaction(transaction: LeagueTransaction) {
+    await update(ref(client.database, `users/${user.uid}`), {
+      [`transactions/${summary.membershipKey}/${transaction.txnId}`]: transaction,
+      updatedAt: serverTimestamp(),
+    });
+  }
 
-  const stubs = computeStubBalance(profile, transactions, now);
-  const ownTransactions = Object.values(userTransactions).sort((left, right) => right.createdAt - left.createdAt);
-
-  async function runAction(name: string, action: () => Promise<void>) {
-    setBusyAction(name);
+  async function runAction(action: () => Promise<string>) {
+    setIsWriting(true);
+    onMessage(null);
     try {
-      await action();
+      onMessage(await action());
+    } catch (error: unknown) {
+      onMessage(error instanceof Error ? error.message : "Action failed.");
     } finally {
-      setBusyAction(null);
+      setIsWriting(false);
     }
   }
 
@@ -1053,134 +446,275 @@ function LeagueDashboard({
     <>
       <section className="ffb-league-grid">
         <div className="ffb-panel">
-          <p className="ffb-label">Player</p>
-          <h2>{profile.playerLabel}</h2>
-          <p>{profile.email}</p>
-          <p className="ffb-source">Transaction prefix: {profile.playerId}.*</p>
+          <p className="ffb-label">Selected league</p>
+          <h2>{summary.league.name}</h2>
+          <p>
+            {summary.league.leagueId} · {summary.league.season}
+          </p>
+          <p className="ffb-source">Commissioner: {summary.commissionerLabel}</p>
+          <button type="button" onClick={onClearSelection}>
+            Change League
+          </button>
+        </div>
+        <div className="ffb-panel">
+          <p className="ffb-label">Your status</p>
+          <h2>{isKicked ? "Kicked" : isActive ? `Player ${currentMember.playerId}` : "Requested"}</h2>
+          <p>{isActive ? currentMember.label : "Waiting for commissioner approval."}</p>
         </div>
         <div className="ffb-panel">
           <p className="ffb-label">Stubs</p>
-          <strong className="ffb-stubs">{stubs}</strong>
-          <p className="ffb-muted">Starts at 1000. Bid commits, moves, drops, and lineup shuffles cost 1.</p>
-        </div>
-        <div className="ffb-panel">
-          <p className="ffb-label">Bid Vault</p>
-          <h2>Local passphrase</h2>
-          <p>Reveal due bids auto-run after unlock. Reveals cost 0 stubs.</p>
-          <div className="ffb-actions">
-            <button type="button" onClick={onShowPassphrase}>
-              Show Saved
-            </button>
-            <button type="button" onClick={onForgetPassphrase}>
-              Forget Saved
-            </button>
-          </div>
+          <strong className="ffb-stubs">{balance}</strong>
+          <p className="ffb-muted">Bid details decode automatically after the deadline.</p>
         </div>
       </section>
 
-      {message ? <p className="ffb-toast">{message}</p> : null}
+      {isCommissioner ? (
+        <CommissionerPanel
+          client={client}
+          isWriting={isWriting}
+          onRun={runAction}
+          pendingRequests={pendingRequests}
+          summary={summary}
+          user={user}
+        />
+      ) : null}
 
-      <section className="ffb-league-grid ffb-league-grid--forms">
-        <BidForm
-          busy={busyAction === "bid"}
-          onSubmit={(draft) => runAction("bid", () => onBid(draft))}
-        />
-        <MoveForm
-          busyAction={busyAction}
-          onLineup={(filmId, position) => runAction("lineup", () => onLineup(filmId, position))}
-          onSimpleMove={(kind, filmId) => runAction(kind, () => onSimpleMove(kind, filmId))}
-        />
-        <OscarForm
-          busy={busyAction === "oscarPick"}
-          onSubmit={(filmId) => runAction("oscarPick", () => onOscarPick(filmId))}
-        />
-        {profile.playerId === "1" ? (
-          <MemberForm
-            busy={busyAction === "memberAdd"}
-            onSubmit={(email, playerId, label) =>
-              runAction("memberAdd", () => onMemberAdd(email, playerId, label))
+      {isActive ? (
+        <section className="ffb-league-grid ffb-league-grid--forms">
+          <BidForm
+            disabled={isWriting}
+            member={currentMember}
+            ownTransactions={ownTransactions}
+            summary={summary}
+            user={user}
+            onSubmit={(transaction) =>
+              runAction(async () => {
+                await writeOwnTransaction(transaction);
+                return `Bid ${transaction.txnId} logged.`;
+              })
             }
           />
-        ) : null}
-        <div className="ffb-panel">
-          <p className="ffb-label">Rules sanity</p>
-          <h2>Illegal write check</h2>
-          <p>Attempts to write to a fake user folder. Firebase should reject it.</p>
-          <button type="button" onClick={onTestIllegalWrite} disabled={isTestingRules}>
-            {isTestingRules ? "Testing" : "Test illegal write"}
-          </button>
-        </div>
-      </section>
-
-      <section className="ffb-log" aria-labelledby="log-title">
-        <div className="ffb-universe-head">
-          <div>
-            <p className="ffb-label">Shared log</p>
-            <h2 id="log-title">Transactions</h2>
+          <MoveForm
+            disabled={isWriting}
+            member={currentMember}
+            ownTransactions={ownTransactions}
+            summary={summary}
+            user={user}
+            onSubmit={(transaction) =>
+              runAction(async () => {
+                await writeOwnTransaction(transaction);
+                return `${transaction.kind} ${transaction.txnId} logged.`;
+              })
+            }
+          />
+          <div className="ffb-panel">
+            <p className="ffb-label">Rules sanity</p>
+            <h2>Illegal write check</h2>
+            <p>Attempts to write to a fake user folder. Firebase should reject it.</p>
+            <button type="button" disabled={isWriting} onClick={onTestIllegalWrite}>
+              Test illegal write
+            </button>
           </div>
-          <span>{transactions.length}</span>
-        </div>
-        <div className="ffb-log-list">
-          {transactions.length > 0 ? (
-            transactions
-              .slice()
-              .reverse()
-              .map((transaction) => (
-                <article className="ffb-log-item" key={transaction.txnId}>
-                  <p className="ffb-log-meta">
-                    {transaction.txnId} · {formatDate(transaction.createdAt)}
-                  </p>
-                  <h3>{transactionText(transaction, transactions, now)}</h3>
-                </article>
-              ))
-          ) : (
-            <p className="ffb-muted">No league transactions yet.</p>
-          )}
-        </div>
-      </section>
+        </section>
+      ) : (
+        <section className="ffb-panel ffb-centered-panel">
+          <p className="ffb-label">Read only</p>
+          <h2>{isKicked ? "You cannot rejoin this league" : "Request pending"}</h2>
+          <p>
+            {isKicked
+              ? "The commissioner marked this account as kicked."
+              : "The commissioner must accept your request before you can submit transactions."}
+          </p>
+        </section>
+      )}
 
-      <section className="ffb-log" aria-labelledby="own-log-title">
-        <div className="ffb-universe-head">
-          <div>
-            <p className="ffb-label">Your folder</p>
-            <h2 id="own-log-title">Raw player log</h2>
-          </div>
-          <span>{ownTransactions.length}</span>
-        </div>
-        <pre>{JSON.stringify(ownTransactions, null, 2)}</pre>
-      </section>
+      <TransactionLog summary={summary} transactions={transactions} />
     </>
   );
 }
 
-function BidForm({
-  busy,
-  onSubmit,
+function CommissionerPanel({
+  client,
+  isWriting,
+  onRun,
+  pendingRequests,
+  summary,
+  user,
 }: {
-  busy: boolean;
-  onSubmit: (draft: {
-    amount: number;
-    auctionDeadline: number;
-    auctionId: string;
-    dropFilmId: string | null;
-    filmId: string;
-  }) => Promise<void>;
+  client: FirebaseClient;
+  isWriting: boolean;
+  onRun: (action: () => Promise<string>) => void;
+  pendingRequests: JoinRequest[];
+  summary: LeagueSummary;
+  user: User;
+}) {
+  const [leagueName, setLeagueName] = useState(summary.league.name);
+
+  async function acceptRequest(request: JoinRequest) {
+    const playerId = nextAvailablePlayerId(summary);
+    const label = request.email?.split("@")[0] ?? `Player ${playerId}`;
+    const now = timestamp();
+    await update(ref(client.database, `users/${user.uid}`), {
+      [`leagues/${summary.league.leagueId}/members/${request.uid}`]: {
+        email: request.email ?? "",
+        joinedAt: now,
+        label,
+        playerId,
+        status: "active",
+      },
+      [`leagues/${summary.league.leagueId}/updatedAt`]: now,
+      updatedAt: serverTimestamp(),
+    });
+  }
+
+  async function kickMember(uid: string) {
+    const now = timestamp();
+    await update(ref(client.database, `users/${user.uid}`), {
+      [`leagues/${summary.league.leagueId}/kicked/${uid}`]: true,
+      [`leagues/${summary.league.leagueId}/members/${uid}/status`]: "kicked",
+      [`leagues/${summary.league.leagueId}/updatedAt`]: now,
+      updatedAt: serverTimestamp(),
+    });
+  }
+
+  async function renameLeague(event: FormEvent) {
+    event.preventDefault();
+    onRun(async () => {
+      await update(ref(client.database, `users/${user.uid}`), {
+        [`leagues/${summary.league.leagueId}/name`]: leagueName.trim() || summary.league.name,
+        [`leagues/${summary.league.leagueId}/updatedAt`]: timestamp(),
+        updatedAt: serverTimestamp(),
+      });
+      return "League name updated.";
+    });
+  }
+
+  return (
+    <section className="ffb-log" aria-labelledby="commissioner-title">
+      <div className="ffb-universe-head">
+        <div>
+          <p className="ffb-label">Commissioner</p>
+          <h2 id="commissioner-title">League controls</h2>
+        </div>
+        <span>{pendingRequests.length} requests</span>
+      </div>
+      <div className="ffb-card-list">
+        <form className="ffb-inline-form" onSubmit={renameLeague}>
+          <label>
+            League name
+            <input value={leagueName} onChange={(event) => setLeagueName(event.target.value)} />
+          </label>
+          <button className="ffb-primary" disabled={isWriting} type="submit">
+            Rename
+          </button>
+        </form>
+        {pendingRequests.map((request) => (
+          <article className="ffb-log-item" key={request.uid}>
+            <p className="ffb-log-meta">{request.membership.status}</p>
+            <h3>{request.email ?? request.uid}</h3>
+            <div className="ffb-actions">
+              <button
+                className="ffb-primary"
+                disabled={isWriting}
+                type="button"
+                onClick={() => onRun(async () => {
+                  await acceptRequest(request);
+                  return `Accepted ${request.email ?? request.uid}.`;
+                })}
+              >
+                Accept
+              </button>
+              <button
+                disabled={isWriting}
+                type="button"
+                onClick={() => onRun(async () => {
+                  await kickMember(request.uid);
+                  return `Kicked ${request.email ?? request.uid}.`;
+                })}
+              >
+                Kick
+              </button>
+            </div>
+          </article>
+        ))}
+        {Object.entries(summary.league.members)
+          .filter(([uid]) => uid !== user.uid)
+          .map(([uid, member]) => (
+            <article className="ffb-log-item" key={uid}>
+              <p className="ffb-log-meta">Player {member.playerId}</p>
+              <h3>{member.label}</h3>
+              <p className="ffb-muted">
+                {member.email} · {member.status}
+              </p>
+              {member.status === "active" ? (
+                <button
+                  disabled={isWriting}
+                  type="button"
+                  onClick={() => onRun(async () => {
+                    await kickMember(uid);
+                    return `Kicked ${member.label}.`;
+                  })}
+                >
+                  Kick
+                </button>
+              ) : null}
+            </article>
+          ))}
+      </div>
+    </section>
+  );
+}
+
+function BidForm({
+  disabled,
+  member,
+  onSubmit,
+  ownTransactions,
+  summary,
+  user,
+}: {
+  disabled: boolean;
+  member: LeagueMember;
+  onSubmit: (transaction: LeagueTransaction) => void;
+  ownTransactions: Record<string, LeagueTransaction>;
+  summary: LeagueSummary;
+  user: User;
 }) {
   const [filmId, setFilmId] = useState("");
   const [auctionId, setAuctionId] = useState("");
   const [amount, setAmount] = useState(25);
   const [dropFilmId, setDropFilmId] = useState("");
-  const [deadline, setDeadline] = useState(() => toDatetimeLocal(Date.now() + 60 * 60 * 1000));
+  const [deadline, setDeadline] = useState(() => toDatetimeLocal(timestamp() + 60 * 60 * 1000));
 
-  async function submit(event: FormEvent) {
+  function submit(event: FormEvent) {
     event.preventDefault();
-    await onSubmit({
+    const txnId = nextTxnId(member, ownTransactions);
+    const payload: BidPayload = {
       amount,
-      auctionDeadline: new Date(deadline).getTime(),
-      auctionId,
       dropFilmId: dropFilmId.trim() || null,
       filmId,
-    });
+      submittedAt: timestamp(),
+    };
+    const transaction = {
+      auctionDeadline: new Date(deadline).getTime(),
+      auctionId,
+      createdAt: timestamp(),
+      fee: 1,
+      kind: "bid" as const,
+      obfuscatedPayload: obfuscateBidPayload(payload, {
+        auctionId,
+        commissionerUid: summary.commissionerUid,
+        leagueId: summary.league.leagueId,
+        txnId,
+      }),
+      playerId: member.playerId,
+      playerLabel: member.label,
+      playerUid: user.uid,
+      publicText: `${member.label} placed bid ${txnId}`,
+      txnId,
+    };
+
+    onSubmit(transaction);
     setFilmId("");
     setAuctionId("");
     setDropFilmId("");
@@ -1188,8 +722,8 @@ function BidForm({
 
   return (
     <form className="ffb-panel ffb-form" onSubmit={submit}>
-      <p className="ffb-label">Sealed bid</p>
-      <h2>Commit encrypted payload</h2>
+      <p className="ffb-label">Bid</p>
+      <h2>Submit obfuscated bid</h2>
       <label>
         Film id
         <input required value={filmId} onChange={(event) => setFilmId(event.target.value)} />
@@ -1221,108 +755,44 @@ function BidForm({
         Drop stipulation
         <input value={dropFilmId} onChange={(event) => setDropFilmId(event.target.value)} />
       </label>
-      <button className="ffb-primary" disabled={busy} type="submit">
-        {busy ? "Committing" : "Commit Bid"}
-      </button>
-    </form>
-  );
-}
-
-function MemberForm({
-  busy,
-  onSubmit,
-}: {
-  busy: boolean;
-  onSubmit: (email: string, playerId: string, label: string) => Promise<void>;
-}) {
-  const [email, setEmail] = useState("");
-  const [playerId, setPlayerId] = useState("2");
-  const [label, setLabel] = useState("");
-
-  async function submit(event: FormEvent) {
-    event.preventDefault();
-    await onSubmit(email, playerId, label || email.split("@")[0] || `Player ${playerId}`);
-    setEmail("");
-    setLabel("");
-  }
-
-  return (
-    <form className="ffb-panel ffb-form" onSubmit={submit}>
-      <p className="ffb-label">Commissioner</p>
-      <h2>Add league member</h2>
-      <label>
-        Gmail
-        <input
-          required
-          type="email"
-          value={email}
-          onChange={(event) => setEmail(event.target.value)}
-        />
-      </label>
-      <label>
-        Player id
-        <select value={playerId} onChange={(event) => setPlayerId(event.target.value)}>
-          <option value="2">2</option>
-          <option value="3">3</option>
-          <option value="4">4</option>
-          <option value="5">5</option>
-          <option value="6">6</option>
-        </select>
-      </label>
-      <label>
-        Display label
-        <input value={label} onChange={(event) => setLabel(event.target.value)} />
-      </label>
-      <button className="ffb-primary" disabled={busy} type="submit">
-        {busy ? "Adding" : "Add Member"}
-      </button>
-    </form>
-  );
-}
-
-function OscarForm({
-  busy,
-  onSubmit,
-}: {
-  busy: boolean;
-  onSubmit: (filmId: string) => Promise<void>;
-}) {
-  const [filmId, setFilmId] = useState("");
-
-  async function submit(event: FormEvent) {
-    event.preventDefault();
-    await onSubmit(filmId);
-    setFilmId("");
-  }
-
-  return (
-    <form className="ffb-panel ffb-form" onSubmit={submit}>
-      <p className="ffb-label">Oscar postseason</p>
-      <h2>Record Oscar pick</h2>
-      <p>After nominations, each player logs one nominated film. Awards won decide playoffs.</p>
-      <label>
-        Nominated film id
-        <input required value={filmId} onChange={(event) => setFilmId(event.target.value)} />
-      </label>
-      <button className="ffb-primary" disabled={busy} type="submit">
-        {busy ? "Recording" : "Record Pick"}
+      <button className="ffb-primary" disabled={disabled} type="submit">
+        Submit Bid
       </button>
     </form>
   );
 }
 
 function MoveForm({
-  busyAction,
-  onLineup,
-  onSimpleMove,
+  disabled,
+  member,
+  onSubmit,
+  ownTransactions,
+  summary,
+  user,
 }: {
-  busyAction: string | null;
-  onLineup: (filmId: string, position: string) => Promise<void>;
-  onSimpleMove: (kind: "pickup" | "drop", filmId: string) => Promise<void>;
+  disabled: boolean;
+  member: LeagueMember;
+  onSubmit: (transaction: LeagueTransaction) => void;
+  ownTransactions: Record<string, LeagueTransaction>;
+  summary: LeagueSummary;
+  user: User;
 }) {
   const [filmId, setFilmId] = useState("");
   const [positionFilmId, setPositionFilmId] = useState("");
-  const [position, setPosition] = useState("Packed House");
+  const [position, setPosition] = useState(summary.league.scoring.positions[0]?.name ?? "Packed House");
+  const [oscarFilmId, setOscarFilmId] = useState("");
+
+  function base(kindFee = 1) {
+    const txnId = nextTxnId(member, ownTransactions);
+    return {
+      createdAt: timestamp(),
+      fee: kindFee,
+      playerId: member.playerId,
+      playerLabel: member.label,
+      playerUid: user.uid,
+      txnId,
+    };
+  }
 
   return (
     <div className="ffb-panel ffb-form">
@@ -1334,18 +804,18 @@ function MoveForm({
       </label>
       <div className="ffb-actions">
         <button
-          disabled={!filmId || busyAction === "pickup"}
+          disabled={!filmId || disabled}
           type="button"
-          onClick={() => onSimpleMove("pickup", filmId)}
+          onClick={() => onSubmit({ ...base(1), filmId, kind: "pickup" })}
         >
-          {busyAction === "pickup" ? "Picking Up" : "Pickup"}
+          Pickup
         </button>
         <button
-          disabled={!filmId || busyAction === "drop"}
+          disabled={!filmId || disabled}
           type="button"
-          onClick={() => onSimpleMove("drop", filmId)}
+          onClick={() => onSubmit({ ...base(1), filmId, kind: "drop" })}
         >
-          {busyAction === "drop" ? "Dropping" : "Drop"}
+          Drop
         </button>
       </div>
       <label>
@@ -1355,48 +825,144 @@ function MoveForm({
       <label>
         Position
         <select value={position} onChange={(event) => setPosition(event.target.value)}>
-          <option>Packed House</option>
-          <option>Budget Alchemy</option>
-          <option>Cult Furnace</option>
-          <option>Rotten Crowd</option>
-          <option>Tiny Thunder</option>
-          <option>Disasterpiece</option>
+          {summary.league.scoring.positions.map((scoringPosition) => (
+            <option key={scoringPosition.id}>{scoringPosition.name}</option>
+          ))}
         </select>
       </label>
       <button
         className="ffb-primary"
-        disabled={!positionFilmId || busyAction === "lineup"}
+        disabled={!positionFilmId || disabled}
         type="button"
-        onClick={() => onLineup(positionFilmId, position)}
+        onClick={() => onSubmit({ ...base(1), filmId: positionFilmId, kind: "lineup", position })}
       >
-        {busyAction === "lineup" ? "Saving" : "Save Lineup"}
+        Save Lineup
+      </button>
+      <label>
+        Oscar film id
+        <input value={oscarFilmId} onChange={(event) => setOscarFilmId(event.target.value)} />
+      </label>
+      <button
+        disabled={!oscarFilmId || disabled}
+        type="button"
+        onClick={() => onSubmit({ ...base(0), filmId: oscarFilmId, kind: "oscarPick" })}
+      >
+        Record Oscar Pick
       </button>
     </div>
   );
 }
 
-function transactionText(
-  transaction: LeagueTransaction,
-  transactions: LeagueTransaction[],
-  now: number,
-) {
-  const reveals = getRevealMap(transactions);
+function TransactionLog({
+  summary,
+  transactions,
+}: {
+  summary: LeagueSummary;
+  transactions: LeagueTransaction[];
+}) {
+  const [now] = useState(() => timestamp());
 
-  if (transaction.kind === "bidCommit") {
-    const reveal = reveals.get(transaction.txnId);
-    if (reveal) {
-      return `${transaction.playerLabel} bid ${reveal.payload.amount} stubs on ${reveal.payload.filmId}.`;
+  return (
+    <section className="ffb-log" aria-labelledby="log-title">
+      <div className="ffb-universe-head">
+        <div>
+          <p className="ffb-label">Shared log</p>
+          <h2 id="log-title">Transactions</h2>
+        </div>
+        <span>{transactions.length}</span>
+      </div>
+      <div className="ffb-log-list">
+        {transactions.length > 0 ? (
+          transactions
+            .slice()
+            .reverse()
+            .map((transaction) => (
+              <article className="ffb-log-item" key={`${transaction.playerUid}-${transaction.txnId}`}>
+                <p className="ffb-log-meta">
+                  {transaction.txnId} · {new Date(transaction.createdAt).toLocaleString()}
+                </p>
+                <h3>{transactionText(transaction, summary, now)}</h3>
+              </article>
+            ))
+        ) : (
+          <p className="ffb-muted">No league transactions yet.</p>
+        )}
+      </div>
+    </section>
+  );
+}
+
+type JoinRequest = {
+  email: string | null;
+  membership: ReturnType<typeof readMemberships>[string];
+  uid: string;
+};
+
+function getPendingRequests(value: unknown, summary: LeagueSummary): JoinRequest[] {
+  const requests: JoinRequest[] = [];
+  const users = getUsersForRequests(value);
+
+  for (const [uid, root] of Object.entries(users)) {
+    if (summary.league.members[uid] || summary.league.kicked[uid]) {
+      continue;
     }
 
-    if (transaction.auctionDeadline + transaction.revealGraceMs < now) {
-      return `${transaction.playerLabel} failed to reveal bid ${transaction.txnId}; ${UNREVEALED_PENALTY}-stub penalty applies.`;
+    const memberships = readMemberships(value, uid);
+    const membership = memberships[summary.membershipKey];
+    if (membership?.status === "requested") {
+      requests.push({
+        email: typeof root.email === "string" ? root.email : null,
+        membership,
+        uid,
+      });
     }
-
-    return `${transaction.playerLabel} placed a sealed bid ${transaction.txnId}.`;
   }
 
-  if (transaction.kind === "bidReveal") {
-    return `${transaction.playerLabel} revealed bid ${transaction.revealForTxnId} for ${transaction.payload.filmId}.`;
+  return requests;
+}
+
+function getUsersForRequests(value: unknown): Record<string, Record<string, unknown>> {
+  if (!value || typeof value !== "object" || Array.isArray(value)) {
+    return {};
+  }
+
+  const users = (value as { users?: unknown }).users;
+  return users && typeof users === "object" && !Array.isArray(users)
+    ? (users as Record<string, Record<string, unknown>>)
+    : {};
+}
+
+function nextAvailablePlayerId(summary: LeagueSummary) {
+  const used = new Set(Object.values(summary.league.members).map((member) => member.playerId));
+  for (let index = 1; index <= summary.league.config.maxPlayers; index += 1) {
+    const id = String(index);
+    if (!used.has(id)) {
+      return id;
+    }
+  }
+
+  return String(used.size + 1);
+}
+
+function transactionText(transaction: LeagueTransaction, summary: LeagueSummary, now: number) {
+  if (transaction.kind === "bid") {
+    if (transaction.auctionDeadline > now) {
+      return transaction.publicText;
+    }
+
+    const payload = decodeBidPayload(transaction.obfuscatedPayload, {
+      auctionId: transaction.auctionId,
+      commissionerUid: summary.commissionerUid,
+      leagueId: summary.league.leagueId,
+      txnId: transaction.txnId,
+    });
+
+    if (!payload) {
+      return `${transaction.playerLabel} placed bid ${transaction.txnId}, but the payload could not be decoded.`;
+    }
+
+    const drop = payload.dropFilmId ? ` with drop ${payload.dropFilmId}` : "";
+    return `${transaction.playerLabel} bid ${payload.amount} stubs on ${payload.filmId}${drop}.`;
   }
 
   if (transaction.kind === "pickup") {
@@ -1407,21 +973,15 @@ function transactionText(
     return `${transaction.playerLabel} dropped ${transaction.filmId}; 48-hour waiver begins.`;
   }
 
-  if (transaction.kind === "oscarPick") {
-    return `${transaction.playerLabel} drafted ${transaction.filmId} for the Oscar postseason.`;
-  }
-
-  if (transaction.kind === "memberAdd") {
-    return `${transaction.playerLabel} added ${transaction.memberLabel} as player ${transaction.memberPlayerId}.`;
-  }
-
-  if (transaction.kind === "scoringRules") {
-    return `${transaction.playerLabel} published ${transaction.rules.positions.length} scoring positions for ${transaction.rules.season}.`;
-  }
-
   if (transaction.kind === "lineup") {
     return `${transaction.playerLabel} assigned ${transaction.filmId} to ${transaction.position}.`;
   }
 
-  return `${transaction.playerLabel} logged ${transaction.txnId}.`;
+  return `${transaction.playerLabel} drafted ${transaction.filmId} for the Oscar postseason.`;
+}
+
+function toDatetimeLocal(timestamp: number): string {
+  const date = new Date(timestamp);
+  const offset = date.getTimezoneOffset() * 60_000;
+  return new Date(timestamp - offset).toISOString().slice(0, 16);
 }

@@ -2,7 +2,7 @@ import { useMemo, useState } from "react";
 import type { User } from "firebase/auth";
 import { increment, ref, serverTimestamp, update } from "firebase/database";
 import type { FirebaseClient } from "./firebaseClient";
-import type { UniverseState } from "./LeagueConsole";
+import type { UniverseState } from "./leagueModel";
 
 type Props = {
   client: FirebaseClient;
