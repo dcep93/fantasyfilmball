@@ -496,13 +496,29 @@ function Graph({
           </svg>
         </div>
 
-        <MovieTooltip movie={active} pair={pair} />
+        <MovieTooltip
+          movie={active}
+          pair={pair}
+          score={
+            active
+              ? scoreMovie(active, pair, xScoreDomain, yScoreDomain)
+              : null
+          }
+        />
       </div>
     </section>
   );
 }
 
-function MovieTooltip({ movie, pair }: { movie: MoviePoint | null; pair: ChartPair }) {
+function MovieTooltip({
+  movie,
+  pair,
+  score,
+}: {
+  movie: MoviePoint | null;
+  pair: ChartPair;
+  score: number | null;
+}) {
   if (!movie) {
     return (
       <aside className="ffb-tooltip">
@@ -537,6 +553,9 @@ function MovieTooltip({ movie, pair }: { movie: MoviePoint | null; pair: ChartPa
           );
         })}
       </dl>
+      <p className="ffb-tooltip-score">
+        Score {score === null ? "0.00" : score.toFixed(2)}
+      </p>
       <h3 className="ffb-tooltip-title">
         <strong>{movie.title}</strong>
       </h3>

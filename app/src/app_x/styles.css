@@ -377,10 +377,18 @@
   line-height: 1.15;
 }
 
-.ffb-tooltip-title {
+.ffb-tooltip-score {
   margin: 1rem 0 0 !important;
   border-top: 0.0625rem solid var(--ww-border-soft);
   padding-top: 0.7rem;
+  color: var(--ww-accent-cyan) !important;
+  font-size: 0.82rem;
+  font-weight: 850;
+  text-transform: uppercase;
+}
+
+.ffb-tooltip-title {
+  margin: 0.32rem 0 0 !important;
 }
 
 .ffb-tooltip dl {
