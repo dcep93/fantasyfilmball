@@ -13,6 +13,7 @@ type MovieRow = {
   budget: number | null;
   letterboxd_ratings: number | null;
   letterboxd_avg: number | null;
+  letterboxd_slug: string | null;
 };
 
 type MoviePoint = MovieRow & {
@@ -121,6 +122,11 @@ function numberCell(value: string | undefined): number | null {
   return Number.isFinite(parsed) ? parsed : null;
 }
 
+function textCell(value: string | undefined): string | null {
+  const trimmed = value?.trim();
+  return trimmed ? trimmed : null;
+}
+
 function computePercentiles(rows: MovieRow[]): MoviePoint[] {
   const valuesByAttribute = Object.fromEntries(
     STAT_ORDER.map((key) => [
@@ -177,6 +183,15 @@ function formatValue(key: AttributeKey, value: number | null): string {
 
 function formatPercentile(value: number | undefined): string {
   return typeof value === "number" ? `${value.toFixed(1)} percentile` : "No percentile";
+}
+
+function getLetterboxdUrl(movie: MoviePoint): string | null {
+  if (!movie.letterboxd_slug) {
+    return null;
+  }
+
+  const slug = movie.letterboxd_slug.replace(/^\/+|\/+$/g, "");
+  return `https://letterboxd.com/${slug}/`;
 }
 
 function transform(value: number, key: AttributeKey): number {
@@ -268,6 +283,15 @@ function Graph({
     setHovered(movie);
   }
 
+  function openLetterboxdPage(movie: MoviePoint) {
+    activateMovie(movie);
+
+    const url = getLetterboxdUrl(movie);
+    if (url) {
+      window.open(url, "_blank", "noopener,noreferrer");
+    }
+  }
+
   return (
     <section className="ffb-chart" aria-labelledby={`chart-${pair.x}-${pair.y}`}>
       <div className="ffb-chart-head">
@@ -345,6 +369,7 @@ function Graph({
               const cx = xScale.position(movie[pair.x] as number);
               const cy = yScale.position(movie[pair.y] as number);
               const isActive = active?.title === movie.title;
+              const letterboxdUrl = getLetterboxdUrl(movie);
 
               return (
                 <circle
@@ -354,12 +379,22 @@ function Graph({
                   cy={cy}
                   r={5}
                   tabIndex={0}
-                  aria-label={movie.title}
+                  aria-label={
+                    letterboxdUrl
+                      ? `Open ${movie.title} on Letterboxd`
+                      : `${movie.title} has no Letterboxd page`
+                  }
                   onMouseEnter={() => activateMovie(movie)}
                   onMouseLeave={() => setHovered(null)}
-                  onClick={() => activateMovie(movie)}
+                  onClick={() => openLetterboxdPage(movie)}
                   onFocus={() => activateMovie(movie)}
                   onBlur={() => setHovered(null)}
+                  onKeyDown={(event) => {
+                    if (event.key === "Enter" || event.key === " ") {
+                      event.preventDefault();
+                      openLetterboxdPage(movie);
+                    }
+                  }}
                 />
               );
             })}
@@ -437,6 +472,7 @@ export default function MovieCharts() {
           budget: numberCell(row.budget),
           letterboxd_ratings: numberCell(row.letterboxd_ratings),
           letterboxd_avg: numberCell(row.letterboxd_avg),
+          letterboxd_slug: textCell(row.letterboxd_slug),
         }));
 
         if (isCurrent) {
