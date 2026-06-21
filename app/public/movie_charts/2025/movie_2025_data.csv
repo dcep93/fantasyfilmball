@@ -1,0 +1,201 @@
+rank,title,domestic_gross,boxoffice_open,boxoffice_close,distributor,estimated,budget,wikipedia_title,wikidata_id,wikidata_title,wikidata_release_date,wikidata_box_office,wikidata_letterboxd_slug,letterboxd_avg,letterboxd_ratings,letterboxd_slug
+1,Zootopia 2,428130160.0,Nov 26,-,Walt Disney Studios Motion Pictures,False,150000000.0,Zootopia 2,Q116764712,Zootopia 2,2025-11-28T00:00:00Z,1866647936.0,zootopia-2,3.68,1783073.0,film/zootopia-2
+2,A Minecraft Movie,424087780.0,Apr 4,-,Warner Bros.,False,150000000.0,A Minecraft Movie,Q40083273,A Minecraft Movie,2025-04-05T00:00:00Z,,minecraft-2025,2.44,1503222.0,film/a-minecraft-movie
+3,Lilo & Stitch,423778855.0,May 23,-,Walt Disney Studios Motion Pictures,False,100000000.0,Lilo & Stitch (2025 film),Q59395971,Lilo & Stitch,2025-05-23T00:00:00Z,1030541425.0,lilo-stitch-2025,3.01,595670.0,film/lilo-stitch-2025
+4,Avatar: Fire and Ash,404340010.0,Dec 19,Apr 16,20th Century Studios,False,375000000.0,Avatar: Fire and Ash,Q29580929,Avatar: Fire and Ash,2025-12-19T00:00:00Z,,avatar-fire-and-ash,3.55,1471761.0,film/avatar-fire-and-ash
+5,Superman,354223803.0,Jul 11,-,Warner Bros.,False,225000000.0,Superman (2025 film),Q116547790,Superman,2025-07-11T00:00:00Z,618723803.0,superman-2025,3.83,3110035.0,film/superman-2025
+6,Wicked: For Good,342915090.0,Nov 17,Jan 30,Universal Pictures,False,150000000.0,Wicked: For Good,Q114817050,Wicked: For Good,2025-11-21T00:00:00Z,,wicked-for-good,3.4,1298289.0,film/wicked-for-good
+7,Jurassic World: Rebirth,339640400.0,Jul 2,-,Universal Pictures,False,217000000.0,Jurassic World Rebirth,Q124380480,Jurassic World Rebirth,2025-07-03T00:00:00Z,,jurassic-world-rebirth,2.6,1110427.0,film/jurassic-world-rebirth
+8,Sinners,279989632.0,Apr 18,Jul 18,Warner Bros.,False,95000000.0,Sinners (2025 film),Q125473145,Sinners,2025-04-18T00:00:00Z,,sinners-2025,4.1,4496230.0,film/sinners-2025
+9,The Fantastic Four: First Steps,274286610.0,Jul 25,-,Walt Disney Studios Motion Pictures,False,229600000.0,The Fantastic Four: First Steps,Q105105219,The Fantastic Four: First Steps,2025-07-25T00:00:00Z,,the-fantastic-four-first-steps,3.34,2104111.0,film/the-fantastic-four-first-steps
+10,How to Train Your Dragon,262958100.0,Jun 13,-,Universal Pictures,False,150000000.0,How to Train Your Dragon (2025 film),Q118904382,How to Train Your Dragon,2025-09-05T00:00:00Z,371482710.0,how-to-train-your-dragon-2025,3.82,1085392.0,film/how-to-train-your-dragon-2025
+11,Captain America: Brave New World,200500001.0,Feb 14,May 22,Walt Disney Studios Motion Pictures,False,180000000.0,Captain America: Brave New World,Q112322116,Captain America: Brave New World,2025-02-14T00:00:00Z,,captain-america-brave-new-world,2.39,868736.0,film/captain-america-brave-new-world
+12,Mission: Impossible - The Final Reckoning,197413515.0,May 23,Aug 14,Paramount Pictures,False,350000000.0,Mission: Impossible – The Final Reckoning,Q61876374,Mission: Impossible – The Final Reckoning,2025-05-23T00:00:00Z,,mission-impossible-the-final-reckoning,3.45,775821.0,film/mission-impossible-the-final-reckoning
+13,Thunderbolts*,190274328.0,May 2,-,Walt Disney Studios Motion Pictures,False,180000000.0,Thunderbolts*,Q112322474,Thunderbolts*,2025-05-02T00:00:00Z,,thunderbolts,3.56,1854048.0,film/thunderbolts
+14,F1: The Movie,189642436.0,Jun 27,-,Warner Bros.,False,250000000.0,F1 (film),Q114246242,F1,2025-06-27T00:00:00Z,,f1,3.64,1922247.0,film/f1-the-movie
+15,The Conjuring: Last Rites,177756445.0,Sep 5,-,Warner Bros.,False,55000000.0,The Conjuring: Last Rites,Q114802043,The Conjuring: Last Rites,2025-09-05T00:00:00Z,460164908.0,the-conjuring-last-rites,2.78,933840.0,film/the-conjuring-last-rites
+16,Weapons,151572492.0,Aug 8,-,Warner Bros.,False,38000000.0,Weapons (2025 film),Q126487478,Weapons,2025-08-08T00:00:00Z,,weapons-2025,3.6,3010453.0,film/weapons-2025
+17,Final Destination: Bloodlines,138254739.0,May 16,Jul 24,Warner Bros.,False,50000000.0,Final Destination Bloodlines,Q118212751,Final Destination Bloodlines,2025-05-16T00:00:00Z,,final-destination-bloodlines,3.21,1181823.0,film/final-destination-bloodlines
+18,Demon Slayer: Kimetsu No Yaiba Infinity Castle,136950340.0,Sep 12,Jan 8,Sony Pictures Releasing,False,20000000.0,Demon Slayer: Kimetsu no Yaiba – The Movie: Infinity Castle,Q126948105,Demon Slayer: Kimetsu no Yaiba – Infinity Castle,2025-09-12T00:00:00Z,,demon-slayer-kimetsu-no-yaiba-infinity-castle,4.04,455195.0,film/demon-slayer-kimetsu-no-yaiba-infinity-castle
+19,Five Nights at Freddy's 2,127730290.0,Dec 5,Jan 30,Universal Pictures,False,43500000.0,Five Nights at Freddy's 2 (film),Q124216482,Five Nights at Freddy's 2,2025-12-05T00:00:00Z,,five-nights-at-freddys-2,2.55,798655.0,film/five-nights-at-freddys-2
+20,The Housemaid,126432462.0,Dec 19,-,Lionsgate,False,35000000.0,The Housemaid (2025 film),Q131630491,The Housemaid,2025-12-25T00:00:00Z,,the-housemaid-2025,3.03,1479043.0,film/the-housemaid-2025
+21,Dog Man,97970355.0,Jan 31,-,Universal Pictures,False,40000000.0,Dog Man (film),Q124464619,Dog Man,2025-04-10T00:00:00Z,,dog-man,3.25,95250.0,film/dog-man
+22,Marty Supreme,96040064.0,Dec 19,-,A24,False,65000000.0,Marty Supreme,Q130118681,Marty Supreme,2025-12-25T00:00:00Z,28000000.0,marty-supreme,4.05,2809976.0,film/marty-supreme
+23,Freakier Friday,94186236.0,Aug 8,-,Walt Disney Studios Motion Pictures,False,45000000.0,Freakier Friday,Q126897811,Freakier Friday,2025-08-08T00:00:00Z,,freaky-friday-2,3.08,455193.0,film/freakier-friday
+24,Predator: Badlands,91083631.0,Nov 7,Jan 15,20th Century Studios,False,105000000.0,Predator: Badlands,Q126396314,Predator: Badlands,2025-11-07T00:00:00Z,,predator-badlands,3.49,502296.0,film/predator-badlands
+25,Snow White,87203963.0,Mar 21,Jun 5,Walt Disney Studios Motion Pictures,False,336500000.0,Snow White (2025 film),Q27660145,Snow White,2025-03-21T00:00:00Z,,snow-white-2025,1.73,315759.0,film/snow-white-2025
+26,The Bad Guys 2,82593605.0,Aug 1,Nov 13,Universal Pictures,False,80000000.0,The Bad Guys 2,Q125363929,The Bad Guys 2,2025-08-01T00:00:00Z,,the-bad-guys-2,3.52,150201.0,film/the-bad-guys-2
+27,David,80382774.0,Dec 19,-,Angel,False,60900000.0,David (2025 film),Q136565787,David,2025-12-19T00:00:00Z,,david-2025,3.16,14069.0,film/david-2025
+28,Black Phone 2,77378880.0,Oct 17,-,Universal Pictures,False,30000000.0,Black Phone 2,Q124435493,Black Phone 2,2025-10-23T00:00:00Z,128000000.0,black-phone-2,3.06,579717.0,film/black-phone-2
+29,Tron: Ares,73161014.0,Oct 10,Dec 4,Walt Disney Studios Motion Pictures,False,200000000.0,Tron: Ares,Q120237363,Tron: Ares,2025-10-10T00:00:00Z,,tron-ares,2.59,312639.0,film/tron-ares
+30,Elio,72987454.0,Jun 20,Sep 11,Walt Disney Studios Motion Pictures,False,150000000.0,Elio (film),Q113879962,Elio,2025-06-25T00:00:00Z,,elio,3.31,294313.0,film/elio
+31,One Battle After Another,72918884.0,Sep 26,-,Warner Bros.,False,152500000.0,One Battle After Another,Q117085614,One Battle After Another,2025-09-26T00:00:00Z,209586604.0,one-battle-after-another,4.14,2694643.0,film/one-battle-after-another
+32,The SpongeBob Movie: Search for SquarePants,71068170.0,Dec 19,Feb 20,Paramount Pictures,False,64000000.0,The SpongeBob Movie: Search for SquarePants,Q118847776,The SpongeBob Movie: Search for SquarePants,2025-12-25T00:00:00Z,,the-spongebob-movie-search-for-squarepants,2.47,97990.0,film/the-spongebob-movie-search-for-squarepants
+33,28 Years Later,70446897.0,Jun 20,-,Sony Pictures Releasing,False,60000000.0,28 Years Later,Q125392328,28 Years Later,2025-07-03T00:00:00Z,151200000.0,28-years-later,3.44,1322550.0,film/28-years-later
+34,The Accountant 2,65523366.0,Apr 25,Jun 12,Amazon MGM Studios,False,80000000.0,The Accountant 2,Q124848369,The Accountant 2,2025-04-25T00:00:00Z,,the-accountant-2025,3.09,234326.0,film/the-accountant-2
+35,Anaconda,65098148.0,Dec 25,Mar 20,Sony Pictures Releasing,False,45000000.0,Anaconda (2025 film),Q131549006,Anaconda,2025-12-25T00:00:00Z,,anaconda-2025,2.44,361535.0,film/anaconda-2025
+36,Now You See Me: Now You Don't,61882396.0,Nov 14,-,Lionsgate,False,90000000.0,Now You See Me: Now You Don't,Q65146722,Now You See Me: Now You Don't,2025-11-28T00:00:00Z,,now-you-see-me-now-you-dont-2025,2.94,556625.0,film/now-you-see-me-now-you-dont-2025
+37,The King of Kings,60270106.0,Apr 11,-,Angel,False,,The King of Kings (2025 film),,,,,,3.21,11320.0,film/the-king-of-kings-2025
+38,Ballerina,58051327.0,Jun 6,Jul 24,Lionsgate,False,90000000.0,Ballerina (2025 film),Q84713105,Ballerina,2025-06-06T00:00:00Z,,ballerina-2025,3.27,509686.0,film/ballerina-2025
+39,The Naked Gun,52647396.0,Aug 1,Sep 18,Paramount Pictures,False,42000000.0,The Naked Gun (2025 film),Q832047,The Naked Gun: From the Files of Police Squad!,2024-08-28T00:00:00Z,78756177.0,the-naked-gun-from-the-files-of-police-squad,3.27,620008.0,film/the-naked-gun
+40,Karate Kid: Legends,52547391.0,May 30,Jul 10,Sony Pictures Releasing,False,45000000.0,Karate Kid: Legends,Q124246470,Karate Kid: Legends,2025-05-30T00:00:00Z,,karate-kid,2.78,211156.0,film/karate-kid-legends
+41,One of Them Days,50054690.0,Jan 17,Apr 6,Sony Pictures Releasing,False,14000000.0,One of Them Days,Q130341202,One of Them Days,2025-03-31T00:00:00Z,,one-of-them-days,3.43,394144.0,film/one-of-them-days
+42,Regretting You,48852948.0,Oct 24,-,Paramount Pictures,False,30000000.0,Regretting You,Q132816896,Regretting You,2025-12-04T00:00:00Z,,regretting-you,2.47,361785.0,film/regretting-you
+43,Mickey 17,46142263.0,Mar 7,Apr 24,Warner Bros.,False,118000000.0,Mickey 17,Q112977213,Mickey 17,2025-04-18T00:00:00Z,,mickey-17,3.56,2232406.0,film/mickey-17
+44,Paddington in Peru,45800000.0,Feb 14,-,Sony Pictures Releasing,False,82500000.0,Paddington in Peru,Q121076570,Paddington in Peru,2025-04-18T00:00:00Z,,paddington-in-peru,3.4,299926.0,film/paddington-in-peru
+45,Downton Abbey: The Grand Finale,44996590.0,Sep 12,-,Focus Features,False,50000000.0,Downton Abbey: The Grand Finale,Q126164193,Downton Abbey: The Grand Finale,2025-09-12T00:00:00Z,,downton-abbey-3,3.48,49815.0,film/downton-abbey-the-grand-finale
+46,Chainsaw Man - The Movie: Reze Arc,43438461.0,Oct 24,-,Sony Pictures Releasing,False,4000000.0,Chainsaw Man – The Movie: Reze Arc,Q123906765,Chainsaw Man - The Movie: Reze Arc,2025-10-29T00:00:00Z,,chainsaw-man-the-movie-reze-arc,4.35,577852.0,film/chainsaw-man-the-movie-reze-arc
+47,The Amateur,40759635.0,Apr 11,Jun 12,20th Century Studios,False,60000000.0,The Amateur (2025 film),Q119206814,The Amateur,2025-04-11T00:00:00Z,,the-amateur-2025,2.88,247791.0,film/the-amateur-2025
+48,The Monkey,39724909.0,Feb 21,-,Neon,False,10500000.0,The Monkey (film),Q124841936,The Monkey,2025-03-06T00:00:00Z,,the-monkey-2025,2.61,667787.0,film/the-monkey-2025
+49,Song Sung Blue,39185290.0,Dec 25,-,Focus Features,False,30000000.0,Song Sung Blue (2025 film),Q130532687,Song Sung Blue,2025-12-25T00:00:00Z,,song-sung-blue-2025,3.3,117150.0,film/song-sung-blue-2025
+50,The Running Man,37815641.0,Nov 14,-,Paramount Pictures,False,110000000.0,The Running Man (2025 film),Q125449414,The Running Man,2025-11-19T00:00:00Z,,the-running-man-2025,3.12,530335.0,film/the-running-man-2025
+51,A Working Man,37000711.0,Mar 28,May 22,Amazon MGM Studios,False,40000000.0,A Working Man,Q125495342,A Working Man,2025-03-28T00:00:00Z,,levons-trade,2.36,131136.0,film/a-working-man
+52,Materialists,36521973.0,Jun 13,-,A24,False,20000000.0,Materialists (film),Q125726790,Materialists,2025-09-04T00:00:00Z,,materialists,2.89,1376831.0,film/materialists
+53,Den of Thieves: Pantera,36015016.0,Jan 10,-,Lionsgate,False,40000000.0,Den of Thieves 2: Pantera,,,,,,2.87,80683.0,film/den-of-thieves-2-pantera
+54,The Long Walk,35163573.0,Sep 12,-,Lionsgate,False,20000000.0,The Long Walk (2025 film),Q126511469,The Long Walk,2025-11-21T00:00:00Z,,the-long-walk-2025,3.5,919230.0,film/the-long-walk-2025
+55,Star Wars: Episode III - Revenge of the Sith20th anniversary,34107714.0,Apr 25,-,Walt Disney Studios Motion Pictures,False,113000000.0,,Q42051,Star Wars: Episode III – Revenge of the Sith,2025-04-24T00:00:00Z,905595947.0,star-wars-episode-iii-revenge-of-the-sith,,,
+56,Taylor Swift: The Official Release Party of a Showgirl,34062774.0,Oct 3,-,AMC Theatres,False,,Taylor Swift: The Official Release Party of a Showgirl,,,,,,,,
+57,I Know What You Did Last Summer,32165634.0,Jul 18,-,Sony Pictures Releasing,False,18000000.0,I Know What You Did Last Summer (2025 film),Q130368011,I Know What You Did Last Summer,2025-07-18T00:00:00Z,,i-know-what-you-did-last-summer-2025,2.36,390133.0,film/i-know-what-you-did-last-summer-2025
+58,Gabby's Dollhouse: The Movie,32011820.0,Sep 26,-,Universal Pictures,False,32000000.0,Gabby's Dollhouse: The Movie,Q126414863,Gabby's Dollhouse: The Movie,2025-09-26T00:00:00Z,,gabbys-dollhouse-the-movie,2.58,7584.0,film/gabbys-dollhouse-the-movie
+59,Smurfs,31075170.0,Jul 18,-,Paramount Pictures,False,58000000.0,Smurfs (film),Q124125148,Smurfs,2025-07-18T00:00:00Z,,smurfs,1.72,35963.0,film/smurfs
+60,Heart Eyes,30415738.0,Feb 7,-,Sony Pictures Releasing,False,18000000.0,Heart Eyes,Q127163221,Heart Eyes,2025-02-07T00:00:00Z,,heart-eyes,2.75,276134.0,film/heart-eyes
+61,Flight Risk,29783527.0,Jan 24,-,Lionsgate,False,25000000.0,Flight Risk (film),Q123353613,Flight Risk,2025-01-24T00:00:00Z,,flight-risk-2025,1.91,96130.0,film/flight-risk-2025
+62,Warfare,26000309.0,Apr 11,-,A24,False,20000000.0,Warfare (film),Q125217247,Warfare,2025-04-18T00:00:00Z,,warfare,3.53,561844.0,film/warfare
+63,Him,25009605.0,Sep 19,-,Universal Pictures,False,27000000.0,Him (2025 film),Q130410549,Him,2025-09-19T00:00:00Z,,him-2025,2.52,285493.0,film/him-2025
+64,KPop Demon Hunters,24300000.0,Aug 23,-,Netflix,True,100000000.0,KPop Demon Hunters,Q130268157,KPop Demon Hunters,2025-06-20T00:00:00Z,,kpop-demon-hunters,3.54,1825428.0,film/kpop-demon-hunters
+65,Hamnet,24208900.0,Nov 26,-,Focus Features,False,32500000.0,Hamnet (film),Q122741016,Hamnet,2025-11-27T00:00:00Z,,hamnet,4.19,1564322.0,film/hamnet
+66,M3GAN 2.0,24101280.0,Jun 27,-,Universal Pictures,False,20000000.0,M3GAN 2.0,Q116258185,M3GAN 2.0,2025-06-27T00:00:00Z,,m3gan-20,2.62,236396.0,film/m3gan-20
+67,Ne Zha 2,23308176.0,Feb 14,-,CMC Pictures,False,80000000.0,Ne Zha 2,Q131937861,Ne Zha 2,2025-10-23T00:00:00Z,2267446370.0,ne-zha-2,4.11,84453.0,film/ne-zha-2
+68,Roofman,22739882.0,Oct 10,Nov 20,Paramount Pictures,False,19000000.0,Roofman,Q130742503,Roofman,2025-10-30T00:00:00Z,,roofman,3.46,356820.0,film/roofman
+69,Springsteen: Deliver Me from Nowhere,22638297.0,Oct 24,Dec 4,20th Century Studios,False,55000000.0,Springsteen: Deliver Me from Nowhere,Q125401070,Springsteen: Deliver Me from Nowhere,2025-10-24T00:00:00Z,,springsteen-deliver-me-from-nowhere,3.18,181498.0,film/springsteen-deliver-me-from-nowhere
+70,The Woman in the Yard,22405985.0,Mar 28,May 1,Universal Pictures,False,12000000.0,The Woman in the Yard,Q125678238,The Woman in the Yard,2025-03-28T00:00:00Z,,the-woman-in-the-yard,2.27,140521.0,film/the-woman-in-the-yard
+71,Nobody 2,21604985.0,Aug 15,-,Universal Pictures,False,,Nobody (2025 film),Q126682448,Nobody 2,2025-08-21T00:00:00Z,,nobody-2,2.87,238288.0,film/nobody-2
+72,Black Bag,21474035.0,Mar 14,May 1,Focus Features,False,55000000.0,Black Bag,Q124373035,Black Bag,2025-04-03T00:00:00Z,,black-bag-2025,3.41,390720.0,film/black-bag-2025
+73,Together,21273159.0,Jul 30,-,Neon,False,17000000.0,Together (2025 film),Q131870558,Together,2025-10-02T00:00:00Z,28000000.0,together-2025,3.27,791094.0,film/together-2025
+74,Last Breath,21051180.0,Feb 28,-,Focus Features,False,23800000.0,Last Breath (2025 film),Q119225271,Last Breath,2025-02-28T00:00:00Z,,last-breath-2025,3.09,89309.0,film/last-breath-2025
+75,Companion,20869122.0,Jan 31,Mar 14,Warner Bros.,False,10000000.0,Companion (film),Q125933907,Companion,2025-02-06T00:00:00Z,,companion-2025,3.37,1490874.0,film/companion-2025
+76,Wolf Man,20707280.0,Jan 17,-,Universal Pictures,False,25000000.0,Wolf Man (2025 film),Q111464581,Wolf Man,2025-01-24T00:00:00Z,,wolf-man-2025,2.39,211807.0,film/wolf-man-2025
+77,The Chosen: Last Supper,20257290.0,Mar 28,-,-,False,,,,,,,,3.85,1303.0,film/the-chosen-last-supper
+78,Until Dawn,20172192.0,Apr 25,-,Screen Gems,False,15000000.0,,Q128602012,Until Dawn,2025-04-25T00:00:00Z,,until-dawn-2025,2.5,457359.0,film/until-dawn-2025
+79,Novocaine,19861854.0,Mar 14,Apr 10,Paramount Pictures,False,18000000.0,,Q124707042,Novocaine,2025-03-27T00:00:00Z,,novocaine-2025,3.09,449318.0,film/novocaine-2025
+80,Dhurandhar,19702994.0,Dec 5,-,Moviegoers Entertainment,True,,,Q135230927,Dhurandhar,2025-12-05T00:00:00Z,,dhurandhar,3.56,117185.0,film/dhurandhar
+81,The Phoenician Scheme,19555015.0,May 30,-,Focus Features,False,,,Q124758337,The Phoenician Scheme,2025-05-30T00:00:00Z,,the-phoenician-scheme,3.53,695438.0,film/the-phoenician-scheme
+82,Bring Her Back,19333305.0,May 30,-,A24,False,15000000.0,,Q127602379,Bring Her Back,2025-08-21T00:00:00Z,,bring-her-back,3.67,1017674.0,film/bring-her-back
+83,Caught Stealing,19005242.0,Aug 29,-,Sony Pictures Releasing,False,40000000.0,,Q130248726,Caught Stealing,2025-08-29T00:00:00Z,,caught-stealing,3.4,566271.0,film/caught-stealing
+84,Bugonia,17692390.0,Oct 24,-,Focus Features,False,55000000.0,,Q125971387,Bugonia,2025-11-07T00:00:00Z,,bugonia,3.84,1876623.0,film/bugonia
+85,Hamilton2025 Re-release,16946377.0,Sep 5,-,Walt Disney Studios Motion Pictures,False,,,,,,,,,,
+86,Drop,16600805.0,Apr 11,May 16,Universal Pictures,False,11000000.0,,Q125983478,Drop,2025-04-17T00:00:00Z,,drop-2025,2.73,292191.0,film/drop-2025
+87,Good Fortune,16585758.0,Oct 17,Nov 20,Lionsgate,False,,,Q124364757,Good Fortune,2025-10-17T00:00:00Z,,good-fortune-2025,3.11,187369.0,film/good-fortune-2025
+88,Jujutsu Kaisen: Execution,16583133.0,Dec 5,-,GKIDS,False,,,Q136436677,Jujutsu Kaisen: Execution,2025-11-27T00:00:00Z,,jujutsu-kaisen-execution-shibuya-incident,3.46,75901.0,film/jujutsu-kaisen-execution-shibuya-incident
+89,Friendship,16252948.0,May 9,-,A24,False,,,Q127821688,Friendship,2025-05-23T00:00:00Z,,friendship-2024,3.44,462860.0,film/friendship-2024
+90,Eternity,16210244.0,Nov 26,-,A24,False,,,Q126203157,Eternity,2025-12-04T00:00:00Z,,eternity-2025-1,3.7,793899.0,film/eternity-2025-1
+91,Love Hurts,15683090.0,Feb 7,-,Universal Pictures,False,,,Q125265183,Love Hurts,2025-02-07T00:00:00Z,,love-hurts-2025,2.06,83193.0,film/love-hurts-2025
+92,The Roses,15298844.0,Aug 29,-,Searchlight Pictures,False,30600000.0,,Q126810973,The Roses,2025-08-29T00:00:00Z,,the-roses-1,3.4,404122.0,film/the-roses-1
+93,The Last Rodeo,15201659.0,May 23,-,Angel,False,,,Q131632909,The Last Rodeo,2025-05-23T00:00:00Z,,the-last-rodeo-2025,2.56,3885.0,film/the-last-rodeo-2025
+94,The Strangers: Chapter 2,15153346.0,Sep 26,-,Lionsgate,False,,,Q122396990,The Strangers: Chapter 2,2025-09-26T00:00:00Z,,the-strangers-chapter-2,1.78,76797.0,film/the-strangers-chapter-2
+95,Nuremberg,14524692.0,Nov 7,-,Sony Pictures Classics,False,8500000.0,,Q124393313,Nuremberg,2025-12-05T00:00:00Z,56900000.0,nuremberg-2025,3.53,291692.0,film/nuremberg-2025
+96,Death of a Unicorn,12899252.0,Mar 28,-,A24,True,15000000.0,,Q120887939,Death of a Unicorn,2025-05-01T00:00:00Z,,death-of-a-unicorn,2.67,377365.0,film/death-of-a-unicorn
+97,Jaws2025 Re-release (50th Anniversary),12819675.0,Aug 29,-,-,False,,,,,,,,,,
+98,The Chosen: Last Supper Part 2,12372228.0,Apr 4,-,-,False,,,,,,,,3.93,745.0,film/the-chosen-last-supper-part-2
+99,The Chosen: Last Supper Part 3,11742410.0,Apr 11,-,-,False,,,,,,,,3.89,637.0,film/the-chosen-last-supper-part-3
+100,Sarah's Oil,11675627.0,Nov 7,-,Amazon MGM Studios,False,,,Q130693545,Sarah's Oil,2025-12-25T00:00:00Z,,sarahs-oil,3.1,5212.0,film/sarahs-oil
+101,The Smashing Machine,11411388.0,Oct 3,-,A24,False,40000000.0,,Q126012569,The Smashing Machine,2025-12-11T00:00:00Z,,the-smashing-machine-2025,3.2,366300.0,film/the-smashing-machine-2025
+102,Becoming Led Zeppelin,10403353.0,Feb 7,-,Sony Pictures Classics,False,,,Q108660838,Becoming Led Zeppelin,2025-03-18T00:00:00Z,,becoming-led-zeppelin,3.56,36515.0,film/becoming-led-zeppelin
+103,Eddington,10223277.0,Jul 18,-,A24,False,25000000.0,,Q121433282,Eddington,2025-11-20T00:00:00Z,,eddington,3.36,519062.0,film/eddington
+104,Rental Family,10047429.0,Nov 21,Dec 24,Searchlight Pictures,False,,,Q124947229,Rental Family,2025-11-21T00:00:00Z,,rental-family-2025,3.86,330357.0,film/rental-family-2025
+105,No Other Choice,10011860.0,Dec 25,-,Neon,False,,,Q129906152,No Other Choice,2025-12-25T00:00:00Z,37089487.0,no-other-choice-2025,4.08,816713.0,film/no-other-choice-2025
+106,The Day the Earth Blew Up: A Looney Tunes Movie,8875344.0,Mar 14,Apr 24,Ketchup Entertainment,False,15000000.0,,Q123234434,The Day the Earth Blew Up: A Looney Tunes Movie,2025-03-14T00:00:00Z,,the-day-the-earth-blew-up-a-looney-tunes-movie,3.45,81130.0,film/the-day-the-earth-blew-up-a-looney-tunes-movie
+107,Sketch,8129808.0,Aug 6,-,Angel,False,,,Q130276120,Sketch,2025-09-18T00:00:00Z,,sketch-2024-1,3.15,15628.0,film/sketch-2024-1
+108,Back to the Future40th Anniversary,7923545.0,Oct 31,-,Universal Pictures,False,,,,,,,,,,
+109,Soul on Fire,7448606.0,Oct 10,-,Affirm Films,False,,,Q124098394,Soul on Fire,2025-10-10T00:00:00Z,,on-fire-1,2.76,3215.0,film/on-fire-1
+110,Clown in a Cornfield,7251799.0,May 9,-,RLJ Entertainment,False,,,Q127619022,Clown in a Cornfield,2025-06-05T00:00:00Z,,clown-in-a-cornfield,2.55,202398.0,film/clown-in-a-cornfield
+111,Presence,6900044.0,Jan 24,-,Neon,False,2000000.0,,Q123690382,Presence,2025-04-03T00:00:00Z,10500000.0,presence-2024,2.95,272686.0,film/presence-2024
+112,Princess Mononoke4K Restoration,6851056.0,Mar 28,-,GKIDS,False,,,,,,,,,,
+113,Toy Story2025 Re-release,6721383.0,Sep 12,-,Walt Disney Studios Motion Pictures,False,,,,,,,,,,
+114,The Life of Chuck,6712600.0,Jun 6,-,Neon,False,,,Q123169098,The Life of Chuck,2025-09-19T00:00:00Z,,the-life-of-chuck,3.67,321073.0,film/the-life-of-chuck
+115,A Big Bold Beautiful Journey,6671082.0,Sep 19,-,Sony Pictures Releasing,False,45000000.0,,Q124497778,A Big Bold Beautiful Journey,2025-09-19T00:00:00Z,,a-big-bold-beautiful-journey,2.76,120299.0,film/a-big-bold-beautiful-journey
+116,Good Boy,6624062.0,Oct 3,-,IFC Films,False,,,Q125975889,Good Boy,2024-02-28T00:00:00Z,,good-boy-2022,2.99,237020.0,film/good-boy-2025
+117,The Last Supper,6564857.0,Mar 14,-,-,False,,,Q132716707,The Last Supper,2025-03-14T00:00:00Z,,the-last-supper-2025-1,2.66,1839.0,film/the-last-supper-2025-1
+118,The Unbreakable Boy,6443813.0,Feb 21,Mar 27,Lionsgate,False,,,Q113380380,The Unbreakable Boy,2025-02-21T00:00:00Z,,the-unbreakable-boy,2.74,7706.0,film/the-unbreakable-boy
+119,I'm Still Here,6233517.0,Jan 17,-,Sony Pictures Classics,False,,,Q124262351,I'm Still Here,2025-03-20T00:00:00Z,,im-still-here-2024,4.34,785370.0,film/im-still-here-2024
+120,Pride & Prejudice20th Anniversary Re-Release,6193658.0,Apr 20,May 9,Focus Features,False,,,,,,,,,,
+121,Is This Thing On?,6185385.0,Dec 19,-,Walt Disney Studios Motion Pictures,False,,,Q132189965,Is This Thing On?,2025-10-10T00:00:00Z,,is-this-thing-on-2025,3.41,141998.0,film/is-this-thing-on-2025
+122,The Alto Knights,6125566.0,Mar 21,-,Warner Bros.,False,50000000.0,,Q115805392,The Alto Knights,2025-03-21T00:00:00Z,,the-alto-knights,2.74,49894.0,film/the-alto-knights
+123,Truth & Treason,6044364.0,Oct 17,-,Angel,False,,,Q133824712,Truth & Treason,2025-01-01T00:00:00Z,,truth-treason,3.5,5808.0,film/truth-treason
+124,Kill Bill: The Whole Bloody Affair,6002538.0,Dec 5,-,Lionsgate,False,,,Q18126825,Kill Bill: The Whole Bloody Affair,2025-12-05T00:00:00Z,,kill-bill-the-whole-bloody-affair,,,
+125,Honey Don't!,5810510.0,Aug 22,-,Focus Features,False,,,Q124352605,Honey Don't!,2025-08-22T00:00:00Z,,honey-dont,2.27,262905.0,film/honey-dont
+126,Dan Da Dan: Evil Eye,5637078.0,Jun 6,-,GKIDS,False,,,,,,,,3.87,26614.0,film/dan-da-dan-evil-eye
+127,Die My Love,5515263.0,Nov 7,-,MUBI,False,,,Q117745793,Die My Love,2025-11-07T00:00:00Z,,die-my-love,3.17,487069.0,film/die-my-love
+128,The Matrix2025 Re-release,5482077.0,Jun 6,-,Warner Bros.,False,,,,,,,,,,
+129,Sentimental Value,5338580.0,Nov 7,-,Neon,False,7800000.0,,Q130284179,Sentimental Value,2025-12-26T00:00:00Z,,sentimental-value-2025,4.15,965709.0,film/sentimental-value-2025
+130,The Senior,5295949.0,Sep 19,-,Angel,False,,,Q116055747,The Senior,2025-09-19T00:00:00Z,,the-senior,2.83,1839.0,film/the-senior
+131,Hurry Up Tomorrow,5215357.0,May 16,Jun 5,Lionsgate,False,,,Q122190665,Hurry Up Tomorrow,2025-05-16T00:00:00Z,,untitled-trey-edward-shults-project,1.79,83748.0,film/untitled-trey-edward-shults-project
+132,Light of the World,5213377.0,Sep 5,-,-,False,,,,,,,,3.47,1606.0,film/light-of-the-world
+133,Chhaava,4800000.0,Feb 14,-,Yash Raj Films,True,,,Q127012906,Chhaava,2025-02-14T00:00:00Z,,chhaava,2.85,19661.0,film/chhaava
+134,Stitch Head,4562943.0,Oct 29,-,Briarcliff Entertainment,False,,,Q135440423,Stitch Head,2025-10-16T00:00:00Z,,stitch-head,2.79,3213.0,film/stitch-head
+135,Sisu: Road to Revenge,4544481.0,Nov 21,-,Sony Pictures Releasing,False,12200000.0,,Q125020375,Sisu: Road to Revenge,2025-11-21T00:00:00Z,1900000.0,sisu-2,3.24,68076.0,film/sisu-2
+136,Brave the Dark,4525443.0,Jan 24,-,Angel,False,,,Q123094814,Brave the Dark,2025-01-24T00:00:00Z,,brave-the-dark,3.03,2156.0,film/brave-the-dark
+137,Shelby Oaks,4500051.0,Oct 24,-,Neon,False,2800000.0,,Q112039665,Shelby Oaks,2025-10-30T00:00:00Z,,shelby-oaks,2.51,129425.0,film/shelby-oaks
+138,Avatar: The Way of Water2025 Re-release,4383734.0,Oct 3,-,Walt Disney Studios Motion Pictures,False,,,,,,,,,,
+139,The Secret Agent,4282051.0,Nov 26,-,Neon,False,27000000.0,,Q132531438,The Secret Agent,2025-12-17T00:00:00Z,,the-secret-agent-2025,3.81,631546.0,film/the-secret-agent-2025
+140,Keeper,4200165.0,Nov 14,-,Neon,False,,,Q130753385,Keeper,2025-11-14T00:00:00Z,,keeper-2025,2.52,111737.0,film/keeper-2025
+141,Shin Godzilla2025 Re-release,4042146.0,Aug 14,-,GKIDS,False,,,,,,,,,,
+142,Ella McCay,4033242.0,Dec 12,Jan 15,20th Century Studios,False,35000000.0,,Q124408474,Ella McCay,2025-12-12T00:00:00Z,,ella-mccay,2.45,49310.0,film/ella-mccay
+143,The Friend,3941217.0,Mar 28,-,Bleecker Street Media,False,,,Q124853968,The Friend,2025-06-19T00:00:00Z,,the-friend-1,3.09,16229.0,film/the-friend-2024
+144,Shadow Force,3933483.0,May 9,-,Lionsgate,False,,,Q119625137,Shadow Force,2025-06-05T00:00:00Z,,shadow-force-1,2.25,9714.0,film/shadow-force-1
+145,Colorful Stage! The Movie: A Miku Who Can't Sing,3661284.0,Apr 18,-,GKIDS,False,,,Q128041782,Colorful Stage! The Movie: A Miku Who Can't Sing,2025-05-09T00:00:00Z,,gekijouban-project-sekai-kowareta-sekai-to,3.36,16925.0,film/gekijouban-project-sekai-kowareta-sekai-to
+146,Attack on Titan: The Last Attack,3638404.0,Feb 10,Mar 20,Sony Pictures Releasing,False,,,Q131900238,Attack on Titan: The Last Attack,2025-02-25T00:00:00Z,,attack-on-titan-the-last-attack,4.67,166212.0,film/attack-on-titan-the-last-attack
+147,Fight or Flight,3522025.0,May 9,-,Vertical Entertainment,False,,,Q131431712,Fight or Flight,2025-05-09T00:00:00Z,,fight-or-flight-2024,2.96,57204.0,film/fight-or-flight-2024
+148,Saiyaara,3359480.0,Jul 18,-,Yash Raj Films USA Inc.,False,,,Q135393743,Saiyaara,2025-07-18T00:00:00Z,,saiyaara,3.1,35773.0,film/saiyaara
+149,The Penguin Lessons,3294990.0,Mar 28,-,Sony Pictures Classics,False,,,Q128031876,The Penguin Lessons,2024-09-06T00:00:00Z,14235885.0,the-penguin-lessons,3.5,37500.0,film/the-penguin-lessons
+150,2025 Oscar Nominated Short Films: Live Action,3275477.0,Feb 14,-,ShortsTV,False,,,,,,,,3.56,381.0,film/2025-oscar-nominated-short-films-live-action
+151,After the Hunt,3258830.0,Oct 10,Nov 6,Amazon MGM Studios,False,80000000.0,,Q127382372,After the Hunt,2025-10-16T00:00:00Z,,after-the-hunt-2025,2.85,198974.0,film/after-the-hunt-2025
+152,Jujutsu Kaisen: Hidden Inventory / Premature Death - The Movie,3257365.0,Jul 16,-,GKIDS,False,,,,,,,,,,
+153,Hell of a Summer,3182678.0,Apr 4,-,Neon,False,,,Q119111677,Hell of a Summer,2025-04-04T00:00:00Z,,hell-of-a-summer,2.71,129500.0,film/hell-of-a-summer
+154,Relay,3164481.0,Aug 22,-,Bleecker Street Media,False,,,Q117742969,Relay,2025-09-26T00:00:00Z,,relay-2024,3.34,80002.0,film/relay-2024
+155,War 2,3087065.0,Aug 14,-,Yash Raj Films USA Inc.,False,,,Q124852530,War 2,2025-08-14T00:00:00Z,,war-2,2.24,17575.0,film/war-2
+156,How the Grinch Stole Christmas2025 Re-release,3063665.0,Dec 12,-,Universal Pictures,False,,,,,,,,,,
+157,Rule Breakers,2969825.0,Mar 7,-,Angel,False,,,Q133172925,Rule Breakers,2025-03-07T00:00:00Z,,rule-breakers-2025,3.23,1858.0,film/rule-breakers-2025
+158,The Toxic Avenger,2866783.0,Aug 29,-,Iconic Events Releasing,False,,,Q107404778,The Toxic Avenger,2025-08-29T00:00:00Z,,the-toxic-avenger-2023,2.95,71564.0,film/the-toxic-avenger-2023
+159,The Rocky Horror Picture Show2025 Re-release (50 Anniversary),2778567.0,Sep 26,-,Walt Disney Studios Motion Pictures,True,,,,,,,,,,
+160,Dangerous Animals,2738137.0,Jun 6,-,IFC Films,False,,,Q133885811,Dangerous Animals,2025-09-11T00:00:00Z,,dangerous-animals,2.98,151652.0,film/dangerous-animals
+161,Pink Floyd: Live at Pompeii2025 Re-release,2620076.0,Apr 24,-,Trafalgar Releasing,True,,,,,,,,,,
+162,Eleanor the Great,2607002.0,Sep 26,-,Sony Pictures Classics,False,,,Q125627182,Eleanor the Great,2025-12-12T00:00:00Z,,eleanor-the-great,3.38,31588.0,film/eleanor-the-great
+163,No Other Land,2549422.0,Jan 31,-,-,True,,,Q124440294,No Other Land,2025-03-07T00:00:00Z,,no-other-land,4.6,116536.0,film/no-other-land
+164,The Testament of Ann Lee,2515020.0,Dec 25,Feb 20,Searchlight Pictures,False,,,Q131441164,The Testament of Ann Lee,2025-09-01T00:00:00Z,,the-testament-of-ann-lee,3.45,116273.0,film/the-testament-of-ann-lee
+165,Spinal Tap II: The End Continues,2508554.0,Sep 12,-,Bleecker Street Media,False,,,Q121088318,Spinal Tap II: The End Continues,2025-09-12T00:00:00Z,,spinal-tap-ii,3.09,40034.0,film/spinal-tap-ii
+166,Merrily We Roll Along,2508329.0,Dec 5,-,Sony Pictures Classics,False,,,,,,,,4.01,26611.0,film/merrily-we-roll-along-2025
+167,The Legend of Ochi,2475373.0,Apr 18,-,A24,False,,,Q117336433,The Legend of Ochi,2025-05-01T00:00:00Z,,the-legend-of-ochi,2.93,58938.0,film/the-legend-of-ochi
+168,Coolie,2450000.0,Aug 15,-,Prathyangira Cinemas,True,,,Q127118132,Coolie,2025-08-14T00:00:00Z,,coolie-2,2.48,49212.0,film/coolie-2
+169,"Sorry, Baby",2418280.0,Jun 27,-,A24,False,,,Q131450483,"Sorry, Baby",2025-09-25T00:00:00Z,,sorry-baby-2025,4.06,356899.0,film/sorry-baby-2025
+170,Spider-Man/Spider-Man 2/Spider-Man 3Fathom 2025,2250977.0,Sep 26,-,-,True,,,,,,,,,,
+171,Detective Chinatown 1900,2229946.0,Jan 29,-,CMC Pictures,False,,,Q131522509,Detective Chinatown 1900,2025-02-19T00:00:00Z,,detective-chinatown-1900,2.75,3030.0,film/detective-chinatown-1900
+172,DogmaDogma: Resurrected! A 25th Anniversary Celebration,2193805.0,Jun 5,-,Iconic Events Releasing,False,,,,,,,,,,
+173,Blue Moon,2170688.0,Oct 17,-,Sony Pictures Classics,False,,,Q127118129,Blue Moon,2025-11-06T00:00:00Z,,blue-moon-2025,3.58,179256.0,film/blue-moon-2025
+174,Night of the Zoopocalypse,2108907.0,Mar 7,-,Viva Pictures,False,,,Q130477367,Night of the Zoopocalypse,2025-10-23T00:00:00Z,5200000.0,night-of-the-zoopocalypse,2.88,6511.0,film/night-of-the-zoopocalypse
+175,Game Changer,2100000.0,Jan 10,-,Shloka Entertainments,True,,,Q110917109,Game Changer,2025-01-10T00:00:00Z,,game-changer-3,2.01,15978.0,film/game-changer-3
+176,The Wedding Banquet,2090228.0,Apr 18,-,Bleecker Street Media,False,,,Q125660863,The Wedding Banquet,2025-04-18T00:00:00Z,,the-wedding-banquet-2025,3.25,43855.0,film/the-wedding-banquet-2025
+177,"Oh, Hi!",2082113.0,Jul 25,-,Sony Pictures Classics,False,,,Q131429514,"Oh, Hi!",2025-11-27T00:00:00Z,,oh-hi,3.13,177254.0,film/oh-hi
+178,Sight & Sound Presents: NOAH Live,2059719.0,Sep 18,-,-,False,,,,,,,,,,film/sight-sound-presents-noah-live
+179,Opus,1993397.0,Mar 14,-,A24,False,10000000.0,,Q123754013,Opus,2025-03-14T00:00:00Z,2200000.0,opus-2025,2.71,190795.0,film/opus-2025
+180,Christy,1952677.0,Nov 7,Nov 20,Black Bear,False,,,Q130403642,Christy,2025-11-27T00:00:00Z,,christy-1,3.21,40675.0,film/christy-1
+181,Pets on a Train,1902241.0,Oct 17,-,Viva Pictures,False,12500000.0,,Q134593912,Pets on a Train,2025-06-12T00:00:00Z,13020498.0,,2.74,3542.0,film/pets-on-a-train
+182,Jane Austen Wrecked My Life,1900978.0,May 23,-,Sony Pictures Classics,False,,,Q130240842,Jane Austen Wrecked My Life,2025-10-16T00:00:00Z,,jane-austen-wrecked-my-life,3.2,29444.0,film/jane-austen-wrecked-my-life
+183,Splitsville,1900750.0,Aug 22,-,Neon,False,,,Q131004938,Splitsville,2025-09-04T00:00:00Z,,splitsville,3.37,120806.0,film/splitsville
+184,In the Lost Lands,1870305.0,Mar 7,-,Vertical Entertainment,False,,,Q113524284,In the Lost Lands,2025-05-09T00:00:00Z,,in-the-lost-lands,1.97,28825.0,film/in-the-lost-lands
+185,Riff Raff,1862519.0,Feb 27,-,Roadside Attractions,False,,,Q120279954,The Rats: A Witcher Tale,2025-01-01T00:00:00Z,,the-rats-a-witcher-tale,2.72,27508.0,film/riff-raff-2024
+186,Creation of the Gods II: Demon Force,1853487.0,Jan 31,-,Well Go USA Entertainment,False,,,Q131802561,Creation of the Gods II: Demon Force,2025-03-05T00:00:00Z,,creation-of-the-gods-ii-demon-force,3.21,3668.0,film/creation-of-the-gods-ii-demon-force
+187,Casper2025 Re-release,1840230.0,Oct 3,-,Universal Pictures,False,,,,,,,,,,
+188,It Was Just an Accident,1773664.0,Oct 15,-,Neon,False,,,Q133866932,It Was Just an Accident,2025-10-01T00:00:00Z,9710654.0,it-was-just-an-accident,3.97,324886.0,film/it-was-just-an-accident
+189,Kuberaa,1750000.0,Jun 20,-,Prathyangira Cinemas,True,,,,,,,,2.97,22533.0,film/kuberaa
+190,Seven2025 Re-release,1745531.0,Jan 3,-,Warner Bros.,True,,,,,,,,,,
+191,Perfect Blue2025 Re-release,1733525.0,Oct 3,-,GKIDS,False,,,,,,,,,,
+192,Green and Gold,1719105.0,Jan 31,-,Fathom Events,False,,,Q132125859,Green and Gold,2025-01-31T00:00:00Z,,green-and-gold-2024,3.16,1081.0,film/green-and-gold-2024
+193,Elf2025 Re-release,1704041.0,Oct 31,-,Warner Bros.,False,,,,,,,,,,
+194,Dead of Winter,1674777.0,Sep 26,-,Vertical Entertainment,False,,,Q124947655,Dead of Winter,2025-11-28T00:00:00Z,,dead-of-winter-2025,2.88,48421.0,film/dead-of-winter-2025
+195,Willy Wonka & the Chocolate Factory2025 Re-release,1669328.0,Nov 21,-,Warner Bros.,False,,,,,,,,,,
+196,Locked,1632758.0,Mar 21,-,The Avenue Entertainment,False,,,Q124370375,Locked,2025-04-09T00:00:00Z,,locked-3,2.62,78806.0,film/locked-3
+197,Kiss of the Spider Woman,1628029.0,Oct 10,-,Lionsgate,False,,,Q125078429,Kiss of the Spider Woman,2025-10-10T00:00:00Z,,kiss-of-the-spider-woman-2025,3.23,22334.0,film/kiss-of-the-spider-woman-2025
+198,The Ballad of Wallis Island,1607835.0,Mar 28,May 9,Focus Features,False,,,Q125274110,The Ballad of Wallis Island,2025-05-30T00:00:00Z,,the-ballad-of-wallis-island,3.89,110744.0,film/the-ballad-of-wallis-island
+199,The Sound of Music60th Anniversary,1601237.0,Sep 12,-,Fathom Events,False,,,,,,,,,,
+200,Wake Up Dead Man,1600000.0,Nov 26,-,Netflix,True,151700000.0,,Q115931717,Wake Up Dead Man,2025-11-26T00:00:00Z,,wake-up-dead-man,3.77,2188917.0,film/wake-up-dead-man

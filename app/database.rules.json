@@ -1,0 +1,13 @@
+{
+  "rules": {
+    ".read": "auth != null && auth.token.email_verified == true && auth.token.firebase.sign_in_provider == 'google.com' && auth.token.email.matches(/.*@gmail\\.com$/)",
+    "users": {
+      "$uid": {
+        ".write": "auth != null && auth.uid == $uid && auth.token.email_verified == true && auth.token.firebase.sign_in_provider == 'google.com' && auth.token.email.matches(/.*@gmail\\.com$/) && newData.hasChildren(['updatedAt']) && newData.child('updatedAt').isNumber() && newData.child('updatedAt').val() >= now - 60000 && newData.child('updatedAt').val() <= now + 60000"
+      }
+    },
+    "$other": {
+      ".write": false
+    }
+  }
+}
