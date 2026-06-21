@@ -242,6 +242,7 @@ function Graph({
   movies: MoviePoint[];
 }) {
   const [hovered, setHovered] = useState<HoverState>(null);
+  const [activeMovie, setActiveMovie] = useState<MoviePoint | null>(null);
   const plotted = useMemo(
     () =>
       movies.filter(
@@ -266,7 +267,12 @@ function Graph({
     ? logTicks(Math.min(...yValues), Math.max(...yValues))
     : niceLinearTicks(Math.min(...yValues), Math.max(...yValues));
 
-  const active = hovered?.movie ?? plotted[0];
+  const active = hovered?.movie ?? activeMovie;
+
+  function activateMovie(movie: MoviePoint, x: number, y: number) {
+    setActiveMovie(movie);
+    setHovered({ movie, x, y });
+  }
 
   return (
     <section className="ffb-chart" aria-labelledby={`chart-${pair.x}-${pair.y}`}>
@@ -344,7 +350,7 @@ function Graph({
             {plotted.map((movie) => {
               const cx = xScale.position(movie[pair.x] as number);
               const cy = yScale.position(movie[pair.y] as number);
-              const isActive = hovered?.movie.title === movie.title;
+              const isActive = active?.title === movie.title;
 
               return (
                 <circle
@@ -352,13 +358,13 @@ function Graph({
                   className={isActive ? "ffb-dot ffb-dot--active" : "ffb-dot"}
                   cx={cx}
                   cy={cy}
-                  r={isActive ? 6.5 : 4.3}
+                  r={5}
                   tabIndex={0}
                   aria-label={movie.title}
-                  onMouseEnter={() => setHovered({ movie, x: cx, y: cy })}
-                  onMouseMove={() => setHovered({ movie, x: cx, y: cy })}
+                  onMouseEnter={() => activateMovie(movie, cx, cy)}
                   onMouseLeave={() => setHovered(null)}
-                  onFocus={() => setHovered({ movie, x: cx, y: cy })}
+                  onClick={() => activateMovie(movie, cx, cy)}
+                  onFocus={() => activateMovie(movie, cx, cy)}
                   onBlur={() => setHovered(null)}
                 />
               );
@@ -387,7 +393,19 @@ function Graph({
   );
 }
 
-function MovieTooltip({ movie, pair }: { movie: MoviePoint; pair: ChartPair }) {
+function MovieTooltip({ movie, pair }: { movie: MoviePoint | null; pair: ChartPair }) {
+  if (!movie) {
+    return (
+      <aside className="ffb-tooltip">
+        <p className="ffb-label">Film data</p>
+        <h3>Hover a film</h3>
+        <p className="ffb-muted">
+          Pick a point on the plot to inspect its charted values and percentiles.
+        </p>
+      </aside>
+    );
+  }
+
   return (
     <aside className="ffb-tooltip" aria-live="polite">
       <p className="ffb-label">Film data</p>

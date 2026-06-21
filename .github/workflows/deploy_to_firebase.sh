@@ -12,7 +12,10 @@ SA_KEY="${1:-}"
 # firebase init database --project "$GOOGLE_CLOUD_PROJECT"
 # firebase database:instances:create "${GOOGLE_CLOUD_PROJECT}-default-rtdb" --location us-central1 --project "$GOOGLE_CLOUD_PROJECT"
 # firebase target:apply database default "${GOOGLE_CLOUD_PROJECT}-default-rtdb" --project "$GOOGLE_CLOUD_PROJECT"
-# gcloud alpha identity-platform providers create google.com --project "$GOOGLE_CLOUD_PROJECT" --enabled || true
+# access_token="$(gcloud auth print-access-token)"
+# curl -sS -X POST -H "Authorization: Bearer $access_token" -H "Content-Type: application/json" "https://identitytoolkit.googleapis.com/v2/projects/$GOOGLE_CLOUD_PROJECT/identityPlatform:initializeAuth" -d "{}" || true
+# curl -sS -X POST -H "Authorization: Bearer $access_token" -H "Content-Type: application/json" "https://identitytoolkit.googleapis.com/admin/v2/projects/$GOOGLE_CLOUD_PROJECT/defaultSupportedIdpConfigs?idpId=google.com" -d '{"enabled":true}' || true
+# curl -sS -X PATCH -H "Authorization: Bearer $access_token" -H "Content-Type: application/json" "https://identitytoolkit.googleapis.com/admin/v2/projects/$GOOGLE_CLOUD_PROJECT/defaultSupportedIdpConfigs/google.com?updateMask=enabled" -d '{"enabled":true}' || true
 # gcloud iam service-accounts create deployer-github
 # sleep 1
 # gcloud projects add-iam-policy-binding "$GOOGLE_CLOUD_PROJECT" --member="serviceAccount:deployer-github@$GOOGLE_CLOUD_PROJECT.iam.gserviceaccount.com" --role="roles/firebasehosting.admin"

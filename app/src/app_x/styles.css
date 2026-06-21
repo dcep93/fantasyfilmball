@@ -357,7 +357,13 @@
 .ffb-dot:focus,
 .ffb-dot--active {
   fill: var(--ww-title-pink);
+  stroke: var(--ww-border-strong);
+  stroke-width: 2.4;
   opacity: 1;
+}
+
+.ffb-hover-label {
+  pointer-events: none;
 }
 
 .ffb-hover-label rect {
