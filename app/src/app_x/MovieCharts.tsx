@@ -25,6 +25,13 @@ type ChartPair = {
   y: AttributeKey;
 };
 
+type ScoreCoefficients = {
+  a: number;
+  b: number;
+  c: number;
+  d: number;
+};
+
 const DATA_URL = "/movie_charts/2025/movie_2025_data.csv";
 
 const ATTRIBUTES: Record<
@@ -76,6 +83,17 @@ const PAIRS: ChartPair[] = [
 const WIDTH = 960;
 const HEIGHT = 560;
 const PADDING = { top: 36, right: 34, bottom: 72, left: 92 };
+const SCORE_NEUTRAL = "#d8b38a";
+const SCORE_GREEN = "#58c978";
+const SCORE_RED = "#f05d63";
+const SCORE_COEFFICIENTS: Record<string, ScoreCoefficients> = {
+  "budget/domestic_gross": { a: -2.705, b: 0.104, c: -1.556, d: 4.601 },
+  "budget/letterboxd_ratings": { a: 0, b: 0, c: 0, d: 0 },
+  "budget/letterboxd_avg": { a: -0.755, b: -0.602, c: 0.345, d: 2.21 },
+  "domestic_gross/letterboxd_ratings": { a: 0, b: 0, c: 0, d: 0 },
+  "domestic_gross/letterboxd_avg": { a: 0.396, b: -2.154, c: 0.267, d: 2 },
+  "letterboxd_ratings/letterboxd_avg": { a: 15.454, b: -45.313, c: 29.483, d: 2.331 },
+};
 
 function parseCsvLine(line: string): string[] {
   const cells: string[] = [];
@@ -198,6 +216,77 @@ function transform(value: number, key: AttributeKey): number {
   return ATTRIBUTES[key].log ? Math.log10(value) : value;
 }
 
+function clampScore(value: number): number {
+  return Math.max(-1, Math.min(1, value));
+}
+
+function pairKey(pair: ChartPair): string {
+  return `${pair.x}/${pair.y}`;
+}
+
+function scoreDomain(values: number[], key: AttributeKey) {
+  const transformed = values.map((value) => transform(value, key));
+  const min = Math.min(...transformed);
+  const max = Math.max(...transformed);
+  const span = max - min || 1;
+
+  return {
+    normalize(value: number) {
+      return (transform(value, key) - min) / span;
+    },
+  };
+}
+
+function scoreMovie(
+  movie: MoviePoint,
+  pair: ChartPair,
+  xScoreDomain: ReturnType<typeof scoreDomain>,
+  yScoreDomain: ReturnType<typeof scoreDomain>,
+): number {
+  const xValue = movie[pair.x];
+  const yValue = movie[pair.y];
+  const coefficients = SCORE_COEFFICIENTS[pairKey(pair)];
+
+  if (
+    !coefficients ||
+    typeof xValue !== "number" ||
+    typeof yValue !== "number"
+  ) {
+    return 0;
+  }
+
+  const x = xScoreDomain.normalize(xValue);
+  const y = yScoreDomain.normalize(yValue);
+  return clampScore(coefficients.a + coefficients.b * x + coefficients.c * x * x + coefficients.d * y);
+}
+
+function hexToRgb(hex: string): [number, number, number] {
+  const normalized = hex.replace("#", "");
+  return [
+    Number.parseInt(normalized.slice(0, 2), 16),
+    Number.parseInt(normalized.slice(2, 4), 16),
+    Number.parseInt(normalized.slice(4, 6), 16),
+  ];
+}
+
+function mixHex(from: string, to: string, amount: number): string {
+  const fromRgb = hexToRgb(from);
+  const toRgb = hexToRgb(to);
+  const channels = fromRgb.map((channel, index) =>
+    Math.round(channel + (toRgb[index] - channel) * amount),
+  );
+
+  return `rgb(${channels.join(", ")})`;
+}
+
+function scoreColor(score: number): string {
+  if (score >= 0) {
+    return mixHex(SCORE_NEUTRAL, SCORE_GREEN, score);
+  }
+
+  return mixHex(SCORE_NEUTRAL, SCORE_RED, Math.abs(score));
+}
+
 function niceLinearTicks(min: number, max: number, count = 5): number[] {
   if (min === max) {
     return [min];
@@ -270,6 +359,8 @@ function Graph({
   const yValues = plotted.map((movie) => movie[pair.y] as number);
   const xScale = getScale(xValues, pair.x, PADDING.left, WIDTH - PADDING.right);
   const yScale = getScale(yValues, pair.y, HEIGHT - PADDING.bottom, PADDING.top);
+  const xScoreDomain = scoreDomain(xValues, pair.x);
+  const yScoreDomain = scoreDomain(yValues, pair.y);
 
   const xTicks = ATTRIBUTES[pair.x].log
     ? logTicks(Math.min(...xValues), Math.max(...xValues))
@@ -372,19 +463,21 @@ function Graph({
               const cy = yScale.position(movie[pair.y] as number);
               const isActive = active?.title === movie.title;
               const letterboxdUrl = getLetterboxdUrl(movie);
+              const score = scoreMovie(movie, pair, xScoreDomain, yScoreDomain);
 
               return (
                 <circle
                   key={`${pair.x}-${pair.y}-${movie.title}`}
                   className={isActive ? "ffb-dot ffb-dot--active" : "ffb-dot"}
+                  style={{ fill: scoreColor(score) }}
                   cx={cx}
                   cy={cy}
                   r={5}
                   tabIndex={0}
                   aria-label={
                     letterboxdUrl
-                      ? `Open ${movie.title} on Letterboxd`
-                      : `${movie.title} has no Letterboxd page`
+                      ? `Open ${movie.title} on Letterboxd, score ${score.toFixed(2)}`
+                      : `${movie.title} has no Letterboxd page, score ${score.toFixed(2)}`
                   }
                   onMouseEnter={() => activateMovie(movie)}
                   onMouseLeave={() => setHovered(null)}
