@@ -17,7 +17,6 @@ jobs:
           restore-keys: |
             v1
 
-      - run: bash .github/workflows/update_asset_manifest.sh
       - run: bash .github/workflows/record_sha.sh
       - run: bash .github/workflows/build_react.sh
       - run: bash .github/workflows/deploy_to_firebase.sh '${{ secrets.SA_KEY }}'
