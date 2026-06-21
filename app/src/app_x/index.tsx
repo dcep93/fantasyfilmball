@@ -142,7 +142,12 @@ function getCounter(universeValue: unknown, uid: string): number {
     return 0;
   }
 
-  const counter = (userRecord as { counter?: unknown }).counter;
+  const data = (userRecord as { data?: unknown }).data;
+  if (!data || typeof data !== "object") {
+    return 0;
+  }
+
+  const counter = (data as { counter?: unknown }).counter;
   return typeof counter === "number" ? counter : 0;
 }
 
@@ -224,7 +229,9 @@ function Dashboard({
   universeState: UniverseState;
 }) {
   const [isWriting, setIsWriting] = useState(false);
+  const [isTestingRules, setIsTestingRules] = useState(false);
   const [writeError, setWriteError] = useState<string | null>(null);
+  const [rulesTestMessage, setRulesTestMessage] = useState<string | null>(null);
 
   const universeText = useMemo(() => {
     if (universeState.status !== "ready") {
@@ -240,13 +247,13 @@ function Dashboard({
   async function incrementCounter() {
     setIsWriting(true);
     setWriteError(null);
+    setRulesTestMessage(null);
 
     try {
       await update(ref(client.database, `users/${user.uid}`), {
-        counter: increment(1),
         data: {
-          league: "fantasyfilmball",
-          slot: "free-form",
+          version: "v1",
+          counter: increment(1),
         },
         displayName: user.displayName ?? "Google player",
         email: user.email,
@@ -258,6 +265,36 @@ function Dashboard({
       setWriteError(message);
     } finally {
       setIsWriting(false);
+    }
+  }
+
+  async function testIllegalWrite() {
+    const forbiddenUid =
+      user.uid === "rules-sanity-check-other-user"
+        ? "rules-sanity-check-someone-else"
+        : "rules-sanity-check-other-user";
+
+    setIsTestingRules(true);
+    setWriteError(null);
+    setRulesTestMessage(null);
+
+    try {
+      await update(ref(client.database, `users/${forbiddenUid}`), {
+        data: {
+          version: "v1",
+          counter: increment(1),
+        },
+        displayName: user.displayName ?? "Google player",
+        email: user.email,
+        updatedAt: serverTimestamp(),
+      });
+      setRulesTestMessage(`Unexpectedly wrote to /users/${forbiddenUid}. Tighten rules.`);
+    } catch (error: unknown) {
+      const message =
+        error instanceof Error ? error.message : "Firebase blocked the write.";
+      setRulesTestMessage(`Blocked as expected: ${message}`);
+    } finally {
+      setIsTestingRules(false);
     }
   }
 
@@ -281,7 +318,7 @@ function Dashboard({
       <section className="ffb-grid">
         <div className="ffb-panel">
           <p className="ffb-label">Signed in</p>
-          <h2>{user.displayName ?? user.email ?? "Google player"}</h2>
+          <h2>{user.email ?? "Google player"}</h2>
           <p>{user.email}</p>
           <p className="ffb-source">Config source: {client.configSource}</p>
         </div>
@@ -297,7 +334,11 @@ function Dashboard({
           >
             {isWriting ? "Incrementing" : "Increment counter"}
           </button>
+          <button type="button" onClick={testIllegalWrite} disabled={isTestingRules}>
+            {isTestingRules ? "Testing rules" : "Test illegal write"}
+          </button>
           {writeError ? <p className="ffb-error">{writeError}</p> : null}
+          {rulesTestMessage ? <p className="ffb-source">{rulesTestMessage}</p> : null}
         </div>
       </section>
 

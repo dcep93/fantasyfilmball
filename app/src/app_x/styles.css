@@ -362,21 +362,6 @@
   opacity: 1;
 }
 
-.ffb-hover-label {
-  pointer-events: none;
-}
-
-.ffb-hover-label rect {
-  fill: var(--ww-panel-strong);
-  stroke: var(--ww-border-strong);
-}
-
-.ffb-hover-label text {
-  fill: var(--ww-text-strong);
-  font-size: 0.78rem;
-  font-weight: 850;
-}
-
 .ffb-tooltip {
   align-self: stretch;
   box-sizing: border-box;
@@ -391,6 +376,12 @@
   color: var(--ww-text-strong);
   font-size: 1.15rem;
   line-height: 1.15;
+}
+
+.ffb-tooltip-title {
+  margin: 1rem 0 0 !important;
+  border-top: 0.0625rem solid var(--ww-border-soft);
+  padding-top: 0.7rem;
 }
 
 .ffb-tooltip dl {

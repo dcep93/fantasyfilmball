@@ -24,12 +24,6 @@ type ChartPair = {
   y: AttributeKey;
 };
 
-type HoverState = {
-  movie: MoviePoint;
-  x: number;
-  y: number;
-} | null;
-
 const DATA_URL = "/movie_charts/2025/movie_2025_data.csv";
 
 const ATTRIBUTES: Record<
@@ -241,7 +235,7 @@ function Graph({
   pair: ChartPair;
   movies: MoviePoint[];
 }) {
-  const [hovered, setHovered] = useState<HoverState>(null);
+  const [hovered, setHovered] = useState<MoviePoint | null>(null);
   const [activeMovie, setActiveMovie] = useState<MoviePoint | null>(null);
   const plotted = useMemo(
     () =>
@@ -267,11 +261,11 @@ function Graph({
     ? logTicks(Math.min(...yValues), Math.max(...yValues))
     : niceLinearTicks(Math.min(...yValues), Math.max(...yValues));
 
-  const active = hovered?.movie ?? activeMovie;
+  const active = hovered ?? activeMovie;
 
-  function activateMovie(movie: MoviePoint, x: number, y: number) {
+  function activateMovie(movie: MoviePoint) {
     setActiveMovie(movie);
-    setHovered({ movie, x, y });
+    setHovered(movie);
   }
 
   return (
@@ -361,29 +355,14 @@ function Graph({
                   r={5}
                   tabIndex={0}
                   aria-label={movie.title}
-                  onMouseEnter={() => activateMovie(movie, cx, cy)}
+                  onMouseEnter={() => activateMovie(movie)}
                   onMouseLeave={() => setHovered(null)}
-                  onClick={() => activateMovie(movie, cx, cy)}
-                  onFocus={() => activateMovie(movie, cx, cy)}
+                  onClick={() => activateMovie(movie)}
+                  onFocus={() => activateMovie(movie)}
                   onBlur={() => setHovered(null)}
                 />
               );
             })}
-
-            {hovered ? (
-              <g
-                className="ffb-hover-label"
-                transform={`translate(${Math.min(hovered.x + 10, WIDTH - 230)} ${Math.max(
-                  42,
-                  hovered.y - 10,
-                )})`}
-              >
-                <rect width="210" height="34" rx="5" />
-                <text x="10" y="22">
-                  {hovered.movie.title}
-                </text>
-              </g>
-            ) : null}
           </svg>
         </div>
 
@@ -409,9 +388,6 @@ function MovieTooltip({ movie, pair }: { movie: MoviePoint | null; pair: ChartPa
   return (
     <aside className="ffb-tooltip" aria-live="polite">
       <p className="ffb-label">Film data</p>
-      <h3>
-        <strong>{movie.title}</strong>
-      </h3>
       <dl>
         {STAT_ORDER.map((key) => {
           const isGraphed = key === pair.x || key === pair.y;
@@ -431,6 +407,9 @@ function MovieTooltip({ movie, pair }: { movie: MoviePoint | null; pair: ChartPa
           );
         })}
       </dl>
+      <h3 className="ffb-tooltip-title">
+        <strong>{movie.title}</strong>
+      </h3>
     </aside>
   );
 }
