@@ -87,12 +87,12 @@ const SCORE_NEUTRAL = "#d8b38a";
 const SCORE_GREEN = "#58c978";
 const SCORE_RED = "#f05d63";
 const SCORE_COEFFICIENTS: Record<string, ScoreCoefficients> = {
-  "budget/domestic_gross": { a: -2.705, b: 0.104, c: -1.556, d: 4.601 },
+  "budget/domestic_gross": { a: 0.727, b: -2.077, c: -6.111, d: 8.022 },
   "budget/letterboxd_ratings": { a: 0, b: 0, c: 0, d: 0 },
-  "budget/letterboxd_avg": { a: -0.755, b: -0.602, c: 0.345, d: 2.21 },
+  "budget/letterboxd_avg": { a: -0.687, b: 0.952, c: -0.757, d: 1.869 },
   "domestic_gross/letterboxd_ratings": { a: 0, b: 0, c: 0, d: 0 },
-  "domestic_gross/letterboxd_avg": { a: 0.396, b: -2.154, c: 0.267, d: 2 },
-  "letterboxd_ratings/letterboxd_avg": { a: 15.454, b: -45.313, c: 29.483, d: 2.331 },
+  "domestic_gross/letterboxd_avg": { a: 0.141, b: -0.473, c: -4.491, d: 14.162 },
+  "letterboxd_ratings/letterboxd_avg": { a: -0.568, b: 0.793, c: -1.838, d: 3.747 },
 };
 
 function parseCsvLine(line: string): string[] {
@@ -257,7 +257,9 @@ function scoreMovie(
 
   const x = xScoreDomain.normalize(xValue);
   const y = yScoreDomain.normalize(yValue);
-  return clampScore(coefficients.a + coefficients.b * x + coefficients.c * x * x + coefficients.d * y);
+  return clampScore(
+    coefficients.a + coefficients.b * y + coefficients.c * x * x + coefficients.d * x * y,
+  );
 }
 
 function hexToRgb(hex: string): [number, number, number] {
