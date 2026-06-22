@@ -552,6 +552,23 @@
   margin: 0 auto 0.5rem;
 }
 
+.ffb-season-banner {
+  width: min(72rem, 100%);
+  box-sizing: border-box;
+  margin: 0 auto 1rem;
+  border: 0.0625rem solid var(--ww-border-strong);
+  border-radius: 0.5rem;
+  padding: 1rem 1.15rem;
+  background: rgba(255, 123, 195, 0.1);
+}
+
+.ffb-season-banner p:last-child {
+  max-width: 62rem;
+  margin-bottom: 0;
+  color: var(--ww-text-soft);
+  font-size: 1.05rem;
+}
+
 .ffb-landing-summary article {
   border: 0.0625rem solid var(--ww-border-soft);
   border-radius: 0.5rem;

@@ -245,6 +245,14 @@ function LandingPage() {
         <h1>Fantasy sports for summer movies.</h1>
       </header>
 
+      <section className="ffb-season-banner" aria-label="Season timing">
+        <p className="ffb-label">Pilot Season</p>
+        <p>
+          In the future, FantasyFilmBall will run from May 1 - August 31. While we work out issues
+          during the first season, it will run from July 14 - November 8.
+        </p>
+      </section>
+
       <section className="ffb-landing-summary" aria-label="Game summary">
         <article>
           <p className="ffb-label">Pick Movies</p>
