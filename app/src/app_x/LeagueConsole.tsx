@@ -2,6 +2,7 @@ import { useMemo, useState, type FormEvent, type ReactNode } from "react";
 import type { User } from "firebase/auth";
 import { ref, serverTimestamp, update } from "firebase/database";
 import type { FirebaseClient } from "./firebaseClient";
+import { ScoringRulesContent } from "./ScoringRulesContent";
 import {
   DEFAULT_LEAGUE_ID,
   SELECTED_LEAGUE_STORAGE_KEY,
@@ -32,6 +33,8 @@ type LeagueConsoleProps = {
   user: User;
 };
 
+type LeagueConsoleView = "league" | "scoring";
+
 const EMPTY_UNIVERSE = {};
 
 function timestamp() {
@@ -45,6 +48,7 @@ export default function LeagueConsole({
   universeState,
   user,
 }: LeagueConsoleProps) {
+  const [view, setView] = useState<LeagueConsoleView>("league");
   const [selectedKey, setSelectedKey] = useState(() =>
     window.localStorage.getItem(SELECTED_LEAGUE_STORAGE_KEY),
   );
@@ -84,7 +88,7 @@ export default function LeagueConsole({
 
   if (universeState.status === "error") {
     return (
-      <Shell onNavigate={onNavigate} onSignOut={onSignOut}>
+      <Shell activeView={view} onNavigate={onNavigate} onSignOut={onSignOut} onViewChange={setView}>
         <section className="ffb-panel">
           <p className="ffb-label">Realtime Database</p>
           <h2>Unable to load league</h2>
@@ -96,7 +100,7 @@ export default function LeagueConsole({
 
   if (universeState.status !== "ready") {
     return (
-      <Shell onNavigate={onNavigate} onSignOut={onSignOut}>
+      <Shell activeView={view} onNavigate={onNavigate} onSignOut={onSignOut} onViewChange={setView}>
         <section className="ffb-panel">
           <p className="ffb-label">Realtime Database</p>
           <h2>Loading league log</h2>
@@ -107,9 +111,21 @@ export default function LeagueConsole({
   }
 
   return (
-    <Shell onNavigate={onNavigate} onSignOut={onSignOut}>
+    <Shell activeView={view} onNavigate={onNavigate} onSignOut={onSignOut} onViewChange={setView}>
       {message ? <p className="ffb-toast">{message}</p> : null}
-      {selectedLeague ? (
+      {view === "scoring" ? (
+        <ScoringRulesContent
+          client={client}
+          onChangeLeague={() => {
+            window.localStorage.removeItem(SELECTED_LEAGUE_STORAGE_KEY);
+            setSelectedKey(null);
+            setView("league");
+          }}
+          onOpenLeague={() => setView("league")}
+          universeState={universeState}
+          user={user}
+        />
+      ) : selectedLeague ? (
         <LeagueDashboard
           client={client}
           onClearSelection={() => {
@@ -136,13 +152,17 @@ export default function LeagueConsole({
 }
 
 function Shell({
+  activeView,
   children,
   onNavigate,
   onSignOut,
+  onViewChange,
 }: {
+  activeView: LeagueConsoleView;
   children: ReactNode;
   onNavigate: (pathname: string) => void;
   onSignOut: () => void;
+  onViewChange: (view: LeagueConsoleView) => void;
 }) {
   return (
     <main className="ffb-page">
@@ -152,13 +172,21 @@ function Shell({
           <h1>League console</h1>
         </div>
         <nav className="ffb-nav" aria-label="Primary">
-          <button type="button" onClick={() => onNavigate("/")}>
+          <button type="button" onClick={() => onNavigate("/rules")}>
             Rules
           </button>
-          <button type="button" onClick={() => onNavigate("/league")}>
-            Movie Charts
+          <button
+            aria-pressed={activeView === "league"}
+            type="button"
+            onClick={() => onViewChange("league")}
+          >
+            League
           </button>
-          <button type="button" onClick={() => onNavigate("/scoring")}>
+          <button
+            aria-pressed={activeView === "scoring"}
+            type="button"
+            onClick={() => onViewChange("scoring")}
+          >
             Scoring
           </button>
           <button type="button" onClick={() => onNavigate("/debug")}>

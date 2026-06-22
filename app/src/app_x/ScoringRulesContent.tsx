@@ -6,6 +6,7 @@ import {
   DEFAULT_SCORING_RULES,
   SCORE_INPUT_HELP,
   evaluateFormula,
+  formatScoringFormula,
   slugifyPosition,
   type ScoringPosition,
   type ScoringRuleSet,
@@ -16,10 +17,10 @@ import {
   type UniverseState,
 } from "./leagueModel";
 
-type Props = {
+type ContentProps = {
   client: FirebaseClient;
-  onNavigate: (pathname: string) => void;
-  onSignOut: () => void;
+  onChangeLeague?: () => void;
+  onOpenLeague: () => void;
   universeState: UniverseState;
   user: User;
 };
@@ -38,13 +39,13 @@ function timestamp() {
   return Date.now();
 }
 
-export default function ScoringRulesPage({
+export function ScoringRulesContent({
   client,
-  onNavigate,
-  onSignOut,
+  onChangeLeague,
+  onOpenLeague,
   universeState,
   user,
-}: Props) {
+}: ContentProps) {
   const [movies, setMovies] = useState<MovieRow[]>([]);
   const [movieError, setMovieError] = useState<string | null>(null);
   const [message, setMessage] = useState<string | null>(null);
@@ -99,38 +100,13 @@ export default function ScoringRulesPage({
   }
 
   return (
-    <main className="ffb-page ffb-page--text">
-      <header className="ffb-header">
-        <div>
-          <p className="ffb-kicker">FantasyFilmBall</p>
-          <h1>Scoring rules</h1>
-          <p className="ffb-muted">
-            Everyone can view active scoring positions and formulas. Only the selected league's
-            commissioner can edit them.
-          </p>
-        </div>
-        <nav className="ffb-nav" aria-label="Primary">
-          <button type="button" onClick={() => onNavigate("/")}>
-            Rules
-          </button>
-          <button type="button" onClick={() => onNavigate("/app")}>
-            League App
-          </button>
-          <button type="button" onClick={() => onNavigate("/league")}>
-            Movie Charts
-          </button>
-          <button type="button" onClick={onSignOut}>
-            Sign out
-          </button>
-        </nav>
-      </header>
-
+    <>
       {!selectedLeague ? (
         <section className="ffb-panel ffb-centered-panel">
           <p className="ffb-label">No league selected</p>
           <h2>Choose a league first</h2>
           <p>Use the league console to start a league, request to join, or select a readable league.</p>
-          <button type="button" onClick={() => onNavigate("/app")}>
+          <button type="button" onClick={onOpenLeague}>
             Open League Console
           </button>
         </section>
@@ -174,6 +150,7 @@ export default function ScoringRulesPage({
                 onClick={() => {
                   window.localStorage.removeItem(SELECTED_LEAGUE_STORAGE_KEY);
                   setSelectedKey(null);
+                  onChangeLeague?.();
                 }}
               >
                 Change League
@@ -188,7 +165,7 @@ export default function ScoringRulesPage({
           </section>
         </>
       )}
-    </main>
+    </>
   );
 }
 
@@ -358,7 +335,7 @@ function PositionTable({
           <p className="ffb-label">{position.name}</p>
           <h2>{position.subtitle}</h2>
         </div>
-        <code>{position.formula}</code>
+        <code>{formatScoringFormula(position.formula)}</code>
       </div>
       <div className="ffb-table-wrap">
         <table>
@@ -366,7 +343,7 @@ function PositionTable({
             <tr>
               <th>#</th>
               <th>Film</th>
-              <th>Stubs</th>
+              <th>Points</th>
               <th>Gross</th>
               <th>Budget</th>
               <th>Avg</th>

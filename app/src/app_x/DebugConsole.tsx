@@ -98,14 +98,11 @@ export default function DebugConsole({
           <p className="ffb-muted">Debug view for the Firebase Realtime Database universe.</p>
         </div>
         <nav className="ffb-nav" aria-label="Primary">
-          <button type="button" onClick={() => onNavigate("/")}>
+          <button type="button" onClick={() => onNavigate("/rules")}>
             Rules
           </button>
-          <button type="button" onClick={() => onNavigate("/app")}>
-            League App
-          </button>
-          <button type="button" onClick={() => onNavigate("/scoring")}>
-            Scoring
+          <button type="button" onClick={() => onNavigate("/league")}>
+            League
           </button>
           <button type="button" onClick={onSignOut}>
             Sign out

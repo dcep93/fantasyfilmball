@@ -21,6 +21,38 @@ export type MovieScoreInput = {
 export const SCORE_INPUT_HELP =
   "G = domestic gross / $100M, B = budget / $100M, A = Letterboxd average, R = Letterboxd ratings / 100k.";
 
+export function formatScoringFormula(formula: string) {
+  if (formula === "150 * sqrt(G) * (A - 2)") {
+    return "0.015 * sqrt(DOMESTIC_GROSS) * (LETTERBOXD_AVERAGE - 2)";
+  }
+
+  if (formula === "500 * sqrt(G) / (1 + B)") {
+    return "5_000_000 * sqrt(DOMESTIC_GROSS) / (100_000_000 + PRODUCTION_BUDGET)";
+  }
+
+  if (formula === "126.5 * sqrt(R) / (1 + B)") {
+    return "40_000_000 * sqrt(LETTERBOXD_RATING_COUNT) / (100_000_000 + PRODUCTION_BUDGET)";
+  }
+
+  if (formula === "1000 * sqrt(B) / (1 + A)") {
+    return "0.1 * sqrt(PRODUCTION_BUDGET) / (1 + LETTERBOXD_AVERAGE)";
+  }
+
+  if (formula === "80 * (A - 3) * sqrt(R)") {
+    return "0.25 * (LETTERBOXD_AVERAGE - 3) * sqrt(LETTERBOXD_RATING_COUNT)";
+  }
+
+  if (formula === "253 * (3 - A) * sqrt(R)") {
+    return "0.8 * (3 - LETTERBOXD_AVERAGE) * sqrt(LETTERBOXD_RATING_COUNT)";
+  }
+
+  return formula
+    .replace(/\bG\b/g, "(DOMESTIC_GROSS / 100_000_000)")
+    .replace(/\bB\b/g, "(PRODUCTION_BUDGET / 100_000_000)")
+    .replace(/\bA\b/g, "LETTERBOXD_AVERAGE")
+    .replace(/\bR\b/g, "(LETTERBOXD_RATING_COUNT / 100_000)");
+}
+
 export const DEFAULT_SCORING_RULES: ScoringRuleSet = {
   season: "Summer 2026",
   updatedAt: 0,
@@ -29,37 +61,37 @@ export const DEFAULT_SCORING_RULES: ScoringRuleSet = {
       id: "packed-house",
       name: "Packed House",
       subtitle: "Rewards high domestic gross and high Letterboxd average.",
-      formula: "100 * G * (A - 2)",
+      formula: "150 * sqrt(G) * (A - 2)",
     },
     {
       id: "budget-alchemy",
       name: "Budget Alchemy",
-      subtitle: "Rewards high domestic gross with a moderate production budget.",
-      formula: "300 * G / (1 + 3 * abs(B - 1.5))",
+      subtitle: "Rewards high domestic gross without a high production budget.",
+      formula: "500 * sqrt(G) / (1 + B)",
     },
     {
       id: "tiny-thunder",
       name: "Tiny Thunder",
-      subtitle: "Rewards substantial Letterboxd rating volume despite low domestic gross.",
-      formula: "300 * sqrt(R) / (1 + G)",
+      subtitle: "Rewards substantial Letterboxd rating volume despite low budget.",
+      formula: "126.5 * sqrt(R) / (1 + B)",
     },
     {
       id: "disasterpiece",
       name: "Disasterpiece",
       subtitle: "Rewards low Letterboxd average with high production budget.",
-      formula: "175 * B * (3 - A)",
+      formula: "1000 * sqrt(B) / (1 + A)",
     },
     {
       id: "cult-furnace",
       name: "Cult Furnace",
       subtitle: "Rewards high Letterboxd average with substantial rating volume.",
-      formula: "150 * (A - 3) * sqrt(R)",
+      formula: "80 * (A - 3) * sqrt(R)",
     },
     {
       id: "rotten-crowd",
       name: "Rotten Crowd",
       subtitle: "Rewards low Letterboxd average with substantial rating volume.",
-      formula: "250 * (3 - A) * sqrt(R)",
+      formula: "253 * (3 - A) * sqrt(R)",
     },
   ],
 };
