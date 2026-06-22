@@ -1,4 +1,4 @@
-import { useEffect, useState, type ReactNode } from "react";
+import { useEffect, useState } from "react";
 import {
   GoogleAuthProvider,
   getRedirectResult,
@@ -249,7 +249,16 @@ function LandingPage() {
         <p className="ffb-label">Pilot Season</p>
         <p>
           In the future, FantasyFilmBall will run from May 1 - August 31. While we work out issues
-          during the first season, it will run from July 14 - November 8.
+          during the first season, it will run from July 14 - November 8, 2026.
+        </p>
+      </section>
+
+      <section className="ffb-landing-hook" aria-label="How the game works">
+        <h2>The best pick is not always the biggest hit.</h2>
+        <p>
+          Draft movies before they open, bid on the ones your friends missed, then let real box
+          office and Letterboxd data decide which films fit the scoring categories best. A famous
+          blockbuster can matter. So can a tiny breakout, a cult favorite, or a beautiful disaster.
         </p>
       </section>
 
@@ -281,8 +290,14 @@ function LandingPage() {
       </section>
 
       <section className="ffb-rule-section" aria-labelledby="sample-title">
-        <p className="ffb-label">Suggested Custom Categories</p>
+        <p className="ffb-label">Default Scoring Categories</p>
         <h2 id="sample-title">How last year's movies would have scored</h2>
+        <p>
+          These winners and charts use 2025 film data as a preview of the recommended default
+          categories. The colors run from weak category fit to neutral to strong category fit.
+        </p>
+        <ChartLegend />
+        <FormulaGlossary />
         <CategoryWinners movies={movies} />
         <div className="ffb-position-grid">
           {DEFAULT_SCORING_RULES.positions.map((position) => (
@@ -335,6 +350,17 @@ function RulesPage() {
           to a traditionally successful film.
         </p>
       </header>
+
+      <nav className="ffb-rules-toc" aria-label="Rules sections">
+        <a href="#value-title">Goal</a>
+        <a href="#season-title">Season</a>
+        <a href="#market-title">Acquisition</a>
+        <a href="#moves-title">Theater</a>
+        <a href="#positions-title">Scoring</a>
+        <a href="#example-title">Example</a>
+        <a href="#postseason-title">Postseason</a>
+        <a href="#ledger-title">App Transparency</a>
+      </nav>
 
       <section className="ffb-rule-section" aria-labelledby="value-title">
         <p className="ffb-label">Goal</p>
@@ -420,13 +446,35 @@ function RulesPage() {
           category's formula and the film's real-world data.
         </p>
         <p>
+          The optimizer checks every one-to-one film/category assignment and chooses the lineup
+          with the highest total score. If a player has fewer postered films than scoring
+          categories, the remaining categories are empty. Ties are settled by the best single
+          category score, then by film title.
+        </p>
+        <p>
           A typical league will have 6 players, each holding 10 films, with 6 scoring categories,
           meaning 4 films will not contribute to your total score.
         </p>
+        <p>The recommended default categories and formulas are:</p>
         <DefaultCategoryList />
         <p>
           The landing page shows the default categories against last year's real-world data. Use
           that as a preview of the recommended scoring shape before changing league formulas.
+        </p>
+      </section>
+
+      <section className="ffb-rule-section" aria-labelledby="example-title">
+        <p className="ffb-label">Example</p>
+        <h2 id="example-title">How a season feels</h2>
+        <p>
+          You draft one likely blockbuster, spend stubs on a horror sequel that looks cheap enough
+          to overperform, and claim a smaller film after everyone else ignores its trailer. Once
+          those movies release, they become postered and stay in your theater.
+        </p>
+        <p>
+          At the end of the season, the app might place the blockbuster into Packed House, the
+          horror sequel into Budget Alchemy, and the smaller film into Tiny Thunder. Another film
+          in your theater might sit out because it does not improve your best six-category total.
         </p>
       </section>
 
@@ -448,7 +496,7 @@ function RulesPage() {
       </section>
 
       <section className="ffb-rule-section" aria-labelledby="ledger-title">
-        <p className="ffb-label">League Admin</p>
+        <p className="ffb-label">App Transparency</p>
         <h2 id="ledger-title">How the app records the league</h2>
         <p>
           Google login identifies each user. A <Term id="commissioner">commissioner</Term> can
@@ -500,6 +548,41 @@ function DefaultCategoryList() {
   );
 }
 
+function ChartLegend() {
+  return (
+    <div className="ffb-chart-legend" aria-label="Chart color scale">
+      <span>
+        <i className="ffb-legend-red" /> weaker fit
+      </span>
+      <span>
+        <i className="ffb-legend-brown" /> neutral
+      </span>
+      <span>
+        <i className="ffb-legend-blue" /> stronger fit
+      </span>
+    </div>
+  );
+}
+
+function FormulaGlossary() {
+  return (
+    <div className="ffb-formula-glossary" aria-label="Formula variables">
+      <span>
+        <strong>DOMESTIC_GROSS</strong> US/Canada box office dollars
+      </span>
+      <span>
+        <strong>PRODUCTION_BUDGET</strong> budget dollars
+      </span>
+      <span>
+        <strong>LETTERBOXD_AVERAGE</strong> average rating
+      </span>
+      <span>
+        <strong>LETTERBOXD_RATING_COUNT</strong> number of ratings
+      </span>
+    </div>
+  );
+}
+
 function CategoryWinners({ movies }: { movies: LandingMovie[] }) {
   const winners = DEFAULT_SCORING_RULES.positions
     .map((position) => {
@@ -509,28 +592,34 @@ function CategoryWinners({ movies }: { movies: LandingMovie[] }) {
     });
 
   return (
-    <div className="ffb-winner-panel" aria-label="2025 category winners">
-      {winners.map(({ axes, position, winner }) => (
-        <article key={position.id}>
-          <p>{position.name}</p>
-          {winner ? (
-            <>
-              <h3>{winner.movie.title}</h3>
-              <span>
-                <strong>{winner.score.toFixed(1)} pts</strong> · {AXIS_META[axes.x].short}:{" "}
-                {formatMovieAxisValue(winner.movie, axes.x)} · {AXIS_META[axes.y].short}:{" "}
-                {formatMovieAxisValue(winner.movie, axes.y)}
-              </span>
-            </>
-          ) : (
-            <>
-              <h3>Loading films</h3>
-              <span>2025 data will appear here.</span>
-            </>
-          )}
-        </article>
-      ))}
-    </div>
+    <section className="ffb-winner-panel" aria-label="2025 category winners">
+      <div className="ffb-winner-panel-intro">
+        <p className="ffb-label">2025 Winners</p>
+        <p>Each card shows the top film from last year's data for that default category.</p>
+      </div>
+      <div className="ffb-winner-panel-grid">
+        {winners.map(({ axes, position, winner }) => (
+          <article key={position.id}>
+            <p>{position.name}</p>
+            {winner ? (
+              <>
+                <h3>{winner.movie.title}</h3>
+                <span>
+                  <strong>{winner.score.toFixed(1)} pts</strong> · {AXIS_META[axes.x].short}:{" "}
+                  {formatMovieAxisValue(winner.movie, axes.x)} · {AXIS_META[axes.y].short}:{" "}
+                  {formatMovieAxisValue(winner.movie, axes.y)}
+                </span>
+              </>
+            ) : (
+              <>
+                <h3>Loading films</h3>
+                <span>2025 data will appear here.</span>
+              </>
+            )}
+          </article>
+        ))}
+      </div>
+    </section>
   );
 }
 
@@ -945,44 +1034,11 @@ function LoginPage({ client }: { client: FirebaseClient }) {
   );
 }
 
-function RedirectToLeague() {
-  useEffect(() => {
-    window.history.replaceState(null, "", "/league");
-    window.dispatchEvent(new PopStateEvent("popstate"));
-  }, []);
-
-  return null;
-}
-
-function ConstructionLock({ children }: { children: ReactNode }) {
-  return (
-    <div className="ffb-construction-lock">
-      <div className="ffb-construction-content" aria-hidden="true" inert>
-        {children}
-      </div>
-      <div className="ffb-construction-overlay" role="status" aria-live="polite">
-        <section className="ffb-construction-card">
-          <p className="ffb-kicker">Under construction</p>
-          <h1>League console paused</h1>
-          <p>
-            This app is currently under construction. League actions are disabled until the console
-            is ready.
-          </p>
-        </section>
-      </div>
-    </div>
-  );
-}
-
 function AppShell() {
   const pathname = usePathname();
 
   if (pathname === "/") {
     return <LandingPage />;
-  }
-
-  if (pathname === "/app") {
-    return <RedirectToLeague />;
   }
 
   if (pathname === "/rules") {
@@ -999,49 +1055,47 @@ function PrivateApp() {
   const authState = useAuth(client);
   const user = authState.status === "signed-in" ? authState.user : null;
   const universeState = useUniverse(client, user);
-  const lockIfLeague = (node: ReactNode) =>
-    pathname === "/league" ? <ConstructionLock>{node}</ConstructionLock> : node;
 
   if (pathname !== "/league" && pathname !== "/debug") {
     return <LandingPage />;
   }
 
   if (clientState.status === "loading") {
-    return lockIfLeague(
+    return (
       <main className="ffb-page ffb-page--center">
         <section className="ffb-login">
           <p className="ffb-kicker">FantasyFilmBall</p>
           <h1>Loading Firebase</h1>
         </section>
-      </main>,
+      </main>
     );
   }
 
   if (clientState.status === "error") {
-    return lockIfLeague(
+    return (
       <main className="ffb-page ffb-page--center">
         <section className="ffb-login">
           <p className="ffb-kicker">FantasyFilmBall</p>
           <h1>Firebase needs configuration</h1>
           <p>{clientState.message}</p>
         </section>
-      </main>,
+      </main>
     );
   }
 
   if (authState.status === "loading") {
-    return lockIfLeague(
+    return (
       <main className="ffb-page ffb-page--center">
         <section className="ffb-login">
           <p className="ffb-kicker">FantasyFilmBall</p>
           <h1>Checking sign-in</h1>
         </section>
-      </main>,
+      </main>
     );
   }
 
   if (authState.status === "signed-out") {
-    return lockIfLeague(<LoginPage client={clientState.client} />);
+    return <LoginPage client={clientState.client} />;
   }
 
   if (pathname === "/debug") {
@@ -1056,14 +1110,14 @@ function PrivateApp() {
     );
   }
 
-  return lockIfLeague(
+  return (
     <LeagueConsole
       client={clientState.client}
       onNavigate={navigateTo}
       onSignOut={() => signOut(clientState.client.auth)}
       universeState={universeState}
       user={authState.user}
-    />,
+    />
   );
 }
 
