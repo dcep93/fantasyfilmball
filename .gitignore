@@ -1,4 +1,8 @@
 SA_KEY.json
+SA.json
+gac.json
+service-account.json
+service_account.json
 app/gac.json
 app/firebase.json
 app/.firebaserc
