@@ -1,7 +1,9 @@
-import { useMemo, useState, type FormEvent, type ReactNode } from "react";
+import { useEffect, useMemo, useState, type FormEvent, type ReactNode } from "react";
 import type { User } from "firebase/auth";
 import { ref, serverTimestamp, update } from "firebase/database";
 import type { FirebaseClient } from "./firebaseClient";
+import { deriveLeagueSnapshot } from "./leagueState";
+import { resolveLeagueSnapshot, snapshotIdFor, type SnapshotResolution } from "./leagueSnapshots";
 import { ScoringRulesContent } from "./ScoringRulesContent";
 import {
   DEFAULT_LEAGUE_ID,
@@ -24,6 +26,7 @@ import {
   type LeagueTransaction,
   type UniverseState,
 } from "./leagueModel";
+import { loadTrackedMovieFile, type TrackedMovieFile } from "./movieData";
 
 type LeagueConsoleProps = {
   client: FirebaseClient;
@@ -52,6 +55,8 @@ export default function LeagueConsole({
   const [selectedKey, setSelectedKey] = useState(() =>
     window.localStorage.getItem(SELECTED_LEAGUE_STORAGE_KEY),
   );
+  const [movieFile, setMovieFile] = useState<TrackedMovieFile | null>(null);
+  const [movieFileError, setMovieFileError] = useState<string | null>(null);
   const [message, setMessage] = useState<string | null>(null);
   const universeValue = useMemo(
     () => (universeState.status === "ready" ? universeState.value : EMPTY_UNIVERSE),
@@ -66,6 +71,28 @@ export default function LeagueConsole({
     window.localStorage.setItem(SELECTED_LEAGUE_STORAGE_KEY, key);
     setSelectedKey(key);
   }
+
+  useEffect(() => {
+    let active = true;
+    loadTrackedMovieFile()
+      .then((trackedMovies) => {
+        if (active) {
+          setMovieFile(trackedMovies);
+          setMovieFileError(null);
+        }
+      })
+      .catch((error: unknown) => {
+        if (active) {
+          setMovieFileError(
+            error instanceof Error ? error.message : "Unable to load tracked movie data.",
+          );
+        }
+      });
+
+    return () => {
+      active = false;
+    };
+  }, []);
 
   async function testIllegalWrite() {
     const forbiddenUid =
@@ -110,6 +137,20 @@ export default function LeagueConsole({
     );
   }
 
+  if (!movieFile) {
+    return (
+      <Shell activeView={view} onNavigate={onNavigate} onSignOut={onSignOut} onViewChange={setView}>
+        <section className="ffb-panel">
+          <p className="ffb-label">Tracked movies</p>
+          <h2>{movieFileError ? "Unable to load movies" : "Loading movie data"}</h2>
+          <p className={movieFileError ? "ffb-error" : "ffb-muted"}>
+            {movieFileError ?? "Waiting for the 2026 tracked movie file."}
+          </p>
+        </section>
+      </Shell>
+    );
+  }
+
   return (
     <Shell activeView={view} onNavigate={onNavigate} onSignOut={onSignOut} onViewChange={setView}>
       {message ? <p className="ffb-toast">{message}</p> : null}
@@ -132,6 +173,7 @@ export default function LeagueConsole({
             window.localStorage.removeItem(SELECTED_LEAGUE_STORAGE_KEY);
             setSelectedKey(null);
           }}
+          movieFile={movieFile}
           onMessage={setMessage}
           onTestIllegalWrite={testIllegalWrite}
           summary={selectedLeague}
@@ -143,6 +185,7 @@ export default function LeagueConsole({
           client={client}
           onMessage={setMessage}
           onSelect={selectLeague}
+          movieFile={movieFile}
           universeValue={universeValue}
           user={user}
         />
@@ -206,12 +249,14 @@ function LeagueDiscovery({
   client,
   onMessage,
   onSelect,
+  movieFile,
   universeValue,
   user,
 }: {
   client: FirebaseClient;
   onMessage: (message: string | null) => void;
   onSelect: (key: string) => void;
+  movieFile: TrackedMovieFile;
   universeValue: unknown;
   user: User;
 }) {
@@ -230,8 +275,16 @@ function LeagueDiscovery({
 
     try {
       const cleanLeagueId = leagueId.trim() || DEFAULT_LEAGUE_ID;
+      const now = timestamp();
       const league = makeDefaultLeague(user, leagueName, cleanLeagueId);
       const key = membershipKey(user.uid, cleanLeagueId);
+      const snapshot = deriveLeagueSnapshot({
+        generatedByUid: user.uid,
+        league,
+        movieFile,
+        now,
+        transactions: [],
+      });
 
       await update(ref(client.database, `users/${user.uid}`), {
         displayName: user.displayName,
@@ -244,6 +297,7 @@ function LeagueDiscovery({
           updatedAt: timestamp(),
         },
         [`leagues/${cleanLeagueId}`]: league,
+        [`snapshots/${key}/${snapshotIdFor(snapshot)}`]: snapshot,
         updatedAt: serverTimestamp(),
       });
 
@@ -426,6 +480,7 @@ function LeagueList({
 
 function LeagueDashboard({
   client,
+  movieFile,
   onClearSelection,
   onMessage,
   onTestIllegalWrite,
@@ -434,6 +489,7 @@ function LeagueDashboard({
   user,
 }: {
   client: FirebaseClient;
+  movieFile: TrackedMovieFile;
   onClearSelection: () => void;
   onMessage: (message: string | null) => void;
   onTestIllegalWrite: () => Promise<void>;
@@ -442,14 +498,73 @@ function LeagueDashboard({
   user: User;
 }) {
   const [isWriting, setIsWriting] = useState(false);
-  const transactions = readTransactions(universeValue, summary);
-  const ownTransactions = readOwnTransactions(universeValue, user.uid, summary);
+  const [snapshotMessage, setSnapshotMessage] = useState<string | null>(null);
+  const [renderNow] = useState(() => timestamp());
+  const transactions = useMemo(
+    () => readTransactions(universeValue, summary),
+    [summary, universeValue],
+  );
+  const ownTransactions = useMemo(
+    () => readOwnTransactions(universeValue, user.uid, summary),
+    [summary, universeValue, user.uid],
+  );
+  const snapshotResolution = useMemo(
+    () =>
+      resolveLeagueSnapshot({
+        generatedByUid: user.uid,
+        movieFile,
+        now: renderNow,
+        summary,
+        transactions,
+        universeValue,
+      }),
+    [movieFile, renderNow, summary, transactions, universeValue, user.uid],
+  );
   const currentMember = summary.league.members[user.uid];
   const isCommissioner = summary.commissionerUid === user.uid;
   const isActive = currentMember?.status === "active";
   const isKicked = Boolean(summary.league.kicked[user.uid] || currentMember?.status === "kicked");
   const pendingRequests = getPendingRequests(universeValue, summary);
-  const balance = currentMember ? stubBalance(currentMember, transactions) : STARTING_STUBS;
+  const balance = currentMember
+    ? snapshotResolution.snapshot.state.players[user.uid]?.stubs ?? stubBalance(currentMember, transactions)
+    : STARTING_STUBS;
+
+  useEffect(() => {
+    if (!isActive || !snapshotResolution.shouldWrite) {
+      return;
+    }
+
+    let active = true;
+    const snapshot = snapshotResolution.snapshot;
+    update(ref(client.database, `users/${user.uid}`), {
+      [`snapshots/${summary.membershipKey}/${snapshotIdFor(snapshot)}`]: snapshot,
+      updatedAt: serverTimestamp(),
+    })
+      .then(() => {
+        if (active) {
+          setSnapshotMessage(`Saved snapshot: ${snapshotResolution.writeReason}.`);
+        }
+      })
+      .catch((error: unknown) => {
+        if (active) {
+          setSnapshotMessage(
+            error instanceof Error ? `Snapshot save failed: ${error.message}` : "Snapshot save failed.",
+          );
+        }
+      });
+
+    return () => {
+      active = false;
+    };
+  }, [
+    client.database,
+    isActive,
+    snapshotResolution.shouldWrite,
+    snapshotResolution.snapshot,
+    snapshotResolution.writeReason,
+    summary.membershipKey,
+    user.uid,
+  ]);
 
   async function writeOwnTransaction(transaction: LeagueTransaction) {
     await update(ref(client.database, `users/${user.uid}`), {
@@ -494,7 +609,19 @@ function LeagueDashboard({
           <strong className="ffb-stubs">{balance}</strong>
           <p className="ffb-muted">Bid details decode automatically after the deadline.</p>
         </div>
+        <div className="ffb-panel">
+          <p className="ffb-label">Snapshot</p>
+          <h2>{snapshotLabel(snapshotResolution)}</h2>
+          <p className="ffb-muted">
+            {snapshotResolution.shouldWrite
+              ? snapshotResolution.writeReason
+              : `Generated ${new Date(snapshotResolution.snapshot.generatedAt).toLocaleString()}`}
+          </p>
+          {snapshotMessage ? <p className="ffb-source">{snapshotMessage}</p> : null}
+        </div>
       </section>
+
+      <DerivedLeagueOverview resolution={snapshotResolution} />
 
       {isCommissioner ? (
         <CommissionerPanel
@@ -693,6 +820,100 @@ function CommissionerPanel({
   );
 }
 
+function DerivedLeagueOverview({ resolution }: { resolution: SnapshotResolution }) {
+  const state = resolution.snapshot.state;
+  const movies = state.movies;
+  const players = Object.values(state.players).sort((left, right) =>
+    left.playerId.localeCompare(right.playerId),
+  );
+  const freeAgents = Object.entries(movies)
+    .filter(([, movie]) => movie.status === "free-agent")
+    .slice(0, 8);
+  const openAuctions = Object.values(state.auctions)
+    .filter((auction) => auction.status === "open")
+    .slice(0, 8);
+
+  return (
+    <section className="ffb-log" aria-labelledby="derived-state-title">
+      <div className="ffb-universe-head">
+        <div>
+          <p className="ffb-label">Derived state</p>
+          <h2 id="derived-state-title">League snapshot</h2>
+        </div>
+        <span>{resolution.source}</span>
+      </div>
+      <div className="ffb-league-grid ffb-league-grid--forms">
+        <div className="ffb-panel">
+          <p className="ffb-label">Theaters</p>
+          {players.map((player) => (
+            <div className="ffb-mini-block" key={player.uid}>
+              <h3>
+                {player.label} · {player.stubs} stubs
+              </h3>
+              <p className="ffb-muted">
+                {player.theater.length > 0
+                  ? player.theater.map((filmId) => movies[filmId]?.title ?? filmId).join(", ")
+                  : "No films yet."}
+              </p>
+            </div>
+          ))}
+        </div>
+        <div className="ffb-panel">
+          <p className="ffb-label">Open market</p>
+          <h3>Free agents</h3>
+          <p className="ffb-muted">
+            {freeAgents.length > 0
+              ? freeAgents.map(([, movie]) => movie.title).join(", ")
+              : "No free agents right now."}
+          </p>
+          <h3>Auctions</h3>
+          <p className="ffb-muted">
+            {openAuctions.length > 0
+              ? openAuctions
+                  .map((auction) => `${movies[auction.filmId]?.title ?? auction.filmId} (${auction.kind})`)
+                  .join(", ")
+              : "No open auctions right now."}
+          </p>
+        </div>
+        <div className="ffb-panel">
+          <p className="ffb-label">Validation</p>
+          <h3>{state.invalidTransactions.length} invalid transactions</h3>
+          {state.invalidTransactions.length > 0 ? (
+            <ul className="ffb-plain-list">
+              {state.invalidTransactions.slice(0, 5).map((invalidTransaction) => (
+                <li key={`${invalidTransaction.uid}-${invalidTransaction.txnId}`}>
+                  {invalidTransaction.txnId}: {invalidTransaction.reason}
+                </li>
+              ))}
+            </ul>
+          ) : (
+            <p className="ffb-muted">No invalid moves in the derived snapshot.</p>
+          )}
+          <p className="ffb-source">
+            Final scoring and postseason engines are intentionally not implemented yet.
+          </p>
+        </div>
+      </div>
+    </section>
+  );
+}
+
+function snapshotLabel(resolution: SnapshotResolution) {
+  if (resolution.source === "current-user") {
+    return "Your cache";
+  }
+
+  if (resolution.source === "commissioner") {
+    return "Commissioner cache";
+  }
+
+  if (resolution.source === "peer") {
+    return "Peer cache";
+  }
+
+  return "Regenerated";
+}
+
 function BidForm({
   disabled,
   member,
@@ -807,7 +1028,7 @@ function MoveForm({
 }) {
   const [filmId, setFilmId] = useState("");
   const [positionFilmId, setPositionFilmId] = useState("");
-  const [position, setPosition] = useState(summary.league.scoring.positions[0]?.name ?? "Packed House");
+  const [position, setPosition] = useState(summary.league.scoring.positions[0]?.name ?? "Crowd Favorite");
   const [oscarFilmId, setOscarFilmId] = useState("");
 
   function base(kindFee = 1) {
@@ -847,7 +1068,7 @@ function MoveForm({
         </button>
       </div>
       <label>
-        Postered film id
+        Released film id
         <input value={positionFilmId} onChange={(event) => setPositionFilmId(event.target.value)} />
       </label>
       <label>
@@ -1005,7 +1226,7 @@ function transactionText(transaction: LeagueTransaction, summary: LeagueSummary,
     return `${transaction.playerLabel} assigned ${transaction.filmId} to ${transaction.position}.`;
   }
 
-  return `${transaction.playerLabel} drafted ${transaction.filmId} for the Oscar postseason.`;
+  return `${transaction.playerLabel} recorded ${transaction.filmId} for the Oscar postseason.`;
 }
 
 function toDatetimeLocal(timestamp: number): string {

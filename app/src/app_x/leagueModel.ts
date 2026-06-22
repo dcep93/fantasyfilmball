@@ -593,10 +593,10 @@ function maskBytes(context: {
 
 function base64UrlEncode(bytes: Uint8Array) {
   const binary = Array.from(bytes, (byte) => String.fromCharCode(byte)).join("");
-  return window.btoa(binary).replace(/\+/g, "-").replace(/\//g, "_").replace(/=+$/g, "");
+  return btoa(binary).replace(/\+/g, "-").replace(/\//g, "_").replace(/=+$/g, "");
 }
 
 function base64UrlDecode(value: string) {
   const padded = value.replace(/-/g, "+").replace(/_/g, "/").padEnd(Math.ceil(value.length / 4) * 4, "=");
-  return Uint8Array.from(window.atob(padded), (char) => char.charCodeAt(0));
+  return Uint8Array.from(atob(padded), (char) => char.charCodeAt(0));
 }

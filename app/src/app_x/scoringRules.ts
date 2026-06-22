@@ -59,19 +59,19 @@ export const DEFAULT_SCORING_RULES: ScoringRuleSet = {
   positions: [
     {
       id: "packed-house",
-      name: "Packed House",
+      name: "Crowd Favorite",
       subtitle: "Rewards high domestic gross and high Letterboxd average.",
       formula: "150 * sqrt(G) * (A - 2)",
     },
     {
       id: "budget-alchemy",
-      name: "Budget Alchemy",
+      name: "Moneymaker",
       subtitle: "Rewards high domestic gross without a high production budget.",
       formula: "500 * sqrt(G) / (1 + B)",
     },
     {
       id: "tiny-thunder",
-      name: "Tiny Thunder",
+      name: "Word of Mouth",
       subtitle: "Rewards substantial Letterboxd rating volume despite low budget.",
       formula: "126.5 * sqrt(R) / (1 + B)",
     },
@@ -83,13 +83,13 @@ export const DEFAULT_SCORING_RULES: ScoringRuleSet = {
     },
     {
       id: "cult-furnace",
-      name: "Cult Furnace",
+      name: "Letterboom",
       subtitle: "Rewards high Letterboxd average with substantial rating volume.",
       formula: "80 * (A - 3) * sqrt(R)",
     },
     {
       id: "rotten-crowd",
-      name: "Rotten Crowd",
+      name: "Letterbust",
       subtitle: "Rewards low Letterboxd average with substantial rating volume.",
       formula: "253 * (3 - A) * sqrt(R)",
     },

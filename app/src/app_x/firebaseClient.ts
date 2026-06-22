@@ -26,7 +26,7 @@ function readViteConfig(): HostedConfig | null {
     storageBucket: import.meta.env.VITE_FIREBASE_STORAGE_BUCKET,
   };
 
-  if (!config.apiKey || !config.appId || !config.projectId) {
+  if (!config.apiKey || !config.projectId) {
     return null;
   }
 
@@ -57,7 +57,7 @@ async function createFirebaseClient(): Promise<FirebaseClient> {
 
   if (!config) {
     throw new Error(
-      "Deploy to Firebase Hosting or set VITE_FIREBASE_API_KEY, VITE_FIREBASE_APP_ID, and VITE_FIREBASE_PROJECT_ID for local development.",
+      "Deploy to Firebase Hosting or set VITE_FIREBASE_API_KEY and VITE_FIREBASE_PROJECT_ID for local development.",
     );
   }
 

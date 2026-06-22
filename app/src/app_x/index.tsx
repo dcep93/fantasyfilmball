@@ -1,4 +1,4 @@
-import { useEffect, useState } from "react";
+import { useEffect, useState, type KeyboardEvent, type ReactNode } from "react";
 import {
   GoogleAuthProvider,
   getRedirectResult,
@@ -48,6 +48,7 @@ type LandingMovie = {
   domestic_gross: number | null;
   letterboxd_avg: number | null;
   letterboxd_ratings: number | null;
+  letterboxdUrl: string | null;
   title: string;
 };
 
@@ -67,10 +68,22 @@ const provider = new GoogleAuthProvider();
 provider.setCustomParameters({ prompt: "select_account" });
 
 const MOVIE_DATA_URL = "/movie_charts/2025/movie_2025_data.csv";
+let landingMovieCache: LandingMovie[] | null = null;
+let landingMoviePromise: Promise<LandingMovie[]> | null = null;
 
 const tooltipText: Record<string, string> = {
+  blindBid: "A private bid amount submitted before the auction deadline. Other players can see that a bid happened, but not its details until the auction ends.",
+  categoryFormula: "The math rule for a scoring category. It turns two real-world film stats into that category's point value.",
+  domesticGross: "US/Canada theatrical box office dollars only.",
+  oscarAllocation: "The order Oscar rankings are resolved. Here it is based on regular-season point standings.",
+  freeAgent: "An unowned eligible film that can be claimed immediately because it is inside its 60-day window and has no active auction.",
+  letterboxd: "Public Letterboxd average rating and rating count from the movie data file.",
+  optimizer: "The app tries possible film-to-category assignments and keeps the lineup with the highest total score.",
   theater: "Your roster. The league config sets how many films it can hold.",
-  postered: "A film is postered when it reaches its first US/Canada theatrical release date. Postered films are locked.",
+  stubs: "The league currency used to bid on, claim, and drop films after the draft.",
+  unreleased: "A film that has not yet reached its first eligible US/Canada theatrical release date. It can still be dropped.",
+  waiverAuction: "A 48-hour blind-bid auction created when someone drops an unreleased film.",
+  released: "A film is released when it reaches its first eligible US/Canada theatrical release date. Released films are locked.",
   obfuscation: "A reversible spoiler curtain for active bid payloads. It is not real security against someone inspecting app code.",
   commissioner: "The user whose Firebase folder owns a league object. That object assigns player ids, members, and scoring rules.",
 };
@@ -82,6 +95,15 @@ const SCORE_AXES: Record<string, { x: ScoreAxisKey; y: ScoreAxisKey }> = {
   "packed-house": { x: "G", y: "A" },
   "rotten-crowd": { x: "R", y: "A" },
   "tiny-thunder": { x: "B", y: "R" },
+};
+
+const CATEGORY_ICON_BY_ID: Record<string, string> = {
+  "budget-alchemy": "/category-icons/moneymaker.png",
+  "cult-furnace": "/category-icons/letterboom.png",
+  disasterpiece: "/category-icons/disasterpiece.png",
+  "packed-house": "/category-icons/crowd-favorite.png",
+  "rotten-crowd": "/category-icons/letterbust.png",
+  "tiny-thunder": "/category-icons/word-of-mouth.png",
 };
 
 const AXIS_META: Record<
@@ -203,7 +225,7 @@ function Term({ children, id }: { children: string; id: keyof typeof tooltipText
 }
 
 function LandingPage() {
-  const [movies, setMovies] = useState<LandingMovie[]>([]);
+  const [movies, setMovies] = useState<LandingMovie[]>(() => landingMovieCache ?? []);
 
   useEffect(() => {
     document.title = "FantasyFilmBall";
@@ -212,11 +234,10 @@ function LandingPage() {
   useEffect(() => {
     let active = true;
 
-    fetch(MOVIE_DATA_URL)
-      .then((response) => (response.ok ? response.text() : ""))
-      .then((text) => {
-        if (active && text) {
-          setMovies(parseCsv(text).map(toLandingMovie).filter((movie) => movie.title));
+    loadLandingMovies()
+      .then((loadedMovies) => {
+        if (active) {
+          setMovies(loadedMovies);
         }
       })
       .catch(() => {
@@ -234,11 +255,11 @@ function LandingPage() {
     <main className="ffb-page ffb-landing">
       <header className="ffb-landing-hero">
         <nav className="ffb-nav ffb-landing-nav" aria-label="Primary">
+          <button type="button" onClick={() => navigateTo("/rules")}>
+            Rules
+          </button>
           <button className="ffb-primary" type="button" onClick={() => navigateTo("/league")}>
             Enter League
-          </button>
-          <button type="button" onClick={() => navigateTo("/rules")}>
-            Full Rules
           </button>
         </nav>
         <p className="ffb-kicker">FantasyFilmBall</p>
@@ -283,10 +304,23 @@ function LandingPage() {
           <p className="ffb-label">Postseason</p>
           <h2>Pick Oscar contenders</h2>
           <p>
-            After nominations are announced, each player drafts one Oscar-nominated film. The
+            After nominations are announced, each player ranks Oscar-nominated films. The
             postseason winner is based on Academy Award wins.
           </p>
         </article>
+      </section>
+
+      <section className="ffb-rule-section" aria-labelledby="start-title">
+        <p className="ffb-label">Start</p>
+        <h2 id="start-title">Create or join a private league</h2>
+        <div className="ffb-actions">
+          <button type="button" onClick={() => navigateTo("/rules")}>
+            Rules
+          </button>
+          <button className="ffb-primary" type="button" onClick={() => navigateTo("/league")}>
+            Enter League
+          </button>
+        </div>
       </section>
 
       <section className="ffb-rule-section" aria-labelledby="sample-title">
@@ -297,29 +331,24 @@ function LandingPage() {
           categories. The colors run from weak category fit to neutral to strong category fit.
         </p>
         <ChartLegend />
-        <FormulaGlossary />
+        <ChartInputLegend />
         <CategoryWinners movies={movies} />
         <div className="ffb-position-grid">
           {DEFAULT_SCORING_RULES.positions.map((position) => (
             <PositionShowcase key={position.id} movies={movies} position={position} />
           ))}
         </div>
-      </section>
-
-      <section className="ffb-rule-section" aria-labelledby="start-title">
-        <p className="ffb-label">Start</p>
-        <h2 id="start-title">Create or join a private league</h2>
-        <p>
-          Commissioners start leagues and edit the categories. Players sign in to record bids,
-          pickups, drops, scoring assignments, and Oscar picks.
-        </p>
-        <div className="ffb-actions">
-          <button className="ffb-primary" type="button" onClick={() => navigateTo("/league")}>
-            Enter League
-          </button>
-          <button type="button" onClick={() => navigateTo("/rules")}>
-            Read Full Rules
-          </button>
+        <div className="ffb-bottom-cta">
+          <p className="ffb-label">Ready?</p>
+          <h2>Start building your theater.</h2>
+          <div className="ffb-actions">
+            <button type="button" onClick={() => navigateTo("/rules")}>
+              Rules
+            </button>
+            <button className="ffb-primary" type="button" onClick={() => navigateTo("/league")}>
+              Enter League
+            </button>
+          </div>
         </div>
       </section>
     </main>
@@ -343,35 +372,46 @@ function RulesPage() {
           </button>
         </nav>
         <p className="ffb-kicker">FantasyFilmBall</p>
-        <h1>Full league rules.</h1>
-        <p className="ffb-landing-lede">
-          A FantasyFilmBall league is a competition to build the best theater of movies, acquired
-          before release. Films are scored according to categories, which don't always correspond
-          to a traditionally successful film.
-        </p>
+        <div className="ffb-rules-hero-lockup">
+          <h1 className="ffb-rules-image-title">
+            <img alt="Da Rules" height="1000" src="/da-rules.png" width="1000" />
+          </h1>
+          <div className="ffb-rules-hero-copy">
+            <p className="ffb-landing-lede">
+              A FantasyFilmBall league is a competition to build the best theater of movies, locked
+              upon release. Films are scored according to special categories, which don't always
+              correspond to a traditionally successful film.
+            </p>
+            <p className="ffb-rules-goal-panel">
+              The goal of this game is to encourage its users to watch more movies, new releases
+              especially.
+            </p>
+          </div>
+        </div>
       </header>
 
       <nav className="ffb-rules-toc" aria-label="Rules sections">
-        <a href="#value-title">Goal</a>
-        <a href="#season-title">Season</a>
-        <a href="#market-title">Acquisition</a>
-        <a href="#moves-title">Theater</a>
-        <a href="#positions-title">Scoring</a>
-        <a href="#example-title">Example</a>
-        <a href="#postseason-title">Postseason</a>
-        <a href="#ledger-title">App Transparency</a>
+        <a href="#goal">Goal</a>
+        <a href="#season">Season</a>
+        <a href="#acquisition">Acquisition</a>
+        <a href="#theater">Theater</a>
+        <a href="#scoring">Scoring</a>
+        <a href="#example">Example</a>
+        <a href="#postseason">Postseason</a>
+        <a href="#app-transparency">Move Log</a>
       </nav>
 
-      <section className="ffb-rule-section" aria-labelledby="value-title">
+      <section id="goal" className="ffb-rule-section" aria-labelledby="goal-title">
         <p className="ffb-label">Goal</p>
-        <h2 id="value-title">What makes a film valuable</h2>
+        <h2 id="goal-title">What makes a film valuable</h2>
         <p>
           A valuable film is not always the biggest hit. It is a film that fits a scoring category
-          nicely. Domestic gross, budgets, and Letterboxd ratings decide category value. One
-          category may reward a blockbuster with strong audience response. Another may reward a
-          cheap movie that attracted heavy attention. Another may reward an expensive movie that
-          audiences disliked. Your job is to uniquely adhere to these categories to fill your
-          theater.
+          nicely. <Term id="domesticGross">Domestic gross</Term>, budgets, and{" "}
+          <Term id="letterboxd">Letterboxd ratings</Term> decide category value. One category may
+          reward a blockbuster with strong audience response. Another may reward a cheap movie that
+          attracted heavy attention. Another may reward an expensive movie that audiences disliked.
+          Your job is to build a theater that covers those category shapes better than your friends
+          do.
         </p>
         <p>
           Each category uses exactly two real-world inputs, among domestic box office, production
@@ -381,43 +421,43 @@ function RulesPage() {
         </p>
       </section>
 
-      <section className="ffb-rule-section" aria-labelledby="season-title">
+      <section id="season" className="ffb-rule-section" aria-labelledby="season-title">
         <p className="ffb-label">Season</p>
         <h2 id="season-title">Which films count</h2>
         <p>
           The regular season covers a fixed theatrical window chosen for the league. By default it
           is the summer movie season, May 1 through August 31. A film is eligible only if it has a
-          public US/Canada theatrical release in that window. Domestic gross means US/Canada
-          theatrical box office. Streaming-only titles do not count. Festival screenings do not
-          count unless they lead to a public theatrical run.
+          public US/Canada theatrical release in that window. Streaming-only titles do not count.
+          Festival screenings do not count unless they lead to a public theatrical run.
         </p>
         <p>
-          A film becomes <Term id="postered">postered</Term> on its first eligible theatrical
-          release date. A postered film is locked in its current theater. It will be auto assigned
+          A film becomes <Term id="released">released</Term> on its first eligible theatrical
+          release date. A released film is locked in its current theater. It will be auto assigned
           to a category that maximizes your total score.
         </p>
       </section>
 
-      <section className="ffb-rule-section" aria-labelledby="market-title">
+      <section id="acquisition" className="ffb-rule-section" aria-labelledby="acquisition-title">
         <p className="ffb-label">Acquisition</p>
-        <h2 id="market-title">How players get films</h2>
+        <h2 id="acquisition-title">How players get films</h2>
         <p>
-          A league starts with a preseason snake draft. Draft picks are free. Drafted films enter
-          the player's <Term id="theater">theater</Term>. The league config sets how many players
-          may join and how many films fit in each theater.
+          A league starts with a preseason snake draft. Drafted films enter the player's{" "}
+          <Term id="theater">theater</Term>. The league config sets the max number of players, the
+          max number of films in a theater, and the number of films drafted.
         </p>
         <p>
-          After the draft, undrafted films are acquired through blind bids or free-agent pickups.
+          After the draft, undrafted films are acquired using <Term id="stubs">stubs</Term> through{" "}
+          <Term id="blindBid">blind bids</Term> or <Term id="freeAgent">free-agent pickups</Term>.
           An initial auction opens 60 days before a film's eligible release. Its bid deadline is
-          6:00 PM ET on that day. A dropped unpostered film goes to a 48-hour waiver auction. An
-          unowned film inside its 60-day window, with no active auction or waiver, can be picked up
-          immediately.
+          6:00 PM ET on that day. A dropped <Term id="unreleased">unreleased</Term> film goes to a
+          48-hour <Term id="waiverAuction">waiver auction</Term>. An unowned film inside its 60-day
+          window, with no active auction or waiver, can be picked up immediately.
         </p>
         <p>
-          A bid may include a drop stipulation: if the bid wins, the named unpostered film is
-          dropped to make room. A bid is valid only if the player can pay it and can fit the film
-          in the theater after applying any valid drop stipulation. Ties go to the earliest current
-          bid timestamp.
+          A bid may include a drop stipulation: if the bid wins, the named{" "}
+          <Term id="unreleased">unreleased</Term> film is dropped to make room. A bid is valid only
+          if the player can pay it and can fit the film in the theater after applying any valid drop
+          stipulation. Ties go to the earliest current bid timestamp.
         </p>
         <p>
           Stubs are the season budget for acquiring movies after the draft. Each player starts
@@ -427,89 +467,101 @@ function RulesPage() {
         </p>
       </section>
 
-      <section className="ffb-rule-section" aria-labelledby="moves-title">
+      <section id="theater" className="ffb-rule-section" aria-labelledby="theater-title">
         <p className="ffb-label">Theater</p>
-        <h2 id="moves-title">How rosters change</h2>
+        <h2 id="theater-title">How rosters change</h2>
         <p>
-          A player's theater holds the films that player controls. A player may drop an unpostered
-          film, but may not drop a postered film. If a drop creates a waiver auction, other
-          players may bid during the waiver window.
+          A player's theater holds the films that player controls. A player may only drop an{" "}
+          <Term id="unreleased">unreleased</Term> film. If a drop creates a{" "}
+          <Term id="waiverAuction">waiver auction</Term>, other players may bid during the waiver
+          window.
         </p>
       </section>
 
-      <section className="ffb-rule-section" aria-labelledby="positions-title">
+      <section id="scoring" className="ffb-rule-section" aria-labelledby="scoring-title">
         <p className="ffb-label">Scoring</p>
-        <h2 id="positions-title">How final scoring works</h2>
+        <h2 id="scoring-title">How final scoring works</h2>
         <p>
-          At season's end, the app auto-assigns postered films to the league's scoring categories.
-          One film may fill one category for that player. A category score comes from that
-          category's formula and the film's real-world data.
+          At season's end, the app auto-assigns released films to the league's scoring categories.
+          One film may fill one category for that player. A category score comes from that{" "}
+          <Term id="categoryFormula">category's formula</Term> and the film's real-world data.
         </p>
         <p>
-          The optimizer checks every one-to-one film/category assignment and chooses the lineup
-          with the highest total score. If a player has fewer postered films than scoring
-          categories, the remaining categories are empty. Ties are settled by the best single
-          category score, then by film title.
+          The <Term id="optimizer">optimizer</Term> checks every one-to-one film/category assignment
+          and chooses the lineup with the highest total score. If a player has fewer released films
+          than scoring categories, the remaining categories are empty. Ties are settled by the best
+          single category score, then by film title.
         </p>
-        <p>
-          A typical league will have 6 players, each holding 10 films, with 6 scoring categories,
-          meaning 4 films will not contribute to your total score.
-        </p>
+        <div className="ffb-typical-callout">
+          <p className="ffb-label">Typical Setup</p>
+          <p>
+            A typical league will have 6 players, each holding 10 films, with 6 scoring categories,
+            meaning 4 films will not contribute to your total score.
+          </p>
+        </div>
         <p>The recommended default categories and formulas are:</p>
+        <FormulaGlossary />
         <DefaultCategoryList />
         <p>
-          The landing page shows the default categories against last year's real-world data. Use
-          that as a preview of the recommended scoring shape before changing league formulas.
+          The{" "}
+          <a
+            href="/"
+            onClick={(event) => {
+              event.preventDefault();
+              navigateTo("/");
+            }}
+          >
+            landing page
+          </a>{" "}
+          shows the default categories against last year's real-world data. Use that as a preview
+          of the recommended scoring shape before changing league formulas.
         </p>
       </section>
 
-      <section className="ffb-rule-section" aria-labelledby="example-title">
+      <section id="example" className="ffb-rule-section" aria-labelledby="example-title">
         <p className="ffb-label">Example</p>
         <h2 id="example-title">How a season feels</h2>
         <p>
           You draft one likely blockbuster, spend stubs on a horror sequel that looks cheap enough
           to overperform, and claim a smaller film after everyone else ignores its trailer. Once
-          those movies release, they become postered and stay in your theater.
+          those movies release, they stay in your theater.
         </p>
         <p>
-          At the end of the season, the app might place the blockbuster into Packed House, the
-          horror sequel into Budget Alchemy, and the smaller film into Tiny Thunder. Another film
+          At the end of the season, the app might place the blockbuster into Crowd Favorite, the
+          horror sequel into Moneymaker, and the smaller film into Word of Mouth. Another film
           in your theater might sit out because it does not improve your best six-category total.
+        </p>
+        <p>
+          Months later, when Oscar nominations are announced, you rank your choices. Since you lost
+          to Dan and got second place in the regular season, you are guaranteed one of your top two
+          choices.
         </p>
       </section>
 
-      <section className="ffb-rule-section" aria-labelledby="postseason-title">
+      <section id="postseason" className="ffb-rule-section" aria-labelledby="postseason-title">
         <p className="ffb-label">Postseason</p>
         <h2 id="postseason-title">The Oscars become the playoff board</h2>
         <p>
-          When the regular season ends, the point standings determine Oscar draft order. The
-          regular-season winner gets first choice, then the rest of the league follows in standings
-          order. Each player drafts one Oscar-nominated film after nominations are announced. The
-          postseason winner is the player whose drafted film wins the most Academy Awards. Ties go
-          to regular-season point rank.
+          When Oscar nominations are announced, each player submits a ranked list of Oscar-nominated
+          films. Rankings cannot be edited after the deadline. Rankings are due 48 hours after
+          nominations are announced. After that deadline, films are assigned in regular-season point
+          order: the regular-season winner receives the highest-ranked available film on their list,
+          then the rest of the league follows in regular-season point order.
         </p>
         <p>
-          Oscar picks do not change regular-season rosters, locked films, or scoring positions.
-          They are a short postseason layer on top of the completed summer league: one nominated
-          movie per player, wins counted from the real ceremony, and no extra backend needed.
+          Each player receives one nominated movie. The postseason winner is the player whose
+          assigned film wins the most Academy Awards. Ties go to regular-season point rank. Oscar
+          picks do not change regular-season rosters, locked films, or scoring positions.
         </p>
       </section>
 
-      <section className="ffb-rule-section" aria-labelledby="ledger-title">
-        <p className="ffb-label">App Transparency</p>
-        <h2 id="ledger-title">How the app records the league</h2>
+      <section id="app-transparency" className="ffb-rule-section" aria-labelledby="app-transparency-title">
+        <p className="ffb-label">Move Log</p>
+        <h2 id="app-transparency-title">How moves are recorded</h2>
         <p>
           Google login identifies each user. A <Term id="commissioner">commissioner</Term> can
           start one or more leagues. The commissioner accepts members, kicks members, and edits the
           scoring categories.
-        </p>
-        <p>
-          The app uses Firebase Realtime Database as a shared log store, not as a custom backend.
-          Commissioner decisions write to the commissioner's folder. Player actions write to the
-          acting player's folder. Transaction ids use the form <code>x.y</code>, where{" "}
-          <code>x</code> is the commissioner-assigned player id and <code>y</code> is that player's
-          transaction index. The client derives league state from the commissioner-owned league
-          object, static movie files, and active member logs.
         </p>
         <p>
           The console is intentionally transparent: it records events first, then the league can
@@ -521,6 +573,14 @@ function RulesPage() {
           player reading the database does not casually spoil an auction. This is not cryptographic
           secrecy. After the deadline, the app can decode and show the bid amount, film, and drop
           stipulation.
+        </p>
+        <p>
+          The app uses Firebase Realtime Database as a shared log store, not as a custom backend.
+          Commissioner decisions write to the commissioner's folder. Player actions write to the
+          acting player's folder. Transaction ids use the form <code>x.y</code>, where{" "}
+          <code>x</code> is the commissioner-assigned player id and <code>y</code> is that player's
+          transaction index. The client derives league state from the commissioner-owned league
+          object, static movie files, and active member logs.
         </p>
         <div className="ffb-actions">
           <button className="ffb-primary" type="button" onClick={() => navigateTo("/league")}>
@@ -537,6 +597,7 @@ function DefaultCategoryList() {
     <div className="ffb-default-category-list" aria-label="Default scoring categories and formulas">
       {DEFAULT_SCORING_RULES.positions.map((position) => (
         <article key={position.id}>
+          <CategoryIcon position={position} />
           <div>
             <h3>{position.name}</h3>
             <p>{position.subtitle}</p>
@@ -546,6 +607,39 @@ function DefaultCategoryList() {
       ))}
     </div>
   );
+}
+
+function CategoryHeader({
+  detail,
+  position,
+}: {
+  detail: ReactNode;
+  position: ScoringPosition;
+}) {
+  return (
+    <div className="ffb-category-header">
+      <CategoryIcon position={position} />
+      <div>
+        <p className="ffb-category-name">{position.name}</p>
+        {detail}
+      </div>
+    </div>
+  );
+}
+
+function CategoryIcon({ position }: { position: ScoringPosition }) {
+  const iconSrc = CATEGORY_ICON_BY_ID[position.id];
+
+  return iconSrc ? (
+    <img
+      alt=""
+      aria-hidden="true"
+      className="ffb-category-icon"
+      height="512"
+      src={iconSrc}
+      width="512"
+    />
+  ) : null;
 }
 
 function ChartLegend() {
@@ -559,6 +653,25 @@ function ChartLegend() {
       </span>
       <span>
         <i className="ffb-legend-blue" /> stronger fit
+      </span>
+    </div>
+  );
+}
+
+function ChartInputLegend() {
+  return (
+    <div className="ffb-chart-inputs" aria-label="Chart inputs">
+      <span>
+        <strong>Gross</strong> US/Canada box office
+      </span>
+      <span>
+        <strong>Budget</strong> production budget
+      </span>
+      <span>
+        <strong>LB Avg</strong> Letterboxd average
+      </span>
+      <span>
+        <strong>LB Ratings</strong> Letterboxd rating count
       </span>
     </div>
   );
@@ -600,22 +713,24 @@ function CategoryWinners({ movies }: { movies: LandingMovie[] }) {
       <div className="ffb-winner-panel-grid">
         {winners.map(({ axes, position, winner }) => (
           <article key={position.id}>
-            <p>{position.name}</p>
-            {winner ? (
-              <>
-                <h3>{winner.movie.title}</h3>
-                <span>
+            <div className="ffb-winner-card-head">
+              <CategoryIcon position={position} />
+              <div>
+                <p className="ffb-category-name">{position.name}</p>
+                <h3>{winner ? winner.movie.title : "Loading films"}</h3>
+              </div>
+            </div>
+            <span className="ffb-winner-meta">
+              {winner ? (
+                <>
                   <strong>{winner.score.toFixed(1)} pts</strong> · {AXIS_META[axes.x].short}:{" "}
                   {formatMovieAxisValue(winner.movie, axes.x)} · {AXIS_META[axes.y].short}:{" "}
                   {formatMovieAxisValue(winner.movie, axes.y)}
-                </span>
-              </>
-            ) : (
-              <>
-                <h3>Loading films</h3>
-                <span>2025 data will appear here.</span>
-              </>
-            )}
+                </>
+              ) : (
+                "2025 data will appear here."
+              )}
+            </span>
           </article>
         ))}
       </div>
@@ -633,15 +748,11 @@ function PositionShowcase({
   const axes = SCORE_AXES[position.id] ?? { x: "G", y: "A" };
   const points = pointsForPosition(movies, position, axes);
   const topRows = topRowsForPosition(movies, position, axes, 20);
-  const topColumns = [topRows.slice(0, 10), topRows.slice(10)];
 
   return (
     <article className="ffb-position-card">
       <div className="ffb-position-card-head">
-        <div>
-          <h3>{position.name}</h3>
-          <p>{position.subtitle}</p>
-        </div>
+        <CategoryHeader detail={<p>{position.subtitle}</p>} position={position} />
         <code>{formatScoringFormula(position.formula)}</code>
       </div>
       <PositionScatter axes={axes} points={points} />
@@ -649,22 +760,26 @@ function PositionShowcase({
         <p className="ffb-label">2025 Top 20</p>
         {topRows.length > 0 ? (
           <div className="ffb-position-ranking-columns">
-            {topColumns.map((column, columnIndex) => (
-              <ol key={`${position.id}-column-${columnIndex}`} start={columnIndex * 10 + 1}>
-                {column.map((row) => (
-                  <li key={`${position.id}-${row.movie.title}`}>
-                    <span className="ffb-ranking-row">
+            <ol>
+              {topRows.map((row) => (
+                <li key={`${position.id}-${row.movie.title}`}>
+                  <span className="ffb-ranking-row">
+                    {row.movie.letterboxdUrl ? (
+                      <a href={row.movie.letterboxdUrl} rel="noreferrer" target="_blank">
+                        {row.movie.title}
+                      </a>
+                    ) : (
                       <span>{row.movie.title}</span>
-                      <small>
-                        {AXIS_META[axes.x].short}: {formatMovieAxisValue(row.movie, axes.x)} ·{" "}
-                        {AXIS_META[axes.y].short}: {formatMovieAxisValue(row.movie, axes.y)}
-                      </small>
-                      <strong>{row.score.toFixed(1)} pts</strong>
-                    </span>
-                  </li>
-                ))}
-              </ol>
-            ))}
+                    )}
+                    <small>
+                      {AXIS_META[axes.x].short}: {formatMovieAxisValue(row.movie, axes.x)} ·{" "}
+                      {AXIS_META[axes.y].short}: {formatMovieAxisValue(row.movie, axes.y)}
+                    </small>
+                    <strong>{row.score.toFixed(1)} pts</strong>
+                  </span>
+                </li>
+              ))}
+            </ol>
           </div>
         ) : (
           <p className="ffb-muted">Loading 2025 films.</p>
@@ -683,7 +798,7 @@ function PositionScatter({
 }) {
   const [hoveredTitle, setHoveredTitle] = useState<string | null>(null);
   const width = 480;
-  const height = 300;
+  const height = 240;
   const pad = { bottom: 72, left: 84, right: 66, top: 20 };
   const plotWidth = width - pad.left - pad.right;
   const plotHeight = height - pad.top - pad.bottom;
@@ -738,6 +853,13 @@ function PositionScatter({
           const key = `${point.movie.title}-${point.score}`;
           const showPoint = () => setHoveredTitle(point.movie.title);
           const clearPoint = () => setHoveredTitle(null);
+          const openPoint = () => openLetterboxd(point.movie);
+          const openPointFromKeyboard = (event: KeyboardEvent<SVGCircleElement>) => {
+            if (event.key === "Enter" || event.key === " ") {
+              event.preventDefault();
+              openPoint();
+            }
+          };
 
           return (
             <g key={key}>
@@ -749,14 +871,21 @@ function PositionScatter({
                 cx={cx}
                 cy={cy}
                 onBlur={clearPoint}
-                onClick={showPoint}
+                onClick={openPoint}
                 onFocus={showPoint}
+                onKeyDown={openPointFromKeyboard}
                 onMouseEnter={showPoint}
                 onMouseLeave={clearPoint}
                 onMouseOver={showPoint}
                 onPointerEnter={showPoint}
                 r={8}
-                tabIndex={0}
+                aria-label={
+                  point.movie.letterboxdUrl
+                    ? `Open ${point.movie.title} on Letterboxd`
+                    : undefined
+                }
+                role={point.movie.letterboxdUrl ? "link" : undefined}
+                tabIndex={point.movie.letterboxdUrl ? 0 : -1}
               >
                 <title>
                   {`${point.movie.title}: ${point.score.toFixed(1)} points; ${AXIS_META[axes.x].short} ${formatMovieAxisValue(point.movie, axes.x)}; ${AXIS_META[axes.y].short} ${formatMovieAxisValue(point.movie, axes.y)}`}
@@ -829,6 +958,14 @@ function pointForMovie(
   return { movie, score, x, y };
 }
 
+function openLetterboxd(movie: LandingMovie) {
+  if (!movie.letterboxdUrl) {
+    return;
+  }
+
+  window.open(movie.letterboxdUrl, "_blank", "noopener,noreferrer");
+}
+
 function movieInput(movie: LandingMovie): MovieScoreInput {
   return {
     A: movie.letterboxd_avg,
@@ -866,14 +1003,14 @@ function formatAxisTick(value: number, key: ScoreAxisKey) {
   }
 
   if (key === "R") {
-    return `${value.toFixed(value < 1 ? 1 : 0)}x`;
+    return formatCountShort(value * 100_000);
   }
 
-  if (value < 1) {
-    return `$${Math.round(value * 100)}M`;
+  if (key === "B" || key === "G") {
+    return formatMoneyShort(value * 100_000_000);
   }
 
-  return `$${value.toFixed(value < 10 ? 1 : 0)}B`;
+  return value.toLocaleString();
 }
 
 function formatMovieAxisValue(movie: LandingMovie, key: ScoreAxisKey) {
@@ -933,6 +1070,26 @@ function hexToRgb(hex: string) {
   };
 }
 
+function loadLandingMovies(): Promise<LandingMovie[]> {
+  if (landingMovieCache) {
+    return Promise.resolve(landingMovieCache);
+  }
+
+  landingMoviePromise ??= fetch(MOVIE_DATA_URL)
+    .then((response) => (response.ok ? response.text() : ""))
+    .then((text) => {
+      const movies = text ? parseCsv(text).map(toLandingMovie).filter((movie) => movie.title) : [];
+      landingMovieCache = movies;
+      return movies;
+    })
+    .catch(() => {
+      landingMovieCache = [];
+      return [];
+    });
+
+  return landingMoviePromise;
+}
+
 function parseCsvLine(line: string): string[] {
   const cells: string[] = [];
   let current = "";
@@ -975,8 +1132,15 @@ function toLandingMovie(row: Record<string, string>): LandingMovie {
     domestic_gross: numberCell(row.domestic_gross),
     letterboxd_avg: numberCell(row.letterboxd_avg),
     letterboxd_ratings: numberCell(row.letterboxd_ratings),
+    letterboxdUrl: letterboxdUrl(row.letterboxd_slug),
     title: row.title?.trim() ?? "",
   };
+}
+
+function letterboxdUrl(slug: string | undefined): string | null {
+  const cleanSlug = slug?.trim().replace(/^\/+|\/+$/g, "");
+
+  return cleanSlug ? `https://letterboxd.com/${cleanSlug}/` : null;
 }
 
 function numberCell(value: string | undefined): number | null {
@@ -990,6 +1154,7 @@ function numberCell(value: string | undefined): number | null {
 
 function LoginPage({ client }: { client: FirebaseClient }) {
   const [errorMessage, setErrorMessage] = useState<string | null>(null);
+  const [isReady, setIsReady] = useState(false);
 
   useEffect(() => {
     document.title = "FantasyFilmBall";
@@ -1020,8 +1185,18 @@ function LoginPage({ client }: { client: FirebaseClient }) {
           Sign in with Google to enter the private league console, manage league membership, record
           player transactions, and review scoring rules.
         </p>
+        <label className="ffb-oath-check">
+          <input
+            checked={isReady}
+            onChange={(event) => setIsReady(event.target.checked)}
+            type="checkbox"
+          />
+          <span>
+            I'm <em>ready</em> to join and <strong>I WILL NOT CHEAT</strong>
+          </span>
+        </label>
         <div className="ffb-actions">
-          <button className="ffb-primary" type="button" onClick={signIn}>
+          <button className="ffb-primary" disabled={!isReady} type="button" onClick={signIn}>
             Sign in with Google
           </button>
           <button type="button" onClick={() => navigateTo("/rules")}>
