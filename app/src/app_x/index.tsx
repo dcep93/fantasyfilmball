@@ -273,7 +273,7 @@ function LandingPage() {
         <p>
           <span>In the future, FantasyFilmBall will run from May 1 - August 31.</span>
           <span>
-            While we work out issues during the first season, it will run from July 14 - November 8,
+            While we work out issues during the first season, it will run from July 16 - November 8,
             2026.
           </span>
         </p>

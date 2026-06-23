@@ -297,7 +297,7 @@ function Shell({
           <h1>{title}</h1>
         </div>
         <nav className="ffb-app-nav" aria-label={title}>
-          <div className="ffb-app-tools" role="group" aria-label="Account and help">
+          <div className="ffb-app-tools" role="group" aria-label="Account">
             <div className="ffb-account-menu" ref={accountMenuRef}>
               <button
                 aria-expanded={isAccountMenuOpen}
@@ -335,9 +335,6 @@ function Shell({
                 </div>
               ) : null}
             </div>
-            <button type="button" onClick={() => onNavigate("/rules")}>
-              Rules
-            </button>
           </div>
           <div className="ffb-app-tabs" role="group" aria-label="League views">
             <button
@@ -360,6 +357,9 @@ function Shell({
               onClick={() => onViewChange("available")}
             >
               Available
+            </button>
+            <button type="button" onClick={() => onNavigate("/rules")}>
+              Rules
             </button>
           </div>
         </nav>
