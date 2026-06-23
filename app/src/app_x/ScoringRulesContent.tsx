@@ -121,6 +121,15 @@ export function ScoringRulesContent({
           {message ? <p className="ffb-toast">{message}</p> : null}
           {movieError ? <p className="ffb-error">{movieError}</p> : null}
 
+          <section className="ffb-panel ffb-info-panel">
+            <p className="ffb-label">Heads up</p>
+            <h2>This page needs a lot of work</h2>
+            <p>
+              The current scoring controls and previews are useful for checking the default categories,
+              but the league scoring experience is still rough.
+            </p>
+          </section>
+
           {isCommissioner ? (
             <ScoringEditor
               key={`${currentRules.updatedAt}-${currentRules.positions.length}`}

@@ -214,7 +214,7 @@
   overflow: hidden;
   border: 0.0625rem solid var(--ww-border);
   border-radius: 0.5rem;
-  background: var(--ww-panel);
+  background: #1c1512;
   box-shadow: 0 1.4rem 3rem rgba(0, 0, 0, 0.36);
 }
 
@@ -475,18 +475,6 @@ button:disabled:hover {
   border-color: var(--ww-border-strong);
 }
 
-.ffb-league-grid {
-  display: grid;
-  grid-template-columns: repeat(3, minmax(0, 1fr));
-  gap: 1rem;
-  width: min(68rem, 100%);
-  margin: 0 auto 1rem;
-}
-
-.ffb-league-grid--forms {
-  align-items: start;
-}
-
 .ffb-picker-grid {
   display: grid;
   grid-template-columns: minmax(0, 1fr) minmax(18rem, 0.42fr);
@@ -595,10 +583,14 @@ button:disabled:hover {
 }
 
 .ffb-inline-state {
-  margin-left: 0.45rem;
+  align-self: center;
+  border: 0.0625rem solid rgba(255, 123, 195, 0.32);
+  border-radius: 999rem;
+  padding: 0.22rem 0.55rem;
   color: var(--ww-text-muted);
-  font-size: 0.9rem;
-  font-weight: 650;
+  background: rgba(255, 123, 195, 0.08);
+  font-size: 0.82rem;
+  font-weight: 800;
 }
 
 .ffb-theater-row--pending {
@@ -644,11 +636,25 @@ button:disabled:hover {
   grid-template-columns: 1fr;
 }
 
+.ffb-compact-film-list,
+.ffb-available-film-list {
+  gap: 0.45rem;
+}
+
 .ffb-player-film-list article {
   border: 0.0625rem solid var(--ww-border-soft);
   border-radius: 0.5rem;
   padding: 0.85rem;
   background: rgba(255, 255, 255, 0.025);
+}
+
+.ffb-compact-film-list article,
+.ffb-available-film-list article {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) auto;
+  gap: 0.8rem;
+  align-items: center;
+  padding: 0.62rem 0.75rem;
 }
 
 .ffb-player-film-list h3 {
@@ -661,6 +667,61 @@ button:disabled:hover {
   margin: 0;
   color: var(--ww-text-soft);
   font-size: 0.9rem;
+}
+
+.ffb-player-film-list article > button {
+  min-height: 2.05rem;
+  border: 0.0625rem solid var(--ww-border);
+  border-radius: 1.1rem;
+  padding: 0.38rem 0.72rem;
+  color: var(--ww-text);
+  background: rgba(16, 12, 10, 0.3);
+  font: inherit;
+  font-size: 0.88rem;
+  font-weight: 800;
+  cursor: pointer;
+}
+
+.ffb-player-film-list article > button:hover,
+.ffb-player-film-list article > button:focus-visible {
+  border-color: var(--ww-border-strong);
+  color: var(--ww-text-strong);
+  background: rgba(255, 255, 255, 0.06);
+}
+
+.ffb-player-film-list article > button:disabled {
+  cursor: not-allowed;
+  opacity: 0.45;
+}
+
+.ffb-modal-backdrop {
+  position: fixed;
+  inset: 0;
+  z-index: 40;
+  display: grid;
+  place-items: center;
+  padding: 1rem;
+  background: rgba(9, 6, 5, 0.72);
+}
+
+.ffb-modal {
+  width: min(32rem, 100%);
+  border: 0.0625rem solid var(--ww-border);
+  border-radius: 0.65rem;
+  padding: 1.1rem;
+  background: var(--ww-panel);
+  box-shadow: 0 1.6rem 4rem rgba(0, 0, 0, 0.48);
+}
+
+.ffb-form select {
+  min-height: 2.45rem;
+  box-sizing: border-box;
+  border: 0.0625rem solid var(--ww-border);
+  border-radius: 0.5rem;
+  padding: 0.55rem 0.7rem;
+  color: var(--ww-text);
+  background: rgba(16, 12, 10, 0.72);
+  font: inherit;
 }
 
 .ffb-derived-grid {
@@ -826,6 +887,13 @@ button:disabled:hover {
   gap: 1rem;
   align-items: center;
   padding: 1.2rem;
+}
+
+.ffb-info-panel {
+  width: min(68rem, 100%);
+  margin: 0 auto 1rem;
+  padding: 1rem;
+  background: rgba(46, 138, 150, 0.09);
 }
 
 .ffb-scoring-editor {
@@ -1707,7 +1775,6 @@ button:disabled:hover {
     grid-template-columns: 1fr;
   }
 
-  .ffb-league-grid,
   .ffb-commissioner-grid,
   .ffb-landing-summary,
   .ffb-picker-grid,

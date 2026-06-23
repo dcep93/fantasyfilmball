@@ -317,6 +317,26 @@ function Shell({
                     type="button"
                     onClick={() => {
                       setIsAccountMenuOpen(false);
+                      onNavigate("/");
+                    }}
+                  >
+                    Home
+                  </button>
+                  <button
+                    role="menuitem"
+                    type="button"
+                    onClick={() => {
+                      setIsAccountMenuOpen(false);
+                      onNavigate("/rules");
+                    }}
+                  >
+                    Rules
+                  </button>
+                  <button
+                    role="menuitem"
+                    type="button"
+                    onClick={() => {
+                      setIsAccountMenuOpen(false);
                       onNavigate("/league");
                     }}
                   >
@@ -357,9 +377,6 @@ function Shell({
               onClick={() => onViewChange("available")}
             >
               Available
-            </button>
-            <button type="button" onClick={() => onNavigate("/rules")}>
-              Rules
             </button>
           </div>
         </nav>
@@ -750,7 +767,20 @@ function LeagueDashboard({
           summary={summary}
         />
       ) : routeSection === "available" ? (
-        <AvailableFilmsPanel resolution={snapshotResolution} />
+        <AvailableFilmsPanel
+          disabled={isWriting}
+          member={currentMember ?? null}
+          ownTransactions={ownTransactions}
+          resolution={snapshotResolution}
+          summary={summary}
+          user={user}
+          onSubmit={(transaction) =>
+            runAction(async () => {
+              await writeOwnTransaction(transaction);
+              return `${transaction.kind} ${transaction.txnId} logged.`;
+            })
+          }
+        />
       ) : (
         <>
       <TheatersPanel
@@ -778,33 +808,19 @@ function LeagueDashboard({
       />
 
       {isActive ? (
-        <section className="ffb-league-grid ffb-league-grid--forms">
-          <BidForm
-            disabled={isWriting}
-            member={currentMember}
-            ownTransactions={ownTransactions}
-            summary={summary}
-            user={user}
-            onSubmit={(transaction) =>
-              runAction(async () => {
-                await writeOwnTransaction(transaction);
-                return `Bid ${transaction.txnId} logged.`;
-              })
-            }
-          />
-          <MoveForm
-            disabled={isWriting}
-            member={currentMember}
-            ownTransactions={ownTransactions}
-            user={user}
-            onSubmit={(transaction) =>
-              runAction(async () => {
-                await writeOwnTransaction(transaction);
-                return `${transaction.kind} ${transaction.txnId} logged.`;
-              })
-            }
-          />
-        </section>
+        <MyTheaterActionsPanel
+          disabled={isWriting}
+          member={currentMember}
+          ownTransactions={ownTransactions}
+          resolution={snapshotResolution}
+          user={user}
+          onDrop={(transaction) =>
+            runAction(async () => {
+              await writeOwnTransaction(transaction);
+              return `Drop ${transaction.txnId} logged.`;
+            })
+          }
+        />
       ) : (
         <section className="ffb-panel ffb-centered-panel">
           <p className="ffb-label">Read only</p>
@@ -1039,10 +1055,7 @@ function TheatersPanel({
         ))}
         {kickedRequests.map((request) => (
           <div className="ffb-theater-row ffb-theater-row--pending" key={request.uid} role="row">
-            <strong role="cell">
-              {usernameFromEmail(request.email, request.uid)}
-              <span className="ffb-inline-state">kicked</span>
-            </strong>
+            <strong role="cell">{usernameFromEmail(request.email, request.uid)}</strong>
             <span className="ffb-theater-action" role="cell">
               <button
                 className="ffb-primary"
@@ -1052,6 +1065,7 @@ function TheatersPanel({
               >
                 Accept
               </button>
+              <span className="ffb-inline-state">kicked</span>
             </span>
           </div>
         ))}
@@ -1117,12 +1131,113 @@ function PlayerDetailPanel({
   );
 }
 
-function AvailableFilmsPanel({ resolution }: { resolution: SnapshotResolution }) {
-  const movies = Object.values(resolution.snapshot.state.movies)
-    .filter((movie) => !movie.ownerUid && !movie.locked)
+function MyTheaterActionsPanel({
+  disabled,
+  member,
+  onDrop,
+  ownTransactions,
+  resolution,
+  user,
+}: {
+  disabled: boolean;
+  member: LeagueMember;
+  onDrop: (transaction: LeagueTransaction) => void;
+  ownTransactions: Record<string, LeagueTransaction>;
+  resolution: SnapshotResolution;
+  user: User;
+}) {
+  const state = resolution.snapshot.state;
+  const player = state.players[user.uid];
+  const films = (player?.theater ?? [])
+    .map((filmId) => ({ filmId, movie: state.movies[filmId] }))
+    .filter((row): row is { filmId: string; movie: NonNullable<typeof row.movie> } => Boolean(row.movie))
+    .sort((left, right) => left.movie.releaseDate.localeCompare(right.movie.releaseDate));
+
+  function dropFilm(filmId: string, title: string) {
+    if (!window.confirm(`Drop ${title}? This will put it into a 48-hour waiver auction.`)) {
+      return;
+    }
+
+    onDrop(simpleTransaction(member, ownTransactions, user, filmId, "drop"));
+  }
+
+  return (
+    <section className="ffb-player-detail" aria-labelledby="my-theater-title">
+      <div className="ffb-universe-head">
+        <div>
+          <p className="ffb-label">My theater</p>
+          <h2 id="my-theater-title">My Films</h2>
+        </div>
+        <span>{player?.stubs ?? 0} stubs</span>
+      </div>
+      {films.length > 0 ? (
+        <div className="ffb-player-film-list ffb-compact-film-list">
+          {films.map(({ filmId, movie }) => (
+            <article key={`${user.uid}-${filmId}`}>
+              <div>
+                <h3>{movie.title}</h3>
+                <p>
+                  {movie.releaseDate} · {movie.locked ? "Released" : "Unreleased"}
+                </p>
+              </div>
+              {!movie.locked ? (
+                <button disabled={disabled} type="button" onClick={() => dropFilm(filmId, movie.title)}>
+                  Drop
+                </button>
+              ) : null}
+            </article>
+          ))}
+        </div>
+      ) : (
+        <p className="ffb-muted">No films in your theater yet.</p>
+      )}
+    </section>
+  );
+}
+
+function AvailableFilmsPanel({
+  disabled,
+  member,
+  onSubmit,
+  ownTransactions,
+  resolution,
+  summary,
+  user,
+}: {
+  disabled: boolean;
+  member: LeagueMember | null;
+  onSubmit: (transaction: LeagueTransaction) => void;
+  ownTransactions: Record<string, LeagueTransaction>;
+  resolution: SnapshotResolution;
+  summary: LeagueSummary;
+  user: User;
+}) {
+  const [bidFilmId, setBidFilmId] = useState<string | null>(null);
+  const state = resolution.snapshot.state;
+  const player = state.players[user.uid] ?? null;
+  const isTheaterFull = Boolean(player && player.theater.length >= summary.league.config.maxTheaterSize);
+  const ownedFilms = (player?.theater ?? [])
+    .map((filmId) => ({ filmId, movie: state.movies[filmId] }))
+    .filter((row): row is { filmId: string; movie: NonNullable<typeof row.movie> } => Boolean(row.movie))
+    .sort((left, right) => left.movie.title.localeCompare(right.movie.title));
+  const movies = Object.entries(state.movies)
+    .filter(([, movie]) => !movie.ownerUid && !movie.locked)
+    .map(([filmId, movie]) => ({ filmId, movie }))
     .sort((left, right) => {
-      return left.releaseDate.localeCompare(right.releaseDate) || left.title.localeCompare(right.title);
+      return (
+        left.movie.releaseDate.localeCompare(right.movie.releaseDate) ||
+        left.movie.title.localeCompare(right.movie.title)
+      );
     });
+  const bidFilm = bidFilmId ? movies.find(({ filmId }) => filmId === bidFilmId) ?? null : null;
+
+  function pickupFilm(filmId: string) {
+    if (!member) {
+      return;
+    }
+
+    onSubmit(simpleTransaction(member, ownTransactions, user, filmId, "pickup"));
+  }
 
   return (
     <section className="ffb-player-detail" aria-labelledby="available-films-title">
@@ -1135,20 +1250,56 @@ function AvailableFilmsPanel({ resolution }: { resolution: SnapshotResolution })
       </div>
       {movies.length > 0 ? (
         <div className="ffb-player-film-list ffb-available-film-list">
-          {movies.map((movie) => (
-            <article key={`${movie.releaseDate}-${movie.title}`}>
-              <h3>{movie.title}</h3>
-              <p>
-                {movie.releaseDate} · {availableStatusLabel(movie.status)}
-              </p>
+          {movies.map(({ filmId, movie }) => (
+            <article key={filmId}>
+              <div>
+                <h3>{movie.title}</h3>
+                <p>
+                  {movie.releaseDate} · {availableStatusLabel(movie.status)}
+                </p>
+              </div>
+              {movie.status === "free-agent" ? (
+                <button
+                  disabled={disabled || !member || isTheaterFull}
+                  type="button"
+                  onClick={() => pickupFilm(filmId)}
+                >
+                  Pickup
+                </button>
+              ) : isAuctionStatus(movie.status) ? (
+                <button disabled={disabled || !member} type="button" onClick={() => setBidFilmId(filmId)}>
+                  Bid
+                </button>
+              ) : null}
             </article>
           ))}
         </div>
       ) : (
         <p className="ffb-muted">No films are available right now.</p>
       )}
+      {bidFilm && member ? (
+        <BidModal
+          disabled={disabled}
+          filmId={bidFilm.filmId}
+          movieTitle={bidFilm.movie.title}
+          member={member}
+          ownTransactions={ownTransactions}
+          ownedFilms={ownedFilms}
+          summary={summary}
+          user={user}
+          onClose={() => setBidFilmId(null)}
+          onSubmit={(transaction) => {
+            onSubmit(transaction);
+            setBidFilmId(null);
+          }}
+        />
+      ) : null}
     </section>
   );
+}
+
+function isAuctionStatus(status: string) {
+  return status === "auction-open" || status === "waiver";
 }
 
 function availableStatusLabel(status: string) {
@@ -1164,134 +1315,134 @@ function availableStatusLabel(status: string) {
   return "Future";
 }
 
-function BidForm({
+function BidModal({
   disabled,
+  filmId,
   member,
+  movieTitle,
+  onClose,
   onSubmit,
   ownTransactions,
+  ownedFilms,
   summary,
   user,
 }: {
   disabled: boolean;
+  filmId: string;
   member: LeagueMember;
+  movieTitle: string;
+  onClose: () => void;
   onSubmit: (transaction: LeagueTransaction) => void;
   ownTransactions: Record<string, LeagueTransaction>;
+  ownedFilms: Array<{ filmId: string; movie: { title: string } }>;
   summary: LeagueSummary;
   user: User;
 }) {
-  const [filmId, setFilmId] = useState("");
   const [amount, setAmount] = useState(25);
   const [dropFilmId, setDropFilmId] = useState("");
 
   function submit(event: FormEvent) {
     event.preventDefault();
-    const txnId = nextTxnId(member, ownTransactions);
-    const payload: BidPayload = {
-      amount,
-      dropFilmId: dropFilmId.trim() || null,
-      filmId,
-      submittedAt: timestamp(),
-    };
-    const transaction = {
-      createdAt: timestamp(),
-      fee: 1,
-      kind: "bid" as const,
-      obfuscatedPayload: obfuscateBidPayload(payload, {
-        commissionerUid: summary.commissionerUid,
-        leagueId: summary.league.leagueId,
-        txnId,
-      }),
-      playerId: member.playerId,
-      playerUid: user.uid,
-      txnId,
-    };
-
-    onSubmit(transaction);
-    setFilmId("");
-    setDropFilmId("");
+    onSubmit(bidTransaction(member, ownTransactions, user, summary, filmId, amount, dropFilmId || null));
   }
 
   return (
-    <form className="ffb-panel ffb-form" onSubmit={submit}>
-      <p className="ffb-label">Bid</p>
-      <h2>Submit obfuscated bid</h2>
-      <label>
-        Film id
-        <input required value={filmId} onChange={(event) => setFilmId(event.target.value)} />
-      </label>
-      <label>
-        Stub bid
-        <input
-          min={0}
-          required
-          type="number"
-          value={amount}
-          onChange={(event) => setAmount(Number(event.target.value))}
-        />
-      </label>
-      <label>
-        Drop stipulation
-        <input value={dropFilmId} onChange={(event) => setDropFilmId(event.target.value)} />
-      </label>
-      <button className="ffb-primary" disabled={disabled} type="submit">
-        Submit Bid
-      </button>
-    </form>
-  );
-}
-
-function MoveForm({
-  disabled,
-  member,
-  onSubmit,
-  ownTransactions,
-  user,
-}: {
-  disabled: boolean;
-  member: LeagueMember;
-  onSubmit: (transaction: LeagueTransaction) => void;
-  ownTransactions: Record<string, LeagueTransaction>;
-  user: User;
-}) {
-  const [filmId, setFilmId] = useState("");
-
-  function base(kindFee = 1) {
-    const txnId = nextTxnId(member, ownTransactions);
-    return {
-      createdAt: timestamp(),
-      fee: kindFee,
-      playerId: member.playerId,
-      playerUid: user.uid,
-      txnId,
-    };
-  }
-
-  return (
-    <div className="ffb-panel ffb-form">
-      <p className="ffb-label">Operations</p>
-      <h2>Write to your log</h2>
-      <label>
-        Film id
-        <input value={filmId} onChange={(event) => setFilmId(event.target.value)} />
-      </label>
-      <div className="ffb-actions">
-        <button
-          disabled={!filmId || disabled}
-          type="button"
-          onClick={() => onSubmit({ ...base(1), filmId, kind: "pickup" })}
-        >
-          Pickup
-        </button>
-        <button
-          disabled={!filmId || disabled}
-          type="button"
-          onClick={() => onSubmit({ ...base(1), filmId, kind: "drop" })}
-        >
-          Drop
-        </button>
+    <div className="ffb-modal-backdrop" role="presentation">
+      <div className="ffb-modal" role="dialog" aria-modal="true" aria-labelledby="bid-modal-title">
+        <form className="ffb-form" onSubmit={submit}>
+          <div>
+            <p className="ffb-label">Bid</p>
+            <h2 id="bid-modal-title">{movieTitle}</h2>
+          </div>
+          <label>
+            Stub bid
+            <input
+              min={0}
+              required
+              type="number"
+              value={amount}
+              onChange={(event) => setAmount(Number(event.target.value))}
+            />
+          </label>
+          <label>
+            Drop stipulation
+            <select value={dropFilmId} onChange={(event) => setDropFilmId(event.target.value)}>
+              <option value="">No drop stipulation</option>
+              {ownedFilms.map(({ filmId: ownedFilmId, movie }) => (
+                <option key={ownedFilmId} value={ownedFilmId}>
+                  {movie.title}
+                </option>
+              ))}
+            </select>
+          </label>
+          <div className="ffb-actions">
+            <button className="ffb-primary" disabled={disabled} type="submit">
+              Submit Bid
+            </button>
+            <button disabled={disabled} type="button" onClick={onClose}>
+              Cancel
+            </button>
+          </div>
+        </form>
       </div>
     </div>
   );
+}
+
+function simpleTransaction(
+  member: LeagueMember,
+  ownTransactions: Record<string, LeagueTransaction>,
+  user: User,
+  filmId: string,
+  kind: "drop" | "pickup",
+): LeagueTransaction {
+  return {
+    ...transactionBase(member, ownTransactions, user),
+    filmId,
+    kind,
+  };
+}
+
+function bidTransaction(
+  member: LeagueMember,
+  ownTransactions: Record<string, LeagueTransaction>,
+  user: User,
+  summary: LeagueSummary,
+  filmId: string,
+  amount: number,
+  dropFilmId: string | null,
+): LeagueTransaction {
+  const base = transactionBase(member, ownTransactions, user);
+  const payload: BidPayload = {
+    amount,
+    dropFilmId,
+    filmId,
+    submittedAt: timestamp(),
+  };
+
+  return {
+    ...base,
+    kind: "bid",
+    obfuscatedPayload: obfuscateBidPayload(payload, {
+      commissionerUid: summary.commissionerUid,
+      leagueId: summary.league.leagueId,
+      txnId: base.txnId,
+    }),
+  };
+}
+
+function transactionBase(
+  member: LeagueMember,
+  ownTransactions: Record<string, LeagueTransaction>,
+  user: User,
+) {
+  return {
+    createdAt: timestamp(),
+    fee: 1,
+    playerId: member.playerId,
+    playerUid: user.uid,
+    txnId: nextTxnId(member, ownTransactions),
+  };
 }
 
 function TransactionLog({
