@@ -20,13 +20,10 @@ export type LeagueMembership = {
 export type LeagueMember = {
   email: string;
   joinedAt: number;
-  label: string;
   playerId: string;
-  status: "active" | "kicked";
 };
 
 export type LeagueConfig = {
-  maxPlayers: number;
   maxTheaterSize: number;
   regularSeasonEnd: string;
   regularSeasonStart: string;
@@ -65,34 +62,23 @@ export type BaseTransaction = {
   createdAt: number;
   fee: number;
   playerId: string;
-  playerLabel: string;
   playerUid: string;
   txnId: string;
 };
 
 export type BidTransaction = BaseTransaction & {
-  auctionDeadline: number;
-  auctionId: string;
   kind: "bid";
   obfuscatedPayload: string;
-  publicText: string;
 };
 
 export type SimpleTransaction = BaseTransaction & {
   filmId: string;
-  kind: "drop" | "oscarPick" | "pickup";
+  kind: "drop" | "pickup";
 };
 
-export type LineupTransaction = BaseTransaction & {
-  filmId: string;
-  kind: "lineup";
-  position: string;
-};
-
-export type LeagueTransaction = BidTransaction | LineupTransaction | SimpleTransaction;
+export type LeagueTransaction = BidTransaction | SimpleTransaction;
 
 export const DEFAULT_LEAGUE_ID = "defaultLeagueId";
-export const SELECTED_LEAGUE_STORAGE_KEY = "fantasyfilmball.selectedLeagueKey";
 export const STARTING_STUBS = 1000;
 
 const OBFUSCATION_VERSION = "v1";
@@ -113,8 +99,20 @@ export function membershipKey(commissionerUid: string, leagueId: string) {
   return `${commissionerUid}__${leagueId}`;
 }
 
+export function commissionerUsername(summary: Pick<LeagueSummary, "commissionerEmail" | "commissionerLabel">) {
+  return slugPart(usernameFromEmail(summary.commissionerEmail, summary.commissionerLabel));
+}
+
+export function leaguePath(summary: Pick<LeagueSummary, "commissionerEmail" | "commissionerLabel" | "league">) {
+  return `/league/${commissionerUsername(summary)}/${slugPart(summary.league.leagueId)}`;
+}
+
 export function currentSeasonYear() {
   return new Date().getFullYear();
+}
+
+export function usernameFromEmail(email: string | null | undefined, fallback = "player") {
+  return email?.split("@")[0] || fallback;
 }
 
 export function getUsers(value: unknown): Record<string, Record<string, unknown>> {
@@ -165,7 +163,9 @@ export function readLeagueSummaries(value: unknown, leagueId?: string): LeagueSu
       const commissioner = league.members[uid];
       summaries.push({
         commissionerEmail,
-        commissionerLabel: commissioner?.label ?? commissionerEmail?.split("@")[0] ?? "Commissioner",
+        commissionerLabel: commissioner
+          ? usernameFromEmail(commissioner.email, "commissioner")
+          : usernameFromEmail(commissionerEmail, "commissioner"),
         commissionerUid: uid,
         league,
         membershipKey: membershipKey(uid, league.leagueId),
@@ -179,12 +179,28 @@ export function readLeagueSummaries(value: unknown, leagueId?: string): LeagueSu
   });
 }
 
-export function findLeagueSummary(value: unknown, key: string | null): LeagueSummary | null {
-  if (!key) {
-    return null;
-  }
+export function findLeagueSummaryByPath(
+  value: unknown,
+  commissionerSlug: string,
+  leagueId: string,
+): LeagueSummary | null {
+  const cleanCommissioner = slugPart(commissionerSlug);
+  const cleanLeagueId = slugPart(leagueId);
+  return (
+    readLeagueSummaries(value).find(
+      (summary) =>
+        commissionerUsername(summary) === cleanCommissioner &&
+        slugPart(summary.league.leagueId) === cleanLeagueId,
+    ) ?? null
+  );
+}
 
-  return readLeagueSummaries(value).find((summary) => summary.membershipKey === key) ?? null;
+function slugPart(value: string | null | undefined) {
+  return (value ?? "")
+    .trim()
+    .toLowerCase()
+    .replace(/[^a-z0-9_-]+/g, "-")
+    .replace(/^-+|-+$/g, "");
 }
 
 export function readTransactions(
@@ -192,11 +208,7 @@ export function readTransactions(
   summary: LeagueSummary,
 ): LeagueTransaction[] {
   const transactions: LeagueTransaction[] = [];
-  const activeUids = new Set(
-    Object.entries(summary.league.members)
-      .filter(([, member]) => member.status === "active")
-      .map(([uid]) => uid),
-  );
+  const activeUids = new Set(Object.keys(summary.league.members));
 
   for (const [uid, root] of Object.entries(getUsers(value))) {
     if (!activeUids.has(uid)) {
@@ -244,13 +256,11 @@ export function readOwnTransactions(
 export function makeDefaultLeague(user: User, leagueName: string, leagueId = DEFAULT_LEAGUE_ID) {
   const now = Date.now();
   const email = user.email ?? "";
-  const label = user.displayName || email.split("@")[0] || "Commissioner";
   const season = currentSeasonYear();
 
   return {
     commissionerUid: user.uid,
     config: {
-      maxPlayers: 6,
       maxTheaterSize: 10,
       regularSeasonEnd: `${season}-08-31`,
       regularSeasonStart: `${season}-05-01`,
@@ -263,9 +273,7 @@ export function makeDefaultLeague(user: User, leagueName: string, leagueId = DEF
       [user.uid]: {
         email,
         joinedAt: now,
-        label,
         playerId: "1",
-        status: "active" as const,
       },
     },
     name: leagueName.trim() || "FantasyFilmBall",
@@ -301,7 +309,7 @@ export function stubBalance(member: LeagueMember, transactions: LeagueTransactio
 
 export function obfuscateBidPayload(
   payload: BidPayload,
-  context: { auctionId: string; commissionerUid: string; leagueId: string; txnId: string },
+  context: { commissionerUid: string; leagueId: string; txnId: string },
 ) {
   const json = canonicalString(payload);
   const bytes = new TextEncoder().encode(json);
@@ -312,7 +320,7 @@ export function obfuscateBidPayload(
 
 export function decodeBidPayload(
   value: string,
-  context: { auctionId: string; commissionerUid: string; leagueId: string; txnId: string },
+  context: { commissionerUid: string; leagueId: string; txnId: string },
 ): BidPayload | null {
   const [version, encoded] = value.split(":");
   if (version !== OBFUSCATION_VERSION || !encoded) {
@@ -399,12 +407,11 @@ function readMembers(value: unknown): Record<string, LeagueMember> {
 
     const email = asString(raw.email);
     const joinedAt = asNumber(raw.joinedAt);
-    const label = asString(raw.label);
     const playerId = asString(raw.playerId);
     const status = asString(raw.status);
 
-    if (email && joinedAt && label && playerId && (status === "active" || status === "kicked")) {
-      members[uid] = { email, joinedAt, label, playerId, status };
+    if (email && joinedAt && playerId && status !== "kicked") {
+      members[uid] = { email, joinedAt, playerId };
     }
   }
 
@@ -430,7 +437,6 @@ function readConfig(value: unknown, season: number): LeagueConfig {
 
   const defaults = defaultConfig(season);
   return {
-    maxPlayers: asNumber(value.maxPlayers) ?? defaults.maxPlayers,
     maxTheaterSize: asNumber(value.maxTheaterSize) ?? defaults.maxTheaterSize,
     regularSeasonEnd: asString(value.regularSeasonEnd) ?? defaults.regularSeasonEnd,
     regularSeasonStart: asString(value.regularSeasonStart) ?? defaults.regularSeasonStart,
@@ -440,7 +446,6 @@ function readConfig(value: unknown, season: number): LeagueConfig {
 
 function defaultConfig(season: number): LeagueConfig {
   return {
-    maxPlayers: 6,
     maxTheaterSize: 10,
     regularSeasonEnd: `${season}-08-31`,
     regularSeasonStart: `${season}-05-01`,
@@ -507,27 +512,18 @@ function readTransaction(value: unknown): LeagueTransaction | null {
   }
 
   if (kind === "bid") {
-    const auctionDeadline = asNumber(value.auctionDeadline);
-    const auctionId = asString(value.auctionId);
     const obfuscatedPayload = asString(value.obfuscatedPayload);
-    const publicText = asString(value.publicText);
 
-    if (!auctionDeadline || !auctionId || !obfuscatedPayload || !publicText) {
+    if (!obfuscatedPayload) {
       return null;
     }
 
-    return { ...base, auctionDeadline, auctionId, kind, obfuscatedPayload, publicText };
+    return { ...base, kind, obfuscatedPayload };
   }
 
-  if (kind === "drop" || kind === "oscarPick" || kind === "pickup") {
+  if (kind === "drop" || kind === "pickup") {
     const filmId = asString(value.filmId);
     return filmId ? { ...base, filmId, kind } : null;
-  }
-
-  if (kind === "lineup") {
-    const filmId = asString(value.filmId);
-    const position = asString(value.position);
-    return filmId && position ? { ...base, filmId, kind, position } : null;
   }
 
   return null;
@@ -537,15 +533,14 @@ function readBaseTransaction(value: Record<string, unknown>): BaseTransaction | 
   const createdAt = asNumber(value.createdAt);
   const fee = asNumber(value.fee);
   const playerId = asString(value.playerId);
-  const playerLabel = asString(value.playerLabel);
   const playerUid = asString(value.playerUid);
   const txnId = asString(value.txnId);
 
-  if (!createdAt || fee === null || !playerId || !playerLabel || !playerUid || !txnId) {
+  if (!createdAt || fee === null || !playerId || !playerUid || !txnId) {
     return null;
   }
 
-  return { createdAt, fee, playerId, playerLabel, playerUid, txnId };
+  return { createdAt, fee, playerId, playerUid, txnId };
 }
 
 function readBidPayload(value: unknown): BidPayload | null {
@@ -580,13 +575,8 @@ function canonicalString(value: unknown): string {
     .join(",")}}`;
 }
 
-function maskBytes(context: {
-  auctionId: string;
-  commissionerUid: string;
-  leagueId: string;
-  txnId: string;
-}) {
-  const seed = `${OBFUSCATION_VERSION}|${context.commissionerUid}|${context.leagueId}|${context.auctionId}|${context.txnId}|fantasyfilmball`;
+function maskBytes(context: { commissionerUid: string; leagueId: string; txnId: string }) {
+  const seed = `${OBFUSCATION_VERSION}|${context.commissionerUid}|${context.leagueId}|${context.txnId}|fantasyfilmball`;
   const bytes = new TextEncoder().encode(seed);
   return bytes.map((byte, index) => (byte + index * 31 + seed.length) % 256);
 }

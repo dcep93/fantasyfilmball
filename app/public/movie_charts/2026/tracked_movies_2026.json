@@ -1,368 +1,3534 @@
 {
   "schemaVersion": 1,
   "season": 2026,
-  "movieDataVersion": "2026-06-22",
-  "updatedAt": "2026-06-22",
+  "movieDataVersion": "2026-06-23",
+  "updatedAt": "2026-06-23",
   "movies": [
     {
-      "id": "the-super-mario-galaxy-movie",
-      "title": "The Super Mario Galaxy Movie",
-      "releaseDate": "2026-04-01",
-      "domesticGross": 429648000,
+      "id": "we-bury-the-dead",
+      "title": "We Bury the Dead",
+      "releaseDate": "2026-01-02",
+      "domesticGross": 3711918,
       "productionBudget": null,
       "letterboxdSlug": null,
       "letterboxdAverage": null,
       "letterboxdRatingCount": null,
-      "sourceNotes": ["the-numbers"],
-      "updatedAt": "2026-06-22"
+      "sourceNotes": [
+        "the-numbers-release-schedule",
+        "the-numbers-top-grossing"
+      ],
+      "updatedAt": "2026-06-23"
     },
     {
-      "id": "michael",
-      "title": "Michael",
-      "releaseDate": "2026-04-24",
-      "domesticGross": 367915000,
+      "id": "lupin-the-iiird-the-movie",
+      "title": "Lupin the IIIRD: The Movie — …",
+      "releaseDate": "2026-01-04",
+      "domesticGross": 121507,
       "productionBudget": null,
       "letterboxdSlug": null,
       "letterboxdAverage": null,
       "letterboxdRatingCount": null,
-      "sourceNotes": ["the-numbers"],
-      "updatedAt": "2026-06-22"
+      "sourceNotes": [
+        "the-numbers-top-grossing"
+      ],
+      "updatedAt": "2026-06-23"
     },
     {
-      "id": "project-hail-mary",
-      "title": "Project Hail Mary",
-      "releaseDate": "2026-03-20",
-      "domesticGross": 343923009,
+      "id": "the-raja-saab",
+      "title": "The Raja Saab",
+      "releaseDate": "2026-01-08",
+      "domesticGross": 2300000,
       "productionBudget": null,
       "letterboxdSlug": null,
       "letterboxdAverage": null,
       "letterboxdRatingCount": null,
-      "sourceNotes": ["the-numbers"],
-      "updatedAt": "2026-06-22"
-    },
-    {
-      "id": "the-devil-wears-prada-2",
-      "title": "The Devil Wears Prada 2",
-      "releaseDate": "2026-05-01",
-      "domesticGross": 219390830,
-      "productionBudget": null,
-      "letterboxdSlug": null,
-      "letterboxdAverage": null,
-      "letterboxdRatingCount": null,
-      "sourceNotes": ["the-numbers"],
-      "updatedAt": "2026-06-22"
-    },
-    {
-      "id": "obsession",
-      "title": "Obsession",
-      "releaseDate": "2026-05-15",
-      "domesticGross": 215835000,
-      "productionBudget": null,
-      "letterboxdSlug": null,
-      "letterboxdAverage": null,
-      "letterboxdRatingCount": null,
-      "sourceNotes": ["the-numbers"],
-      "updatedAt": "2026-06-22"
-    },
-    {
-      "id": "backrooms",
-      "title": "Backrooms",
-      "releaseDate": "2026-05-29",
-      "domesticGross": 175191407,
-      "productionBudget": null,
-      "letterboxdSlug": null,
-      "letterboxdAverage": null,
-      "letterboxdRatingCount": null,
-      "sourceNotes": ["the-numbers"],
-      "updatedAt": "2026-06-22"
-    },
-    {
-      "id": "star-wars-the-mandalorian-and-grogu",
-      "title": "Star Wars: The Mandalorian and Grogu",
-      "releaseDate": "2026-05-22",
-      "domesticGross": 171764990,
-      "productionBudget": null,
-      "letterboxdSlug": null,
-      "letterboxdAverage": null,
-      "letterboxdRatingCount": null,
-      "sourceNotes": ["the-numbers"],
-      "updatedAt": "2026-06-22"
-    },
-    {
-      "id": "hoppers",
-      "title": "Hoppers",
-      "releaseDate": "2026-03-06",
-      "domesticGross": 166010783,
-      "productionBudget": null,
-      "letterboxdSlug": null,
-      "letterboxdAverage": null,
-      "letterboxdRatingCount": null,
-      "sourceNotes": ["the-numbers"],
-      "updatedAt": "2026-06-22"
-    },
-    {
-      "id": "toy-story-5",
-      "title": "Toy Story 5",
-      "releaseDate": "2026-06-19",
-      "domesticGross": 160000000,
-      "productionBudget": 250000000,
-      "letterboxdSlug": null,
-      "letterboxdAverage": null,
-      "letterboxdRatingCount": null,
-      "sourceNotes": ["the-numbers", "ap-news"],
-      "updatedAt": "2026-06-22"
-    },
-    {
-      "id": "scream-7",
-      "title": "Scream 7",
-      "releaseDate": "2026-02-27",
-      "domesticGross": 121935967,
-      "productionBudget": null,
-      "letterboxdSlug": null,
-      "letterboxdAverage": null,
-      "letterboxdRatingCount": null,
-      "sourceNotes": ["the-numbers"],
-      "updatedAt": "2026-06-22"
-    },
-    {
-      "id": "goat",
-      "title": "GOAT",
-      "releaseDate": "2026-02-13",
-      "domesticGross": 103316898,
-      "productionBudget": null,
-      "letterboxdSlug": null,
-      "letterboxdAverage": null,
-      "letterboxdRatingCount": null,
-      "sourceNotes": ["the-numbers"],
-      "updatedAt": "2026-06-22"
-    },
-    {
-      "id": "scary-movie",
-      "title": "Scary Movie",
-      "releaseDate": "2026-06-05",
-      "domesticGross": 97563000,
-      "productionBudget": null,
-      "letterboxdSlug": null,
-      "letterboxdAverage": null,
-      "letterboxdRatingCount": null,
-      "sourceNotes": ["the-numbers"],
-      "updatedAt": "2026-06-22"
-    },
-    {
-      "id": "wuthering-heights",
-      "title": "Wuthering Heights",
-      "releaseDate": "2026-02-13",
-      "domesticGross": 84001072,
-      "productionBudget": null,
-      "letterboxdSlug": null,
-      "letterboxdAverage": null,
-      "letterboxdRatingCount": null,
-      "sourceNotes": ["the-numbers"],
-      "updatedAt": "2026-06-22"
-    },
-    {
-      "id": "mortal-kombat-ii",
-      "title": "Mortal Kombat II",
-      "releaseDate": "2026-05-08",
-      "domesticGross": 79579103,
-      "productionBudget": null,
-      "letterboxdSlug": null,
-      "letterboxdAverage": null,
-      "letterboxdRatingCount": null,
-      "sourceNotes": ["the-numbers"],
-      "updatedAt": "2026-06-22"
-    },
-    {
-      "id": "disclosure-day",
-      "title": "Disclosure Day",
-      "releaseDate": "2026-06-12",
-      "domesticGross": 78284000,
-      "productionBudget": null,
-      "letterboxdSlug": null,
-      "letterboxdAverage": null,
-      "letterboxdRatingCount": null,
-      "sourceNotes": ["the-numbers"],
-      "updatedAt": "2026-06-22"
-    },
-    {
-      "id": "send-help",
-      "title": "Send Help",
-      "releaseDate": "2026-01-30",
-      "domesticGross": 64734795,
-      "productionBudget": null,
-      "letterboxdSlug": null,
-      "letterboxdAverage": null,
-      "letterboxdRatingCount": null,
-      "sourceNotes": ["the-numbers"],
-      "updatedAt": "2026-06-22"
-    },
-    {
-      "id": "the-sheep-detectives",
-      "title": "The Sheep Detectives",
-      "releaseDate": "2026-05-08",
-      "domesticGross": 64400000,
-      "productionBudget": null,
-      "letterboxdSlug": null,
-      "letterboxdAverage": null,
-      "letterboxdRatingCount": null,
-      "sourceNotes": ["the-numbers"],
-      "updatedAt": "2026-06-22"
-    },
-    {
-      "id": "masters-of-the-universe",
-      "title": "Masters of the Universe",
-      "releaseDate": "2026-06-05",
-      "domesticGross": 56914098,
-      "productionBudget": null,
-      "letterboxdSlug": null,
-      "letterboxdAverage": null,
-      "letterboxdRatingCount": null,
-      "sourceNotes": ["the-numbers"],
-      "updatedAt": "2026-06-22"
-    },
-    {
-      "id": "reminders-of-him",
-      "title": "Reminders of Him",
-      "releaseDate": "2026-03-13",
-      "domesticGross": 48559430,
-      "productionBudget": null,
-      "letterboxdSlug": null,
-      "letterboxdAverage": null,
-      "letterboxdRatingCount": null,
-      "sourceNotes": ["the-numbers"],
-      "updatedAt": "2026-06-22"
-    },
-    {
-      "id": "the-drama",
-      "title": "The Drama",
-      "releaseDate": "2026-04-03",
-      "domesticGross": 48062006,
-      "productionBudget": null,
-      "letterboxdSlug": null,
-      "letterboxdAverage": null,
-      "letterboxdRatingCount": null,
-      "sourceNotes": ["the-numbers"],
-      "updatedAt": "2026-06-22"
-    },
-    {
-      "id": "iron-lung",
-      "title": "Iron Lung",
-      "releaseDate": "2026-01-30",
-      "domesticGross": 41111208,
-      "productionBudget": null,
-      "letterboxdSlug": null,
-      "letterboxdAverage": null,
-      "letterboxdRatingCount": null,
-      "sourceNotes": ["the-numbers"],
-      "updatedAt": "2026-06-22"
-    },
-    {
-      "id": "crime-101",
-      "title": "Crime 101",
-      "releaseDate": "2026-02-13",
-      "domesticGross": 36588336,
-      "productionBudget": null,
-      "letterboxdSlug": null,
-      "letterboxdAverage": null,
-      "letterboxdRatingCount": null,
-      "sourceNotes": ["the-numbers"],
-      "updatedAt": "2026-06-22"
-    },
-    {
-      "id": "lee-cronins-the-mummy",
-      "title": "Lee Cronin's The Mummy",
-      "releaseDate": "2026-04-17",
-      "domesticGross": 29152113,
-      "productionBudget": null,
-      "letterboxdSlug": null,
-      "letterboxdAverage": null,
-      "letterboxdRatingCount": null,
-      "sourceNotes": ["the-numbers"],
-      "updatedAt": "2026-06-22"
-    },
-    {
-      "id": "solo-mio",
-      "title": "Solo Mio",
-      "releaseDate": "2026-02-06",
-      "domesticGross": 25736278,
-      "productionBudget": null,
-      "letterboxdSlug": null,
-      "letterboxdAverage": null,
-      "letterboxdRatingCount": null,
-      "sourceNotes": ["the-numbers"],
-      "updatedAt": "2026-06-22"
+      "sourceNotes": [
+        "the-numbers-release-schedule",
+        "the-numbers-top-grossing"
+      ],
+      "updatedAt": "2026-06-23"
     },
     {
       "id": "primate",
       "title": "Primate",
       "releaseDate": "2026-01-09",
       "domesticGross": 25635665,
+      "productionBudget": 24000000,
+      "letterboxdSlug": "film/primate",
+      "letterboxdAverage": 3.84,
+      "letterboxdRatingCount": 1034,
+      "sourceNotes": [
+        "the-numbers-release-schedule",
+        "the-numbers-top-grossing",
+        "letterboxd",
+        "the-numbers-budget"
+      ],
+      "updatedAt": "2026-06-23"
+    },
+    {
+      "id": "greenland-2-migration",
+      "title": "Greenland 2: Migration",
+      "releaseDate": "2026-01-09",
+      "domesticGross": 17770308,
+      "productionBudget": 90000000,
+      "letterboxdSlug": "film/greenland-2-migration",
+      "letterboxdAverage": 2.22,
+      "letterboxdRatingCount": 93119,
+      "sourceNotes": [
+        "the-numbers-release-schedule",
+        "the-numbers-top-grossing",
+        "letterboxd",
+        "the-numbers-budget"
+      ],
+      "updatedAt": "2026-06-23"
+    },
+    {
+      "id": "dead-man-s-wire",
+      "title": "Dead Man’s Wire",
+      "releaseDate": "2026-01-09",
+      "domesticGross": 2236813,
       "productionBudget": null,
       "letterboxdSlug": null,
       "letterboxdAverage": null,
       "letterboxdRatingCount": null,
-      "sourceNotes": ["the-numbers"],
-      "updatedAt": "2026-06-22"
+      "sourceNotes": [
+        "the-numbers-release-schedule",
+        "the-numbers-top-grossing"
+      ],
+      "updatedAt": "2026-06-23"
+    },
+    {
+      "id": "i-was-a-stranger",
+      "title": "I Was a Stranger",
+      "releaseDate": "2026-01-09",
+      "domesticGross": 2008685,
+      "productionBudget": null,
+      "letterboxdSlug": null,
+      "letterboxdAverage": null,
+      "letterboxdRatingCount": null,
+      "sourceNotes": [
+        "the-numbers-top-grossing"
+      ],
+      "updatedAt": "2026-06-23"
+    },
+    {
+      "id": "sawt-hind-rajab",
+      "title": "Sawt Hind Rajab",
+      "releaseDate": "2026-01-09",
+      "domesticGross": 887687,
+      "productionBudget": null,
+      "letterboxdSlug": null,
+      "letterboxdAverage": null,
+      "letterboxdRatingCount": null,
+      "sourceNotes": [
+        "the-numbers-top-grossing"
+      ],
+      "updatedAt": "2026-06-23"
+    },
+    {
+      "id": "all-that-s-left-of-you",
+      "title": "All That’s Left Of You",
+      "releaseDate": "2026-01-09",
+      "domesticGross": 514374,
+      "productionBudget": null,
+      "letterboxdSlug": null,
+      "letterboxdAverage": null,
+      "letterboxdRatingCount": null,
+      "sourceNotes": [
+        "the-numbers-top-grossing"
+      ],
+      "updatedAt": "2026-06-23"
+    },
+    {
+      "id": "magalhaes",
+      "title": "Magalhães",
+      "releaseDate": "2026-01-09",
+      "domesticGross": 231318,
+      "productionBudget": null,
+      "letterboxdSlug": null,
+      "letterboxdAverage": null,
+      "letterboxdRatingCount": null,
+      "sourceNotes": [
+        "the-numbers-top-grossing"
+      ],
+      "updatedAt": "2026-06-23"
+    },
+    {
+      "id": "holding-liat",
+      "title": "Holding Liat",
+      "releaseDate": "2026-01-09",
+      "domesticGross": 73556,
+      "productionBudget": null,
+      "letterboxdSlug": "film/holding-liat",
+      "letterboxdAverage": 3.54,
+      "letterboxdRatingCount": 820,
+      "sourceNotes": [
+        "the-numbers-top-grossing",
+        "letterboxd"
+      ],
+      "updatedAt": "2026-06-23"
+    },
+    {
+      "id": "obex",
+      "title": "OBEX",
+      "releaseDate": "2026-01-09",
+      "domesticGross": 48257,
+      "productionBudget": null,
+      "letterboxdSlug": "film/obex",
+      "letterboxdAverage": 3.33,
+      "letterboxdRatingCount": 6250,
+      "sourceNotes": [
+        "the-numbers-release-schedule",
+        "the-numbers-top-grossing",
+        "letterboxd"
+      ],
+      "updatedAt": "2026-06-23"
+    },
+    {
+      "id": "jeunes-meres",
+      "title": "Jeunes mères",
+      "releaseDate": "2026-01-09",
+      "domesticGross": 13032,
+      "productionBudget": null,
+      "letterboxdSlug": null,
+      "letterboxdAverage": null,
+      "letterboxdRatingCount": null,
+      "sourceNotes": [
+        "the-numbers-top-grossing"
+      ],
+      "updatedAt": "2026-06-23"
     },
     {
       "id": "28-years-later-the-bone-temple",
       "title": "28 Years Later: The Bone Temple",
       "releaseDate": "2026-01-16",
       "domesticGross": 25147583,
+      "productionBudget": 63000000,
+      "letterboxdSlug": "film/28-years-later-the-bone-temple",
+      "letterboxdAverage": 3.84,
+      "letterboxdRatingCount": 743133,
+      "sourceNotes": [
+        "the-numbers-release-schedule",
+        "the-numbers-top-grossing",
+        "letterboxd",
+        "the-numbers-budget"
+      ],
+      "updatedAt": "2026-06-23"
+    },
+    {
+      "id": "charlie-the-wonderdog",
+      "title": "Charlie the Wonderdog",
+      "releaseDate": "2026-01-16",
+      "domesticGross": 2003436,
+      "productionBudget": null,
+      "letterboxdSlug": "film/charlie-the-wonderdog",
+      "letterboxdAverage": 2.38,
+      "letterboxdRatingCount": 1279,
+      "sourceNotes": [
+        "the-numbers-release-schedule",
+        "the-numbers-top-grossing",
+        "letterboxd"
+      ],
+      "updatedAt": "2026-06-23"
+    },
+    {
+      "id": "vie-privee",
+      "title": "Vie privée",
+      "releaseDate": "2026-01-16",
+      "domesticGross": 1421315,
+      "productionBudget": null,
+      "letterboxdSlug": "film/vie-privee",
+      "letterboxdAverage": null,
+      "letterboxdRatingCount": null,
+      "sourceNotes": [
+        "the-numbers-top-grossing",
+        "letterboxd"
+      ],
+      "updatedAt": "2026-06-23"
+    },
+    {
+      "id": "all-you-need-is-kill",
+      "title": "All You Need Is Kill",
+      "releaseDate": "2026-01-16",
+      "domesticGross": 695290,
+      "productionBudget": null,
+      "letterboxdSlug": "film/all-you-need-is-kill-1",
+      "letterboxdAverage": 3.31,
+      "letterboxdRatingCount": 17752,
+      "sourceNotes": [
+        "the-numbers-release-schedule",
+        "the-numbers-top-grossing",
+        "letterboxd"
+      ],
+      "updatedAt": "2026-06-23"
+    },
+    {
+      "id": "night-patrol",
+      "title": "Night Patrol",
+      "releaseDate": "2026-01-16",
+      "domesticGross": 372115,
+      "productionBudget": null,
+      "letterboxdSlug": "film/night-patrol",
+      "letterboxdAverage": 2.46,
+      "letterboxdRatingCount": 1162,
+      "sourceNotes": [
+        "the-numbers-release-schedule",
+        "the-numbers-top-grossing",
+        "letterboxd"
+      ],
+      "updatedAt": "2026-06-23"
+    },
+    {
+      "id": "in-die-sonne-schauen",
+      "title": "In die Sonne schauen",
+      "releaseDate": "2026-01-16",
+      "domesticGross": 88547,
       "productionBudget": null,
       "letterboxdSlug": null,
       "letterboxdAverage": null,
       "letterboxdRatingCount": null,
-      "sourceNotes": ["the-numbers"],
-      "updatedAt": "2026-06-22"
+      "sourceNotes": [
+        "the-numbers-top-grossing"
+      ],
+      "updatedAt": "2026-06-23"
+    },
+    {
+      "id": "zombie-land-saga-yumeginga-p",
+      "title": "Zombie Land Saga: Yumeginga P…",
+      "releaseDate": "2026-01-19",
+      "domesticGross": 87333,
+      "productionBudget": null,
+      "letterboxdSlug": null,
+      "letterboxdAverage": null,
+      "letterboxdRatingCount": null,
+      "sourceNotes": [
+        "the-numbers-top-grossing"
+      ],
+      "updatedAt": "2026-06-23"
+    },
+    {
+      "id": "mr-nobody-against-putin",
+      "title": "Mr. Nobody Against Putin",
+      "releaseDate": "2026-01-21",
+      "domesticGross": 270123,
+      "productionBudget": null,
+      "letterboxdSlug": "film/mr-nobody-against-putin",
+      "letterboxdAverage": 3.68,
+      "letterboxdRatingCount": 41507,
+      "sourceNotes": [
+        "the-numbers-release-schedule",
+        "the-numbers-top-grossing",
+        "letterboxd"
+      ],
+      "updatedAt": "2026-06-23"
     },
     {
       "id": "mercy",
       "title": "Mercy",
       "releaseDate": "2026-01-23",
       "domesticGross": 24390303,
+      "productionBudget": 60000000,
+      "letterboxdSlug": "film/mercy-2026",
+      "letterboxdAverage": 2.48,
+      "letterboxdRatingCount": 183942,
+      "sourceNotes": [
+        "the-numbers-release-schedule",
+        "the-numbers-top-grossing",
+        "letterboxd",
+        "the-numbers-budget"
+      ],
+      "updatedAt": "2026-06-23"
+    },
+    {
+      "id": "return-to-silent-hill",
+      "title": "Return to Silent Hill",
+      "releaseDate": "2026-01-23",
+      "domesticGross": 5544971,
+      "productionBudget": 23000000,
+      "letterboxdSlug": "film/return-to-silent-hill",
+      "letterboxdAverage": 1.43,
+      "letterboxdRatingCount": 145695,
+      "sourceNotes": [
+        "the-numbers-release-schedule",
+        "the-numbers-top-grossing",
+        "letterboxd",
+        "the-numbers-budget"
+      ],
+      "updatedAt": "2026-06-23"
+    },
+    {
+      "id": "clika",
+      "title": "Clika",
+      "releaseDate": "2026-01-23",
+      "domesticGross": 2644377,
+      "productionBudget": null,
+      "letterboxdSlug": "film/clika",
+      "letterboxdAverage": 2.14,
+      "letterboxdRatingCount": 1877,
+      "sourceNotes": [
+        "the-numbers-release-schedule",
+        "the-numbers-top-grossing",
+        "letterboxd"
+      ],
+      "updatedAt": "2026-06-23"
+    },
+    {
+      "id": "arco",
+      "title": "Arco",
+      "releaseDate": "2026-01-23",
+      "domesticGross": 955645,
+      "productionBudget": 11114361,
+      "letterboxdSlug": "film/arco",
+      "letterboxdAverage": 3.89,
+      "letterboxdRatingCount": 123521,
+      "sourceNotes": [
+        "the-numbers-top-grossing",
+        "letterboxd",
+        "the-numbers-budget"
+      ],
+      "updatedAt": "2026-06-23"
+    },
+    {
+      "id": "standout-the-ben-kjar-story",
+      "title": "Standout: The Ben Kjar Story",
+      "releaseDate": "2026-01-23",
+      "domesticGross": 629513,
+      "productionBudget": null,
+      "letterboxdSlug": "film/standout-the-ben-kjar-story",
+      "letterboxdAverage": null,
+      "letterboxdRatingCount": null,
+      "sourceNotes": [
+        "the-numbers-release-schedule",
+        "the-numbers-top-grossing",
+        "letterboxd"
+      ],
+      "updatedAt": "2026-06-23"
+    },
+    {
+      "id": "h-is-for-hawk",
+      "title": "H is for Hawk",
+      "releaseDate": "2026-01-23",
+      "domesticGross": 342239,
+      "productionBudget": null,
+      "letterboxdSlug": "film/h-is-for-hawk",
+      "letterboxdAverage": 3.31,
+      "letterboxdRatingCount": 7724,
+      "sourceNotes": [
+        "the-numbers-top-grossing",
+        "letterboxd"
+      ],
+      "updatedAt": "2026-06-23"
+    },
+    {
+      "id": "send-help",
+      "title": "Send Help",
+      "releaseDate": "2026-01-30",
+      "domesticGross": 64734795,
+      "productionBudget": 40000000,
+      "letterboxdSlug": "film/send-help",
+      "letterboxdAverage": 3.32,
+      "letterboxdRatingCount": 986905,
+      "sourceNotes": [
+        "the-numbers-release-schedule",
+        "the-numbers-top-grossing",
+        "letterboxd",
+        "the-numbers-budget"
+      ],
+      "updatedAt": "2026-06-23"
+    },
+    {
+      "id": "iron-lung",
+      "title": "Iron Lung",
+      "releaseDate": "2026-01-30",
+      "domesticGross": 41111208,
+      "productionBudget": 3000000,
+      "letterboxdSlug": "film/iron-lung",
+      "letterboxdAverage": 3.14,
+      "letterboxdRatingCount": 315533,
+      "sourceNotes": [
+        "the-numbers-release-schedule",
+        "the-numbers-top-grossing",
+        "letterboxd",
+        "the-numbers-budget"
+      ],
+      "updatedAt": "2026-06-23"
+    },
+    {
+      "id": "melania",
+      "title": "Melania",
+      "releaseDate": "2026-01-30",
+      "domesticGross": 16357453,
+      "productionBudget": null,
+      "letterboxdSlug": "film/melania-2026",
+      "letterboxdAverage": 1.1,
+      "letterboxdRatingCount": 24589,
+      "sourceNotes": [
+        "the-numbers-release-schedule",
+        "the-numbers-top-grossing",
+        "letterboxd"
+      ],
+      "updatedAt": "2026-06-23"
+    },
+    {
+      "id": "shelter",
+      "title": "Shelter",
+      "releaseDate": "2026-01-30",
+      "domesticGross": 12805541,
+      "productionBudget": 50000000,
+      "letterboxdSlug": "film/shelter-2026",
+      "letterboxdAverage": 2.66,
+      "letterboxdRatingCount": 60502,
+      "sourceNotes": [
+        "the-numbers-release-schedule",
+        "the-numbers-top-grossing",
+        "letterboxd",
+        "the-numbers-budget"
+      ],
+      "updatedAt": "2026-06-23"
+    },
+    {
+      "id": "the-moment",
+      "title": "The Moment",
+      "releaseDate": "2026-01-30",
+      "domesticGross": 3929912,
+      "productionBudget": null,
+      "letterboxdSlug": "film/the-moment-2026",
+      "letterboxdAverage": 3.41,
+      "letterboxdRatingCount": 202879,
+      "sourceNotes": [
+        "the-numbers-release-schedule",
+        "the-numbers-top-grossing",
+        "letterboxd"
+      ],
+      "updatedAt": "2026-06-23"
+    },
+    {
+      "id": "back-to-the-past",
+      "title": "Back to the Past (寻秦记)",
+      "releaseDate": "2026-01-30",
+      "domesticGross": 1949379,
       "productionBudget": null,
       "letterboxdSlug": null,
       "letterboxdAverage": null,
       "letterboxdRatingCount": null,
-      "sourceNotes": ["the-numbers"],
-      "updatedAt": "2026-06-22"
+      "sourceNotes": [
+        "the-numbers-top-grossing"
+      ],
+      "updatedAt": "2026-06-23"
+    },
+    {
+      "id": "un-poeta",
+      "title": "Un poeta",
+      "releaseDate": "2026-01-30",
+      "domesticGross": 277203,
+      "productionBudget": null,
+      "letterboxdSlug": null,
+      "letterboxdAverage": null,
+      "letterboxdRatingCount": null,
+      "sourceNotes": [
+        "the-numbers-top-grossing"
+      ],
+      "updatedAt": "2026-06-23"
+    },
+    {
+      "id": "natchez",
+      "title": "Natchez",
+      "releaseDate": "2026-01-30",
+      "domesticGross": 186507,
+      "productionBudget": null,
+      "letterboxdSlug": "film/natchez-1",
+      "letterboxdAverage": 4.16,
+      "letterboxdRatingCount": 3039,
+      "sourceNotes": [
+        "the-numbers-top-grossing",
+        "letterboxd"
+      ],
+      "updatedAt": "2026-06-23"
+    },
+    {
+      "id": "astin-sem-eftir-er",
+      "title": "Ástin sem eftir er",
+      "releaseDate": "2026-01-30",
+      "domesticGross": 146508,
+      "productionBudget": null,
+      "letterboxdSlug": null,
+      "letterboxdAverage": null,
+      "letterboxdRatingCount": null,
+      "sourceNotes": [
+        "the-numbers-top-grossing"
+      ],
+      "updatedAt": "2026-06-23"
+    },
+    {
+      "id": "islands",
+      "title": "Islands",
+      "releaseDate": "2026-01-30",
+      "domesticGross": 53192,
+      "productionBudget": null,
+      "letterboxdSlug": "film/islands",
+      "letterboxdAverage": null,
+      "letterboxdRatingCount": null,
+      "sourceNotes": [
+        "the-numbers-top-grossing",
+        "letterboxd"
+      ],
+      "updatedAt": "2026-06-23"
+    },
+    {
+      "id": "solo-mio",
+      "title": "Solo Mio",
+      "releaseDate": "2026-02-06",
+      "domesticGross": 25736278,
+      "productionBudget": 4000000,
+      "letterboxdSlug": "film/solo-mio",
+      "letterboxdAverage": 3.08,
+      "letterboxdRatingCount": 26229,
+      "sourceNotes": [
+        "the-numbers-release-schedule",
+        "the-numbers-top-grossing",
+        "letterboxd",
+        "the-numbers-budget"
+      ],
+      "updatedAt": "2026-06-23"
+    },
+    {
+      "id": "dracula-a-love-tale",
+      "title": "Dracula: A Love Tale",
+      "releaseDate": "2026-02-06",
+      "domesticGross": 13053400,
+      "productionBudget": null,
+      "letterboxdSlug": null,
+      "letterboxdAverage": null,
+      "letterboxdRatingCount": null,
+      "sourceNotes": [
+        "the-numbers-top-grossing"
+      ],
+      "updatedAt": "2026-06-23"
+    },
+    {
+      "id": "the-strangers-chapter-3",
+      "title": "The Strangers: Chapter 3",
+      "releaseDate": "2026-02-06",
+      "domesticGross": 8560986,
+      "productionBudget": null,
+      "letterboxdSlug": "film/the-strangers-chapter-3",
+      "letterboxdAverage": 1.55,
+      "letterboxdRatingCount": 38774,
+      "sourceNotes": [
+        "the-numbers-release-schedule",
+        "the-numbers-top-grossing",
+        "letterboxd"
+      ],
+      "updatedAt": "2026-06-23"
+    },
+    {
+      "id": "stray-kids-the-dominate-experience",
+      "title": "Stray Kids: The DominATE experience",
+      "releaseDate": "2026-02-06",
+      "domesticGross": 7232819,
+      "productionBudget": null,
+      "letterboxdSlug": "film/stray-kids-the-dominate-experience",
+      "letterboxdAverage": 4.3,
+      "letterboxdRatingCount": 16903,
+      "sourceNotes": [
+        "the-numbers-release-schedule",
+        "the-numbers-top-grossing",
+        "letterboxd"
+      ],
+      "updatedAt": "2026-06-23"
+    },
+    {
+      "id": "pillion",
+      "title": "Pillion",
+      "releaseDate": "2026-02-06",
+      "domesticGross": 3879285,
+      "productionBudget": null,
+      "letterboxdSlug": "film/pillion",
+      "letterboxdAverage": null,
+      "letterboxdRatingCount": null,
+      "sourceNotes": [
+        "the-numbers-top-grossing",
+        "letterboxd"
+      ],
+      "updatedAt": "2026-06-23"
+    },
+    {
+      "id": "bendito-corazon",
+      "title": "Bendito Corazón",
+      "releaseDate": "2026-02-06",
+      "domesticGross": 2997500,
+      "productionBudget": null,
+      "letterboxdSlug": "film/bendito-corazon",
+      "letterboxdAverage": 2.67,
+      "letterboxdRatingCount": 625,
+      "sourceNotes": [
+        "the-numbers-release-schedule",
+        "the-numbers-top-grossing",
+        "letterboxd"
+      ],
+      "updatedAt": "2026-06-23"
+    },
+    {
+      "id": "sirat",
+      "title": "Sirât",
+      "releaseDate": "2026-02-06",
+      "domesticGross": 1677641,
+      "productionBudget": null,
+      "letterboxdSlug": "film/sirat-1",
+      "letterboxdAverage": 3.56,
+      "letterboxdRatingCount": 314809,
+      "sourceNotes": [
+        "the-numbers-top-grossing",
+        "letterboxd"
+      ],
+      "updatedAt": "2026-06-23"
+    },
+    {
+      "id": "whistle",
+      "title": "Whistle",
+      "releaseDate": "2026-02-06",
+      "domesticGross": 1250972,
+      "productionBudget": null,
+      "letterboxdSlug": "film/whistle-2026",
+      "letterboxdAverage": 2.27,
+      "letterboxdRatingCount": 80605,
+      "sourceNotes": [
+        "the-numbers-release-schedule",
+        "the-numbers-top-grossing",
+        "letterboxd"
+      ],
+      "updatedAt": "2026-06-23"
+    },
+    {
+      "id": "kokuho",
+      "title": "Kokuho",
+      "releaseDate": "2026-02-06",
+      "domesticGross": 1041544,
+      "productionBudget": null,
+      "letterboxdSlug": "film/kokuho",
+      "letterboxdAverage": 3.84,
+      "letterboxdRatingCount": 44404,
+      "sourceNotes": [
+        "the-numbers-top-grossing",
+        "letterboxd"
+      ],
+      "updatedAt": "2026-06-23"
+    },
+    {
+      "id": "scarlet",
+      "title": "Scarlet",
+      "releaseDate": "2026-02-06",
+      "domesticGross": 629039,
+      "productionBudget": null,
+      "letterboxdSlug": "film/scarlet-1",
+      "letterboxdAverage": null,
+      "letterboxdRatingCount": null,
+      "sourceNotes": [
+        "the-numbers-top-grossing",
+        "letterboxd"
+      ],
+      "updatedAt": "2026-06-23"
+    },
+    {
+      "id": "the-president-s-cake",
+      "title": "The President’s Cake",
+      "releaseDate": "2026-02-06",
+      "domesticGross": 256542,
+      "productionBudget": null,
+      "letterboxdSlug": null,
+      "letterboxdAverage": null,
+      "letterboxdRatingCount": null,
+      "sourceNotes": [
+        "the-numbers-top-grossing"
+      ],
+      "updatedAt": "2026-06-23"
+    },
+    {
+      "id": "aida-y-vuelta",
+      "title": "Aída y vuelta",
+      "releaseDate": "2026-02-06",
+      "domesticGross": 240000,
+      "productionBudget": null,
+      "letterboxdSlug": null,
+      "letterboxdAverage": null,
+      "letterboxdRatingCount": null,
+      "sourceNotes": [
+        "the-numbers-release-schedule",
+        "the-numbers-top-grossing"
+      ],
+      "updatedAt": "2026-06-23"
+    },
+    {
+      "id": "buffalo-kids",
+      "title": "Buffalo Kids",
+      "releaseDate": "2026-02-06",
+      "domesticGross": 214534,
+      "productionBudget": null,
+      "letterboxdSlug": null,
+      "letterboxdAverage": null,
+      "letterboxdRatingCount": null,
+      "sourceNotes": [
+        "the-numbers-top-grossing"
+      ],
+      "updatedAt": "2026-06-23"
+    },
+    {
+      "id": "my-father-s-shadow",
+      "title": "My Father’s Shadow",
+      "releaseDate": "2026-02-06",
+      "domesticGross": 142625,
+      "productionBudget": null,
+      "letterboxdSlug": null,
+      "letterboxdAverage": null,
+      "letterboxdRatingCount": null,
+      "sourceNotes": [
+        "the-numbers-release-schedule",
+        "the-numbers-top-grossing"
+      ],
+      "updatedAt": "2026-06-23"
+    },
+    {
+      "id": "jimpa",
+      "title": "Jimpa",
+      "releaseDate": "2026-02-06",
+      "domesticGross": 49681,
+      "productionBudget": null,
+      "letterboxdSlug": "film/jimpa",
+      "letterboxdAverage": 3.21,
+      "letterboxdRatingCount": 2540,
+      "sourceNotes": [
+        "the-numbers-release-schedule",
+        "the-numbers-top-grossing",
+        "letterboxd"
+      ],
+      "updatedAt": "2026-06-23"
+    },
+    {
+      "id": "starman",
+      "title": "Starman",
+      "releaseDate": "2026-02-06",
+      "domesticGross": 30834,
+      "productionBudget": null,
+      "letterboxdSlug": "film/starman",
+      "letterboxdAverage": 3.62,
+      "letterboxdRatingCount": 57221,
+      "sourceNotes": [
+        "the-numbers-release-schedule",
+        "the-numbers-top-grossing",
+        "letterboxd"
+      ],
+      "updatedAt": "2026-06-23"
+    },
+    {
+      "id": "goat",
+      "title": "GOAT",
+      "releaseDate": "2026-02-13",
+      "domesticGross": 103316898,
+      "productionBudget": 80000000,
+      "letterboxdSlug": "film/goat-2026",
+      "letterboxdAverage": 3.36,
+      "letterboxdRatingCount": 268706,
+      "sourceNotes": [
+        "the-numbers-release-schedule",
+        "the-numbers-top-grossing",
+        "letterboxd",
+        "the-numbers-budget"
+      ],
+      "updatedAt": "2026-06-23"
+    },
+    {
+      "id": "wuthering-heights",
+      "title": "“Wuthering Heights”",
+      "releaseDate": "2026-02-13",
+      "domesticGross": 84001072,
+      "productionBudget": 80000000,
+      "letterboxdSlug": "film/wuthering-heights",
+      "letterboxdAverage": 3.62,
+      "letterboxdRatingCount": 37935,
+      "sourceNotes": [
+        "the-numbers-release-schedule",
+        "the-numbers-top-grossing",
+        "letterboxd",
+        "the-numbers-budget"
+      ],
+      "updatedAt": "2026-06-23"
+    },
+    {
+      "id": "crime-101",
+      "title": "Crime 101",
+      "releaseDate": "2026-02-13",
+      "domesticGross": 36588336,
+      "productionBudget": 90000000,
+      "letterboxdSlug": "film/crime-101",
+      "letterboxdAverage": 3.09,
+      "letterboxdRatingCount": 260241,
+      "sourceNotes": [
+        "the-numbers-release-schedule",
+        "the-numbers-top-grossing",
+        "letterboxd",
+        "the-numbers-budget"
+      ],
+      "updatedAt": "2026-06-23"
+    },
+    {
+      "id": "good-luck-have-fun-don-t-die",
+      "title": "Good Luck, Have Fun, Don’t Die",
+      "releaseDate": "2026-02-13",
+      "domesticGross": 8431443,
+      "productionBudget": 20000000,
+      "letterboxdSlug": null,
+      "letterboxdAverage": null,
+      "letterboxdRatingCount": null,
+      "sourceNotes": [
+        "the-numbers-release-schedule",
+        "the-numbers-top-grossing",
+        "the-numbers-budget"
+      ],
+      "updatedAt": "2026-06-23"
+    },
+    {
+      "id": "nirvanna-the-band-the-show-the-movie",
+      "title": "Nirvanna the Band the Show the Movie",
+      "releaseDate": "2026-02-13",
+      "domesticGross": 4044418,
+      "productionBudget": null,
+      "letterboxdSlug": "film/nirvanna-the-band-the-show-the-movie",
+      "letterboxdAverage": 4.27,
+      "letterboxdRatingCount": 195907,
+      "sourceNotes": [
+        "the-numbers-release-schedule",
+        "the-numbers-top-grossing",
+        "letterboxd"
+      ],
+      "updatedAt": "2026-06-23"
+    },
+    {
+      "id": "cold-storage",
+      "title": "Cold Storage",
+      "releaseDate": "2026-02-13",
+      "domesticGross": 1529237,
+      "productionBudget": null,
+      "letterboxdSlug": "film/cold-storage-2026",
+      "letterboxdAverage": 2.77,
+      "letterboxdRatingCount": 94609,
+      "sourceNotes": [
+        "the-numbers-release-schedule",
+        "the-numbers-top-grossing",
+        "letterboxd"
+      ],
+      "updatedAt": "2026-06-23"
+    },
+    {
+      "id": "the-mortuary-assistant",
+      "title": "The Mortuary Assistant",
+      "releaseDate": "2026-02-13",
+      "domesticGross": 454776,
+      "productionBudget": null,
+      "letterboxdSlug": "film/the-mortuary-assistant",
+      "letterboxdAverage": 1.53,
+      "letterboxdRatingCount": 21382,
+      "sourceNotes": [
+        "the-numbers-release-schedule",
+        "the-numbers-top-grossing",
+        "letterboxd"
+      ],
+      "updatedAt": "2026-06-23"
+    },
+    {
+      "id": "by-design",
+      "title": "By Design",
+      "releaseDate": "2026-02-13",
+      "domesticGross": 44307,
+      "productionBudget": null,
+      "letterboxdSlug": "film/by-design",
+      "letterboxdAverage": null,
+      "letterboxdRatingCount": null,
+      "sourceNotes": [
+        "the-numbers-release-schedule",
+        "the-numbers-top-grossing",
+        "letterboxd"
+      ],
+      "updatedAt": "2026-06-23"
+    },
+    {
+      "id": "a-road-at-night",
+      "title": "A Road at Night",
+      "releaseDate": "2026-02-13",
+      "domesticGross": 27351,
+      "productionBudget": null,
+      "letterboxdSlug": "film/a-road-at-night",
+      "letterboxdAverage": null,
+      "letterboxdRatingCount": null,
+      "sourceNotes": [
+        "the-numbers-release-schedule",
+        "the-numbers-top-grossing",
+        "letterboxd"
+      ],
+      "updatedAt": "2026-06-23"
+    },
+    {
+      "id": "blades-of-the-guardians",
+      "title": "Blades of the Guardians",
+      "releaseDate": "2026-02-17",
+      "domesticGross": 1606672,
+      "productionBudget": null,
+      "letterboxdSlug": "film/blades-of-the-guardians",
+      "letterboxdAverage": 3.55,
+      "letterboxdRatingCount": 6026,
+      "sourceNotes": [
+        "the-numbers-release-schedule",
+        "the-numbers-top-grossing",
+        "letterboxd"
+      ],
+      "updatedAt": "2026-06-23"
+    },
+    {
+      "id": "paul-mccartney-man-on-the-run",
+      "title": "Paul McCartney: Man on the Run",
+      "releaseDate": "2026-02-19",
+      "domesticGross": 501000,
+      "productionBudget": null,
+      "letterboxdSlug": null,
+      "letterboxdAverage": null,
+      "letterboxdRatingCount": null,
+      "sourceNotes": [
+        "the-numbers-top-grossing"
+      ],
+      "updatedAt": "2026-06-23"
+    },
+    {
+      "id": "i-can-only-imagine-2",
+      "title": "I Can Only Imagine 2",
+      "releaseDate": "2026-02-20",
+      "domesticGross": 18588615,
+      "productionBudget": 18000000,
+      "letterboxdSlug": "film/i-can-only-imagine-2",
+      "letterboxdAverage": 3.33,
+      "letterboxdRatingCount": 2707,
+      "sourceNotes": [
+        "the-numbers-release-schedule",
+        "the-numbers-top-grossing",
+        "letterboxd",
+        "the-numbers-budget"
+      ],
+      "updatedAt": "2026-06-23"
+    },
+    {
+      "id": "epic-elvis-presley-in-concert",
+      "title": "EPiC: Elvis Presley in Concert",
+      "releaseDate": "2026-02-20",
+      "domesticGross": 13571883,
+      "productionBudget": null,
+      "letterboxdSlug": "film/epic-elvis-presley-in-concert",
+      "letterboxdAverage": 3.97,
+      "letterboxdRatingCount": 30315,
+      "sourceNotes": [
+        "the-numbers-top-grossing",
+        "letterboxd"
+      ],
+      "updatedAt": "2026-06-23"
+    },
+    {
+      "id": "how-to-make-a-killing",
+      "title": "How to Make a Killing",
+      "releaseDate": "2026-02-20",
+      "domesticGross": 7851599,
+      "productionBudget": 15000000,
+      "letterboxdSlug": "film/how-to-make-a-killing-2026",
+      "letterboxdAverage": 3.15,
+      "letterboxdRatingCount": 231504,
+      "sourceNotes": [
+        "the-numbers-release-schedule",
+        "the-numbers-top-grossing",
+        "letterboxd",
+        "the-numbers-budget"
+      ],
+      "updatedAt": "2026-06-23"
+    },
+    {
+      "id": "2026-oscar-shorts",
+      "title": "2026 Oscar Shorts",
+      "releaseDate": "2026-02-20",
+      "domesticGross": 3754480,
+      "productionBudget": null,
+      "letterboxdSlug": null,
+      "letterboxdAverage": null,
+      "letterboxdRatingCount": null,
+      "sourceNotes": [
+        "the-numbers-release-schedule",
+        "the-numbers-top-grossing"
+      ],
+      "updatedAt": "2026-06-23"
+    },
+    {
+      "id": "psycho-killer",
+      "title": "Psycho Killer",
+      "releaseDate": "2026-02-20",
+      "domesticGross": 2555070,
+      "productionBudget": 10000000,
+      "letterboxdSlug": "film/psycho-killer",
+      "letterboxdAverage": null,
+      "letterboxdRatingCount": null,
+      "sourceNotes": [
+        "the-numbers-release-schedule",
+        "the-numbers-top-grossing",
+        "letterboxd",
+        "the-numbers-budget"
+      ],
+      "updatedAt": "2026-06-23"
+    },
+    {
+      "id": "midwinter-break",
+      "title": "Midwinter Break",
+      "releaseDate": "2026-02-20",
+      "domesticGross": 1002905,
+      "productionBudget": null,
+      "letterboxdSlug": "film/midwinter-break",
+      "letterboxdAverage": 2.84,
+      "letterboxdRatingCount": 4375,
+      "sourceNotes": [
+        "the-numbers-release-schedule",
+        "the-numbers-top-grossing",
+        "letterboxd"
+      ],
+      "updatedAt": "2026-06-23"
+    },
+    {
+      "id": "this-is-not-a-test",
+      "title": "This Is Not a Test",
+      "releaseDate": "2026-02-20",
+      "domesticGross": 213951,
+      "productionBudget": null,
+      "letterboxdSlug": "film/this-is-not-a-test-1",
+      "letterboxdAverage": 2.33,
+      "letterboxdRatingCount": 9367,
+      "sourceNotes": [
+        "the-numbers-release-schedule",
+        "the-numbers-top-grossing",
+        "letterboxd"
+      ],
+      "updatedAt": "2026-06-23"
+    },
+    {
+      "id": "billy-preston-that-s-the-way-god-planned-it",
+      "title": "Billy Preston: That’s the Way God Planned It",
+      "releaseDate": "2026-02-20",
+      "domesticGross": 78492,
+      "productionBudget": null,
+      "letterboxdSlug": null,
+      "letterboxdAverage": null,
+      "letterboxdRatingCount": null,
+      "sourceNotes": [
+        "the-numbers-release-schedule",
+        "the-numbers-top-grossing"
+      ],
+      "updatedAt": "2026-06-23"
+    },
+    {
+      "id": "twenty-one-pilots-more-than",
+      "title": "Twenty One Pilots: More Than …",
+      "releaseDate": "2026-02-26",
+      "domesticGross": 3700000,
+      "productionBudget": null,
+      "letterboxdSlug": null,
+      "letterboxdAverage": null,
+      "letterboxdRatingCount": null,
+      "sourceNotes": [
+        "the-numbers-top-grossing"
+      ],
+      "updatedAt": "2026-06-23"
+    },
+    {
+      "id": "scream-7",
+      "title": "Scream 7",
+      "releaseDate": "2026-02-27",
+      "domesticGross": 121935967,
+      "productionBudget": 45000000,
+      "letterboxdSlug": "film/scream-7",
+      "letterboxdAverage": 2.21,
+      "letterboxdRatingCount": 512641,
+      "sourceNotes": [
+        "the-numbers-release-schedule",
+        "the-numbers-top-grossing",
+        "letterboxd",
+        "the-numbers-budget"
+      ],
+      "updatedAt": "2026-06-23"
+    },
+    {
+      "id": "pegasus-3",
+      "title": "Pegasus 3",
+      "releaseDate": "2026-02-27",
+      "domesticGross": 1374946,
+      "productionBudget": null,
+      "letterboxdSlug": "film/pegasus-3",
+      "letterboxdAverage": 3.13,
+      "letterboxdRatingCount": 1182,
+      "sourceNotes": [
+        "the-numbers-release-schedule",
+        "letterboxd"
+      ],
+      "updatedAt": "2026-06-23"
+    },
+    {
+      "id": "uma-musume-pretty-derby-be",
+      "title": "Uma Musume: Pretty Derby — Be…",
+      "releaseDate": "2026-02-27",
+      "domesticGross": 1275499,
+      "productionBudget": null,
+      "letterboxdSlug": null,
+      "letterboxdAverage": null,
+      "letterboxdRatingCount": null,
+      "sourceNotes": [
+        "the-numbers-top-grossing"
+      ],
+      "updatedAt": "2026-06-23"
+    },
+    {
+      "id": "dreams",
+      "title": "Dreams",
+      "releaseDate": "2026-02-27",
+      "domesticGross": 133797,
+      "productionBudget": null,
+      "letterboxdSlug": "film/dreams",
+      "letterboxdAverage": 4.24,
+      "letterboxdRatingCount": 109386,
+      "sourceNotes": [
+        "the-numbers-top-grossing",
+        "letterboxd"
+      ],
+      "updatedAt": "2026-06-23"
+    },
+    {
+      "id": "hypnosis-mic-division-rap-b",
+      "title": "Hypnosis Mic — Division Rap B…",
+      "releaseDate": "2026-02-27",
+      "domesticGross": 114569,
+      "productionBudget": null,
+      "letterboxdSlug": null,
+      "letterboxdAverage": null,
+      "letterboxdRatingCount": null,
+      "sourceNotes": [
+        "the-numbers-top-grossing"
+      ],
+      "updatedAt": "2026-06-23"
+    },
+    {
+      "id": "the-napa-boys",
+      "title": "The Napa Boys",
+      "releaseDate": "2026-02-27",
+      "domesticGross": 45690,
+      "productionBudget": null,
+      "letterboxdSlug": "film/the-napa-boys",
+      "letterboxdAverage": 3.36,
+      "letterboxdRatingCount": 4400,
+      "sourceNotes": [
+        "the-numbers-release-schedule",
+        "the-numbers-top-grossing",
+        "letterboxd"
+      ],
+      "updatedAt": "2026-06-23"
+    },
+    {
+      "id": "for-worse",
+      "title": "For Worse",
+      "releaseDate": "2026-02-27",
+      "domesticGross": 44341,
+      "productionBudget": null,
+      "letterboxdSlug": "film/for-worse",
+      "letterboxdAverage": 3.35,
+      "letterboxdRatingCount": 613,
+      "sourceNotes": [
+        "the-numbers-release-schedule",
+        "the-numbers-top-grossing",
+        "letterboxd"
+      ],
+      "updatedAt": "2026-06-23"
+    },
+    {
+      "id": "hoppers",
+      "title": "Hoppers",
+      "releaseDate": "2026-03-06",
+      "domesticGross": 166010783,
+      "productionBudget": 150000000,
+      "letterboxdSlug": "film/hoppers",
+      "letterboxdAverage": 3.73,
+      "letterboxdRatingCount": 762450,
+      "sourceNotes": [
+        "the-numbers-release-schedule",
+        "the-numbers-top-grossing",
+        "letterboxd",
+        "the-numbers-budget"
+      ],
+      "updatedAt": "2026-06-23"
+    },
+    {
+      "id": "the-bride",
+      "title": "The Bride!",
+      "releaseDate": "2026-03-06",
+      "domesticGross": 12744025,
+      "productionBudget": 80000000,
+      "letterboxdSlug": "film/the-bride-2026",
+      "letterboxdAverage": 2.82,
+      "letterboxdRatingCount": 276961,
+      "sourceNotes": [
+        "the-numbers-release-schedule",
+        "the-numbers-top-grossing",
+        "letterboxd",
+        "the-numbers-budget"
+      ],
+      "updatedAt": "2026-06-23"
+    },
+    {
+      "id": "protector",
+      "title": "Protector",
+      "releaseDate": "2026-03-06",
+      "domesticGross": 744024,
+      "productionBudget": null,
+      "letterboxdSlug": "film/protector-2026",
+      "letterboxdAverage": 2.38,
+      "letterboxdRatingCount": 4376,
+      "sourceNotes": [
+        "the-numbers-release-schedule",
+        "the-numbers-top-grossing",
+        "letterboxd"
+      ],
+      "updatedAt": "2026-06-23"
+    },
+    {
+      "id": "dolly",
+      "title": "Dolly",
+      "releaseDate": "2026-03-06",
+      "domesticGross": 725979,
+      "productionBudget": null,
+      "letterboxdSlug": "film/dolly-2026",
+      "letterboxdAverage": null,
+      "letterboxdRatingCount": null,
+      "sourceNotes": [
+        "the-numbers-release-schedule",
+        "the-numbers-top-grossing",
+        "letterboxd"
+      ],
+      "updatedAt": "2026-06-23"
+    },
+    {
+      "id": "youngblood",
+      "title": "Youngblood",
+      "releaseDate": "2026-03-06",
+      "domesticGross": 511351,
+      "productionBudget": null,
+      "letterboxdSlug": "film/youngblood",
+      "letterboxdAverage": 3.1,
+      "letterboxdRatingCount": 8580,
+      "sourceNotes": [
+        "the-numbers-release-schedule",
+        "the-numbers-top-grossing",
+        "letterboxd"
+      ],
+      "updatedAt": "2026-06-23"
+    },
+    {
+      "id": "sotto-le-nuvole",
+      "title": "Sotto le nuvole",
+      "releaseDate": "2026-03-06",
+      "domesticGross": 99662,
+      "productionBudget": null,
+      "letterboxdSlug": null,
+      "letterboxdAverage": null,
+      "letterboxdRatingCount": null,
+      "sourceNotes": [
+        "the-numbers-top-grossing"
+      ],
+      "updatedAt": "2026-06-23"
+    },
+    {
+      "id": "silver-star",
+      "title": "Silver Star",
+      "releaseDate": "2026-03-06",
+      "domesticGross": 19200,
+      "productionBudget": null,
+      "letterboxdSlug": null,
+      "letterboxdAverage": null,
+      "letterboxdRatingCount": null,
+      "sourceNotes": [
+        "the-numbers-top-grossing"
+      ],
+      "updatedAt": "2026-06-23"
+    },
+    {
+      "id": "heel",
+      "title": "Heel",
+      "releaseDate": "2026-03-06",
+      "domesticGross": 5055,
+      "productionBudget": null,
+      "letterboxdSlug": null,
+      "letterboxdAverage": null,
+      "letterboxdRatingCount": null,
+      "sourceNotes": [
+        "the-numbers-release-schedule",
+        "the-numbers-top-grossing"
+      ],
+      "updatedAt": "2026-06-23"
+    },
+    {
+      "id": "reminders-of-him",
+      "title": "Reminders of Him",
+      "releaseDate": "2026-03-13",
+      "domesticGross": 48559430,
+      "productionBudget": 25000000,
+      "letterboxdSlug": "film/reminders-of-him",
+      "letterboxdAverage": 2.52,
+      "letterboxdRatingCount": 115784,
+      "sourceNotes": [
+        "the-numbers-release-schedule",
+        "the-numbers-top-grossing",
+        "letterboxd",
+        "the-numbers-budget"
+      ],
+      "updatedAt": "2026-06-23"
+    },
+    {
+      "id": "undertone",
+      "title": "undertone",
+      "releaseDate": "2026-03-13",
+      "domesticGross": 19971832,
+      "productionBudget": 500000,
+      "letterboxdSlug": "film/undertone",
+      "letterboxdAverage": null,
+      "letterboxdRatingCount": null,
+      "sourceNotes": [
+        "the-numbers-release-schedule",
+        "the-numbers-top-grossing",
+        "letterboxd",
+        "the-numbers-budget"
+      ],
+      "updatedAt": "2026-06-23"
+    },
+    {
+      "id": "slanted",
+      "title": "Slanted",
+      "releaseDate": "2026-03-13",
+      "domesticGross": 906246,
+      "productionBudget": null,
+      "letterboxdSlug": "film/slanted",
+      "letterboxdAverage": 2.8,
+      "letterboxdRatingCount": 35176,
+      "sourceNotes": [
+        "the-numbers-release-schedule",
+        "the-numbers-top-grossing",
+        "letterboxd"
+      ],
+      "updatedAt": "2026-06-23"
+    },
+    {
+      "id": "scared-to-death",
+      "title": "Scared to Death",
+      "releaseDate": "2026-03-13",
+      "domesticGross": 35925,
+      "productionBudget": null,
+      "letterboxdSlug": "film/scared-to-death",
+      "letterboxdAverage": 2.12,
+      "letterboxdRatingCount": 1349,
+      "sourceNotes": [
+        "the-numbers-release-schedule",
+        "the-numbers-top-grossing",
+        "letterboxd"
+      ],
+      "updatedAt": "2026-06-23"
+    },
+    {
+      "id": "he-calls-me-daughter",
+      "title": "He Calls Me Daughter",
+      "releaseDate": "2026-03-17",
+      "domesticGross": 802849,
+      "productionBudget": null,
+      "letterboxdSlug": "film/he-calls-me-daughter",
+      "letterboxdAverage": null,
+      "letterboxdRatingCount": null,
+      "sourceNotes": [
+        "the-numbers-top-grossing",
+        "letterboxd"
+      ],
+      "updatedAt": "2026-06-23"
+    },
+    {
+      "id": "dhurandhar-the-revenge",
+      "title": "Dhurandhar: The Revenge",
+      "releaseDate": "2026-03-19",
+      "domesticGross": 28100759,
+      "productionBudget": null,
+      "letterboxdSlug": "film/dhurandhar-the-revenge",
+      "letterboxdAverage": 3.39,
+      "letterboxdRatingCount": 86066,
+      "sourceNotes": [
+        "the-numbers-release-schedule",
+        "the-numbers-top-grossing",
+        "letterboxd"
+      ],
+      "updatedAt": "2026-06-23"
+    },
+    {
+      "id": "project-hail-mary",
+      "title": "Project Hail Mary",
+      "releaseDate": "2026-03-20",
+      "domesticGross": 344003335,
+      "productionBudget": 200000000,
+      "letterboxdSlug": "film/project-hail-mary",
+      "letterboxdAverage": 4.31,
+      "letterboxdRatingCount": 3209206,
+      "sourceNotes": [
+        "the-numbers-release-schedule",
+        "the-numbers-top-grossing",
+        "letterboxd",
+        "the-numbers-budget"
+      ],
+      "updatedAt": "2026-06-23"
     },
     {
       "id": "ready-or-not-2-here-i-come",
       "title": "Ready or Not 2: Here I Come",
       "releaseDate": "2026-03-20",
       "domesticGross": 22986054,
+      "productionBudget": 14000000,
+      "letterboxdSlug": "film/ready-or-not-2-here-i-come",
+      "letterboxdAverage": 3.32,
+      "letterboxdRatingCount": 405557,
+      "sourceNotes": [
+        "the-numbers-release-schedule",
+        "the-numbers-top-grossing",
+        "letterboxd",
+        "the-numbers-budget"
+      ],
+      "updatedAt": "2026-06-23"
+    },
+    {
+      "id": "the-pout-pout-fish",
+      "title": "The Pout-Pout Fish",
+      "releaseDate": "2026-03-20",
+      "domesticGross": 2925502,
+      "productionBudget": null,
+      "letterboxdSlug": "film/the-pout-pout-fish",
+      "letterboxdAverage": 2.19,
+      "letterboxdRatingCount": 2600,
+      "sourceNotes": [
+        "the-numbers-top-grossing",
+        "letterboxd"
+      ],
+      "updatedAt": "2026-06-23"
+    },
+    {
+      "id": "palestine-36",
+      "title": "Palestine 36 (فلسطين ٣٦)",
+      "releaseDate": "2026-03-20",
+      "domesticGross": 608945,
+      "productionBudget": null,
+      "letterboxdSlug": "film/palestine-36",
+      "letterboxdAverage": 3.91,
+      "letterboxdRatingCount": 19933,
+      "sourceNotes": [
+        "the-numbers-top-grossing",
+        "letterboxd"
+      ],
+      "updatedAt": "2026-06-23"
+    },
+    {
+      "id": "marc-by-sofia",
+      "title": "Marc by Sofia",
+      "releaseDate": "2026-03-20",
+      "domesticGross": 306321,
+      "productionBudget": null,
+      "letterboxdSlug": "film/marc-by-sofia",
+      "letterboxdAverage": 3.34,
+      "letterboxdRatingCount": 4016,
+      "sourceNotes": [
+        "the-numbers-release-schedule",
+        "the-numbers-top-grossing",
+        "letterboxd"
+      ],
+      "updatedAt": "2026-06-23"
+    },
+    {
+      "id": "tow",
+      "title": "Tow",
+      "releaseDate": "2026-03-20",
+      "domesticGross": 291795,
+      "productionBudget": null,
+      "letterboxdSlug": "film/tow-1",
+      "letterboxdAverage": null,
+      "letterboxdRatingCount": null,
+      "sourceNotes": [
+        "the-numbers-release-schedule",
+        "the-numbers-top-grossing",
+        "letterboxd"
+      ],
+      "updatedAt": "2026-06-23"
+    },
+    {
+      "id": "miroirs-no-3",
+      "title": "Miroirs No. 3",
+      "releaseDate": "2026-03-20",
+      "domesticGross": 219271,
+      "productionBudget": null,
+      "letterboxdSlug": "film/miroirs-no-3",
+      "letterboxdAverage": 3.48,
+      "letterboxdRatingCount": 20269,
+      "sourceNotes": [
+        "the-numbers-top-grossing",
+        "letterboxd"
+      ],
+      "updatedAt": "2026-06-23"
+    },
+    {
+      "id": "two-prosecutors",
+      "title": "Two Prosecutors",
+      "releaseDate": "2026-03-20",
+      "domesticGross": 115168,
+      "productionBudget": null,
+      "letterboxdSlug": "film/two-prosecutors",
+      "letterboxdAverage": 3.45,
+      "letterboxdRatingCount": 13495,
+      "sourceNotes": [
+        "the-numbers-top-grossing",
+        "letterboxd"
+      ],
+      "updatedAt": "2026-06-23"
+    },
+    {
+      "id": "dead-lover",
+      "title": "Dead Lover",
+      "releaseDate": "2026-03-20",
+      "domesticGross": 102194,
+      "productionBudget": null,
+      "letterboxdSlug": "film/dead-lover",
+      "letterboxdAverage": 3.56,
+      "letterboxdRatingCount": 4981,
+      "sourceNotes": [
+        "the-numbers-top-grossing",
+        "letterboxd"
+      ],
+      "updatedAt": "2026-06-23"
+    },
+    {
+      "id": "heldin",
+      "title": "Heldin",
+      "releaseDate": "2026-03-20",
+      "domesticGross": 41676,
       "productionBudget": null,
       "letterboxdSlug": null,
       "letterboxdAverage": null,
       "letterboxdRatingCount": null,
-      "sourceNotes": ["the-numbers"],
-      "updatedAt": "2026-06-22"
+      "sourceNotes": [
+        "the-numbers-top-grossing"
+      ],
+      "updatedAt": "2026-06-23"
+    },
+    {
+      "id": "they-will-kill-you",
+      "title": "They Will Kill You",
+      "releaseDate": "2026-03-27",
+      "domesticGross": 10882152,
+      "productionBudget": 20000000,
+      "letterboxdSlug": "film/they-will-kill-you",
+      "letterboxdAverage": 2.96,
+      "letterboxdRatingCount": 219389,
+      "sourceNotes": [
+        "the-numbers-release-schedule",
+        "the-numbers-top-grossing",
+        "letterboxd",
+        "the-numbers-budget"
+      ],
+      "updatedAt": "2026-06-23"
+    },
+    {
+      "id": "forbidden-fruits",
+      "title": "Forbidden Fruits",
+      "releaseDate": "2026-03-27",
+      "domesticGross": 2322616,
+      "productionBudget": null,
+      "letterboxdSlug": "film/forbidden-fruits-2026",
+      "letterboxdAverage": 3.02,
+      "letterboxdRatingCount": 133365,
+      "sourceNotes": [
+        "the-numbers-release-schedule",
+        "the-numbers-top-grossing",
+        "letterboxd"
+      ],
+      "updatedAt": "2026-06-23"
+    },
+    {
+      "id": "the-ai-doc-or-how-i-became-an-apocaloptimist",
+      "title": "The AI Doc: Or How I Became an Apocaloptimist",
+      "releaseDate": "2026-03-27",
+      "domesticGross": 1271825,
+      "productionBudget": null,
+      "letterboxdSlug": "film/the-ai-doc-or-how-i-became-an-apocaloptimist",
+      "letterboxdAverage": 3.19,
+      "letterboxdRatingCount": 7089,
+      "sourceNotes": [
+        "the-numbers-release-schedule",
+        "the-numbers-top-grossing",
+        "letterboxd"
+      ],
+      "updatedAt": "2026-06-23"
+    },
+    {
+      "id": "fantasy-life",
+      "title": "Fantasy Life",
+      "releaseDate": "2026-03-27",
+      "domesticGross": 620760,
+      "productionBudget": null,
+      "letterboxdSlug": "film/fantasy-life",
+      "letterboxdAverage": 2.99,
+      "letterboxdRatingCount": 4555,
+      "sourceNotes": [
+        "the-numbers-release-schedule",
+        "the-numbers-top-grossing",
+        "letterboxd"
+      ],
+      "updatedAt": "2026-06-23"
+    },
+    {
+      "id": "alpha",
+      "title": "Alpha",
+      "releaseDate": "2026-03-27",
+      "domesticGross": 205481,
+      "productionBudget": null,
+      "letterboxdSlug": "film/alpha-2026",
+      "letterboxdAverage": null,
+      "letterboxdRatingCount": null,
+      "sourceNotes": [
+        "the-numbers-top-grossing",
+        "letterboxd"
+      ],
+      "updatedAt": "2026-06-23"
+    },
+    {
+      "id": "the-magnificent-life-of-marce",
+      "title": "The Magnificent Life of Marce…",
+      "releaseDate": "2026-03-27",
+      "domesticGross": 128268,
+      "productionBudget": null,
+      "letterboxdSlug": null,
+      "letterboxdAverage": null,
+      "letterboxdRatingCount": null,
+      "sourceNotes": [
+        "the-numbers-top-grossing"
+      ],
+      "updatedAt": "2026-06-23"
+    },
+    {
+      "id": "jimmy-o-yang-finally-home",
+      "title": "Jimmy O. Yang: Finally Home",
+      "releaseDate": "2026-03-27",
+      "domesticGross": 76997,
+      "productionBudget": null,
+      "letterboxdSlug": "film/jimmy-o-yang-finally-home",
+      "letterboxdAverage": null,
+      "letterboxdRatingCount": null,
+      "sourceNotes": [
+        "the-numbers-top-grossing",
+        "letterboxd"
+      ],
+      "updatedAt": "2026-06-23"
+    },
+    {
+      "id": "our-hero-balthazar",
+      "title": "Our Hero, Balthazar",
+      "releaseDate": "2026-03-27",
+      "domesticGross": 62781,
+      "productionBudget": null,
+      "letterboxdSlug": "film/our-hero-balthazar",
+      "letterboxdAverage": 3.7,
+      "letterboxdRatingCount": 7264,
+      "sourceNotes": [
+        "the-numbers-top-grossing",
+        "letterboxd"
+      ],
+      "updatedAt": "2026-06-23"
+    },
+    {
+      "id": "kontinental-25",
+      "title": "Kontinental ‘25",
+      "releaseDate": "2026-03-27",
+      "domesticGross": 48647,
+      "productionBudget": null,
+      "letterboxdSlug": "film/kontinental-25",
+      "letterboxdAverage": 3.54,
+      "letterboxdRatingCount": 12840,
+      "sourceNotes": [
+        "the-numbers-top-grossing",
+        "letterboxd"
+      ],
+      "updatedAt": "2026-06-23"
+    },
+    {
+      "id": "chime",
+      "title": "Chime",
+      "releaseDate": "2026-03-27",
+      "domesticGross": 44726,
+      "productionBudget": null,
+      "letterboxdSlug": null,
+      "letterboxdAverage": null,
+      "letterboxdRatingCount": null,
+      "sourceNotes": [
+        "the-numbers-top-grossing"
+      ],
+      "updatedAt": "2026-06-23"
+    },
+    {
+      "id": "ken",
+      "title": "Ken",
+      "releaseDate": "2026-03-27",
+      "domesticGross": 41722,
+      "productionBudget": null,
+      "letterboxdSlug": "film/ken",
+      "letterboxdAverage": 3.73,
+      "letterboxdRatingCount": 1595,
+      "sourceNotes": [
+        "the-numbers-top-grossing",
+        "letterboxd"
+      ],
+      "updatedAt": "2026-06-23"
+    },
+    {
+      "id": "john-lilly-and-the-earth-coincidence-control-office",
+      "title": "John Lilly and the Earth Coincidence Control Office",
+      "releaseDate": "2026-03-27",
+      "domesticGross": 21437,
+      "productionBudget": null,
+      "letterboxdSlug": null,
+      "letterboxdAverage": null,
+      "letterboxdRatingCount": null,
+      "sourceNotes": [
+        "the-numbers-release-schedule",
+        "the-numbers-top-grossing"
+      ],
+      "updatedAt": "2026-06-23"
+    },
+    {
+      "id": "the-super-mario-galaxy-movie",
+      "title": "The Super Mario Galaxy Movie",
+      "releaseDate": "2026-04-01",
+      "domesticGross": 429642730,
+      "productionBudget": 110000000,
+      "letterboxdSlug": "film/the-super-mario-galaxy-movie",
+      "letterboxdAverage": 2.89,
+      "letterboxdRatingCount": 689542,
+      "sourceNotes": [
+        "the-numbers-release-schedule",
+        "the-numbers-top-grossing",
+        "letterboxd",
+        "the-numbers-budget"
+      ],
+      "updatedAt": "2026-06-23"
+    },
+    {
+      "id": "the-drama",
+      "title": "The Drama",
+      "releaseDate": "2026-04-03",
+      "domesticGross": 48062006,
+      "productionBudget": 28000000,
+      "letterboxdSlug": "film/the-drama",
+      "letterboxdAverage": 3.69,
+      "letterboxdRatingCount": 1898685,
+      "sourceNotes": [
+        "the-numbers-release-schedule",
+        "the-numbers-top-grossing",
+        "letterboxd",
+        "the-numbers-budget"
+      ],
+      "updatedAt": "2026-06-23"
+    },
+    {
+      "id": "a-great-awakening",
+      "title": "A Great Awakening",
+      "releaseDate": "2026-04-03",
+      "domesticGross": 8140331,
+      "productionBudget": null,
+      "letterboxdSlug": "film/a-great-awakening",
+      "letterboxdAverage": 3.08,
+      "letterboxdRatingCount": 1415,
+      "sourceNotes": [
+        "the-numbers-release-schedule",
+        "the-numbers-top-grossing",
+        "letterboxd"
+      ],
+      "updatedAt": "2026-06-23"
+    },
+    {
+      "id": "l-etranger",
+      "title": "L’etranger",
+      "releaseDate": "2026-04-03",
+      "domesticGross": 315872,
+      "productionBudget": null,
+      "letterboxdSlug": null,
+      "letterboxdAverage": null,
+      "letterboxdRatingCount": null,
+      "sourceNotes": [
+        "the-numbers-top-grossing"
+      ],
+      "updatedAt": "2026-06-23"
+    },
+    {
+      "id": "o-ultimo-azul",
+      "title": "O Último Azul",
+      "releaseDate": "2026-04-03",
+      "domesticGross": 54724,
+      "productionBudget": null,
+      "letterboxdSlug": null,
+      "letterboxdAverage": null,
+      "letterboxdRatingCount": null,
+      "sourceNotes": [
+        "the-numbers-top-grossing"
+      ],
+      "updatedAt": "2026-06-23"
+    },
+    {
+      "id": "living-the-land",
+      "title": "Living the Land",
+      "releaseDate": "2026-04-03",
+      "domesticGross": 26599,
+      "productionBudget": null,
+      "letterboxdSlug": "film/living-the-land",
+      "letterboxdAverage": 3.62,
+      "letterboxdRatingCount": 3022,
+      "sourceNotes": [
+        "the-numbers-release-schedule",
+        "the-numbers-top-grossing",
+        "letterboxd"
+      ],
+      "updatedAt": "2026-06-23"
+    },
+    {
+      "id": "the-killer",
+      "title": "The Killer (喋血雙雄)",
+      "releaseDate": "2026-04-05",
+      "domesticGross": 301638,
+      "productionBudget": null,
+      "letterboxdSlug": "film/the-killer",
+      "letterboxdAverage": 4.16,
+      "letterboxdRatingCount": 86364,
+      "sourceNotes": [
+        "the-numbers-top-grossing",
+        "letterboxd"
+      ],
+      "updatedAt": "2026-06-23"
+    },
+    {
+      "id": "watching-mr-pearson",
+      "title": "Watching Mr. Pearson",
+      "releaseDate": "2026-04-09",
+      "domesticGross": 13948,
+      "productionBudget": null,
+      "letterboxdSlug": "film/watching-mr-pearson",
+      "letterboxdAverage": null,
+      "letterboxdRatingCount": null,
+      "sourceNotes": [
+        "the-numbers-release-schedule",
+        "the-numbers-top-grossing",
+        "letterboxd"
+      ],
+      "updatedAt": "2026-06-23"
+    },
+    {
+      "id": "you-me-and-tuscany",
+      "title": "You, Me & Tuscany",
+      "releaseDate": "2026-04-10",
+      "domesticGross": 18723685,
+      "productionBudget": 18000000,
+      "letterboxdSlug": null,
+      "letterboxdAverage": null,
+      "letterboxdRatingCount": null,
+      "sourceNotes": [
+        "the-numbers-release-schedule",
+        "the-numbers-top-grossing",
+        "the-numbers-budget"
+      ],
+      "updatedAt": "2026-06-23"
+    },
+    {
+      "id": "the-exit-8-8",
+      "title": "The Exit 8 (8番出口)",
+      "releaseDate": "2026-04-10",
+      "domesticGross": 3735090,
+      "productionBudget": null,
+      "letterboxdSlug": null,
+      "letterboxdAverage": null,
+      "letterboxdRatingCount": null,
+      "sourceNotes": [
+        "the-numbers-top-grossing"
+      ],
+      "updatedAt": "2026-06-23"
+    },
+    {
+      "id": "faces-of-death",
+      "title": "Faces of Death",
+      "releaseDate": "2026-04-10",
+      "domesticGross": 2609598,
+      "productionBudget": 7400000,
+      "letterboxdSlug": "film/faces-of-death",
+      "letterboxdAverage": 2.32,
+      "letterboxdRatingCount": 16606,
+      "sourceNotes": [
+        "the-numbers-release-schedule",
+        "the-numbers-top-grossing",
+        "letterboxd",
+        "the-numbers-budget"
+      ],
+      "updatedAt": "2026-06-23"
+    },
+    {
+      "id": "the-christophers",
+      "title": "The Christophers",
+      "releaseDate": "2026-04-10",
+      "domesticGross": 1807376,
+      "productionBudget": null,
+      "letterboxdSlug": "film/the-christophers",
+      "letterboxdAverage": 3.5,
+      "letterboxdRatingCount": 31415,
+      "sourceNotes": [
+        "the-numbers-release-schedule",
+        "the-numbers-top-grossing",
+        "letterboxd"
+      ],
+      "updatedAt": "2026-06-23"
+    },
+    {
+      "id": "steal-this-story-please",
+      "title": "Steal This Story, Please!",
+      "releaseDate": "2026-04-10",
+      "domesticGross": 630102,
+      "productionBudget": null,
+      "letterboxdSlug": "film/steal-this-story-please",
+      "letterboxdAverage": 4.15,
+      "letterboxdRatingCount": 1873,
+      "sourceNotes": [
+        "the-numbers-release-schedule",
+        "the-numbers-top-grossing",
+        "letterboxd"
+      ],
+      "updatedAt": "2026-06-23"
+    },
+    {
+      "id": "hunting-matthew-nichols",
+      "title": "Hunting Matthew Nichols",
+      "releaseDate": "2026-04-10",
+      "domesticGross": 600000,
+      "productionBudget": null,
+      "letterboxdSlug": null,
+      "letterboxdAverage": null,
+      "letterboxdRatingCount": null,
+      "sourceNotes": [
+        "the-numbers-release-schedule",
+        "the-numbers-top-grossing"
+      ],
+      "updatedAt": "2026-06-23"
+    },
+    {
+      "id": "hamlet",
+      "title": "Hamlet",
+      "releaseDate": "2026-04-10",
+      "domesticGross": 300088,
+      "productionBudget": null,
+      "letterboxdSlug": "film/hamlet",
+      "letterboxdAverage": 3.74,
+      "letterboxdRatingCount": 21416,
+      "sourceNotes": [
+        "the-numbers-release-schedule",
+        "the-numbers-top-grossing",
+        "letterboxd"
+      ],
+      "updatedAt": "2026-06-23"
+    },
+    {
+      "id": "chao",
+      "title": "ChaO",
+      "releaseDate": "2026-04-10",
+      "domesticGross": 112217,
+      "productionBudget": null,
+      "letterboxdSlug": "film/chao-1",
+      "letterboxdAverage": 3.51,
+      "letterboxdRatingCount": 5379,
+      "sourceNotes": [
+        "the-numbers-top-grossing",
+        "letterboxd"
+      ],
+      "updatedAt": "2026-06-23"
+    },
+    {
+      "id": "the-yeti",
+      "title": "The Yeti",
+      "releaseDate": "2026-04-10",
+      "domesticGross": 52689,
+      "productionBudget": null,
+      "letterboxdSlug": "film/the-yeti",
+      "letterboxdAverage": 1.99,
+      "letterboxdRatingCount": 2683,
+      "sourceNotes": [
+        "the-numbers-release-schedule",
+        "the-numbers-top-grossing",
+        "letterboxd"
+      ],
+      "updatedAt": "2026-06-23"
+    },
+    {
+      "id": "bts-world-tour-arirang-live",
+      "title": "BTS World Tour Arirang: Live …",
+      "releaseDate": "2026-04-11",
+      "domesticGross": 6240000,
+      "productionBudget": null,
+      "letterboxdSlug": null,
+      "letterboxdAverage": null,
+      "letterboxdRatingCount": null,
+      "sourceNotes": [
+        "the-numbers-top-grossing"
+      ],
+      "updatedAt": "2026-06-23"
+    },
+    {
+      "id": "bhooth-bangla",
+      "title": "Bhooth Bangla",
+      "releaseDate": "2026-04-16",
+      "domesticGross": 1050000,
+      "productionBudget": null,
+      "letterboxdSlug": "film/bhooth-bangla",
+      "letterboxdAverage": 2.16,
+      "letterboxdRatingCount": 8388,
+      "sourceNotes": [
+        "the-numbers-release-schedule",
+        "the-numbers-top-grossing",
+        "letterboxd"
+      ],
+      "updatedAt": "2026-06-23"
+    },
+    {
+      "id": "lee-cronin-s-the-mummy",
+      "title": "Lee Cronin’s The Mummy",
+      "releaseDate": "2026-04-17",
+      "domesticGross": 29152113,
+      "productionBudget": 22000000,
+      "letterboxdSlug": null,
+      "letterboxdAverage": null,
+      "letterboxdRatingCount": null,
+      "sourceNotes": [
+        "the-numbers-release-schedule",
+        "the-numbers-top-grossing",
+        "the-numbers-budget"
+      ],
+      "updatedAt": "2026-06-23"
+    },
+    {
+      "id": "normal",
+      "title": "Normal",
+      "releaseDate": "2026-04-17",
+      "domesticGross": 5071290,
+      "productionBudget": null,
+      "letterboxdSlug": "film/normal-2026",
+      "letterboxdAverage": null,
+      "letterboxdRatingCount": null,
+      "sourceNotes": [
+        "the-numbers-release-schedule",
+        "the-numbers-top-grossing",
+        "letterboxd"
+      ],
+      "updatedAt": "2026-06-23"
+    },
+    {
+      "id": "mother-mary",
+      "title": "Mother Mary",
+      "releaseDate": "2026-04-17",
+      "domesticGross": 2565507,
+      "productionBudget": 20000000,
+      "letterboxdSlug": "film/mother-mary",
+      "letterboxdAverage": null,
+      "letterboxdRatingCount": null,
+      "sourceNotes": [
+        "the-numbers-release-schedule",
+        "the-numbers-top-grossing",
+        "letterboxd",
+        "the-numbers-budget"
+      ],
+      "updatedAt": "2026-06-23"
+    },
+    {
+      "id": "mile-end-kicks",
+      "title": "Mile End Kicks",
+      "releaseDate": "2026-04-17",
+      "domesticGross": 679591,
+      "productionBudget": null,
+      "letterboxdSlug": "film/mile-end-kicks",
+      "letterboxdAverage": 3.21,
+      "letterboxdRatingCount": 37385,
+      "sourceNotes": [
+        "the-numbers-release-schedule",
+        "the-numbers-top-grossing",
+        "letterboxd"
+      ],
+      "updatedAt": "2026-06-23"
+    },
+    {
+      "id": "blue-heron",
+      "title": "Blue Heron",
+      "releaseDate": "2026-04-17",
+      "domesticGross": 576164,
+      "productionBudget": null,
+      "letterboxdSlug": "film/blue-heron",
+      "letterboxdAverage": 3.94,
+      "letterboxdRatingCount": 21789,
+      "sourceNotes": [
+        "the-numbers-release-schedule",
+        "the-numbers-top-grossing",
+        "letterboxd"
+      ],
+      "updatedAt": "2026-06-23"
+    },
+    {
+      "id": "lorne",
+      "title": "Lorne",
+      "releaseDate": "2026-04-17",
+      "domesticGross": 449135,
+      "productionBudget": null,
+      "letterboxdSlug": "film/lorne-2026",
+      "letterboxdAverage": 3.58,
+      "letterboxdRatingCount": 6916,
+      "sourceNotes": [
+        "the-numbers-release-schedule",
+        "the-numbers-top-grossing",
+        "letterboxd"
+      ],
+      "updatedAt": "2026-06-23"
+    },
+    {
+      "id": "erupcja",
+      "title": "Erupcja",
+      "releaseDate": "2026-04-17",
+      "domesticGross": 232581,
+      "productionBudget": null,
+      "letterboxdSlug": "film/erupcja",
+      "letterboxdAverage": 3.35,
+      "letterboxdRatingCount": 19613,
+      "sourceNotes": [
+        "the-numbers-release-schedule",
+        "the-numbers-top-grossing",
+        "letterboxd"
+      ],
+      "updatedAt": "2026-06-23"
+    },
+    {
+      "id": "everyone-is-lying-to-you-for-money",
+      "title": "Everyone is Lying to You for Money",
+      "releaseDate": "2026-04-17",
+      "domesticGross": 144459,
+      "productionBudget": null,
+      "letterboxdSlug": "film/everyone-is-lying-to-you-for-money",
+      "letterboxdAverage": 3.68,
+      "letterboxdRatingCount": 897,
+      "sourceNotes": [
+        "the-numbers-release-schedule",
+        "the-numbers-top-grossing",
+        "letterboxd"
+      ],
+      "updatedAt": "2026-06-23"
+    },
+    {
+      "id": "marama",
+      "title": "Mārama",
+      "releaseDate": "2026-04-17",
+      "domesticGross": 102397,
+      "productionBudget": null,
+      "letterboxdSlug": "film/marama",
+      "letterboxdAverage": 3.54,
+      "letterboxdRatingCount": 8332,
+      "sourceNotes": [
+        "the-numbers-release-schedule",
+        "the-numbers-top-grossing",
+        "letterboxd"
+      ],
+      "updatedAt": "2026-06-23"
+    },
+    {
+      "id": "fireflies-at-el-mozote",
+      "title": "Fireflies at El Mozote",
+      "releaseDate": "2026-04-17",
+      "domesticGross": 100783,
+      "productionBudget": null,
+      "letterboxdSlug": "film/fireflies-at-el-mozote",
+      "letterboxdAverage": null,
+      "letterboxdRatingCount": null,
+      "sourceNotes": [
+        "the-numbers-release-schedule",
+        "the-numbers-top-grossing",
+        "letterboxd"
+      ],
+      "updatedAt": "2026-06-23"
+    },
+    {
+      "id": "amrum",
+      "title": "Amrum",
+      "releaseDate": "2026-04-17",
+      "domesticGross": 74343,
+      "productionBudget": null,
+      "letterboxdSlug": "film/amrum",
+      "letterboxdAverage": 3.45,
+      "letterboxdRatingCount": 15510,
+      "sourceNotes": [
+        "the-numbers-top-grossing",
+        "letterboxd"
+      ],
+      "updatedAt": "2026-06-23"
+    },
+    {
+      "id": "mad-bills-to-pay-or-destiny",
+      "title": "Mad Bills to Pay (or Destiny …",
+      "releaseDate": "2026-04-17",
+      "domesticGross": 67909,
+      "productionBudget": null,
+      "letterboxdSlug": null,
+      "letterboxdAverage": null,
+      "letterboxdRatingCount": null,
+      "sourceNotes": [
+        "the-numbers-top-grossing"
+      ],
+      "updatedAt": "2026-06-23"
+    },
+    {
+      "id": "un-p-tit-truc-en-plus",
+      "title": "Un p’tit truc en plus",
+      "releaseDate": "2026-04-17",
+      "domesticGross": 28875,
+      "productionBudget": null,
+      "letterboxdSlug": null,
+      "letterboxdAverage": null,
+      "letterboxdRatingCount": null,
+      "sourceNotes": [
+        "the-numbers-top-grossing"
+      ],
+      "updatedAt": "2026-06-23"
+    },
+    {
+      "id": "wasteman",
+      "title": "Wasteman",
+      "releaseDate": "2026-04-17",
+      "domesticGross": 19322,
+      "productionBudget": null,
+      "letterboxdSlug": "film/wasteman",
+      "letterboxdAverage": 3.76,
+      "letterboxdRatingCount": 44773,
+      "sourceNotes": [
+        "the-numbers-top-grossing",
+        "letterboxd"
+      ],
+      "updatedAt": "2026-06-23"
+    },
+    {
+      "id": "american-youngboy",
+      "title": "American Youngboy",
+      "releaseDate": "2026-04-22",
+      "domesticGross": 1840000,
+      "productionBudget": null,
+      "letterboxdSlug": "film/american-youngboy",
+      "letterboxdAverage": null,
+      "letterboxdRatingCount": null,
+      "sourceNotes": [
+        "the-numbers-release-schedule",
+        "the-numbers-top-grossing",
+        "letterboxd"
+      ],
+      "updatedAt": "2026-06-23"
+    },
+    {
+      "id": "michael",
+      "title": "Michael",
+      "releaseDate": "2026-04-24",
+      "domesticGross": 367887098,
+      "productionBudget": 155000000,
+      "letterboxdSlug": "film/michael-2026",
+      "letterboxdAverage": 3.6,
+      "letterboxdRatingCount": 1458709,
+      "sourceNotes": [
+        "the-numbers-release-schedule",
+        "the-numbers-top-grossing",
+        "letterboxd",
+        "the-numbers-budget"
+      ],
+      "updatedAt": "2026-06-23"
+    },
+    {
+      "id": "over-your-dead-body",
+      "title": "Over Your Dead Body",
+      "releaseDate": "2026-04-24",
+      "domesticGross": 2154696,
+      "productionBudget": null,
+      "letterboxdSlug": "film/over-your-dead-body-2026",
+      "letterboxdAverage": 3.02,
+      "letterboxdRatingCount": 79292,
+      "sourceNotes": [
+        "the-numbers-release-schedule",
+        "the-numbers-top-grossing",
+        "letterboxd"
+      ],
+      "updatedAt": "2026-06-23"
+    },
+    {
+      "id": "fuze",
+      "title": "Fuze",
+      "releaseDate": "2026-04-24",
+      "domesticGross": 1486030,
+      "productionBudget": null,
+      "letterboxdSlug": "film/fuze",
+      "letterboxdAverage": 2.9,
+      "letterboxdRatingCount": 31903,
+      "sourceNotes": [
+        "the-numbers-release-schedule",
+        "the-numbers-top-grossing",
+        "letterboxd"
+      ],
+      "updatedAt": "2026-06-23"
+    },
+    {
+      "id": "i-swear",
+      "title": "I Swear",
+      "releaseDate": "2026-04-24",
+      "domesticGross": 1057988,
+      "productionBudget": null,
+      "letterboxdSlug": "film/i-swear",
+      "letterboxdAverage": 4.25,
+      "letterboxdRatingCount": 277749,
+      "sourceNotes": [
+        "the-numbers-top-grossing",
+        "letterboxd"
+      ],
+      "updatedAt": "2026-06-23"
+    },
+    {
+      "id": "desert-warrior",
+      "title": "Desert Warrior",
+      "releaseDate": "2026-04-24",
+      "domesticGross": 704280,
+      "productionBudget": 140000000,
+      "letterboxdSlug": "film/desert-warrior",
+      "letterboxdAverage": null,
+      "letterboxdRatingCount": null,
+      "sourceNotes": [
+        "the-numbers-release-schedule",
+        "the-numbers-top-grossing",
+        "letterboxd",
+        "the-numbers-budget"
+      ],
+      "updatedAt": "2026-06-23"
+    },
+    {
+      "id": "omaha",
+      "title": "Omaha",
+      "releaseDate": "2026-04-24",
+      "domesticGross": 101609,
+      "productionBudget": null,
+      "letterboxdSlug": "film/omaha",
+      "letterboxdAverage": 3.63,
+      "letterboxdRatingCount": 6445,
+      "sourceNotes": [
+        "the-numbers-release-schedule",
+        "the-numbers-top-grossing",
+        "letterboxd"
+      ],
+      "updatedAt": "2026-06-23"
+    },
+    {
+      "id": "ricky",
+      "title": "Ricky",
+      "releaseDate": "2026-04-24",
+      "domesticGross": 41513,
+      "productionBudget": null,
+      "letterboxdSlug": null,
+      "letterboxdAverage": null,
+      "letterboxdRatingCount": null,
+      "sourceNotes": [
+        "the-numbers-release-schedule",
+        "the-numbers-top-grossing"
+      ],
+      "updatedAt": "2026-06-23"
+    },
+    {
+      "id": "wasteland-cop",
+      "title": "Wasteland Cop",
+      "releaseDate": "2026-04-24",
+      "domesticGross": 12270,
+      "productionBudget": null,
+      "letterboxdSlug": "film/wasteland-cop",
+      "letterboxdAverage": null,
+      "letterboxdRatingCount": null,
+      "sourceNotes": [
+        "the-numbers-release-schedule",
+        "the-numbers-top-grossing",
+        "letterboxd"
+      ],
+      "updatedAt": "2026-06-23"
+    },
+    {
+      "id": "kangaroo-island",
+      "title": "Kangaroo Island",
+      "releaseDate": "2026-04-24",
+      "domesticGross": 10011,
+      "productionBudget": null,
+      "letterboxdSlug": null,
+      "letterboxdAverage": null,
+      "letterboxdRatingCount": null,
+      "sourceNotes": [
+        "the-numbers-top-grossing"
+      ],
+      "updatedAt": "2026-06-23"
+    },
+    {
+      "id": "the-story-of-everything",
+      "title": "The Story of Everything",
+      "releaseDate": "2026-04-30",
+      "domesticGross": 1947962,
+      "productionBudget": null,
+      "letterboxdSlug": "film/the-story-of-everything",
+      "letterboxdAverage": null,
+      "letterboxdRatingCount": null,
+      "sourceNotes": [
+        "the-numbers-release-schedule",
+        "the-numbers-top-grossing",
+        "letterboxd"
+      ],
+      "updatedAt": "2026-06-23"
+    },
+    {
+      "id": "the-devil-wears-prada-2",
+      "title": "The Devil Wears Prada 2",
+      "releaseDate": "2026-05-01",
+      "domesticGross": 219307223,
+      "productionBudget": 100000000,
+      "letterboxdSlug": "film/the-devil-wears-prada-2",
+      "letterboxdAverage": 3.19,
+      "letterboxdRatingCount": 1098951,
+      "sourceNotes": [
+        "the-numbers-release-schedule",
+        "the-numbers-top-grossing",
+        "letterboxd",
+        "the-numbers-budget"
+      ],
+      "updatedAt": "2026-06-23"
+    },
+    {
+      "id": "hokum",
+      "title": "Hokum",
+      "releaseDate": "2026-05-01",
+      "domesticGross": 17000014,
+      "productionBudget": 5000000,
+      "letterboxdSlug": "film/hokum",
+      "letterboxdAverage": 3.33,
+      "letterboxdRatingCount": 375447,
+      "sourceNotes": [
+        "the-numbers-release-schedule",
+        "the-numbers-top-grossing",
+        "letterboxd",
+        "the-numbers-budget"
+      ],
+      "updatedAt": "2026-06-23"
+    },
+    {
+      "id": "animal-farm",
+      "title": "Animal Farm",
+      "releaseDate": "2026-05-01",
+      "domesticGross": 5576585,
+      "productionBudget": null,
+      "letterboxdSlug": "film/animal-farm",
+      "letterboxdAverage": 3.37,
+      "letterboxdRatingCount": 47501,
+      "sourceNotes": [
+        "the-numbers-release-schedule",
+        "the-numbers-top-grossing",
+        "letterboxd"
+      ],
+      "updatedAt": "2026-06-23"
+    },
+    {
+      "id": "deep-water",
+      "title": "Deep Water",
+      "releaseDate": "2026-05-01",
+      "domesticGross": 4345860,
+      "productionBudget": null,
+      "letterboxdSlug": "film/deep-water-2026",
+      "letterboxdAverage": 2.54,
+      "letterboxdRatingCount": 15322,
+      "sourceNotes": [
+        "the-numbers-release-schedule",
+        "the-numbers-top-grossing",
+        "letterboxd"
+      ],
+      "updatedAt": "2026-06-23"
+    },
+    {
+      "id": "that-time-i-got-reincarnated-as-a-slime-the-movie-tears-of-the-azure-sea",
+      "title": "That Time I Got Reincarnated as a Slime the Movie: Tears of the Azure Sea",
+      "releaseDate": "2026-05-01",
+      "domesticGross": 1423753,
+      "productionBudget": null,
+      "letterboxdSlug": null,
+      "letterboxdAverage": null,
+      "letterboxdRatingCount": null,
+      "sourceNotes": [
+        "the-numbers-release-schedule",
+        "the-numbers-top-grossing"
+      ],
+      "updatedAt": "2026-06-23"
+    },
+    {
+      "id": "rza-s-one-spoon-of-chocolate",
+      "title": "RZA’s One Spoon of Chocolate",
+      "releaseDate": "2026-05-01",
+      "domesticGross": 743092,
+      "productionBudget": null,
+      "letterboxdSlug": null,
+      "letterboxdAverage": null,
+      "letterboxdRatingCount": null,
+      "sourceNotes": [
+        "the-numbers-release-schedule",
+        "the-numbers-top-grossing"
+      ],
+      "updatedAt": "2026-06-23"
+    },
+    {
+      "id": "le-citta-di-pianura",
+      "title": "Le città di pianura",
+      "releaseDate": "2026-05-01",
+      "domesticGross": 52983,
+      "productionBudget": null,
+      "letterboxdSlug": null,
+      "letterboxdAverage": null,
+      "letterboxdRatingCount": null,
+      "sourceNotes": [
+        "the-numbers-top-grossing"
+      ],
+      "updatedAt": "2026-06-23"
+    },
+    {
+      "id": "deux-pianos",
+      "title": "Deux pianos",
+      "releaseDate": "2026-05-01",
+      "domesticGross": 44180,
+      "productionBudget": null,
+      "letterboxdSlug": null,
+      "letterboxdAverage": null,
+      "letterboxdRatingCount": null,
+      "sourceNotes": [
+        "the-numbers-top-grossing"
+      ],
+      "updatedAt": "2026-06-23"
+    },
+    {
+      "id": "boulevard",
+      "title": "Boulevard",
+      "releaseDate": "2026-05-01",
+      "domesticGross": 13853,
+      "productionBudget": null,
+      "letterboxdSlug": "film/boulevard",
+      "letterboxdAverage": null,
+      "letterboxdRatingCount": null,
+      "sourceNotes": [
+        "the-numbers-release-schedule",
+        "the-numbers-top-grossing",
+        "letterboxd"
+      ],
+      "updatedAt": "2026-06-23"
+    },
+    {
+      "id": "mortal-kombat-ii",
+      "title": "Mortal Kombat II",
+      "releaseDate": "2026-05-08",
+      "domesticGross": 79654140,
+      "productionBudget": 80000000,
+      "letterboxdSlug": "film/mortal-kombat-ii",
+      "letterboxdAverage": 2.92,
+      "letterboxdRatingCount": 220534,
+      "sourceNotes": [
+        "the-numbers-release-schedule",
+        "the-numbers-top-grossing",
+        "letterboxd",
+        "the-numbers-budget"
+      ],
+      "updatedAt": "2026-06-23"
+    },
+    {
+      "id": "the-sheep-detectives",
+      "title": "The Sheep Detectives",
+      "releaseDate": "2026-05-08",
+      "domesticGross": 64608518,
+      "productionBudget": 75000000,
+      "letterboxdSlug": "film/the-sheep-detectives",
+      "letterboxdAverage": 3.81,
+      "letterboxdRatingCount": 303889,
+      "sourceNotes": [
+        "the-numbers-release-schedule",
+        "the-numbers-top-grossing",
+        "letterboxd",
+        "the-numbers-budget"
+      ],
+      "updatedAt": "2026-06-23"
+    },
+    {
+      "id": "billie-eilish-hit-me-hard-and-soft-the-tour",
+      "title": "Billie Eilish: Hit Me Hard and Soft—The Tour",
+      "releaseDate": "2026-05-08",
+      "domesticGross": 9901485,
+      "productionBudget": 20000000,
+      "letterboxdSlug": null,
+      "letterboxdAverage": null,
+      "letterboxdRatingCount": null,
+      "sourceNotes": [
+        "the-numbers-release-schedule",
+        "the-numbers-top-grossing",
+        "the-numbers-budget"
+      ],
+      "updatedAt": "2026-06-23"
+    },
+    {
+      "id": "silent-friend",
+      "title": "Silent Friend",
+      "releaseDate": "2026-05-08",
+      "domesticGross": 360391,
+      "productionBudget": null,
+      "letterboxdSlug": "film/silent-friend",
+      "letterboxdAverage": 3.76,
+      "letterboxdRatingCount": 19374,
+      "sourceNotes": [
+        "the-numbers-release-schedule",
+        "the-numbers-top-grossing",
+        "letterboxd"
+      ],
+      "updatedAt": "2026-06-23"
+    },
+    {
+      "id": "the-python-hunt",
+      "title": "The Python Hunt",
+      "releaseDate": "2026-05-08",
+      "domesticGross": 69651,
+      "productionBudget": null,
+      "letterboxdSlug": "film/the-python-hunt",
+      "letterboxdAverage": 3.9,
+      "letterboxdRatingCount": 1896,
+      "sourceNotes": [
+        "the-numbers-release-schedule",
+        "the-numbers-top-grossing",
+        "letterboxd"
+      ],
+      "updatedAt": "2026-06-23"
+    },
+    {
+      "id": "blue-film",
+      "title": "Blue Film",
+      "releaseDate": "2026-05-08",
+      "domesticGross": 31000,
+      "productionBudget": null,
+      "letterboxdSlug": "film/blue-film-1",
+      "letterboxdAverage": 3.5,
+      "letterboxdRatingCount": 5375,
+      "sourceNotes": [
+        "the-numbers-release-schedule",
+        "the-numbers-top-grossing",
+        "letterboxd"
+      ],
+      "updatedAt": "2026-06-23"
+    },
+    {
+      "id": "influenced",
+      "title": "Influenced",
+      "releaseDate": "2026-05-08",
+      "domesticGross": 13100,
+      "productionBudget": null,
+      "letterboxdSlug": "film/influenced-2026",
+      "letterboxdAverage": null,
+      "letterboxdRatingCount": null,
+      "sourceNotes": [
+        "the-numbers-release-schedule",
+        "the-numbers-top-grossing",
+        "letterboxd"
+      ],
+      "updatedAt": "2026-06-23"
+    },
+    {
+      "id": "labyrinth",
+      "title": "Labyrinth (迷宮のしおり)",
+      "releaseDate": "2026-05-10",
+      "domesticGross": 39935,
+      "productionBudget": null,
+      "letterboxdSlug": "film/labyrinth",
+      "letterboxdAverage": 3.76,
+      "letterboxdRatingCount": 487146,
+      "sourceNotes": [
+        "the-numbers-top-grossing",
+        "letterboxd"
+      ],
+      "updatedAt": "2026-06-23"
+    },
+    {
+      "id": "obsession",
+      "title": "Obsession",
+      "releaseDate": "2026-05-15",
+      "domesticGross": 215031825,
+      "productionBudget": 1000000,
+      "letterboxdSlug": "film/obsession-2026",
+      "letterboxdAverage": null,
+      "letterboxdRatingCount": null,
+      "sourceNotes": [
+        "the-numbers-release-schedule",
+        "the-numbers-top-grossing",
+        "letterboxd",
+        "the-numbers-budget"
+      ],
+      "updatedAt": "2026-06-23"
+    },
+    {
+      "id": "in-the-grey",
+      "title": "In the Grey",
+      "releaseDate": "2026-05-15",
+      "domesticGross": 5723890,
+      "productionBudget": null,
+      "letterboxdSlug": "film/in-the-grey",
+      "letterboxdAverage": null,
+      "letterboxdRatingCount": null,
+      "sourceNotes": [
+        "the-numbers-release-schedule",
+        "the-numbers-top-grossing",
+        "letterboxd"
+      ],
+      "updatedAt": "2026-06-23"
+    },
+    {
+      "id": "is-god-is",
+      "title": "Is God Is",
+      "releaseDate": "2026-05-15",
+      "domesticGross": 4945741,
+      "productionBudget": null,
+      "letterboxdSlug": "film/is-god-is",
+      "letterboxdAverage": 3.67,
+      "letterboxdRatingCount": 46987,
+      "sourceNotes": [
+        "the-numbers-release-schedule",
+        "the-numbers-top-grossing",
+        "letterboxd"
+      ],
+      "updatedAt": "2026-06-23"
+    },
+    {
+      "id": "mobile-suit-gundam-hathaway-the-sorcery-of-nymph-circe",
+      "title": "Mobile Suit Gundam Hathaway: The Sorcery of Nymph Circe",
+      "releaseDate": "2026-05-15",
+      "domesticGross": 1165491,
+      "productionBudget": null,
+      "letterboxdSlug": null,
+      "letterboxdAverage": null,
+      "letterboxdRatingCount": null,
+      "sourceNotes": [
+        "the-numbers-release-schedule",
+        "the-numbers-top-grossing"
+      ],
+      "updatedAt": "2026-06-23"
+    },
+    {
+      "id": "le-mage-du-kremlin",
+      "title": "Le Mage du Kremlin",
+      "releaseDate": "2026-05-15",
+      "domesticGross": 652300,
+      "productionBudget": null,
+      "letterboxdSlug": null,
+      "letterboxdAverage": null,
+      "letterboxdRatingCount": null,
+      "sourceNotes": [
+        "the-numbers-top-grossing"
+      ],
+      "updatedAt": "2026-06-23"
+    },
+    {
+      "id": "forge",
+      "title": "Forge",
+      "releaseDate": "2026-05-15",
+      "domesticGross": 56963,
+      "productionBudget": null,
+      "letterboxdSlug": "film/forge-1",
+      "letterboxdAverage": 3.36,
+      "letterboxdRatingCount": 595,
+      "sourceNotes": [
+        "the-numbers-release-schedule",
+        "the-numbers-top-grossing",
+        "letterboxd"
+      ],
+      "updatedAt": "2026-06-23"
+    },
+    {
+      "id": "decorado",
+      "title": "Decorado",
+      "releaseDate": "2026-05-15",
+      "domesticGross": 26725,
+      "productionBudget": null,
+      "letterboxdSlug": "film/decorado",
+      "letterboxdAverage": 3.52,
+      "letterboxdRatingCount": 4194,
+      "sourceNotes": [
+        "the-numbers-top-grossing",
+        "letterboxd"
+      ],
+      "updatedAt": "2026-06-23"
+    },
+    {
+      "id": "magic-hour",
+      "title": "Magic Hour",
+      "releaseDate": "2026-05-15",
+      "domesticGross": 24067,
+      "productionBudget": null,
+      "letterboxdSlug": "film/magic-hour-2026",
+      "letterboxdAverage": null,
+      "letterboxdRatingCount": null,
+      "sourceNotes": [
+        "the-numbers-release-schedule",
+        "the-numbers-top-grossing",
+        "letterboxd"
+      ],
+      "updatedAt": "2026-06-23"
+    },
+    {
+      "id": "stolen-kingdom",
+      "title": "Stolen Kingdom",
+      "releaseDate": "2026-05-21",
+      "domesticGross": 66240,
+      "productionBudget": null,
+      "letterboxdSlug": "film/stolen-kingdom",
+      "letterboxdAverage": 3.82,
+      "letterboxdRatingCount": 1633,
+      "sourceNotes": [
+        "the-numbers-release-schedule",
+        "the-numbers-top-grossing",
+        "letterboxd"
+      ],
+      "updatedAt": "2026-06-23"
+    },
+    {
+      "id": "ask-e-jean",
+      "title": "Ask E. Jean",
+      "releaseDate": "2026-05-21",
+      "domesticGross": 52804,
+      "productionBudget": null,
+      "letterboxdSlug": "film/ask-e-jean",
+      "letterboxdAverage": 3.64,
+      "letterboxdRatingCount": 220,
+      "sourceNotes": [
+        "the-numbers-release-schedule",
+        "the-numbers-top-grossing",
+        "letterboxd"
+      ],
+      "updatedAt": "2026-06-23"
+    },
+    {
+      "id": "star-wars-the-mandalorian-and-grogu",
+      "title": "Star Wars: The Mandalorian and Grogu",
+      "releaseDate": "2026-05-22",
+      "domesticGross": 172039029,
+      "productionBudget": 165000000,
+      "letterboxdSlug": "film/star-wars-the-mandalorian-and-grogu",
+      "letterboxdAverage": 3.1,
+      "letterboxdRatingCount": 426278,
+      "sourceNotes": [
+        "the-numbers-release-schedule",
+        "the-numbers-top-grossing",
+        "letterboxd",
+        "the-numbers-budget"
+      ],
+      "updatedAt": "2026-06-23"
     },
     {
       "id": "passenger",
       "title": "Passenger",
       "releaseDate": "2026-05-22",
-      "domesticGross": 18027541,
-      "productionBudget": null,
-      "letterboxdSlug": null,
-      "letterboxdAverage": null,
-      "letterboxdRatingCount": null,
-      "sourceNotes": ["the-numbers"],
-      "updatedAt": "2026-06-22"
+      "domesticGross": 18041122,
+      "productionBudget": 15000000,
+      "letterboxdSlug": "film/passenger",
+      "letterboxdAverage": 3.87,
+      "letterboxdRatingCount": 3963,
+      "sourceNotes": [
+        "the-numbers-release-schedule",
+        "the-numbers-top-grossing",
+        "letterboxd",
+        "the-numbers-budget"
+      ],
+      "updatedAt": "2026-06-23"
     },
     {
-      "id": "supergirl",
-      "title": "Supergirl",
-      "releaseDate": "2026-06-26",
-      "domesticGross": null,
+      "id": "i-love-boosters",
+      "title": "I Love Boosters",
+      "releaseDate": "2026-05-22",
+      "domesticGross": 9475493,
+      "productionBudget": 20000000,
+      "letterboxdSlug": "film/i-love-boosters",
+      "letterboxdAverage": 3.81,
+      "letterboxdRatingCount": 134773,
+      "sourceNotes": [
+        "the-numbers-release-schedule",
+        "the-numbers-top-grossing",
+        "letterboxd",
+        "the-numbers-budget"
+      ],
+      "updatedAt": "2026-06-23"
+    },
+    {
+      "id": "tuner",
+      "title": "Tuner",
+      "releaseDate": "2026-05-22",
+      "domesticGross": 4028984,
+      "productionBudget": null,
+      "letterboxdSlug": "film/tuner",
+      "letterboxdAverage": 3.74,
+      "letterboxdRatingCount": 66837,
+      "sourceNotes": [
+        "the-numbers-release-schedule",
+        "the-numbers-top-grossing",
+        "letterboxd"
+      ],
+      "updatedAt": "2026-06-23"
+    },
+    {
+      "id": "corporate-retreat",
+      "title": "Corporate Retreat",
+      "releaseDate": "2026-05-22",
+      "domesticGross": 381815,
+      "productionBudget": null,
+      "letterboxdSlug": "film/corporate-retreat",
+      "letterboxdAverage": 1.83,
+      "letterboxdRatingCount": 3198,
+      "sourceNotes": [
+        "the-numbers-release-schedule",
+        "the-numbers-top-grossing",
+        "letterboxd"
+      ],
+      "updatedAt": "2026-06-23"
+    },
+    {
+      "id": "saccharine",
+      "title": "Saccharine",
+      "releaseDate": "2026-05-22",
+      "domesticGross": 115653,
+      "productionBudget": null,
+      "letterboxdSlug": "film/saccharine-2026",
+      "letterboxdAverage": 3.09,
+      "letterboxdRatingCount": 10362,
+      "sourceNotes": [
+        "the-numbers-release-schedule",
+        "the-numbers-top-grossing",
+        "letterboxd"
+      ],
+      "updatedAt": "2026-06-23"
+    },
+    {
+      "id": "backrooms",
+      "title": "Backrooms",
+      "releaseDate": "2026-05-29",
+      "domesticGross": 175053084,
+      "productionBudget": 10000000,
+      "letterboxdSlug": "film/backrooms",
+      "letterboxdAverage": null,
+      "letterboxdRatingCount": null,
+      "sourceNotes": [
+        "the-numbers-release-schedule",
+        "the-numbers-top-grossing",
+        "letterboxd",
+        "the-numbers-budget"
+      ],
+      "updatedAt": "2026-06-23"
+    },
+    {
+      "id": "the-breadwinner",
+      "title": "The Breadwinner",
+      "releaseDate": "2026-05-29",
+      "domesticGross": 19298952,
+      "productionBudget": 25000000,
+      "letterboxdSlug": "film/the-breadwinner-2026",
+      "letterboxdAverage": 2.6,
+      "letterboxdRatingCount": 10417,
+      "sourceNotes": [
+        "the-numbers-release-schedule",
+        "the-numbers-top-grossing",
+        "letterboxd",
+        "the-numbers-budget"
+      ],
+      "updatedAt": "2026-06-23"
+    },
+    {
+      "id": "pressure",
+      "title": "Pressure",
+      "releaseDate": "2026-05-29",
+      "domesticGross": 15146605,
+      "productionBudget": null,
+      "letterboxdSlug": "film/pressure-2026",
+      "letterboxdAverage": 3.52,
+      "letterboxdRatingCount": 31878,
+      "sourceNotes": [
+        "the-numbers-release-schedule",
+        "the-numbers-top-grossing",
+        "letterboxd"
+      ],
+      "updatedAt": "2026-06-23"
+    },
+    {
+      "id": "power-ballad",
+      "title": "Power Ballad",
+      "releaseDate": "2026-05-29",
+      "domesticGross": 2605478,
+      "productionBudget": null,
+      "letterboxdSlug": "film/power-ballad",
+      "letterboxdAverage": 3.26,
+      "letterboxdRatingCount": 29789,
+      "sourceNotes": [
+        "the-numbers-release-schedule",
+        "the-numbers-top-grossing",
+        "letterboxd"
+      ],
+      "updatedAt": "2026-06-23"
+    },
+    {
+      "id": "time-and-water",
+      "title": "Time And Water",
+      "releaseDate": "2026-05-29",
+      "domesticGross": 58416,
+      "productionBudget": null,
+      "letterboxdSlug": "film/time-and-water-2026",
+      "letterboxdAverage": 3.72,
+      "letterboxdRatingCount": 1503,
+      "sourceNotes": [
+        "the-numbers-release-schedule",
+        "the-numbers-top-grossing",
+        "letterboxd"
+      ],
+      "updatedAt": "2026-06-23"
+    },
+    {
+      "id": "las-corrientes",
+      "title": "Las corrientes",
+      "releaseDate": "2026-05-29",
+      "domesticGross": 33609,
       "productionBudget": null,
       "letterboxdSlug": null,
       "letterboxdAverage": null,
       "letterboxdRatingCount": null,
-      "sourceNotes": ["box-office-mojo-calendar"],
-      "updatedAt": "2026-06-22"
+      "sourceNotes": [
+        "the-numbers-top-grossing"
+      ],
+      "updatedAt": "2026-06-23"
+    },
+    {
+      "id": "renoir",
+      "title": "Renoir",
+      "releaseDate": "2026-05-29",
+      "domesticGross": 26551,
+      "productionBudget": null,
+      "letterboxdSlug": "film/renoir-1",
+      "letterboxdAverage": 3.41,
+      "letterboxdRatingCount": 8611,
+      "sourceNotes": [
+        "the-numbers-top-grossing",
+        "letterboxd"
+      ],
+      "updatedAt": "2026-06-23"
+    },
+    {
+      "id": "revolutionary-america",
+      "title": "Revolutionary America",
+      "releaseDate": "2026-05-31",
+      "domesticGross": 644141,
+      "productionBudget": null,
+      "letterboxdSlug": "film/revolutionary-america",
+      "letterboxdAverage": null,
+      "letterboxdRatingCount": null,
+      "sourceNotes": [
+        "the-numbers-release-schedule",
+        "the-numbers-top-grossing",
+        "letterboxd"
+      ],
+      "updatedAt": "2026-06-23"
+    },
+    {
+      "id": "the-easy-kind",
+      "title": "The Easy Kind",
+      "releaseDate": "2026-06-03",
+      "domesticGross": 10711,
+      "productionBudget": null,
+      "letterboxdSlug": null,
+      "letterboxdAverage": null,
+      "letterboxdRatingCount": null,
+      "sourceNotes": [
+        "the-numbers-release-schedule",
+        "the-numbers-top-grossing"
+      ],
+      "updatedAt": "2026-06-23"
+    },
+    {
+      "id": "the-amazing-digital-circus-the-last-act",
+      "title": "The Amazing Digital Circus: The Last Act",
+      "releaseDate": "2026-06-04",
+      "domesticGross": 24958833,
+      "productionBudget": null,
+      "letterboxdSlug": "film/the-amazing-digital-circus-the-last-act",
+      "letterboxdAverage": 3.34,
+      "letterboxdRatingCount": 125313,
+      "sourceNotes": [
+        "the-numbers-release-schedule",
+        "the-numbers-top-grossing",
+        "letterboxd"
+      ],
+      "updatedAt": "2026-06-23"
+    },
+    {
+      "id": "scary-movie",
+      "title": "Scary Movie",
+      "releaseDate": "2026-06-05",
+      "domesticGross": 97249724,
+      "productionBudget": 30000000,
+      "letterboxdSlug": "film/scary-movie",
+      "letterboxdAverage": 2.85,
+      "letterboxdRatingCount": 3224,
+      "sourceNotes": [
+        "the-numbers-release-schedule",
+        "the-numbers-top-grossing",
+        "letterboxd",
+        "the-numbers-budget"
+      ],
+      "updatedAt": "2026-06-23"
+    },
+    {
+      "id": "masters-of-the-universe",
+      "title": "Masters of the Universe",
+      "releaseDate": "2026-06-05",
+      "domesticGross": 57489787,
+      "productionBudget": 170000000,
+      "letterboxdSlug": "film/masters-of-the-universe",
+      "letterboxdAverage": 2.5,
+      "letterboxdRatingCount": 43255,
+      "sourceNotes": [
+        "the-numbers-release-schedule",
+        "the-numbers-top-grossing",
+        "letterboxd",
+        "the-numbers-budget"
+      ],
+      "updatedAt": "2026-06-23"
+    },
+    {
+      "id": "carolina-caroline",
+      "title": "Carolina Caroline",
+      "releaseDate": "2026-06-05",
+      "domesticGross": 263008,
+      "productionBudget": null,
+      "letterboxdSlug": "film/carolina-caroline",
+      "letterboxdAverage": 3.5,
+      "letterboxdRatingCount": 8357,
+      "sourceNotes": [
+        "the-numbers-release-schedule",
+        "the-numbers-top-grossing",
+        "letterboxd"
+      ],
+      "updatedAt": "2026-06-23"
+    },
+    {
+      "id": "another-world",
+      "title": "Another World (世外)",
+      "releaseDate": "2026-06-05",
+      "domesticGross": 68418,
+      "productionBudget": null,
+      "letterboxdSlug": "film/another-world-2026",
+      "letterboxdAverage": null,
+      "letterboxdRatingCount": null,
+      "sourceNotes": [
+        "the-numbers-top-grossing",
+        "letterboxd"
+      ],
+      "updatedAt": "2026-06-23"
+    },
+    {
+      "id": "jinsei",
+      "title": "Jinsei",
+      "releaseDate": "2026-06-05",
+      "domesticGross": 51035,
+      "productionBudget": null,
+      "letterboxdSlug": "film/jinsei",
+      "letterboxdAverage": 3.3,
+      "letterboxdRatingCount": 1618,
+      "sourceNotes": [
+        "the-numbers-release-schedule",
+        "the-numbers-top-grossing",
+        "letterboxd"
+      ],
+      "updatedAt": "2026-06-23"
+    },
+    {
+      "id": "chum",
+      "title": "Chum",
+      "releaseDate": "2026-06-05",
+      "domesticGross": 10523,
+      "productionBudget": null,
+      "letterboxdSlug": "film/chum-2026",
+      "letterboxdAverage": 1.7,
+      "letterboxdRatingCount": 1191,
+      "sourceNotes": [
+        "the-numbers-release-schedule",
+        "the-numbers-top-grossing",
+        "letterboxd"
+      ],
+      "updatedAt": "2026-06-23"
+    },
+    {
+      "id": "underland",
+      "title": "Underland",
+      "releaseDate": "2026-06-05",
+      "domesticGross": 9923,
+      "productionBudget": null,
+      "letterboxdSlug": "film/underland-1",
+      "letterboxdAverage": null,
+      "letterboxdRatingCount": null,
+      "sourceNotes": [
+        "the-numbers-release-schedule",
+        "the-numbers-top-grossing",
+        "letterboxd"
+      ],
+      "updatedAt": "2026-06-23"
+    },
+    {
+      "id": "disclosure-day",
+      "title": "Disclosure Day",
+      "releaseDate": "2026-06-12",
+      "domesticGross": 78987640,
+      "productionBudget": 115000000,
+      "letterboxdSlug": "film/disclosure-day",
+      "letterboxdAverage": 3.17,
+      "letterboxdRatingCount": 562828,
+      "sourceNotes": [
+        "the-numbers-release-schedule",
+        "the-numbers-top-grossing",
+        "letterboxd",
+        "the-numbers-budget"
+      ],
+      "updatedAt": "2026-06-23"
+    },
+    {
+      "id": "the-furious",
+      "title": "The Furious",
+      "releaseDate": "2026-06-12",
+      "domesticGross": 5265007,
+      "productionBudget": 20000000,
+      "letterboxdSlug": "film/the-furious",
+      "letterboxdAverage": 3.86,
+      "letterboxdRatingCount": 54056,
+      "sourceNotes": [
+        "the-numbers-release-schedule",
+        "the-numbers-top-grossing",
+        "letterboxd",
+        "the-numbers-budget"
+      ],
+      "updatedAt": "2026-06-23"
+    },
+    {
+      "id": "stop-that-train",
+      "title": "Stop! That! Train!",
+      "releaseDate": "2026-06-12",
+      "domesticGross": 3403792,
+      "productionBudget": null,
+      "letterboxdSlug": "film/stop-that-train",
+      "letterboxdAverage": 3.14,
+      "letterboxdRatingCount": 25906,
+      "sourceNotes": [
+        "the-numbers-release-schedule",
+        "the-numbers-top-grossing",
+        "letterboxd"
+      ],
+      "updatedAt": "2026-06-23"
+    },
+    {
+      "id": "promised-sky",
+      "title": "Promised Sky",
+      "releaseDate": "2026-06-12",
+      "domesticGross": 22985,
+      "productionBudget": null,
+      "letterboxdSlug": "film/promised-sky",
+      "letterboxdAverage": 3.48,
+      "letterboxdRatingCount": 2807,
+      "sourceNotes": [
+        "the-numbers-release-schedule",
+        "the-numbers-top-grossing",
+        "letterboxd"
+      ],
+      "updatedAt": "2026-06-23"
+    },
+    {
+      "id": "o-horizon",
+      "title": "O Horizon",
+      "releaseDate": "2026-06-12",
+      "domesticGross": 4898,
+      "productionBudget": null,
+      "letterboxdSlug": "film/o-horizon-1",
+      "letterboxdAverage": null,
+      "letterboxdRatingCount": null,
+      "sourceNotes": [
+        "the-numbers-release-schedule",
+        "the-numbers-top-grossing",
+        "letterboxd"
+      ],
+      "updatedAt": "2026-06-23"
+    },
+    {
+      "id": "crunchyroll-anime-nights-snea",
+      "title": "Crunchyroll Anime Nights Snea…",
+      "releaseDate": "2026-06-15",
+      "domesticGross": 31365,
+      "productionBudget": null,
+      "letterboxdSlug": null,
+      "letterboxdAverage": null,
+      "letterboxdRatingCount": null,
+      "sourceNotes": [
+        "the-numbers-top-grossing"
+      ],
+      "updatedAt": "2026-06-23"
+    },
+    {
+      "id": "gregg-allman-the-music-of-my-soul",
+      "title": "Gregg Allman: The Music of My Soul",
+      "releaseDate": "2026-06-17",
+      "domesticGross": 367941,
+      "productionBudget": null,
+      "letterboxdSlug": "film/gregg-allman-the-music-of-my-soul",
+      "letterboxdAverage": null,
+      "letterboxdRatingCount": null,
+      "sourceNotes": [
+        "the-numbers-release-schedule",
+        "the-numbers-top-grossing",
+        "letterboxd"
+      ],
+      "updatedAt": "2026-06-23"
+    },
+    {
+      "id": "toy-story-5",
+      "title": "Toy Story 5",
+      "releaseDate": "2026-06-19",
+      "domesticGross": 159677837,
+      "productionBudget": null,
+      "letterboxdSlug": "film/toy-story-5",
+      "letterboxdAverage": 3.79,
+      "letterboxdRatingCount": 225410,
+      "sourceNotes": [
+        "the-numbers-release-schedule",
+        "the-numbers-top-grossing",
+        "letterboxd"
+      ],
+      "updatedAt": "2026-06-23"
+    },
+    {
+      "id": "the-death-of-robin-hood",
+      "title": "The Death of Robin Hood",
+      "releaseDate": "2026-06-19",
+      "domesticGross": 2867662,
+      "productionBudget": 20000000,
+      "letterboxdSlug": "film/the-death-of-robin-hood",
+      "letterboxdAverage": 3.11,
+      "letterboxdRatingCount": 17376,
+      "sourceNotes": [
+        "the-numbers-release-schedule",
+        "the-numbers-top-grossing",
+        "letterboxd",
+        "the-numbers-budget"
+      ],
+      "updatedAt": "2026-06-23"
+    },
+    {
+      "id": "leviticus",
+      "title": "Leviticus",
+      "releaseDate": "2026-06-19",
+      "domesticGross": 2610696,
+      "productionBudget": null,
+      "letterboxdSlug": "film/leviticus-2026",
+      "letterboxdAverage": 3.79,
+      "letterboxdRatingCount": 65240,
+      "sourceNotes": [
+        "the-numbers-release-schedule",
+        "the-numbers-top-grossing",
+        "letterboxd"
+      ],
+      "updatedAt": "2026-06-23"
+    },
+    {
+      "id": "girls-like-girls",
+      "title": "Girls Like Girls",
+      "releaseDate": "2026-06-19",
+      "domesticGross": 1511430,
+      "productionBudget": null,
+      "letterboxdSlug": "film/girls-like-girls",
+      "letterboxdAverage": 3.3,
+      "letterboxdRatingCount": 23397,
+      "sourceNotes": [
+        "the-numbers-release-schedule",
+        "the-numbers-top-grossing",
+        "letterboxd"
+      ],
+      "updatedAt": "2026-06-23"
+    },
+    {
+      "id": "maddie-s-secret",
+      "title": "Maddie’s Secret",
+      "releaseDate": "2026-06-19",
+      "domesticGross": 58206,
+      "productionBudget": null,
+      "letterboxdSlug": null,
+      "letterboxdAverage": null,
+      "letterboxdRatingCount": null,
+      "sourceNotes": [
+        "the-numbers-release-schedule",
+        "the-numbers-top-grossing"
+      ],
+      "updatedAt": "2026-06-23"
+    },
+    {
+      "id": "rose-of-nevada",
+      "title": "Rose of Nevada",
+      "releaseDate": "2026-06-19",
+      "domesticGross": 22726,
+      "productionBudget": null,
+      "letterboxdSlug": "film/rose-of-nevada",
+      "letterboxdAverage": 3.45,
+      "letterboxdRatingCount": 15377,
+      "sourceNotes": [
+        "the-numbers-release-schedule",
+        "the-numbers-top-grossing",
+        "letterboxd"
+      ],
+      "updatedAt": "2026-06-23"
+    },
+    {
+      "id": "unidentified",
+      "title": "Unidentified",
+      "releaseDate": "2026-06-19",
+      "domesticGross": 15000,
+      "productionBudget": null,
+      "letterboxdSlug": "film/unidentified-1",
+      "letterboxdAverage": null,
+      "letterboxdRatingCount": null,
+      "sourceNotes": [
+        "the-numbers-release-schedule",
+        "the-numbers-top-grossing",
+        "letterboxd"
+      ],
+      "updatedAt": "2026-06-23"
+    },
+    {
+      "id": "peter-asher-everywhere-man",
+      "title": "Peter Asher: Everywhere Man",
+      "releaseDate": "2026-06-19",
+      "domesticGross": 8369,
+      "productionBudget": null,
+      "letterboxdSlug": "film/peter-asher-everywhere-man",
+      "letterboxdAverage": null,
+      "letterboxdRatingCount": null,
+      "sourceNotes": [
+        "the-numbers-release-schedule",
+        "the-numbers-top-grossing",
+        "letterboxd"
+      ],
+      "updatedAt": "2026-06-23"
     },
     {
       "id": "jackass-best-and-last",
@@ -373,32 +3539,110 @@
       "letterboxdSlug": null,
       "letterboxdAverage": null,
       "letterboxdRatingCount": null,
-      "sourceNotes": ["box-office-mojo-calendar"],
-      "updatedAt": "2026-06-22"
+      "sourceNotes": [
+        "the-numbers-release-schedule"
+      ],
+      "updatedAt": "2026-06-23"
+    },
+    {
+      "id": "lucky-strike",
+      "title": "Lucky Strike",
+      "releaseDate": "2026-06-26",
+      "domesticGross": null,
+      "productionBudget": null,
+      "letterboxdSlug": null,
+      "letterboxdAverage": null,
+      "letterboxdRatingCount": null,
+      "sourceNotes": [
+        "the-numbers-release-schedule"
+      ],
+      "updatedAt": "2026-06-23"
+    },
+    {
+      "id": "supergirl",
+      "title": "Supergirl",
+      "releaseDate": "2026-06-26",
+      "domesticGross": null,
+      "productionBudget": 170000000,
+      "letterboxdSlug": null,
+      "letterboxdAverage": null,
+      "letterboxdRatingCount": null,
+      "sourceNotes": [
+        "the-numbers-release-schedule",
+        "the-numbers-budget"
+      ],
+      "updatedAt": "2026-06-23"
+    },
+    {
+      "id": "the-token-groomsman",
+      "title": "The Token Groomsman",
+      "releaseDate": "2026-06-28",
+      "domesticGross": null,
+      "productionBudget": null,
+      "letterboxdSlug": null,
+      "letterboxdAverage": null,
+      "letterboxdRatingCount": null,
+      "sourceNotes": [
+        "the-numbers-release-schedule"
+      ],
+      "updatedAt": "2026-06-23"
     },
     {
       "id": "minions-and-monsters",
       "title": "Minions & Monsters",
       "releaseDate": "2026-07-01",
       "domesticGross": null,
-      "productionBudget": null,
+      "productionBudget": 85000000,
       "letterboxdSlug": null,
       "letterboxdAverage": null,
       "letterboxdRatingCount": null,
-      "sourceNotes": ["box-office-mojo-calendar"],
-      "updatedAt": "2026-06-22"
+      "sourceNotes": [
+        "the-numbers-release-schedule",
+        "the-numbers-budget"
+      ],
+      "updatedAt": "2026-06-23"
     },
     {
-      "id": "spider-man-brand-new-day",
-      "title": "Spider-Man: Brand New Day",
+      "id": "young-washington",
+      "title": "Young Washington",
       "releaseDate": "2026-07-03",
       "domesticGross": null,
       "productionBudget": null,
       "letterboxdSlug": null,
       "letterboxdAverage": null,
       "letterboxdRatingCount": null,
-      "sourceNotes": ["box-office-mojo-calendar"],
-      "updatedAt": "2026-06-22"
+      "sourceNotes": [
+        "the-numbers-release-schedule"
+      ],
+      "updatedAt": "2026-06-23"
+    },
+    {
+      "id": "evil-dead-burn",
+      "title": "Evil Dead Burn",
+      "releaseDate": "2026-07-10",
+      "domesticGross": null,
+      "productionBudget": null,
+      "letterboxdSlug": null,
+      "letterboxdAverage": null,
+      "letterboxdRatingCount": null,
+      "sourceNotes": [
+        "the-numbers-release-schedule"
+      ],
+      "updatedAt": "2026-06-23"
+    },
+    {
+      "id": "gail-daughtry-and-the-celebrity-sex-pass",
+      "title": "Gail Daughtry and the Celebrity Sex Pass",
+      "releaseDate": "2026-07-10",
+      "domesticGross": null,
+      "productionBudget": null,
+      "letterboxdSlug": null,
+      "letterboxdAverage": null,
+      "letterboxdRatingCount": null,
+      "sourceNotes": [
+        "the-numbers-release-schedule"
+      ],
+      "updatedAt": "2026-06-23"
     },
     {
       "id": "moana",
@@ -409,20 +3653,68 @@
       "letterboxdSlug": null,
       "letterboxdAverage": null,
       "letterboxdRatingCount": null,
-      "sourceNotes": ["box-office-mojo-calendar"],
-      "updatedAt": "2026-06-22"
+      "sourceNotes": [
+        "the-numbers-release-schedule"
+      ],
+      "updatedAt": "2026-06-23"
     },
     {
       "id": "the-odyssey",
       "title": "The Odyssey",
       "releaseDate": "2026-07-17",
       "domesticGross": null,
+      "productionBudget": 250000000,
+      "letterboxdSlug": null,
+      "letterboxdAverage": null,
+      "letterboxdRatingCount": null,
+      "sourceNotes": [
+        "the-numbers-release-schedule",
+        "the-numbers-budget"
+      ],
+      "updatedAt": "2026-06-23"
+    },
+    {
+      "id": "bad-counselors",
+      "title": "Bad Counselors",
+      "releaseDate": "2026-07-23",
+      "domesticGross": null,
       "productionBudget": null,
       "letterboxdSlug": null,
       "letterboxdAverage": null,
       "letterboxdRatingCount": null,
-      "sourceNotes": ["box-office-mojo-calendar"],
-      "updatedAt": "2026-06-22"
+      "sourceNotes": [
+        "the-numbers-release-schedule"
+      ],
+      "updatedAt": "2026-06-23"
+    },
+    {
+      "id": "her-private-hell",
+      "title": "Her Private Hell",
+      "releaseDate": "2026-07-24",
+      "domesticGross": null,
+      "productionBudget": null,
+      "letterboxdSlug": null,
+      "letterboxdAverage": null,
+      "letterboxdRatingCount": null,
+      "sourceNotes": [
+        "the-numbers-release-schedule"
+      ],
+      "updatedAt": "2026-06-23"
+    },
+    {
+      "id": "motor-city",
+      "title": "Motor City",
+      "releaseDate": "2026-07-24",
+      "domesticGross": null,
+      "productionBudget": 30000000,
+      "letterboxdSlug": null,
+      "letterboxdAverage": null,
+      "letterboxdRatingCount": null,
+      "sourceNotes": [
+        "the-numbers-release-schedule",
+        "the-numbers-budget"
+      ],
+      "updatedAt": "2026-06-23"
     },
     {
       "id": "i-want-your-sex",
@@ -433,8 +3725,24 @@
       "letterboxdSlug": null,
       "letterboxdAverage": null,
       "letterboxdRatingCount": null,
-      "sourceNotes": ["box-office-mojo-calendar", "the-numbers-release-schedule"],
-      "updatedAt": "2026-06-22"
+      "sourceNotes": [
+        "the-numbers-release-schedule"
+      ],
+      "updatedAt": "2026-06-23"
+    },
+    {
+      "id": "spider-man-brand-new-day",
+      "title": "Spider-Man: Brand New Day",
+      "releaseDate": "2026-07-31",
+      "domesticGross": null,
+      "productionBudget": null,
+      "letterboxdSlug": null,
+      "letterboxdAverage": null,
+      "letterboxdRatingCount": null,
+      "sourceNotes": [
+        "the-numbers-release-schedule"
+      ],
+      "updatedAt": "2026-06-23"
     },
     {
       "id": "ice-cream-man",
@@ -445,8 +3753,10 @@
       "letterboxdSlug": null,
       "letterboxdAverage": null,
       "letterboxdRatingCount": null,
-      "sourceNotes": ["box-office-mojo-calendar", "the-numbers-release-schedule"],
-      "updatedAt": "2026-06-22"
+      "sourceNotes": [
+        "the-numbers-release-schedule"
+      ],
+      "updatedAt": "2026-06-23"
     },
     {
       "id": "one-night-only",
@@ -457,8 +3767,10 @@
       "letterboxdSlug": null,
       "letterboxdAverage": null,
       "letterboxdRatingCount": null,
-      "sourceNotes": ["box-office-mojo-calendar", "the-numbers-release-schedule"],
-      "updatedAt": "2026-06-22"
+      "sourceNotes": [
+        "the-numbers-release-schedule"
+      ],
+      "updatedAt": "2026-06-23"
     },
     {
       "id": "super-troopers-3",
@@ -469,8 +3781,151 @@
       "letterboxdSlug": null,
       "letterboxdAverage": null,
       "letterboxdRatingCount": null,
-      "sourceNotes": ["the-numbers-release-schedule"],
-      "updatedAt": "2026-06-22"
+      "sourceNotes": [
+        "the-numbers-release-schedule"
+      ],
+      "updatedAt": "2026-06-23"
+    },
+    {
+      "id": "fauzi",
+      "title": "Fauzi",
+      "releaseDate": "2026-08-13",
+      "domesticGross": null,
+      "productionBudget": null,
+      "letterboxdSlug": null,
+      "letterboxdAverage": null,
+      "letterboxdRatingCount": null,
+      "sourceNotes": [
+        "the-numbers-release-schedule"
+      ],
+      "updatedAt": "2026-06-23"
+    },
+    {
+      "id": "paw-patrol-the-dino-movie",
+      "title": "PAW Patrol: The Dino Movie",
+      "releaseDate": "2026-08-14",
+      "domesticGross": null,
+      "productionBudget": null,
+      "letterboxdSlug": null,
+      "letterboxdAverage": null,
+      "letterboxdRatingCount": null,
+      "sourceNotes": [
+        "the-numbers-release-schedule"
+      ],
+      "updatedAt": "2026-06-23"
+    },
+    {
+      "id": "the-brink-of-war",
+      "title": "The Brink of War",
+      "releaseDate": "2026-08-14",
+      "domesticGross": null,
+      "productionBudget": null,
+      "letterboxdSlug": null,
+      "letterboxdAverage": null,
+      "letterboxdRatingCount": null,
+      "sourceNotes": [
+        "the-numbers-release-schedule"
+      ],
+      "updatedAt": "2026-06-23"
+    },
+    {
+      "id": "the-end-of-oak-street",
+      "title": "The End of Oak Street",
+      "releaseDate": "2026-08-14",
+      "domesticGross": null,
+      "productionBudget": 85000000,
+      "letterboxdSlug": null,
+      "letterboxdAverage": null,
+      "letterboxdRatingCount": null,
+      "sourceNotes": [
+        "the-numbers-release-schedule",
+        "the-numbers-budget"
+      ],
+      "updatedAt": "2026-06-23"
+    },
+    {
+      "id": "the-wrong-girls",
+      "title": "The Wrong Girls",
+      "releaseDate": "2026-08-14",
+      "domesticGross": null,
+      "productionBudget": null,
+      "letterboxdSlug": null,
+      "letterboxdAverage": null,
+      "letterboxdRatingCount": null,
+      "sourceNotes": [
+        "the-numbers-release-schedule"
+      ],
+      "updatedAt": "2026-06-23"
+    },
+    {
+      "id": "hot-spot",
+      "title": "Hot Spot",
+      "releaseDate": "2026-08-21",
+      "domesticGross": null,
+      "productionBudget": null,
+      "letterboxdSlug": null,
+      "letterboxdAverage": null,
+      "letterboxdRatingCount": null,
+      "sourceNotes": [
+        "the-numbers-release-schedule"
+      ],
+      "updatedAt": "2026-06-23"
+    },
+    {
+      "id": "insidious-out-of-the-further",
+      "title": "Insidious: Out of the Further",
+      "releaseDate": "2026-08-21",
+      "domesticGross": null,
+      "productionBudget": null,
+      "letterboxdSlug": null,
+      "letterboxdAverage": null,
+      "letterboxdRatingCount": null,
+      "sourceNotes": [
+        "the-numbers-release-schedule"
+      ],
+      "updatedAt": "2026-06-23"
+    },
+    {
+      "id": "mutiny",
+      "title": "Mutiny",
+      "releaseDate": "2026-08-21",
+      "domesticGross": null,
+      "productionBudget": null,
+      "letterboxdSlug": null,
+      "letterboxdAverage": null,
+      "letterboxdRatingCount": null,
+      "sourceNotes": [
+        "the-numbers-release-schedule"
+      ],
+      "updatedAt": "2026-06-23"
+    },
+    {
+      "id": "spa-weekend",
+      "title": "Spa Weekend",
+      "releaseDate": "2026-08-21",
+      "domesticGross": null,
+      "productionBudget": null,
+      "letterboxdSlug": null,
+      "letterboxdAverage": null,
+      "letterboxdRatingCount": null,
+      "sourceNotes": [
+        "the-numbers-release-schedule"
+      ],
+      "updatedAt": "2026-06-23"
+    },
+    {
+      "id": "untitled-vertical-family-movie",
+      "title": "Untitled Vertical Family Movie",
+      "releaseDate": "2026-08-21",
+      "domesticGross": null,
+      "productionBudget": null,
+      "letterboxdSlug": null,
+      "letterboxdAverage": null,
+      "letterboxdRatingCount": null,
+      "sourceNotes": [
+        "the-numbers-release-schedule"
+      ],
+      "updatedAt": "2026-06-23"
     },
     {
       "id": "buddy",
@@ -481,8 +3936,138 @@
       "letterboxdSlug": null,
       "letterboxdAverage": null,
       "letterboxdRatingCount": null,
-      "sourceNotes": ["box-office-mojo-calendar-changes"],
-      "updatedAt": "2026-06-22"
+      "sourceNotes": [
+        "the-numbers-release-schedule"
+      ],
+      "updatedAt": "2026-06-23"
+    },
+    {
+      "id": "cliffhanger",
+      "title": "Cliffhanger",
+      "releaseDate": "2026-08-28",
+      "domesticGross": null,
+      "productionBudget": null,
+      "letterboxdSlug": null,
+      "letterboxdAverage": null,
+      "letterboxdRatingCount": null,
+      "sourceNotes": [
+        "the-numbers-release-schedule"
+      ],
+      "updatedAt": "2026-06-23"
+    },
+    {
+      "id": "coyote-vs-acme",
+      "title": "Coyote vs. Acme",
+      "releaseDate": "2026-08-28",
+      "domesticGross": null,
+      "productionBudget": 70000000,
+      "letterboxdSlug": null,
+      "letterboxdAverage": null,
+      "letterboxdRatingCount": null,
+      "sourceNotes": [
+        "the-numbers-release-schedule",
+        "the-numbers-budget"
+      ],
+      "updatedAt": "2026-06-23"
+    },
+    {
+      "id": "finding-emily",
+      "title": "Finding Emily",
+      "releaseDate": "2026-08-28",
+      "domesticGross": null,
+      "productionBudget": null,
+      "letterboxdSlug": null,
+      "letterboxdAverage": null,
+      "letterboxdRatingCount": null,
+      "sourceNotes": [
+        "the-numbers-release-schedule"
+      ],
+      "updatedAt": "2026-06-23"
+    },
+    {
+      "id": "idiots",
+      "title": "Idiots",
+      "releaseDate": "2026-08-28",
+      "domesticGross": null,
+      "productionBudget": null,
+      "letterboxdSlug": null,
+      "letterboxdAverage": null,
+      "letterboxdRatingCount": null,
+      "sourceNotes": [
+        "the-numbers-release-schedule"
+      ],
+      "updatedAt": "2026-06-23"
+    },
+    {
+      "id": "the-dog-stars",
+      "title": "The Dog Stars",
+      "releaseDate": "2026-08-28",
+      "domesticGross": null,
+      "productionBudget": 110000000,
+      "letterboxdSlug": null,
+      "letterboxdAverage": null,
+      "letterboxdRatingCount": null,
+      "sourceNotes": [
+        "the-numbers-release-schedule",
+        "the-numbers-budget"
+      ],
+      "updatedAt": "2026-06-23"
+    },
+    {
+      "id": "4-kids-walk-into-a-bank",
+      "title": "4 Kids Walk Into a Bank",
+      "releaseDate": "2026-08-30",
+      "domesticGross": null,
+      "productionBudget": null,
+      "letterboxdSlug": null,
+      "letterboxdAverage": null,
+      "letterboxdRatingCount": null,
+      "sourceNotes": [
+        "the-numbers-release-schedule"
+      ],
+      "updatedAt": "2026-06-23"
+    },
+    {
+      "id": "fall-2-deadpoint",
+      "title": "Fall 2: Deadpoint",
+      "releaseDate": "2026-09-02",
+      "domesticGross": null,
+      "productionBudget": null,
+      "letterboxdSlug": null,
+      "letterboxdAverage": null,
+      "letterboxdRatingCount": null,
+      "sourceNotes": [
+        "the-numbers-release-schedule"
+      ],
+      "updatedAt": "2026-06-23"
+    },
+    {
+      "id": "by-any-means",
+      "title": "By Any Means",
+      "releaseDate": "2026-09-04",
+      "domesticGross": null,
+      "productionBudget": null,
+      "letterboxdSlug": null,
+      "letterboxdAverage": null,
+      "letterboxdRatingCount": null,
+      "sourceNotes": [
+        "the-numbers-release-schedule"
+      ],
+      "updatedAt": "2026-06-23"
+    },
+    {
+      "id": "how-to-rob-a-bank",
+      "title": "How to Rob a Bank",
+      "releaseDate": "2026-09-04",
+      "domesticGross": null,
+      "productionBudget": null,
+      "letterboxdSlug": null,
+      "letterboxdAverage": null,
+      "letterboxdRatingCount": null,
+      "sourceNotes": [
+        "the-numbers-release-schedule"
+      ],
+      "updatedAt": "2026-06-23"
     },
     {
       "id": "onslaught",
@@ -493,8 +4078,52 @@
       "letterboxdSlug": null,
       "letterboxdAverage": null,
       "letterboxdRatingCount": null,
-      "sourceNotes": ["box-office-mojo-calendar-changes"],
-      "updatedAt": "2026-06-22"
+      "sourceNotes": [
+        "the-numbers-release-schedule"
+      ],
+      "updatedAt": "2026-06-23"
+    },
+    {
+      "id": "daniel-the-fiery-furnace",
+      "title": "Daniel: The Fiery Furnace",
+      "releaseDate": "2026-09-11",
+      "domesticGross": null,
+      "productionBudget": null,
+      "letterboxdSlug": null,
+      "letterboxdAverage": null,
+      "letterboxdRatingCount": null,
+      "sourceNotes": [
+        "the-numbers-release-schedule"
+      ],
+      "updatedAt": "2026-06-23"
+    },
+    {
+      "id": "practical-magic-2",
+      "title": "Practical Magic 2",
+      "releaseDate": "2026-09-11",
+      "domesticGross": null,
+      "productionBudget": null,
+      "letterboxdSlug": null,
+      "letterboxdAverage": null,
+      "letterboxdRatingCount": null,
+      "sourceNotes": [
+        "the-numbers-release-schedule"
+      ],
+      "updatedAt": "2026-06-23"
+    },
+    {
+      "id": "runner",
+      "title": "Runner",
+      "releaseDate": "2026-09-11",
+      "domesticGross": null,
+      "productionBudget": null,
+      "letterboxdSlug": null,
+      "letterboxdAverage": null,
+      "letterboxdRatingCount": null,
+      "sourceNotes": [
+        "the-numbers-release-schedule"
+      ],
+      "updatedAt": "2026-06-23"
     },
     {
       "id": "the-fix",
@@ -505,20 +4134,363 @@
       "letterboxdSlug": null,
       "letterboxdAverage": null,
       "letterboxdRatingCount": null,
-      "sourceNotes": ["box-office-mojo-calendar-changes"],
-      "updatedAt": "2026-06-22"
+      "sourceNotes": [
+        "the-numbers-release-schedule"
+      ],
+      "updatedAt": "2026-06-23"
+    },
+    {
+      "id": "the-uprising",
+      "title": "The Uprising",
+      "releaseDate": "2026-09-11",
+      "domesticGross": null,
+      "productionBudget": null,
+      "letterboxdSlug": null,
+      "letterboxdAverage": null,
+      "letterboxdRatingCount": null,
+      "sourceNotes": [
+        "the-numbers-release-schedule"
+      ],
+      "updatedAt": "2026-06-23"
+    },
+    {
+      "id": "untitled-neon-film",
+      "title": "Untitled Neon Film",
+      "releaseDate": "2026-09-11",
+      "domesticGross": null,
+      "productionBudget": null,
+      "letterboxdSlug": null,
+      "letterboxdAverage": null,
+      "letterboxdRatingCount": null,
+      "sourceNotes": [
+        "the-numbers-release-schedule"
+      ],
+      "updatedAt": "2026-06-23"
+    },
+    {
+      "id": "resident-evil",
+      "title": "Resident Evil",
+      "releaseDate": "2026-09-18",
+      "domesticGross": null,
+      "productionBudget": null,
+      "letterboxdSlug": null,
+      "letterboxdAverage": null,
+      "letterboxdRatingCount": null,
+      "sourceNotes": [
+        "the-numbers-release-schedule"
+      ],
+      "updatedAt": "2026-06-23"
+    },
+    {
+      "id": "shaun-the-sheep-the-beast-of-mossy-bottom",
+      "title": "Shaun the Sheep: The Beast of Mossy Bottom",
+      "releaseDate": "2026-09-18",
+      "domesticGross": null,
+      "productionBudget": null,
+      "letterboxdSlug": null,
+      "letterboxdAverage": null,
+      "letterboxdRatingCount": null,
+      "sourceNotes": [
+        "the-numbers-release-schedule"
+      ],
+      "updatedAt": "2026-06-23"
+    },
+    {
+      "id": "the-weight",
+      "title": "The Weight",
+      "releaseDate": "2026-09-18",
+      "domesticGross": null,
+      "productionBudget": null,
+      "letterboxdSlug": null,
+      "letterboxdAverage": null,
+      "letterboxdRatingCount": null,
+      "sourceNotes": [
+        "the-numbers-release-schedule"
+      ],
+      "updatedAt": "2026-06-23"
+    },
+    {
+      "id": "charlie-harper",
+      "title": "Charlie Harper",
+      "releaseDate": "2026-09-25",
+      "domesticGross": null,
+      "productionBudget": null,
+      "letterboxdSlug": null,
+      "letterboxdAverage": null,
+      "letterboxdRatingCount": null,
+      "sourceNotes": [
+        "the-numbers-release-schedule"
+      ],
+      "updatedAt": "2026-06-23"
+    },
+    {
+      "id": "forgotten-island",
+      "title": "Forgotten Island",
+      "releaseDate": "2026-09-25",
+      "domesticGross": null,
+      "productionBudget": null,
+      "letterboxdSlug": null,
+      "letterboxdAverage": null,
+      "letterboxdRatingCount": null,
+      "sourceNotes": [
+        "the-numbers-release-schedule"
+      ],
+      "updatedAt": "2026-06-23"
+    },
+    {
+      "id": "heart-of-the-beast",
+      "title": "Heart of the Beast",
+      "releaseDate": "2026-09-25",
+      "domesticGross": null,
+      "productionBudget": null,
+      "letterboxdSlug": null,
+      "letterboxdAverage": null,
+      "letterboxdRatingCount": null,
+      "sourceNotes": [
+        "the-numbers-release-schedule"
+      ],
+      "updatedAt": "2026-06-23"
+    },
+    {
+      "id": "victorian-psycho",
+      "title": "Victorian Psycho",
+      "releaseDate": "2026-09-25",
+      "domesticGross": null,
+      "productionBudget": null,
+      "letterboxdSlug": null,
+      "letterboxdAverage": null,
+      "letterboxdRatingCount": null,
+      "sourceNotes": [
+        "the-numbers-release-schedule"
+      ],
+      "updatedAt": "2026-06-23"
+    },
+    {
+      "id": "your-mother-your-mother-your-mother",
+      "title": "Your Mother, Your Mother, Your Mother",
+      "releaseDate": "2026-09-25",
+      "domesticGross": null,
+      "productionBudget": null,
+      "letterboxdSlug": null,
+      "letterboxdAverage": null,
+      "letterboxdRatingCount": null,
+      "sourceNotes": [
+        "the-numbers-release-schedule"
+      ],
+      "updatedAt": "2026-06-23"
+    },
+    {
+      "id": "primetime",
+      "title": "Primetime",
+      "releaseDate": "2026-09-26",
+      "domesticGross": null,
+      "productionBudget": null,
+      "letterboxdSlug": null,
+      "letterboxdAverage": null,
+      "letterboxdRatingCount": null,
+      "sourceNotes": [
+        "the-numbers-release-schedule"
+      ],
+      "updatedAt": "2026-06-23"
+    },
+    {
+      "id": "crawlers",
+      "title": "Crawlers",
+      "releaseDate": "2026-10-02",
+      "domesticGross": null,
+      "productionBudget": null,
+      "letterboxdSlug": null,
+      "letterboxdAverage": null,
+      "letterboxdRatingCount": null,
+      "sourceNotes": [
+        "the-numbers-release-schedule"
+      ],
+      "updatedAt": "2026-06-23"
+    },
+    {
+      "id": "digger",
+      "title": "Digger",
+      "releaseDate": "2026-10-02",
+      "domesticGross": null,
+      "productionBudget": 125000000,
+      "letterboxdSlug": null,
+      "letterboxdAverage": null,
+      "letterboxdRatingCount": null,
+      "sourceNotes": [
+        "the-numbers-release-schedule",
+        "the-numbers-budget"
+      ],
+      "updatedAt": "2026-06-23"
+    },
+    {
+      "id": "rolling-loud",
+      "title": "Rolling Loud",
+      "releaseDate": "2026-10-02",
+      "domesticGross": null,
+      "productionBudget": null,
+      "letterboxdSlug": null,
+      "letterboxdAverage": null,
+      "letterboxdRatingCount": null,
+      "sourceNotes": [
+        "the-numbers-release-schedule"
+      ],
+      "updatedAt": "2026-06-23"
+    },
+    {
+      "id": "verity",
+      "title": "Verity",
+      "releaseDate": "2026-10-02",
+      "domesticGross": null,
+      "productionBudget": 40000000,
+      "letterboxdSlug": null,
+      "letterboxdAverage": null,
+      "letterboxdRatingCount": null,
+      "sourceNotes": [
+        "the-numbers-release-schedule",
+        "the-numbers-budget"
+      ],
+      "updatedAt": "2026-06-23"
+    },
+    {
+      "id": "angel-and-the-badman",
+      "title": "Angel and the Badman",
+      "releaseDate": "2026-10-09",
+      "domesticGross": null,
+      "productionBudget": null,
+      "letterboxdSlug": null,
+      "letterboxdAverage": null,
+      "letterboxdRatingCount": null,
+      "sourceNotes": [
+        "the-numbers-release-schedule"
+      ],
+      "updatedAt": "2026-06-23"
+    },
+    {
+      "id": "other-mommy",
+      "title": "Other Mommy",
+      "releaseDate": "2026-10-09",
+      "domesticGross": null,
+      "productionBudget": null,
+      "letterboxdSlug": null,
+      "letterboxdAverage": null,
+      "letterboxdRatingCount": null,
+      "sourceNotes": [
+        "the-numbers-release-schedule"
+      ],
+      "updatedAt": "2026-06-23"
+    },
+    {
+      "id": "she-saw-us",
+      "title": "She Saw Us",
+      "releaseDate": "2026-10-09",
+      "domesticGross": null,
+      "productionBudget": null,
+      "letterboxdSlug": null,
+      "letterboxdAverage": null,
+      "letterboxdRatingCount": null,
+      "sourceNotes": [
+        "the-numbers-release-schedule"
+      ],
+      "updatedAt": "2026-06-23"
+    },
+    {
+      "id": "the-social-reckoning",
+      "title": "The Social Reckoning",
+      "releaseDate": "2026-10-09",
+      "domesticGross": null,
+      "productionBudget": null,
+      "letterboxdSlug": null,
+      "letterboxdAverage": null,
+      "letterboxdRatingCount": null,
+      "sourceNotes": [
+        "the-numbers-release-schedule"
+      ],
+      "updatedAt": "2026-06-23"
+    },
+    {
+      "id": "flywheel-ignition-of-the-soul",
+      "title": "Flywheel: Ignition of the Soul",
+      "releaseDate": "2026-10-16",
+      "domesticGross": null,
+      "productionBudget": null,
+      "letterboxdSlug": null,
+      "letterboxdAverage": null,
+      "letterboxdRatingCount": null,
+      "sourceNotes": [
+        "the-numbers-release-schedule"
+      ],
+      "updatedAt": "2026-06-23"
+    },
+    {
+      "id": "poetic-license",
+      "title": "Poetic License",
+      "releaseDate": "2026-10-16",
+      "domesticGross": null,
+      "productionBudget": null,
+      "letterboxdSlug": null,
+      "letterboxdAverage": null,
+      "letterboxdRatingCount": null,
+      "sourceNotes": [
+        "the-numbers-release-schedule"
+      ],
+      "updatedAt": "2026-06-23"
+    },
+    {
+      "id": "sense-and-sensibility",
+      "title": "Sense and Sensibility",
+      "releaseDate": "2026-10-16",
+      "domesticGross": null,
+      "productionBudget": null,
+      "letterboxdSlug": null,
+      "letterboxdAverage": null,
+      "letterboxdRatingCount": null,
+      "sourceNotes": [
+        "the-numbers-release-schedule"
+      ],
+      "updatedAt": "2026-06-23"
+    },
+    {
+      "id": "street-fighter",
+      "title": "Street Fighter",
+      "releaseDate": "2026-10-16",
+      "domesticGross": null,
+      "productionBudget": null,
+      "letterboxdSlug": null,
+      "letterboxdAverage": null,
+      "letterboxdRatingCount": null,
+      "sourceNotes": [
+        "the-numbers-release-schedule"
+      ],
+      "updatedAt": "2026-06-23"
+    },
+    {
+      "id": "whalefall",
+      "title": "Whalefall",
+      "releaseDate": "2026-10-16",
+      "domesticGross": null,
+      "productionBudget": null,
+      "letterboxdSlug": null,
+      "letterboxdAverage": null,
+      "letterboxdRatingCount": null,
+      "sourceNotes": [
+        "the-numbers-release-schedule"
+      ],
+      "updatedAt": "2026-06-23"
     },
     {
       "id": "clayface",
       "title": "Clayface",
       "releaseDate": "2026-10-23",
       "domesticGross": null,
-      "productionBudget": null,
+      "productionBudget": 40000000,
       "letterboxdSlug": null,
       "letterboxdAverage": null,
       "letterboxdRatingCount": null,
-      "sourceNotes": ["the-numbers-release-schedule"],
-      "updatedAt": "2026-06-22"
+      "sourceNotes": [
+        "the-numbers-release-schedule",
+        "the-numbers-budget"
+      ],
+      "updatedAt": "2026-06-23"
     },
     {
       "id": "klara-and-the-sun",
@@ -529,8 +4501,38 @@
       "letterboxdSlug": null,
       "letterboxdAverage": null,
       "letterboxdRatingCount": null,
-      "sourceNotes": ["the-numbers-release-schedule"],
-      "updatedAt": "2026-06-22"
+      "sourceNotes": [
+        "the-numbers-release-schedule"
+      ],
+      "updatedAt": "2026-06-23"
+    },
+    {
+      "id": "untitled-a24-horror-film",
+      "title": "Untitled A24 Horror Film",
+      "releaseDate": "2026-10-23",
+      "domesticGross": null,
+      "productionBudget": null,
+      "letterboxdSlug": null,
+      "letterboxdAverage": null,
+      "letterboxdRatingCount": null,
+      "sourceNotes": [
+        "the-numbers-release-schedule"
+      ],
+      "updatedAt": "2026-06-23"
+    },
+    {
+      "id": "untitled-amazon-mgm-studio-film",
+      "title": "Untitled Amazon MGM Studio Film",
+      "releaseDate": "2026-10-23",
+      "domesticGross": null,
+      "productionBudget": null,
+      "letterboxdSlug": null,
+      "letterboxdAverage": null,
+      "letterboxdRatingCount": null,
+      "sourceNotes": [
+        "the-numbers-release-schedule"
+      ],
+      "updatedAt": "2026-06-23"
     },
     {
       "id": "wife-and-dog",
@@ -541,8 +4543,10 @@
       "letterboxdSlug": null,
       "letterboxdAverage": null,
       "letterboxdRatingCount": null,
-      "sourceNotes": ["the-numbers-release-schedule"],
-      "updatedAt": "2026-06-22"
+      "sourceNotes": [
+        "the-numbers-release-schedule"
+      ],
+      "updatedAt": "2026-06-23"
     },
     {
       "id": "wildwood",
@@ -553,8 +4557,38 @@
       "letterboxdSlug": null,
       "letterboxdAverage": null,
       "letterboxdRatingCount": null,
-      "sourceNotes": ["the-numbers-release-schedule"],
-      "updatedAt": "2026-06-22"
+      "sourceNotes": [
+        "the-numbers-release-schedule"
+      ],
+      "updatedAt": "2026-06-23"
+    },
+    {
+      "id": "christmas-at-the-kringles",
+      "title": "Christmas at the Kringles",
+      "releaseDate": "2026-10-30",
+      "domesticGross": null,
+      "productionBudget": null,
+      "letterboxdSlug": null,
+      "letterboxdAverage": null,
+      "letterboxdRatingCount": null,
+      "sourceNotes": [
+        "the-numbers-release-schedule"
+      ],
+      "updatedAt": "2026-06-23"
+    },
+    {
+      "id": "wicker",
+      "title": "Wicker",
+      "releaseDate": "2026-10-30",
+      "domesticGross": null,
+      "productionBudget": null,
+      "letterboxdSlug": null,
+      "letterboxdAverage": null,
+      "letterboxdRatingCount": null,
+      "sourceNotes": [
+        "the-numbers-release-schedule"
+      ],
+      "updatedAt": "2026-06-23"
     },
     {
       "id": "archangel",
@@ -565,20 +4599,38 @@
       "letterboxdSlug": null,
       "letterboxdAverage": null,
       "letterboxdRatingCount": null,
-      "sourceNotes": ["the-numbers-release-schedule"],
-      "updatedAt": "2026-06-22"
+      "sourceNotes": [
+        "the-numbers-release-schedule"
+      ],
+      "updatedAt": "2026-06-23"
     },
     {
       "id": "dr-seuss-the-cat-in-the-hat",
-      "title": "Dr. Seuss' The Cat in the Hat",
+      "title": "Dr. Seuss’ The Cat in the Hat",
       "releaseDate": "2026-11-06",
       "domesticGross": null,
       "productionBudget": null,
       "letterboxdSlug": null,
       "letterboxdAverage": null,
       "letterboxdRatingCount": null,
-      "sourceNotes": ["the-numbers-release-schedule"],
-      "updatedAt": "2026-06-22"
+      "sourceNotes": [
+        "the-numbers-release-schedule"
+      ],
+      "updatedAt": "2026-06-23"
+    },
+    {
+      "id": "drummer-boy",
+      "title": "Drummer Boy",
+      "releaseDate": "2026-11-06",
+      "domesticGross": null,
+      "productionBudget": null,
+      "letterboxdSlug": null,
+      "letterboxdAverage": null,
+      "letterboxdRatingCount": null,
+      "sourceNotes": [
+        "the-numbers-release-schedule"
+      ],
+      "updatedAt": "2026-06-23"
     },
     {
       "id": "godzilla-minus-zero",
@@ -589,8 +4641,24 @@
       "letterboxdSlug": null,
       "letterboxdAverage": null,
       "letterboxdRatingCount": null,
-      "sourceNotes": ["the-numbers-release-schedule"],
-      "updatedAt": "2026-06-22"
+      "sourceNotes": [
+        "the-numbers-release-schedule"
+      ],
+      "updatedAt": "2026-06-23"
+    },
+    {
+      "id": "jimmy",
+      "title": "Jimmy",
+      "releaseDate": "2026-11-06",
+      "domesticGross": null,
+      "productionBudget": null,
+      "letterboxdSlug": null,
+      "letterboxdAverage": null,
+      "letterboxdRatingCount": null,
+      "sourceNotes": [
+        "the-numbers-release-schedule"
+      ],
+      "updatedAt": "2026-06-23"
     },
     {
       "id": "ramayana-part-1",
@@ -601,8 +4669,10 @@
       "letterboxdSlug": null,
       "letterboxdAverage": null,
       "letterboxdRatingCount": null,
-      "sourceNotes": ["the-numbers-release-schedule"],
-      "updatedAt": "2026-06-22"
+      "sourceNotes": [
+        "the-numbers-release-schedule"
+      ],
+      "updatedAt": "2026-06-23"
     },
     {
       "id": "ebenezer-a-christmas-carol",
@@ -613,20 +4683,39 @@
       "letterboxdSlug": null,
       "letterboxdAverage": null,
       "letterboxdRatingCount": null,
-      "sourceNotes": ["the-numbers-release-schedule"],
-      "updatedAt": "2026-06-22"
+      "sourceNotes": [
+        "the-numbers-release-schedule"
+      ],
+      "updatedAt": "2026-06-23"
+    },
+    {
+      "id": "the-great-beyond",
+      "title": "The Great Beyond",
+      "releaseDate": "2026-11-13",
+      "domesticGross": null,
+      "productionBudget": null,
+      "letterboxdSlug": null,
+      "letterboxdAverage": null,
+      "letterboxdRatingCount": null,
+      "sourceNotes": [
+        "the-numbers-release-schedule"
+      ],
+      "updatedAt": "2026-06-23"
     },
     {
       "id": "the-hunger-games-sunrise-on-the-reaping",
       "title": "The Hunger Games: Sunrise on the Reaping",
       "releaseDate": "2026-11-20",
       "domesticGross": null,
-      "productionBudget": null,
+      "productionBudget": 185000000,
       "letterboxdSlug": null,
       "letterboxdAverage": null,
       "letterboxdRatingCount": null,
-      "sourceNotes": ["the-numbers-release-schedule"],
-      "updatedAt": "2026-06-22"
+      "sourceNotes": [
+        "the-numbers-release-schedule",
+        "the-numbers-budget"
+      ],
+      "updatedAt": "2026-06-23"
     },
     {
       "id": "focker-in-law",
@@ -637,8 +4726,10 @@
       "letterboxdSlug": null,
       "letterboxdAverage": null,
       "letterboxdRatingCount": null,
-      "sourceNotes": ["the-numbers-release-schedule"],
-      "updatedAt": "2026-06-22"
+      "sourceNotes": [
+        "the-numbers-release-schedule"
+      ],
+      "updatedAt": "2026-06-23"
     },
     {
       "id": "hexed",
@@ -649,8 +4740,10 @@
       "letterboxdSlug": null,
       "letterboxdAverage": null,
       "letterboxdRatingCount": null,
-      "sourceNotes": ["the-numbers-release-schedule"],
-      "updatedAt": "2026-06-22"
+      "sourceNotes": [
+        "the-numbers-release-schedule"
+      ],
+      "updatedAt": "2026-06-23"
     },
     {
       "id": "hershey",
@@ -661,8 +4754,10 @@
       "letterboxdSlug": null,
       "letterboxdAverage": null,
       "letterboxdRatingCount": null,
-      "sourceNotes": ["the-numbers-release-schedule"],
-      "updatedAt": "2026-06-22"
+      "sourceNotes": [
+        "the-numbers-release-schedule"
+      ],
+      "updatedAt": "2026-06-23"
     },
     {
       "id": "violent-night-2",
@@ -673,8 +4768,38 @@
       "letterboxdSlug": null,
       "letterboxdAverage": null,
       "letterboxdRatingCount": null,
-      "sourceNotes": ["the-numbers-release-schedule"],
-      "updatedAt": "2026-06-22"
+      "sourceNotes": [
+        "the-numbers-release-schedule"
+      ],
+      "updatedAt": "2026-06-23"
+    },
+    {
+      "id": "avengers-doomsday",
+      "title": "Avengers: Doomsday",
+      "releaseDate": "2026-12-18",
+      "domesticGross": null,
+      "productionBudget": null,
+      "letterboxdSlug": null,
+      "letterboxdAverage": null,
+      "letterboxdRatingCount": null,
+      "sourceNotes": [
+        "the-numbers-release-schedule"
+      ],
+      "updatedAt": "2026-06-23"
+    },
+    {
+      "id": "dune-part-three",
+      "title": "Dune: Part Three",
+      "releaseDate": "2026-12-18",
+      "domesticGross": null,
+      "productionBudget": null,
+      "letterboxdSlug": null,
+      "letterboxdAverage": null,
+      "letterboxdRatingCount": null,
+      "sourceNotes": [
+        "the-numbers-release-schedule"
+      ],
+      "updatedAt": "2026-06-23"
     },
     {
       "id": "the-angry-birds-movie-3",
@@ -685,8 +4810,38 @@
       "letterboxdSlug": null,
       "letterboxdAverage": null,
       "letterboxdRatingCount": null,
-      "sourceNotes": ["box-office-mojo-calendar"],
-      "updatedAt": "2026-06-22"
+      "sourceNotes": [
+        "the-numbers-release-schedule"
+      ],
+      "updatedAt": "2026-06-23"
+    },
+    {
+      "id": "a-place-in-hell",
+      "title": "A Place in Hell",
+      "releaseDate": "2026-12-25",
+      "domesticGross": null,
+      "productionBudget": null,
+      "letterboxdSlug": null,
+      "letterboxdAverage": null,
+      "letterboxdRatingCount": null,
+      "sourceNotes": [
+        "the-numbers-release-schedule"
+      ],
+      "updatedAt": "2026-06-23"
+    },
+    {
+      "id": "jumanji-open-world",
+      "title": "Jumanji: Open World",
+      "releaseDate": "2026-12-25",
+      "domesticGross": null,
+      "productionBudget": null,
+      "letterboxdSlug": null,
+      "letterboxdAverage": null,
+      "letterboxdRatingCount": null,
+      "sourceNotes": [
+        "the-numbers-release-schedule"
+      ],
+      "updatedAt": "2026-06-23"
     },
     {
       "id": "werwulf",
@@ -697,8 +4852,178 @@
       "letterboxdSlug": null,
       "letterboxdAverage": null,
       "letterboxdRatingCount": null,
-      "sourceNotes": ["box-office-mojo-calendar"],
-      "updatedAt": "2026-06-22"
+      "sourceNotes": [
+        "the-numbers-release-schedule"
+      ],
+      "updatedAt": "2026-06-23"
+    },
+    {
+      "id": "zero-a-d",
+      "title": "Zero A.D.",
+      "releaseDate": "2026-12-25",
+      "domesticGross": null,
+      "productionBudget": null,
+      "letterboxdSlug": null,
+      "letterboxdAverage": null,
+      "letterboxdRatingCount": null,
+      "sourceNotes": [
+        "the-numbers-release-schedule"
+      ],
+      "updatedAt": "2026-06-23"
+    },
+    {
+      "id": "bitter-christmas",
+      "title": "Bitter Christmas",
+      "releaseDate": "2026-12-31",
+      "domesticGross": null,
+      "productionBudget": null,
+      "letterboxdSlug": null,
+      "letterboxdAverage": null,
+      "letterboxdRatingCount": null,
+      "sourceNotes": [
+        "the-numbers-release-schedule"
+      ],
+      "updatedAt": "2026-06-23"
+    },
+    {
+      "id": "fablehaven",
+      "title": "Fablehaven",
+      "releaseDate": "2026-12-31",
+      "domesticGross": null,
+      "productionBudget": null,
+      "letterboxdSlug": null,
+      "letterboxdAverage": null,
+      "letterboxdRatingCount": null,
+      "sourceNotes": [
+        "the-numbers-release-schedule"
+      ],
+      "updatedAt": "2026-06-23"
+    },
+    {
+      "id": "maserati-the-brothers",
+      "title": "Maserati: The Brothers",
+      "releaseDate": "2026-12-31",
+      "domesticGross": null,
+      "productionBudget": null,
+      "letterboxdSlug": null,
+      "letterboxdAverage": null,
+      "letterboxdRatingCount": null,
+      "sourceNotes": [
+        "the-numbers-release-schedule"
+      ],
+      "updatedAt": "2026-06-23"
+    },
+    {
+      "id": "november-1963",
+      "title": "November 1963",
+      "releaseDate": "2026-12-31",
+      "domesticGross": null,
+      "productionBudget": null,
+      "letterboxdSlug": null,
+      "letterboxdAverage": null,
+      "letterboxdRatingCount": null,
+      "sourceNotes": [
+        "the-numbers-release-schedule"
+      ],
+      "updatedAt": "2026-06-23"
+    },
+    {
+      "id": "old-man-in-the-dunes",
+      "title": "Old Man in the Dunes",
+      "releaseDate": "2026-12-31",
+      "domesticGross": null,
+      "productionBudget": null,
+      "letterboxdSlug": null,
+      "letterboxdAverage": null,
+      "letterboxdRatingCount": null,
+      "sourceNotes": [
+        "the-numbers-release-schedule"
+      ],
+      "updatedAt": "2026-06-23"
+    },
+    {
+      "id": "star-trek-4",
+      "title": "Star Trek 4",
+      "releaseDate": "2026-12-31",
+      "domesticGross": null,
+      "productionBudget": null,
+      "letterboxdSlug": null,
+      "letterboxdAverage": null,
+      "letterboxdRatingCount": null,
+      "sourceNotes": [
+        "the-numbers-release-schedule"
+      ],
+      "updatedAt": "2026-06-23"
+    },
+    {
+      "id": "thanksgiving-2",
+      "title": "Thanksgiving 2",
+      "releaseDate": "2026-12-31",
+      "domesticGross": null,
+      "productionBudget": null,
+      "letterboxdSlug": null,
+      "letterboxdAverage": null,
+      "letterboxdRatingCount": null,
+      "sourceNotes": [
+        "the-numbers-release-schedule"
+      ],
+      "updatedAt": "2026-06-23"
+    },
+    {
+      "id": "the-beast",
+      "title": "The Beast",
+      "releaseDate": "2026-12-31",
+      "domesticGross": null,
+      "productionBudget": null,
+      "letterboxdSlug": null,
+      "letterboxdAverage": null,
+      "letterboxdRatingCount": null,
+      "sourceNotes": [
+        "the-numbers-release-schedule"
+      ],
+      "updatedAt": "2026-06-23"
+    },
+    {
+      "id": "the-haunting-in-wicker-park",
+      "title": "The Haunting in Wicker Park",
+      "releaseDate": "2026-12-31",
+      "domesticGross": null,
+      "productionBudget": null,
+      "letterboxdSlug": null,
+      "letterboxdAverage": null,
+      "letterboxdRatingCount": null,
+      "sourceNotes": [
+        "the-numbers-release-schedule"
+      ],
+      "updatedAt": "2026-06-23"
+    },
+    {
+      "id": "the-sun-never-sets",
+      "title": "The Sun Never Sets",
+      "releaseDate": "2026-12-31",
+      "domesticGross": null,
+      "productionBudget": null,
+      "letterboxdSlug": null,
+      "letterboxdAverage": null,
+      "letterboxdRatingCount": null,
+      "sourceNotes": [
+        "the-numbers-release-schedule"
+      ],
+      "updatedAt": "2026-06-23"
+    },
+    {
+      "id": "whitney-springs",
+      "title": "Whitney Springs",
+      "releaseDate": "2026-12-31",
+      "domesticGross": null,
+      "productionBudget": null,
+      "letterboxdSlug": null,
+      "letterboxdAverage": null,
+      "letterboxdRatingCount": null,
+      "sourceNotes": [
+        "the-numbers-release-schedule"
+      ],
+      "updatedAt": "2026-06-23"
     }
   ]
 }

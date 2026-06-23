@@ -190,8 +190,8 @@ function readLeagueSnapshot(value: unknown): LeagueSnapshot | null {
   const memberKey = asString(value.membershipKey);
   const movieDataVersion = asString(value.movieDataVersion);
   const season = typeof value.season === "number" ? value.season : null;
-  const transactionWatermarks = readWatermarks(value.transactionWatermarks);
-  const state = isRecord(value.state) ? value.state : null;
+  const transactionWatermarks = readWatermarks(value.transactionWatermarks ?? {});
+  const state = readSnapshotState(value.state);
 
   if (
     !activeMemberUids ||
@@ -203,12 +203,7 @@ function readLeagueSnapshot(value: unknown): LeagueSnapshot | null {
     !movieDataVersion ||
     !season ||
     !transactionWatermarks ||
-    !state ||
-    !isRecord(state.movies) ||
-    !isRecord(state.players) ||
-    !isRecord(state.auctions) ||
-    !Array.isArray(state.invalidTransactions) ||
-    !isRecord(state.todos)
+    !state
   ) {
     return null;
   }
@@ -225,6 +220,29 @@ function readLeagueSnapshot(value: unknown): LeagueSnapshot | null {
     season,
     state: state as LeagueSnapshot["state"],
     transactionWatermarks,
+  };
+}
+
+function readSnapshotState(value: unknown): LeagueSnapshot["state"] | null {
+  if (!isRecord(value) || !isRecord(value.movies) || !isRecord(value.players)) {
+    return null;
+  }
+
+  const auctions = value.auctions === undefined ? {} : value.auctions;
+  const invalidTransactions =
+    value.invalidTransactions === undefined ? [] : value.invalidTransactions;
+  const todos = value.todos === undefined ? {} : value.todos;
+
+  if (!isRecord(auctions) || !Array.isArray(invalidTransactions) || !isRecord(todos)) {
+    return null;
+  }
+
+  return {
+    auctions: auctions as LeagueSnapshot["state"]["auctions"],
+    invalidTransactions: invalidTransactions as LeagueSnapshot["state"]["invalidTransactions"],
+    movies: value.movies as LeagueSnapshot["state"]["movies"],
+    players: value.players as LeagueSnapshot["state"]["players"],
+    todos: todos as LeagueSnapshot["state"]["todos"],
   };
 }
 

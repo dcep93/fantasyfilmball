@@ -14,6 +14,7 @@ import {
   type DataSnapshot,
 } from "firebase/database";
 import DebugConsole from "./DebugConsole";
+import { decodeFirebaseValue } from "./firebaseCodec";
 import { getFirebaseClient, type FirebaseClient } from "./firebaseClient";
 import LeagueConsole from "./LeagueConsole";
 import {
@@ -119,6 +120,7 @@ const AXIS_META: Record<
 const SCORE_RED = "#f05d63";
 const SCORE_BROWN = "#d8b38a";
 const SCORE_BLUE = "#5aa9ff";
+const DEFAULT_LEAGUE_PATH = "/league/dcep93/1782180560";
 
 function usePathname() {
   const [pathname, setPathname] = useState(() => window.location.pathname);
@@ -196,7 +198,7 @@ function useUniverse(client: FirebaseClient | null, user: User | null): Universe
       (snapshot: DataSnapshot) => {
         setUniverseState({
           status: "ready",
-          value: snapshot.exists() ? snapshot.val() : {},
+          value: snapshot.exists() ? decodeFirebaseValue(snapshot.val()) : {},
         });
       },
       (error) => {
@@ -258,7 +260,7 @@ function LandingPage() {
           <button type="button" onClick={() => navigateTo("/rules")}>
             Rules
           </button>
-          <button className="ffb-primary" type="button" onClick={() => navigateTo("/league")}>
+          <button type="button" onClick={() => navigateTo("/league")}>
             Enter League
           </button>
         </nav>
@@ -269,8 +271,11 @@ function LandingPage() {
       <section className="ffb-season-banner" aria-label="Season timing">
         <p className="ffb-label">Pilot Season</p>
         <p>
-          In the future, FantasyFilmBall will run from May 1 - August 31. While we work out issues
-          during the first season, it will run from July 14 - November 8, 2026.
+          <span>In the future, FantasyFilmBall will run from May 1 - August 31.</span>
+          <span>
+            While we work out issues during the first season, it will run from July 14 - November 8,
+            2026.
+          </span>
         </p>
       </section>
 
@@ -317,7 +322,7 @@ function LandingPage() {
           <button type="button" onClick={() => navigateTo("/rules")}>
             Rules
           </button>
-          <button className="ffb-primary" type="button" onClick={() => navigateTo("/league")}>
+          <button type="button" onClick={() => navigateTo("/league")}>
             Enter League
           </button>
         </div>
@@ -345,7 +350,7 @@ function LandingPage() {
             <button type="button" onClick={() => navigateTo("/rules")}>
               Rules
             </button>
-            <button className="ffb-primary" type="button" onClick={() => navigateTo("/league")}>
+            <button type="button" onClick={() => navigateTo("/league")}>
               Enter League
             </button>
           </div>
@@ -442,8 +447,8 @@ function RulesPage() {
         <h2 id="acquisition-title">How players get films</h2>
         <p>
           A league starts with a preseason snake draft. Drafted films enter the player's{" "}
-          <Term id="theater">theater</Term>. The league config sets the max number of players, the
-          max number of films in a theater, and the number of films drafted.
+          <Term id="theater">theater</Term>. The league config sets the max number of films in a
+          theater and the number of films drafted.
         </p>
         <p>
           After the draft, undrafted films are acquired using <Term id="stubs">stubs</Term> through{" "}
@@ -495,8 +500,8 @@ function RulesPage() {
         <div className="ffb-typical-callout">
           <p className="ffb-label">Typical Setup</p>
           <p>
-            A typical league will have 6 players, each holding 10 films, with 6 scoring categories,
-            meaning 4 films will not contribute to your total score.
+            A typical player holds 10 films, with 6 scoring categories, meaning 4 films will not
+            contribute to that player's total score.
           </p>
         </div>
         <p>The recommended default categories and formulas are:</p>
@@ -1168,23 +1173,16 @@ function LoginPage({ client }: { client: FirebaseClient }) {
     } catch (error: unknown) {
       try {
         await signInWithRedirect(client.auth, provider);
-      } catch {
-        const message =
-          error instanceof Error ? error.message : "Google sign-in failed.";
-        setErrorMessage(message);
+      } catch (redirectError: unknown) {
+        setErrorMessage(formatAuthError(redirectError, error));
       }
     }
   }
 
   return (
     <main className="ffb-page ffb-page--center">
-      <section className="ffb-login" aria-labelledby="login-title">
+      <section className="ffb-login" aria-label="FantasyFilmBall sign in">
         <p className="ffb-kicker">FantasyFilmBall</p>
-        <h1 id="login-title">Enter the draft room</h1>
-        <p>
-          Sign in with Google to enter the private league console, manage league membership, record
-          player transactions, and review scoring rules.
-        </p>
         <label className="ffb-oath-check">
           <input
             checked={isReady}
@@ -1199,6 +1197,9 @@ function LoginPage({ client }: { client: FirebaseClient }) {
           <button className="ffb-primary" disabled={!isReady} type="button" onClick={signIn}>
             Sign in with Google
           </button>
+          <button type="button" onClick={() => navigateTo("/")}>
+            Home
+          </button>
           <button type="button" onClick={() => navigateTo("/rules")}>
             Rules
           </button>
@@ -1207,6 +1208,19 @@ function LoginPage({ client }: { client: FirebaseClient }) {
       </section>
     </main>
   );
+}
+
+function formatAuthError(error: unknown, fallback?: unknown) {
+  const message = errorMessage(error) ?? errorMessage(fallback) ?? "Google sign-in failed.";
+  if (message.includes("auth/unauthorized-domain")) {
+    return `Firebase Auth does not allow this domain yet. Add ${window.location.hostname} in Firebase Console > Authentication > Settings > Authorized domains.`;
+  }
+
+  return message;
+}
+
+function errorMessage(error: unknown) {
+  return error instanceof Error ? error.message : null;
 }
 
 function AppShell() {
@@ -1231,19 +1245,28 @@ function PrivateApp() {
   const user = authState.status === "signed-in" ? authState.user : null;
   const universeState = useUniverse(client, user);
 
-  if (pathname !== "/league" && pathname !== "/debug") {
+  useEffect(() => {
+    if (authState.status === "signed-in" && pathname === "/league") {
+      navigateTo(DEFAULT_LEAGUE_PATH);
+    }
+  }, [authState.status, pathname]);
+
+  async function signOutToLeague() {
+    if (clientState.status !== "ready") {
+      navigateTo("/league");
+      return;
+    }
+
+    await signOut(clientState.client.auth);
+    navigateTo("/league");
+  }
+
+  if (!pathname.startsWith("/league") && pathname !== "/debug") {
     return <LandingPage />;
   }
 
   if (clientState.status === "loading") {
-    return (
-      <main className="ffb-page ffb-page--center">
-        <section className="ffb-login">
-          <p className="ffb-kicker">FantasyFilmBall</p>
-          <h1>Loading Firebase</h1>
-        </section>
-      </main>
-    );
+    return <main className="ffb-page" aria-label="Loading FantasyFilmBall" />;
   }
 
   if (clientState.status === "error") {
@@ -1259,18 +1282,15 @@ function PrivateApp() {
   }
 
   if (authState.status === "loading") {
-    return (
-      <main className="ffb-page ffb-page--center">
-        <section className="ffb-login">
-          <p className="ffb-kicker">FantasyFilmBall</p>
-          <h1>Checking sign-in</h1>
-        </section>
-      </main>
-    );
+    return <main className="ffb-page" aria-label="Checking sign-in" />;
   }
 
   if (authState.status === "signed-out") {
     return <LoginPage client={clientState.client} />;
+  }
+
+  if (pathname === "/league") {
+    return <main className="ffb-page" aria-label="Opening league" />;
   }
 
   if (pathname === "/debug") {
@@ -1278,7 +1298,7 @@ function PrivateApp() {
       <DebugConsole
         client={clientState.client}
         onNavigate={navigateTo}
-        onSignOut={() => signOut(clientState.client.auth)}
+        onSignOut={signOutToLeague}
         universeState={universeState}
         user={authState.user}
       />
@@ -1288,8 +1308,9 @@ function PrivateApp() {
   return (
     <LeagueConsole
       client={clientState.client}
+      pathname={pathname}
       onNavigate={navigateTo}
-      onSignOut={() => signOut(clientState.client.auth)}
+      onSignOut={signOutToLeague}
       universeState={universeState}
       user={authState.user}
     />

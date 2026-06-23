@@ -1,5 +1,12 @@
 import { describe, expect, it } from "vitest";
 import {
+  FIREBASE_EMPTY_ARRAY,
+  FIREBASE_EMPTY_OBJECT,
+  FIREBASE_UNDEFINED,
+  decodeFirebaseValue,
+  encodeFirebaseValue,
+} from "./firebaseCodec";
+import {
   DEFAULT_LEAGUE_ID,
   STARTING_STUBS,
   membershipKey,
@@ -15,6 +22,56 @@ import { DEFAULT_SCORING_RULES } from "./scoringRules";
 const COMMISSIONER_UID = "commissioner";
 const PLAYER_UID = "player";
 const LEAGUE_KEY = membershipKey(COMMISSIONER_UID, DEFAULT_LEAGUE_ID);
+
+describe("firebase codec", () => {
+  it("encodes empty objects, empty arrays, and undefined recursively", () => {
+    expect(
+      encodeFirebaseValue({
+        emptyArray: [],
+        emptyObject: {},
+        nested: {
+          childArray: [],
+          childObject: {},
+          childUndefined: undefined,
+        },
+        present: "value",
+        undefinedValue: undefined,
+      }),
+    ).toEqual({
+      emptyArray: FIREBASE_EMPTY_ARRAY,
+      emptyObject: FIREBASE_EMPTY_OBJECT,
+      nested: {
+        childArray: FIREBASE_EMPTY_ARRAY,
+        childObject: FIREBASE_EMPTY_OBJECT,
+        childUndefined: FIREBASE_UNDEFINED,
+      },
+      present: "value",
+      undefinedValue: FIREBASE_UNDEFINED,
+    });
+  });
+
+  it("decodes firebase sentinels recursively", () => {
+    const decoded = decodeFirebaseValue({
+      emptyArray: FIREBASE_EMPTY_ARRAY,
+      emptyObject: FIREBASE_EMPTY_OBJECT,
+      nested: {
+        childArray: FIREBASE_EMPTY_ARRAY,
+        childObject: FIREBASE_EMPTY_OBJECT,
+        childUndefined: FIREBASE_UNDEFINED,
+      },
+      undefinedValue: FIREBASE_UNDEFINED,
+    }) as Record<string, unknown>;
+
+    expect(decoded.emptyArray).toEqual([]);
+    expect(decoded.emptyObject).toEqual({});
+    expect(decoded.nested).toEqual({
+      childArray: [],
+      childObject: {},
+      childUndefined: undefined,
+    });
+    expect(decoded).toHaveProperty("undefinedValue", undefined);
+  });
+});
 
 describe("tracked movie parsing", () => {
   it("accepts a valid movie file", () => {
@@ -147,6 +204,37 @@ describe("snapshot resolution", () => {
     expect(resolution.shouldWrite).toBe(false);
   });
 
+  it("accepts snapshots after Firebase omits empty maps", () => {
+    const current = Date.UTC(2026, 4, 16, 12);
+    const snapshot = deriveLeagueSnapshot({
+      generatedByUid: COMMISSIONER_UID,
+      league: league(),
+      movieFile: movieFile(),
+      now: current,
+      transactions: [],
+    });
+    const firebaseSnapshot = {
+      ...snapshot,
+      state: {
+        ...snapshot.state,
+        auctions: undefined,
+        invalidTransactions: undefined,
+      },
+      transactionWatermarks: undefined,
+    };
+    const resolution = resolveLeagueSnapshot({
+      generatedByUid: COMMISSIONER_UID,
+      movieFile: movieFile(),
+      now: current,
+      summary: summary(),
+      transactions: [],
+      universeValue: universeWithSnapshots([firebaseSnapshot as unknown as typeof snapshot]),
+    });
+
+    expect(resolution.source).toBe("current-user");
+    expect(resolution.shouldWrite).toBe(false);
+  });
+
   it("rejects snapshots with stale movie data versions", () => {
     const current = Date.UTC(2026, 4, 16, 12);
     const staleSnapshot = {
@@ -253,7 +341,6 @@ function league(): CommissionerLeague {
   return {
     commissionerUid: COMMISSIONER_UID,
     config: {
-      maxPlayers: 6,
       maxTheaterSize: 10,
       regularSeasonEnd: "2026-08-31",
       regularSeasonStart: "2026-05-01",
@@ -266,16 +353,12 @@ function league(): CommissionerLeague {
       [COMMISSIONER_UID]: {
         email: "commissioner@gmail.com",
         joinedAt: 1,
-        label: "Commissioner",
         playerId: "1",
-        status: "active",
       },
       [PLAYER_UID]: {
         email: "player@gmail.com",
         joinedAt: 1,
-        label: "Player",
         playerId: "2",
-        status: "active",
       },
     },
     name: "Test League",
@@ -302,7 +385,6 @@ function pickup(txnId: string, filmId: string, createdAt: number): LeagueTransac
     filmId,
     kind: "pickup",
     playerId: "1",
-    playerLabel: "Commissioner",
     playerUid: COMMISSIONER_UID,
     txnId,
   };
@@ -315,7 +397,6 @@ function drop(txnId: string, filmId: string, createdAt: number): LeagueTransacti
     filmId,
     kind: "drop",
     playerId: "1",
-    playerLabel: "Commissioner",
     playerUid: COMMISSIONER_UID,
     txnId,
   };
@@ -329,26 +410,20 @@ function bid(
   amount: number,
   createdAt: number,
 ): LeagueTransaction {
-  const auctionId = `initial:${filmId}`;
   return {
-    auctionDeadline: initialAuctionDeadline("2026-07-14"),
-    auctionId,
     createdAt,
     fee: 1,
     kind: "bid",
     obfuscatedPayload: obfuscateBidPayload(
       { amount, dropFilmId: null, filmId, submittedAt: createdAt },
       {
-        auctionId,
         commissionerUid: COMMISSIONER_UID,
         leagueId: DEFAULT_LEAGUE_ID,
         txnId,
       },
     ),
     playerId,
-    playerLabel: uid === COMMISSIONER_UID ? "Commissioner" : "Player",
     playerUid: uid,
-    publicText: `Player placed bid ${txnId}`,
     txnId,
   };
 }

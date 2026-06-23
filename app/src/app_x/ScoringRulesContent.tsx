@@ -1,6 +1,7 @@
 import { useEffect, useMemo, useState, type FormEvent } from "react";
 import type { User } from "firebase/auth";
 import { ref, serverTimestamp, update } from "firebase/database";
+import { encodeFirebaseValue } from "./firebaseCodec";
 import type { FirebaseClient } from "./firebaseClient";
 import {
   DEFAULT_SCORING_RULES,
@@ -11,17 +12,13 @@ import {
   type ScoringPosition,
   type ScoringRuleSet,
 } from "./scoringRules";
-import {
-  SELECTED_LEAGUE_STORAGE_KEY,
-  findLeagueSummary,
-  type UniverseState,
-} from "./leagueModel";
+import type { LeagueSummary } from "./leagueModel";
 
 type ContentProps = {
   client: FirebaseClient;
   onChangeLeague?: () => void;
   onOpenLeague: () => void;
-  universeState: UniverseState;
+  selectedLeague: LeagueSummary | null;
   user: User;
 };
 
@@ -43,15 +40,12 @@ export function ScoringRulesContent({
   client,
   onChangeLeague,
   onOpenLeague,
-  universeState,
+  selectedLeague,
   user,
 }: ContentProps) {
   const [movies, setMovies] = useState<MovieRow[]>([]);
   const [movieError, setMovieError] = useState<string | null>(null);
   const [message, setMessage] = useState<string | null>(null);
-  const [selectedKey, setSelectedKey] = useState(() =>
-    window.localStorage.getItem(SELECTED_LEAGUE_STORAGE_KEY),
-  );
 
   useEffect(() => {
     let active = true;
@@ -79,10 +73,6 @@ export function ScoringRulesContent({
     };
   }, []);
 
-  const selectedLeague = useMemo(
-    () => findLeagueSummary(universeState.status === "ready" ? universeState.value : {}, selectedKey),
-    [selectedKey, universeState],
-  );
   const currentRules = selectedLeague?.league.scoring ?? DEFAULT_SCORING_RULES;
   const isCommissioner = Boolean(selectedLeague && selectedLeague.commissionerUid === user.uid);
 
@@ -91,11 +81,11 @@ export function ScoringRulesContent({
       throw new Error("Only this league's commissioner can edit scoring positions and formulas.");
     }
 
-    await update(ref(client.database, `users/${user.uid}`), {
+    await update(ref(client.database, `users/${user.uid}`), encodeFirebaseValue({
       [`leagues/${selectedLeague.league.leagueId}/scoring`]: rules,
       [`leagues/${selectedLeague.league.leagueId}/updatedAt`]: timestamp(),
       updatedAt: serverTimestamp(),
-    });
+    }) as Record<string, unknown>);
     setMessage("Scoring positions and formulas saved.");
   }
 
@@ -148,8 +138,6 @@ export function ScoringRulesContent({
               <button
                 type="button"
                 onClick={() => {
-                  window.localStorage.removeItem(SELECTED_LEAGUE_STORAGE_KEY);
-                  setSelectedKey(null);
                   onChangeLeague?.();
                 }}
               >

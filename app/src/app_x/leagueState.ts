@@ -26,7 +26,6 @@ export type DerivedMovieState = {
 };
 
 export type DerivedPlayerState = {
-  label: string;
   playerId: string;
   stubs: number;
   theater: string[];
@@ -139,30 +138,24 @@ export function deriveLeagueSnapshot({
     }
 
     if (transaction.kind === "bid") {
-      const payload =
-        transaction.auctionDeadline <= now
-          ? decodeBidPayload(transaction.obfuscatedPayload, {
-              auctionId: transaction.auctionId,
-              commissionerUid: league.commissionerUid,
-              leagueId: league.leagueId,
-              txnId: transaction.txnId,
-            })
-          : null;
+      const payload = decodeBidPayload(transaction.obfuscatedPayload, {
+        commissionerUid: league.commissionerUid,
+        leagueId: league.leagueId,
+        txnId: transaction.txnId,
+      });
 
-      if (transaction.auctionDeadline <= now && !payload) {
+      if (!payload) {
         invalidTransactions.push(invalid(transaction, "bid payload could not be decoded"));
         continue;
       }
 
-      if (payload) {
-        bids.push({
-          amount: payload.amount,
-          createdAt: transaction.createdAt,
-          dropFilmId: payload.dropFilmId,
-          filmId: payload.filmId,
-          transaction,
-        });
-      }
+      bids.push({
+        amount: payload.amount,
+        createdAt: transaction.createdAt,
+        dropFilmId: payload.dropFilmId,
+        filmId: payload.filmId,
+        transaction,
+      });
       continue;
     }
 
@@ -228,9 +221,7 @@ export function releaseLockTime(releaseDate: string) {
 }
 
 export function activeLeagueMembers(league: CommissionerLeague): Record<string, LeagueMember> {
-  return Object.fromEntries(
-    Object.entries(league.members).filter(([, member]) => member.status === "active"),
-  );
+  return league.members;
 }
 
 function initialPlayers(
@@ -241,7 +232,6 @@ function initialPlayers(
     Object.entries(members).map(([uid, member]) => [
       uid,
       {
-        label: member.label,
         playerId: member.playerId,
         spent: 0,
         stubs: startingStubs,
@@ -476,7 +466,6 @@ function stripRuntimePlayers(players: Record<string, PlayerRuntime>): Record<str
     Object.entries(players).map(([uid, player]) => [
       uid,
       {
-        label: player.label,
         playerId: player.playerId,
         stubs: player.stubs,
         theater: player.theater,

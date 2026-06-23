@@ -56,8 +56,7 @@
   color: var(--ww-accent-cyan);
   font-size: 0.75rem;
   font-weight: 800;
-  letter-spacing: 0.08em;
-  text-transform: uppercase;
+  letter-spacing: 0;
 }
 
 .ffb-page h1,
@@ -69,7 +68,7 @@
 .ffb-page h1 {
   margin-bottom: 0;
   color: var(--ww-title-pink);
-  font-family: "Comic Sans MS", "Comic Sans", cursive;
+  font-family: "Comic Sans MS", "Comic Sans", "Chalkboard SE", "Trebuchet MS", sans-serif;
   font-size: clamp(2.3rem, 6vw, 5rem);
   line-height: 0.95;
   letter-spacing: 0;
@@ -164,6 +163,119 @@
   gap: 0.75rem;
 }
 
+.ffb-app-nav {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: flex-end;
+  gap: 0.75rem;
+}
+
+.ffb-app-tabs,
+.ffb-app-tools {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.25rem;
+  border: 0.0625rem solid var(--ww-border-soft);
+  border-radius: 0.5rem;
+  padding: 0.25rem;
+  background: rgba(16, 12, 10, 0.42);
+}
+
+.ffb-app-tools {
+  background: transparent;
+}
+
+.ffb-account-chip {
+  display: inline-flex;
+  min-height: 2.2rem;
+  align-items: center;
+  border: 0;
+  border-radius: 0.35rem;
+  padding: 0.48rem 0.72rem;
+  color: var(--ww-accent-cyan);
+  background: rgba(46, 138, 150, 0.12);
+  font: inherit;
+  font-size: 0.92rem;
+  font-weight: 850;
+  cursor: pointer;
+}
+
+.ffb-account-menu {
+  position: relative;
+}
+
+.ffb-account-menu-popover {
+  position: absolute;
+  top: calc(100% + 0.4rem);
+  right: 0;
+  z-index: 20;
+  display: grid;
+  min-width: 16rem;
+  overflow: hidden;
+  border: 0.0625rem solid var(--ww-border);
+  border-radius: 0.5rem;
+  background: var(--ww-panel);
+  box-shadow: 0 1.4rem 3rem rgba(0, 0, 0, 0.36);
+}
+
+.ffb-account-menu-popover button,
+.ffb-account-menu-row {
+  width: 100%;
+  box-sizing: border-box;
+  border: 0;
+  border-radius: 0;
+  padding: 0.75rem 0.9rem;
+  color: var(--ww-text);
+  background: transparent;
+  font: inherit;
+  font-size: 0.92rem;
+  font-weight: 750;
+  text-align: left;
+}
+
+.ffb-account-menu-row {
+  color: var(--ww-accent-pink);
+  background: rgba(255, 123, 195, 0.08);
+}
+
+.ffb-account-menu-popover button {
+  cursor: pointer;
+}
+
+.ffb-account-menu-popover button:hover,
+.ffb-account-menu-popover button:focus {
+  color: var(--ww-text-strong);
+  background: rgba(255, 255, 255, 0.06);
+}
+
+.ffb-app-nav button {
+  min-height: 2.2rem;
+  border: 0;
+  border-radius: 0.35rem;
+  padding: 0.48rem 0.72rem;
+  color: var(--ww-text-muted);
+  background: transparent;
+  font: inherit;
+  font-size: 0.92rem;
+  font-weight: 800;
+  cursor: pointer;
+  transition:
+    color 140ms ease,
+    background 140ms ease;
+}
+
+.ffb-app-nav button:hover,
+.ffb-app-nav button:focus {
+  color: var(--ww-text-strong);
+  background: rgba(255, 255, 255, 0.06);
+}
+
+.ffb-app-nav button[aria-pressed="true"] {
+  color: var(--ww-text-strong);
+  background: rgba(216, 179, 138, 0.16);
+  box-shadow: inset 0 0 0 0.0625rem rgba(228, 193, 150, 0.18);
+}
+
 .ffb-actions {
   margin-top: 1.35rem;
 }
@@ -216,6 +328,17 @@ button:disabled:hover {
   background: rgba(255, 255, 255, 0.08) !important;
 }
 
+.ffb-danger-button {
+  border-color: rgba(255, 159, 176, 0.55) !important;
+  color: #fff7f9 !important;
+  background: rgba(147, 31, 54, 0.34) !important;
+}
+
+.ffb-danger-button:not(:disabled):hover,
+.ffb-danger-button:not(:disabled):focus {
+  background: rgba(185, 42, 70, 0.44) !important;
+}
+
 .ffb-grid {
   display: grid;
   grid-template-columns: repeat(2, minmax(0, 1fr));
@@ -245,7 +368,7 @@ button:disabled:hover {
 
 .ffb-counter strong {
   color: var(--ww-title-pink);
-  font-family: "Comic Sans MS", "Comic Sans", cursive;
+  font-family: "Comic Sans MS", "Comic Sans", "Chalkboard SE", "Trebuchet MS", sans-serif;
   font-size: 4rem;
   font-weight: 400;
   line-height: 0.95;
@@ -273,7 +396,6 @@ button:disabled:hover {
   color: var(--ww-accent-cyan);
   font-size: 0.78rem;
   font-weight: 800;
-  text-transform: uppercase;
 }
 
 .ffb-universe pre {
@@ -328,13 +450,11 @@ button:disabled:hover {
   color: var(--ww-text-muted);
   font-size: 0.82rem;
   font-weight: 850;
-  text-transform: uppercase;
 }
 
 .ffb-check {
   grid-template-columns: auto minmax(0, 1fr);
   align-items: center;
-  text-transform: none;
 }
 
 .ffb-form input,
@@ -367,11 +487,23 @@ button:disabled:hover {
   align-items: start;
 }
 
-.ffb-stubs,
+.ffb-picker-grid {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) minmax(18rem, 0.42fr);
+  gap: 1rem;
+  align-items: start;
+  width: min(68rem, 100%);
+  margin: 0 auto 1rem;
+}
+
+.ffb-picker-grid > .ffb-log {
+  margin-bottom: 0;
+}
+
 .ffb-score-summary strong {
   display: block;
   color: var(--ww-title-pink);
-  font-family: "Comic Sans MS", "Comic Sans", cursive;
+  font-family: "Comic Sans MS", "Comic Sans", "Chalkboard SE", "Trebuchet MS", sans-serif;
   font-size: 4rem;
   font-weight: 400;
   line-height: 0.95;
@@ -391,6 +523,185 @@ button:disabled:hover {
 .ffb-log {
   overflow: hidden;
   margin-bottom: 1rem;
+}
+
+.ffb-danger-panel {
+  border: 0.0625rem solid rgba(255, 159, 176, 0.34);
+  border-radius: 0.5rem;
+  padding: 1rem;
+  background: rgba(112, 24, 42, 0.16);
+}
+
+.ffb-danger-panel h3 {
+  margin: 0 0 0.45rem;
+  color: var(--ww-text-strong);
+}
+
+.ffb-theaters-panel {
+  width: min(68rem, 100%);
+  box-sizing: border-box;
+  margin: 0 auto 1rem;
+  overflow: hidden;
+  border: 0.0625rem solid var(--ww-border);
+  border-radius: 0.5rem;
+  background: var(--ww-panel-soft);
+  box-shadow: 0 1.4rem 3.2rem rgba(0, 0, 0, 0.22);
+}
+
+.ffb-theater-table {
+  display: grid;
+}
+
+.ffb-theater-row {
+  display: grid;
+  grid-template-columns: minmax(9rem, 1.4fr) repeat(3, minmax(5.6rem, 0.55fr));
+  gap: 0.8rem;
+  align-items: center;
+  border-top: 0.0625rem solid var(--ww-border-soft);
+  padding: 0.8rem 1rem;
+  color: var(--ww-text-muted);
+}
+
+.ffb-theater-row--button {
+  width: 100%;
+  border-right: 0;
+  border-bottom: 0;
+  border-left: 0;
+  border-radius: 0;
+  background: transparent;
+  font: inherit;
+  text-align: left;
+  cursor: pointer;
+}
+
+.ffb-theater-row--button:hover,
+.ffb-theater-row--button:focus-visible {
+  background: rgba(255, 123, 195, 0.08);
+}
+
+.ffb-theater-row--head {
+  color: var(--ww-accent-cyan);
+  font-size: 0.84rem;
+  font-weight: 850;
+}
+
+.ffb-player-name {
+  color: var(--ww-text-strong);
+  font-weight: 650;
+}
+
+.ffb-theater-row--current .ffb-player-name {
+  font-weight: 950;
+}
+
+.ffb-inline-state {
+  margin-left: 0.45rem;
+  color: var(--ww-text-muted);
+  font-size: 0.9rem;
+  font-weight: 650;
+}
+
+.ffb-theater-row--pending {
+  background: rgba(255, 255, 255, 0.025);
+}
+
+.ffb-theater-action {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.6rem;
+  grid-column: 2 / -1;
+}
+
+.ffb-theater-row button {
+  min-height: 2.2rem;
+  border: 0.0625rem solid var(--ww-border);
+  border-radius: 1.25rem;
+  padding: 0.45em 0.8em;
+  color: var(--ww-text);
+  background: transparent;
+  font: inherit;
+  font-weight: 750;
+  cursor: pointer;
+}
+
+.ffb-player-detail {
+  width: min(68rem, 100%);
+  box-sizing: border-box;
+  margin: 0 auto 1rem;
+  border: 0.0625rem solid var(--ww-border);
+  border-radius: 0.5rem;
+  padding: 1rem;
+  background: var(--ww-panel);
+}
+
+.ffb-player-film-list {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(13rem, 1fr));
+  gap: 0.7rem;
+}
+
+.ffb-available-film-list {
+  grid-template-columns: 1fr;
+}
+
+.ffb-player-film-list article {
+  border: 0.0625rem solid var(--ww-border-soft);
+  border-radius: 0.5rem;
+  padding: 0.85rem;
+  background: rgba(255, 255, 255, 0.025);
+}
+
+.ffb-player-film-list h3 {
+  margin: 0 0 0.3rem;
+  color: var(--ww-text-strong);
+  font-size: 1rem;
+}
+
+.ffb-player-film-list p {
+  margin: 0;
+  color: var(--ww-text-soft);
+  font-size: 0.9rem;
+}
+
+.ffb-derived-grid {
+  display: grid;
+  gap: 1rem;
+}
+
+.ffb-commissioner-panel {
+  width: min(68rem, 100%);
+  box-sizing: border-box;
+  margin: 0 auto 1rem;
+  overflow: hidden;
+  border: 0.0625rem solid var(--ww-border);
+  border-radius: 0.5rem;
+  background: var(--ww-panel-soft);
+  box-shadow: 0 1.4rem 3.2rem rgba(0, 0, 0, 0.22);
+}
+
+.ffb-commissioner-grid {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 1rem;
+  padding: 1rem;
+}
+
+.ffb-commissioner-card {
+  display: grid;
+  gap: 0.85rem;
+  align-content: start;
+  min-height: 0;
+  border: 0.0625rem solid var(--ww-border-soft);
+  border-radius: 0.5rem;
+  padding: 1rem;
+  background: rgba(20, 15, 12, 0.42);
+}
+
+.ffb-commissioner-card h3 {
+  margin: 0;
+  color: var(--ww-text-strong);
+  font-size: 1.2rem;
+  line-height: 1.16;
 }
 
 .ffb-log pre {
@@ -451,7 +762,62 @@ button:disabled:hover {
   color: var(--ww-accent-cyan);
   font-size: 0.74rem;
   font-weight: 850;
-  text-transform: uppercase;
+}
+
+.ffb-league-row {
+  border-top: 0.0625rem solid var(--ww-border-soft);
+}
+
+.ffb-league-row:first-child {
+  border-top: 0;
+}
+
+.ffb-league-row-button {
+  display: block;
+  width: 100%;
+  border: 0;
+  padding: 1rem;
+  color: var(--ww-text-strong);
+  background: transparent;
+  font: inherit;
+  font-size: 1.02rem;
+  font-weight: 850;
+  line-height: 1.35;
+  text-align: left;
+  cursor: pointer;
+}
+
+.ffb-league-row-button:hover,
+.ffb-league-row-button:focus {
+  color: var(--ww-title-pink);
+  background: rgba(255, 255, 255, 0.04);
+}
+
+.ffb-league-row .ffb-actions {
+  margin: 0 0 1rem;
+  padding: 0 1rem;
+}
+
+.ffb-empty-state {
+  display: grid;
+  justify-items: start;
+  gap: 0.35rem;
+  min-height: 7.5rem;
+  box-sizing: border-box;
+  padding: 1.2rem;
+  color: var(--ww-text-muted);
+}
+
+.ffb-empty-state h3 {
+  margin: 0;
+  color: var(--ww-text-strong);
+  font-size: 1.25rem;
+  line-height: 1.15;
+}
+
+.ffb-empty-state p {
+  max-width: 28rem;
+  margin: 0;
 }
 
 .ffb-score-summary {
@@ -487,7 +853,6 @@ button:disabled:hover {
   color: var(--ww-text-muted);
   font-size: 0.78rem;
   font-weight: 850;
-  text-transform: uppercase;
 }
 
 .ffb-position-editor input {
@@ -547,7 +912,6 @@ button:disabled:hover {
   color: var(--ww-accent-cyan);
   font-size: 0.74rem;
   font-weight: 850;
-  text-transform: uppercase;
 }
 
 .ffb-score-table td {
@@ -670,7 +1034,7 @@ button:disabled:hover {
   box-shadow:
     0.35rem 0.35rem 0 #ff7bc3,
     0 1.1rem 2.1rem rgba(0, 0, 0, 0.28);
-  font-family: "Comic Sans MS", "Comic Sans", cursive;
+  font-family: "Comic Sans MS", "Comic Sans", "Chalkboard SE", "Trebuchet MS", sans-serif;
   font-size: 1.16rem;
   font-weight: 850;
   line-height: 1.38;
@@ -711,6 +1075,10 @@ button:disabled:hover {
   font-size: 1.05rem;
 }
 
+.ffb-season-banner p:last-child span {
+  display: block;
+}
+
 .ffb-landing-hook {
   width: min(72rem, 100%);
   box-sizing: border-box;
@@ -748,7 +1116,7 @@ button:disabled:hover {
 .ffb-landing .ffb-kicker,
 .ffb-landing .ffb-label {
   font-size: 0.86rem;
-  letter-spacing: 0.06em;
+  letter-spacing: 0;
 }
 
 .ffb-landing-summary p:last-child {
@@ -912,7 +1280,6 @@ button:disabled:hover {
   margin: 0 0 0.25rem;
   color: var(--ww-accent-cyan);
   font-weight: 900;
-  text-transform: uppercase;
 }
 
 .ffb-default-category-list > article > .ffb-category-icon {
@@ -1055,7 +1422,7 @@ button:disabled:hover {
 .ffb-position-grid {
   display: grid;
   grid-template-columns: 1fr;
-  gap: 1.15rem;
+  gap: 96px;
   margin-top: 1.2rem;
 }
 
@@ -1321,6 +1688,16 @@ button:disabled:hover {
   color: var(--ww-danger) !important;
 }
 
+.ffb-sr-only {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  margin: -1px;
+  overflow: hidden;
+  clip: rect(0, 0, 0, 0);
+  white-space: nowrap;
+}
+
 @media (max-width: 760px) {
   .ffb-page {
     padding: 1rem;
@@ -1331,7 +1708,9 @@ button:disabled:hover {
   }
 
   .ffb-league-grid,
+  .ffb-commissioner-grid,
   .ffb-landing-summary,
+  .ffb-picker-grid,
   .ffb-score-summary,
   .ffb-scoring-editor {
     grid-template-columns: 1fr;
@@ -1339,6 +1718,22 @@ button:disabled:hover {
 
   .ffb-header {
     display: grid;
+  }
+
+  .ffb-app-nav {
+    justify-content: flex-start;
+  }
+
+  .ffb-theater-row {
+    grid-template-columns: 1fr 1fr;
+  }
+
+  .ffb-theater-action {
+    grid-column: 1 / -1;
+  }
+
+  .ffb-theater-row--head {
+    display: none;
   }
 
   .ffb-landing-hero {

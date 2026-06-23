@@ -13,6 +13,9 @@ SA_KEY="${1:-}"
 # firebase database:instances:create "${GOOGLE_CLOUD_PROJECT}-default-rtdb" --location us-central1 --project "$GOOGLE_CLOUD_PROJECT"
 # firebase target:apply database default "${GOOGLE_CLOUD_PROJECT}-default-rtdb" --project "$GOOGLE_CLOUD_PROJECT"
 # # Google Auth: simplest is Firebase Console > Authentication > Sign-in method > Google > Enable.
+# # If sign-in returns auth/unauthorized-domain, add the exact app host in:
+# # Firebase Console > Authentication > Settings > Authorized domains
+# # Usually include: localhost, "${GOOGLE_CLOUD_PROJECT}.web.app", and "${GOOGLE_CLOUD_PROJECT}.firebaseapp.com".
 # # REST setup requires GOOGLE_OAUTH_CLIENT_ID and GOOGLE_OAUTH_CLIENT_SECRET from a Web OAuth client.
 # access_token="$(gcloud auth print-access-token)"
 # curl -sS -X POST -H "Authorization: Bearer $access_token" -H "Content-Type: application/json" "https://identitytoolkit.googleapis.com/v2/projects/$GOOGLE_CLOUD_PROJECT/identityPlatform:initializeAuth" -d "{}" || true

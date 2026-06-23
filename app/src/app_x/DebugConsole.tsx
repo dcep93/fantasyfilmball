@@ -1,6 +1,7 @@
 import { useMemo, useState } from "react";
 import type { User } from "firebase/auth";
 import { increment, ref, serverTimestamp, update } from "firebase/database";
+import { encodeFirebaseValue } from "./firebaseCodec";
 import type { FirebaseClient } from "./firebaseClient";
 import type { UniverseState } from "./leagueModel";
 
@@ -41,15 +42,14 @@ export default function DebugConsole({
     setRulesTestMessage(null);
 
     try {
-      await update(ref(client.database, `users/${user.uid}`), {
+      await update(ref(client.database, `users/${user.uid}`), encodeFirebaseValue({
         data: {
           version: "v1",
           counter: increment(1),
         },
-        displayName: user.displayName ?? "Google player",
         email: user.email,
         updatedAt: serverTimestamp(),
-      });
+      }) as Record<string, unknown>);
     } catch (error: unknown) {
       const message =
         error instanceof Error ? error.message : "Counter write failed.";
@@ -70,15 +70,14 @@ export default function DebugConsole({
     setRulesTestMessage(null);
 
     try {
-      await update(ref(client.database, `users/${forbiddenUid}`), {
+      await update(ref(client.database, `users/${forbiddenUid}`), encodeFirebaseValue({
         data: {
           version: "v1",
           counter: increment(1),
         },
-        displayName: user.displayName ?? "Google player",
         email: user.email,
         updatedAt: serverTimestamp(),
-      });
+      }) as Record<string, unknown>);
       setRulesTestMessage(`Unexpectedly wrote to /users/${forbiddenUid}. Tighten rules.`);
     } catch (error: unknown) {
       const message =
