@@ -83,7 +83,7 @@ const tooltipText: Record<string, string> = {
   theater: "Your roster. The league config sets how many films it can hold.",
   stubs: "The league currency used to bid on, claim, and drop films after the draft.",
   unreleased: "A film that has not yet reached its first eligible US/Canada theatrical release date. It can still be dropped.",
-  waiverAuction: "A 48-hour blind-bid auction created when someone drops an unreleased film.",
+  waiverAuction: "A 48-hour blind-bid auction created when the draft ends or when someone drops an unreleased film.",
   released: "A film is released when it reaches its first eligible US/Canada theatrical release date. Released films are locked.",
   obfuscation: "A reversible spoiler curtain for active bid payloads. It is not real security against someone inspecting app code.",
   commissioner: "The user whose Firebase folder owns a league object. That object assigns player ids, members, and scoring rules.",
@@ -453,10 +453,15 @@ function RulesPage() {
         <p>
           After the draft, undrafted films are acquired using <Term id="stubs">stubs</Term> through{" "}
           <Term id="blindBid">blind bids</Term> or <Term id="freeAgent">free-agent pickups</Term>.
-          An initial auction opens 60 days before a film's eligible release. Its bid deadline is
-          6:00 PM ET on that day. A dropped <Term id="unreleased">unreleased</Term> film goes to a
-          48-hour <Term id="waiverAuction">waiver auction</Term>. An unowned film inside its 60-day
-          window, with no active auction or waiver, can be picked up immediately.
+          When the draft ends, every undrafted <Term id="unreleased">unreleased</Term> film goes
+          to a 48-hour <Term id="waiverAuction">waiver auction</Term>. After that waiver window,
+          the usual market rules apply. An initial auction opens 60 days before a film's eligible
+          release. Its bid deadline is 6:00 PM ET on that day.
+        </p>
+        <p>
+          A dropped <Term id="unreleased">unreleased</Term> film also goes to a 48-hour{" "}
+          <Term id="waiverAuction">waiver auction</Term>. An unowned film inside its 60-day window,
+          with no active auction or waiver, can be picked up immediately.
         </p>
         <p>
           A bid may include a drop stipulation: if the bid wins, the named{" "}

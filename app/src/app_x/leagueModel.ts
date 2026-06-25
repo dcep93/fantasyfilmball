@@ -35,6 +35,7 @@ export type CommissionerLeague = {
   commissionerUid: string;
   config: LeagueConfig;
   createdAt: number;
+  draftCompletedAt?: number;
   draftOrder?: string[] | null;
   kicked: Record<string, true>;
   leagueId: string;
@@ -386,6 +387,7 @@ function readCommissionerLeague(value: unknown): CommissionerLeague | null {
     commissionerUid,
     config: readConfig(value.config, season),
     createdAt,
+    draftCompletedAt: asNumber(value.draftCompletedAt) ?? undefined,
     draftOrder: readDraftOrder(value),
     kicked: readKicked(value.kicked),
     leagueId,

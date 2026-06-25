@@ -3,9 +3,10 @@ import type { User } from "firebase/auth";
 import { ref, serverTimestamp, update } from "firebase/database";
 import { encodeFirebaseValue } from "./firebaseCodec";
 import type { FirebaseClient } from "./firebaseClient";
-import { deriveLeagueSnapshot } from "./leagueState";
+import { deriveLeagueSnapshot, type DerivedMovieState } from "./leagueState";
 import { resolveLeagueSnapshot, snapshotIdFor, type SnapshotResolution } from "./leagueSnapshots";
 import { ScoringRulesContent } from "./ScoringRulesContent";
+import { evaluateFormula, type MovieScoreInput, type ScoringRuleSet } from "./scoringRules";
 import {
   commissionerUsername,
   decodeBidPayload,
@@ -38,7 +39,7 @@ type LeagueConsoleProps = {
   user: User | null;
 };
 
-type LeagueConsoleView = "league" | "scoring" | "available";
+type LeagueConsoleView = "league" | "scoring" | "available" | "released";
 type LeagueShortcutView = LeagueConsoleView | "theater";
 type LeagueRoute = {
   commissionerUsername: string;
@@ -59,6 +60,14 @@ type DraftStatus = {
 };
 
 const EMPTY_UNIVERSE = {};
+const CATEGORY_ICON_BY_ID: Record<string, string> = {
+  "budget-alchemy": "/category-icons/moneymaker.png",
+  "cult-furnace": "/category-icons/letterboom.png",
+  disasterpiece: "/category-icons/disasterpiece.png",
+  "packed-house": "/category-icons/crowd-favorite.png",
+  "rotten-crowd": "/category-icons/letterbust.png",
+  "tiny-thunder": "/category-icons/word-of-mouth.png",
+};
 
 function timestamp() {
   return Date.now();
@@ -75,7 +84,9 @@ function leagueRoute(pathname: string): LeagueRoute | null {
   }
 
   const routeSection =
-    section === "scoring" || section === "available" || section === "theater" ? section : "league";
+    section === "scoring" || section === "available" || section === "released" || section === "theater"
+      ? section
+      : "league";
 
   return {
     commissionerUsername: decodeURIComponent(commissioner),
@@ -118,7 +129,9 @@ export default function LeagueConsole({
     ? `${commissionerUsername(selectedLeague)}/${selectedLeague.league.leagueId}`
     : null;
   const activeView: LeagueConsoleView = routeLeague
-    ? routeLeague.section === "scoring" || routeLeague.section === "available"
+    ? routeLeague.section === "scoring" ||
+      routeLeague.section === "available" ||
+      routeLeague.section === "released"
       ? routeLeague.section
       : "league"
     : view;
@@ -437,6 +450,13 @@ function Shell({
               Available
             </button>
             <button
+              aria-pressed={activeShortcut === "released"}
+              type="button"
+              onClick={() => onViewChange("released")}
+            >
+              Released
+            </button>
+            <button
               aria-pressed={activeShortcut === "theater"}
               disabled={!ownTheaterPath}
               type="button"
@@ -648,21 +668,23 @@ function LeagueList({
                 >
                   {summary.league.name} · {route} · {createdDate}
                 </button>
-                {user && (!isActive || isKicked) ? (
-                  <div className="ffb-actions">
-                  {!isActive && !isKicked ? (
-                    <button
-                      className="ffb-primary"
-                      disabled={isWriting || membership?.status === "requested"}
-                      type="button"
-                      onClick={() => onRequestJoin(summary)}
-                    >
-                      {membership?.status === "requested" ? "Requested" : "Request to Join"}
-                    </button>
-                  ) : null}
+                <div className="ffb-actions">
+                  <button
+                    className="ffb-primary"
+                    disabled={!user || isWriting || isActive || isKicked || membership?.status === "requested"}
+                    type="button"
+                    onClick={() => onRequestJoin(summary)}
+                  >
+                    {!user
+                      ? "Sign in to request"
+                      : isActive
+                        ? "Joined"
+                        : membership?.status === "requested"
+                          ? "Requested"
+                          : "Request to Join"}
+                  </button>
                   {isKicked ? <span className="ffb-badge">Kicked</span> : null}
-                  </div>
-                ) : null}
+                </div>
               </article>
             );
           })
@@ -872,6 +894,7 @@ function LeagueDashboard({
 
     const now = timestamp();
     updateEncoded(client, `users/${user.uid}`, {
+      [`leagues/${summary.league.leagueId}/draftCompletedAt`]: now,
       [`leagues/${summary.league.leagueId}/draftOrder`]: null,
       [`leagues/${summary.league.leagueId}/updatedAt`]: now,
       updatedAt: serverTimestamp(),
@@ -911,19 +934,10 @@ function LeagueDashboard({
             })
           }
         />
+      ) : routeSection === "released" ? (
+        <ReleasedFilmsPanel resolution={snapshotResolution} summary={summary} />
       ) : (
         <>
-      <DraftPanel
-        disabled={isWriting}
-        draftStatus={draftStatus}
-        isCommissioner={isCommissioner}
-        onStart={(rounds) =>
-          runAction(async () => {
-            await startDraft(rounds);
-            return `Started ${rounds}-round snake draft.`;
-          })
-        }
-      />
       <TheatersPanel
         disabled={isWriting}
         isCommissioner={isCommissioner}
@@ -974,21 +988,25 @@ function LeagueDashboard({
                 ? "The commissioner must accept your request before you can submit transactions."
                 : "Ask the commissioner to add you to this league."}
           </p>
-          {!currentMember && !isKicked ? (
-            <button
-              className="ffb-primary"
-              disabled={isWriting || !user}
-              type="button"
-              onClick={() =>
-                runAction(async () => {
-                  await requestJoin();
-                  return `Requested to join ${summary.league.name}.`;
-                })
-              }
-            >
-              {user ? "Request to Join" : "Sign in to request access"}
-            </button>
-          ) : null}
+          <button
+            className="ffb-primary"
+            disabled={isWriting || !user || Boolean(currentMember) || isKicked}
+            type="button"
+            onClick={() =>
+              runAction(async () => {
+                await requestJoin();
+                return `Requested to join ${summary.league.name}.`;
+              })
+            }
+          >
+            {!user
+              ? "Sign in to request access"
+              : isKicked
+                ? "Kicked"
+                : currentMember
+                  ? "Request Pending"
+                  : "Request to Join"}
+          </button>
         </section>
       )}
 
@@ -1131,6 +1149,7 @@ function TheatersPanel({
     return left.playerId.localeCompare(right.playerId);
   });
   const spentByPlayer = unreleasedSpendByPlayer(summary, resolution, transactions);
+  const earnedPointsByPlayer = releasedPointsByPlayer(summary, resolution);
 
   return (
     <section className="ffb-theaters-panel" aria-labelledby="theaters-title">
@@ -1169,7 +1188,9 @@ function TheatersPanel({
               <span role="cell">
                 {unreleased.length}/{spentByPlayer[player.uid] ?? 0}
               </span>
-              <span role="cell">{released.length}/0</span>
+              <span role="cell">
+                {released.length}/{formatPoints(earnedPointsByPlayer[player.uid] ?? 0)}
+              </span>
             </button>
           );
         })}
@@ -1207,12 +1228,145 @@ function TheatersPanel({
               >
                 Accept
               </button>
+              <button disabled type="button" onClick={() => onKickRequest(request)}>
+                Kick
+              </button>
               <span className="ffb-inline-state">kicked</span>
             </span>
           </div>
         ))}
       </div>
     </section>
+  );
+}
+
+type ReleasedSortKey =
+  | "budget"
+  | "gross"
+  | "lbAverage"
+  | "lbRatings"
+  | "maxPoints"
+  | "owner"
+  | "releaseDate"
+  | "title";
+
+type ReleasedSort = {
+  direction: "asc" | "desc";
+  key: ReleasedSortKey;
+};
+
+function ReleasedFilmsPanel({
+  resolution,
+  summary,
+}: {
+  resolution: SnapshotResolution;
+  summary: LeagueSummary;
+}) {
+  const [sort, setSort] = useState<ReleasedSort>({ direction: "desc", key: "releaseDate" });
+  const state = resolution.snapshot.state;
+  const ownerPoints = releasedPointsByPlayer(summary, resolution);
+  const rows = Object.entries(state.movies)
+    .filter(([, movie]) => movie.locked)
+    .map(([filmId, movie]) => {
+      const owner = movie.ownerUid ? playerUsername(summary, movie.ownerUid, movie.ownerUid) : "Unowned";
+      const strongestCategory = strongestMovieCategory(movie, summary.league.scoring);
+      const maxPoints = strongestCategory?.score ?? 0;
+
+      return {
+        filmId,
+        maxPoints,
+        movie,
+        owner,
+        ownerPoints: movie.ownerUid ? ownerPoints[movie.ownerUid] ?? 0 : Number.NEGATIVE_INFINITY,
+        strongestCategory,
+      };
+    })
+    .sort((left, right) => compareReleasedRows(left, right, sort));
+
+  function changeSort(key: ReleasedSortKey) {
+    setSort((current) => {
+      if (key === "owner") {
+        return { direction: "desc", key };
+      }
+
+      return {
+        direction: current.key === key && current.direction === "desc" ? "asc" : "desc",
+        key,
+      };
+    });
+  }
+
+  return (
+    <section className="ffb-player-detail ffb-released-panel" aria-labelledby="released-films-title">
+      <div className="ffb-universe-head">
+        <div>
+          <p className="ffb-label">Released</p>
+          <h2 id="released-films-title">Released Films</h2>
+        </div>
+        <span>{rows.length} films</span>
+      </div>
+      {rows.length > 0 ? (
+        <div className="ffb-released-table" role="table" aria-label="Released films">
+          <div className="ffb-released-row ffb-released-row--head" role="row">
+            <SortHeader activeSort={sort} label="Film" sortKey="title" onSort={changeSort} />
+            <SortHeader activeSort={sort} label="Release Day" sortKey="releaseDate" onSort={changeSort} />
+            <SortHeader activeSort={sort} label="Owner" sortKey="owner" onSort={changeSort} />
+            <SortHeader activeSort={sort} label="Gross" sortKey="gross" onSort={changeSort} />
+            <SortHeader activeSort={sort} label="Budget" sortKey="budget" onSort={changeSort} />
+            <SortHeader activeSort={sort} label="LB Avg" sortKey="lbAverage" onSort={changeSort} />
+            <SortHeader activeSort={sort} label="LB Ratings" sortKey="lbRatings" onSort={changeSort} />
+            <SortHeader activeSort={sort} label="Max Pts" sortKey="maxPoints" onSort={changeSort} />
+          </div>
+          {rows.map(({ filmId, maxPoints, movie, owner, strongestCategory }) => (
+            <div className="ffb-released-row" key={filmId} role="row">
+              <div role="cell">
+                <FilmTitle movie={movie} />
+              </div>
+              <span role="cell">{formatReleaseDay(movie.releaseDate)}</span>
+              <span role="cell">{owner}</span>
+              <span role="cell">{formatMoney(movie.domesticGross)}</span>
+              <span role="cell">{formatMoney(movie.productionBudget)}</span>
+              <span role="cell">{formatRating(movie.letterboxdAverage)}</span>
+              <span role="cell">{formatCount(movie.letterboxdRatingCount)}</span>
+              <strong className="ffb-max-points-cell" role="cell">
+                {formatPoints(maxPoints)}
+                {strongestCategory ? (
+                  <img alt="" src={strongestCategory.iconSrc} title={strongestCategory.name} />
+                ) : null}
+              </strong>
+            </div>
+          ))}
+        </div>
+      ) : (
+        <p className="ffb-muted">No tracked films have released yet.</p>
+      )}
+    </section>
+  );
+}
+
+function SortHeader({
+  activeSort,
+  label,
+  onSort,
+  sortKey,
+}: {
+  activeSort: ReleasedSort;
+  label: string;
+  onSort: (key: ReleasedSortKey) => void;
+  sortKey: ReleasedSortKey;
+}) {
+  const isActive = activeSort.key === sortKey;
+  const direction = isActive ? activeSort.direction : null;
+
+  return (
+    <button
+      aria-label={`Sort by ${label}${direction ? `, currently ${direction}` : ""}`}
+      type="button"
+      onClick={() => onSort(sortKey)}
+    >
+      {label}
+      {direction ? <span aria-hidden="true">{direction === "desc" ? "↓" : "↑"}</span> : null}
+    </button>
   );
 }
 
@@ -1253,22 +1407,23 @@ function PlayerDetailPanel({
           <p className="ffb-label">Player theater</p>
           <h2 id="player-detail-title">{username}</h2>
         </div>
+        {films.length === 0 ? (
+          <p className="ffb-muted ffb-theater-empty-inline">No films in this theater yet.</p>
+        ) : null}
         <span>{player.stubs} stubs</span>
       </div>
       {films.length > 0 ? (
         <div className="ffb-player-film-list">
           {films.map((movie) => (
             <article key={`${player.uid}-${movie.title}`}>
-              <h3>{movie.title}</h3>
-              <p>
+              <FilmTitle movie={movie} />
+              <p className="ffb-film-meta">
                 {movie.releaseDate} · {movie.locked ? "Released" : "Unreleased"}
               </p>
             </article>
           ))}
         </div>
-      ) : (
-        <p className="ffb-muted">No films in this theater yet.</p>
-      )}
+      ) : null}
     </section>
   );
 }
@@ -1278,11 +1433,13 @@ function DraftPanel({
   draftStatus,
   isCommissioner,
   onStart,
+  playerCount,
 }: {
   disabled: boolean;
   draftStatus: DraftStatus;
   isCommissioner: boolean;
   onStart: (rounds: number) => void;
+  playerCount: number;
 }) {
   const [rounds, setRounds] = useState(2);
 
@@ -1305,19 +1462,26 @@ function DraftPanel({
       </div>
       {draftStatus.phase === "not-started" ? (
         <div className="ffb-draft-start">
-          <p>Only the commissioner can begin a random-order snake draft.</p>
-          <label>
-            Rounds
-            <input
-              min={1}
-              max={12}
-              type="number"
-              value={rounds}
-              onChange={(event) => setRounds(Math.max(1, Number(event.target.value) || 1))}
-            />
-          </label>
+          <div>
+            <p>Only the commissioner can begin a random-order snake draft.</p>
+            <div className="ffb-draft-start-meta">
+              <label>
+                <span>Rounds</span>
+                <input
+                  min={1}
+                  max={12}
+                  type="number"
+                  value={rounds}
+                  onChange={(event) => setRounds(Math.max(1, Number(event.target.value) || 1))}
+                />
+              </label>
+              <span>
+                {playerCount} {playerCount === 1 ? "player" : "players"}
+              </span>
+            </div>
+          </div>
           <button
-            className="ffb-primary"
+            className="ffb-draft-start-button"
             disabled={disabled || !isCommissioner}
             type="button"
             onClick={() => onStart(rounds)}
@@ -1346,6 +1510,42 @@ function DraftPanel({
       )}
     </section>
   );
+}
+
+function FilmTitle({
+  movie,
+}: {
+  movie: { letterboxdSlug?: string | null; posterUrl?: string | null; title: string };
+}) {
+  const url = letterboxdUrl(movie.letterboxdSlug);
+
+  return (
+    <div className="ffb-film-title">
+      {movie.posterUrl ? (
+        <img alt="" src={movie.posterUrl} />
+      ) : (
+        <span aria-hidden="true">{movie.title.trim().charAt(0) || "F"}</span>
+      )}
+      <h3>
+        {url ? (
+          <a href={url} target="_blank" rel="noreferrer">
+            {movie.title}
+          </a>
+        ) : (
+          movie.title
+        )}
+      </h3>
+    </div>
+  );
+}
+
+function letterboxdUrl(slug: string | null | undefined) {
+  if (!slug) {
+    return null;
+  }
+
+  const path = slug.startsWith("film/") ? slug : `film/${slug}`;
+  return `https://letterboxd.com/${path.replace(/^\/+|\/+$/g, "")}/`;
 }
 
 function MyTheaterActionsPanel({
@@ -1393,17 +1593,17 @@ function MyTheaterActionsPanel({
         <div className="ffb-player-film-list ffb-compact-film-list">
           {films.map(({ filmId, movie }) => (
             <article key={`${user.uid}-${filmId}`}>
-              <div>
-                <h3>{movie.title}</h3>
-                <p>
-                  {movie.releaseDate} · {movie.locked ? "Released" : "Unreleased"}
-                </p>
-              </div>
-              {!movie.locked && draftStatus.phase === "complete" ? (
-                <button disabled={disabled} type="button" onClick={() => dropFilm(filmId, movie.title)}>
-                  Drop
-                </button>
-              ) : null}
+              <FilmTitle movie={movie} />
+              <p className="ffb-film-meta">
+                {movie.releaseDate} · {movie.locked ? "Released" : "Unreleased"}
+              </p>
+              <button
+                disabled={disabled || movie.locked || draftStatus.phase !== "complete"}
+                type="button"
+                onClick={() => dropFilm(filmId, movie.title)}
+              >
+                Drop
+              </button>
             </article>
           ))}
         </div>
@@ -1473,6 +1673,30 @@ function AvailableFilmsPanel({
     onSubmit(simpleTransaction(member, ownTransactions, user, filmId, "pickup", 0));
   }
 
+  function availableFilmAction(filmId: string, status: string) {
+    if (draftStatus.phase === "active" || draftStatus.phase === "not-started") {
+      return {
+        disabled: disabled || draftStatus.phase !== "active" || !canDraft || isTheaterFull,
+        label: draftStatus.phase === "not-started" ? "Predraft" : "Draft",
+        onClick: () => draftFilm(filmId),
+      };
+    }
+
+    if (status === "free-agent") {
+      return {
+        disabled: disabled || !member || isTheaterFull,
+        label: "Pickup",
+        onClick: () => pickupFilm(filmId),
+      };
+    }
+
+    return {
+      disabled: disabled || !isAuctionStatus(status) || !member,
+      label: "Bid",
+      onClick: () => setBidFilmId(filmId),
+    };
+  }
+
   return (
     <>
       <DraftPanel
@@ -1480,6 +1704,7 @@ function AvailableFilmsPanel({
         draftStatus={draftStatus}
         isCommissioner={isCommissioner}
         onStart={onStartDraft}
+        playerCount={Object.keys(summary.league.members).length}
       />
       <section
         className={`ffb-player-detail${draftStatus.isCurrentUserTurn ? " ffb-draft-panel--turn" : ""}`}
@@ -1494,37 +1719,21 @@ function AvailableFilmsPanel({
         </div>
         {movies.length > 0 ? (
           <div className="ffb-player-film-list ffb-available-film-list">
-            {movies.map(({ filmId, movie }) => (
-              <article key={filmId}>
-                <div>
-                  <h3>{movie.title}</h3>
-                  <p>
+            {movies.map(({ filmId, movie }) => {
+              const action = availableFilmAction(filmId, movie.status);
+
+              return (
+                <article key={filmId}>
+                  <FilmTitle movie={movie} />
+                  <p className="ffb-film-meta">
                     {movie.releaseDate} · {availableStatusLabel(movie.status)}
                   </p>
-                </div>
-                {draftStatus.phase === "active" ? (
-                  <button
-                    disabled={disabled || !canDraft || isTheaterFull}
-                    type="button"
-                    onClick={() => draftFilm(filmId)}
-                  >
-                    Draft
+                  <button disabled={action.disabled} type="button" onClick={action.onClick}>
+                    {action.label}
                   </button>
-                ) : draftStatus.phase !== "complete" ? null : movie.status === "free-agent" ? (
-                  <button
-                    disabled={disabled || !member || isTheaterFull}
-                    type="button"
-                    onClick={() => pickupFilm(filmId)}
-                  >
-                    Pickup
-                  </button>
-                ) : isAuctionStatus(movie.status) ? (
-                  <button disabled={disabled || !member} type="button" onClick={() => setBidFilmId(filmId)}>
-                    Bid
-                  </button>
-                ) : null}
-              </article>
-            ))}
+                </article>
+              );
+            })}
           </div>
         ) : (
           <p className="ffb-muted">No films are available right now.</p>
@@ -1929,6 +2138,191 @@ function unreleasedSpendByPlayer(
   }
 
   return totals;
+}
+
+function releasedPointsByPlayer(summary: LeagueSummary, resolution: SnapshotResolution) {
+  const state = resolution.snapshot.state;
+  const totals: Record<string, number> = {};
+
+  for (const player of Object.values(state.players)) {
+    const releasedMovies = player.theater
+      .map((filmId) => state.movies[filmId])
+      .filter((movie): movie is DerivedMovieState => Boolean(movie?.locked));
+
+    totals[player.uid] = bestReleasedScore(releasedMovies, summary.league.scoring);
+  }
+
+  return totals;
+}
+
+function bestReleasedScore(movies: DerivedMovieState[], scoring: ScoringRuleSet) {
+  const scores = scoring.positions.map((position) =>
+    movies.map((movie) => scoreMovieForPosition(movie, position.formula) ?? Number.NEGATIVE_INFINITY),
+  );
+  const memo = new Map<string, number>();
+
+  function search(positionIndex: number, usedFilmIndexes: Set<number>): number {
+    if (positionIndex >= scoring.positions.length) {
+      return 0;
+    }
+
+    const key = `${positionIndex}:${Array.from(usedFilmIndexes).sort((left, right) => left - right).join(",")}`;
+    const cached = memo.get(key);
+    if (cached !== undefined) {
+      return cached;
+    }
+
+    let best = search(positionIndex + 1, usedFilmIndexes);
+    for (let movieIndex = 0; movieIndex < movies.length; movieIndex += 1) {
+      if (usedFilmIndexes.has(movieIndex)) {
+        continue;
+      }
+
+      const score = scores[positionIndex]?.[movieIndex];
+      if (score === undefined || !Number.isFinite(score)) {
+        continue;
+      }
+
+      usedFilmIndexes.add(movieIndex);
+      best = Math.max(best, score + search(positionIndex + 1, usedFilmIndexes));
+      usedFilmIndexes.delete(movieIndex);
+    }
+
+    memo.set(key, best);
+    return best;
+  }
+
+  return search(0, new Set());
+}
+
+function strongestMovieCategory(movie: DerivedMovieState, scoring: ScoringRuleSet) {
+  const categories = scoring.positions
+    .map((position) => {
+      const score = scoreMovieForPosition(movie, position.formula);
+      const iconSrc = CATEGORY_ICON_BY_ID[position.id];
+
+      return score !== null && Number.isFinite(score) && iconSrc
+        ? { iconSrc, name: position.name, score }
+        : null;
+    })
+    .filter((category): category is { iconSrc: string; name: string; score: number } => Boolean(category));
+
+  return categories.sort((left, right) => right.score - left.score || left.name.localeCompare(right.name))[0] ?? null;
+}
+
+function scoreMovieForPosition(movie: DerivedMovieState, formula: string) {
+  return evaluateFormula(formula, scoreInputForMovie(movie));
+}
+
+function scoreInputForMovie(movie: DerivedMovieState): MovieScoreInput {
+  return {
+    A: numberOrNull(movie.letterboxdAverage),
+    B: scaledNumberOrNull(movie.productionBudget, 100_000_000),
+    G: scaledNumberOrNull(movie.domesticGross, 100_000_000),
+    R: scaledNumberOrNull(movie.letterboxdRatingCount, 100_000),
+  };
+}
+
+function scaledNumberOrNull(value: number | null | undefined, divisor: number) {
+  return typeof value === "number" && Number.isFinite(value) ? value / divisor : null;
+}
+
+function numberOrNull(value: number | null | undefined) {
+  return typeof value === "number" && Number.isFinite(value) ? value : null;
+}
+
+function compareReleasedRows(
+  left: {
+    maxPoints: number;
+    movie: DerivedMovieState;
+    owner: string;
+    ownerPoints: number;
+  },
+  right: {
+    maxPoints: number;
+    movie: DerivedMovieState;
+    owner: string;
+    ownerPoints: number;
+  },
+  sort: ReleasedSort,
+) {
+  const multiplier = sort.direction === "asc" ? 1 : -1;
+
+  if (sort.key === "owner") {
+    return (
+      numberCompare(left.ownerPoints, right.ownerPoints, -1) ||
+      numberCompare(left.maxPoints, right.maxPoints, -1) ||
+      left.owner.localeCompare(right.owner) ||
+      left.movie.title.localeCompare(right.movie.title)
+    );
+  }
+
+  const compared =
+    sort.key === "title"
+      ? left.movie.title.localeCompare(right.movie.title)
+      : sort.key === "releaseDate"
+        ? left.movie.releaseDate.localeCompare(right.movie.releaseDate)
+        : sort.key === "gross"
+          ? numberCompare(left.movie.domesticGross, right.movie.domesticGross, multiplier)
+          : sort.key === "budget"
+            ? numberCompare(left.movie.productionBudget, right.movie.productionBudget, multiplier)
+            : sort.key === "lbAverage"
+              ? numberCompare(left.movie.letterboxdAverage, right.movie.letterboxdAverage, multiplier)
+              : sort.key === "lbRatings"
+                ? numberCompare(left.movie.letterboxdRatingCount, right.movie.letterboxdRatingCount, multiplier)
+                : numberCompare(left.maxPoints, right.maxPoints, multiplier);
+
+  const baseCompared = sort.key === "title" || sort.key === "releaseDate" ? compared * multiplier : compared;
+
+  return (
+    baseCompared ||
+    numberCompare(left.maxPoints, right.maxPoints, -1) ||
+    left.movie.title.localeCompare(right.movie.title)
+  );
+}
+
+function numberCompare(left: number | null, right: number | null, multiplier: 1 | -1) {
+  const leftValue = left ?? Number.NEGATIVE_INFINITY;
+  const rightValue = right ?? Number.NEGATIVE_INFINITY;
+  return leftValue === rightValue ? 0 : leftValue > rightValue ? multiplier : -multiplier;
+}
+
+function formatMoney(value: number | null | undefined) {
+  if (typeof value !== "number" || !Number.isFinite(value)) {
+    return "n/a";
+  }
+
+  return `$${Math.round(value / 1_000_000).toLocaleString()}M`;
+}
+
+function formatCount(value: number | null | undefined) {
+  if (typeof value !== "number" || !Number.isFinite(value)) {
+    return "n/a";
+  }
+
+  return value >= 1000 ? `${Math.round(value / 1000).toLocaleString()}k` : value.toLocaleString();
+}
+
+function formatPoints(value: number) {
+  return Number.isFinite(value) ? value.toFixed(1) : "0.0";
+}
+
+function formatRating(value: number | null | undefined) {
+  return typeof value === "number" && Number.isFinite(value) ? value.toFixed(2) : "n/a";
+}
+
+function formatReleaseDay(value: string) {
+  const [year, month, day] = value.split("-").map(Number);
+  if (!year || !month || !day) {
+    return value;
+  }
+
+  return new Date(Date.UTC(year, month - 1, day)).toLocaleDateString(undefined, {
+    day: "numeric",
+    month: "short",
+    year: "numeric",
+    timeZone: "UTC",
+  });
 }
 
 function playerUsername(summary: LeagueSummary, uid: string, fallback: string) {

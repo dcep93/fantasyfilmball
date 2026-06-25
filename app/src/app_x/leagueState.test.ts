@@ -149,6 +149,102 @@ describe("league state derivation", () => {
     expect(snapshot.state.movies["future-film"].status).toBe("waiver");
   });
 
+  it("keeps a dropped film in waiver before the 48-hour deadline", () => {
+    const dropTime = Date.UTC(2026, 4, 16, 12);
+    const snapshot = deriveLeagueSnapshot({
+      generatedByUid: PLAYER_UID,
+      league: league(),
+      movieFile: movieFile(),
+      now: dropTime + 47 * 60 * 60 * 1_000,
+      transactions: [
+        pickup("1.1", "future-film", dropTime - 1_000),
+        drop("1.2", "future-film", dropTime),
+        bid("2.1", PLAYER_UID, "2", "future-film", 40, dropTime + 1_000),
+      ],
+    });
+
+    expect(snapshot.state.movies["future-film"].status).toBe("waiver");
+    expect(snapshot.state.movies["future-film"].ownerUid).toBe(null);
+    expect(snapshot.state.auctions[`waiver:future-film:${dropTime + 48 * 60 * 60 * 1_000}`]).toMatchObject({
+      status: "open",
+    });
+  });
+
+  it("awards a resolved waiver auction to the highest bidder", () => {
+    const dropTime = Date.UTC(2026, 4, 16, 12);
+    const snapshot = deriveLeagueSnapshot({
+      generatedByUid: PLAYER_UID,
+      league: league(),
+      movieFile: movieFile(),
+      now: dropTime + 49 * 60 * 60 * 1_000,
+      transactions: [
+        pickup("1.1", "future-film", dropTime - 1_000),
+        drop("1.2", "future-film", dropTime),
+        bid("1.3", COMMISSIONER_UID, "1", "future-film", 20, dropTime + 2_000),
+        bid("2.1", PLAYER_UID, "2", "future-film", 40, dropTime + 1_000),
+      ],
+    });
+
+    expect(snapshot.state.movies["future-film"].ownerUid).toBe(PLAYER_UID);
+    expect(snapshot.state.players[PLAYER_UID].theater).toContain("future-film");
+    expect(snapshot.state.players[PLAYER_UID].stubs).toBe(STARTING_STUBS - 41);
+  });
+
+  it("locks a waiver film as released when release arrives before the waiver deadline", () => {
+    const releaseLock = Date.UTC(2026, 6, 14, 4);
+    const dropTime = releaseLock - 22 * 60 * 60 * 1_000;
+    const snapshot = deriveLeagueSnapshot({
+      generatedByUid: PLAYER_UID,
+      league: league(),
+      movieFile: movieFile(),
+      now: releaseLock,
+      transactions: [
+        pickup("1.1", "future-film", Date.UTC(2026, 4, 16, 12)),
+        drop("1.2", "future-film", dropTime),
+        bid("2.1", PLAYER_UID, "2", "future-film", 40, dropTime + 1_000),
+      ],
+    });
+
+    expect(snapshot.state.movies["future-film"].locked).toBe(true);
+    expect(snapshot.state.movies["future-film"].status).toBe("released");
+    expect(snapshot.state.movies["future-film"].ownerUid).toBe(null);
+  });
+
+  it("only resolves a near-release waiver when the 48-hour deadline beats release", () => {
+    const releaseLock = Date.UTC(2026, 6, 14, 4);
+    const baseTransactions = [pickup("1.1", "future-film", Date.UTC(2026, 4, 16, 12))];
+    const fortySevenHourDrop = releaseLock - 47 * 60 * 60 * 1_000;
+    const fortyNineHourDrop = releaseLock - 49 * 60 * 60 * 1_000;
+
+    const fortySevenHourSnapshot = deriveLeagueSnapshot({
+      generatedByUid: PLAYER_UID,
+      league: league(),
+      movieFile: movieFile(),
+      now: releaseLock,
+      transactions: [
+        ...baseTransactions,
+        drop("1.2", "future-film", fortySevenHourDrop),
+        bid("2.1", PLAYER_UID, "2", "future-film", 40, fortySevenHourDrop + 1_000),
+      ],
+    });
+    const fortyNineHourSnapshot = deriveLeagueSnapshot({
+      generatedByUid: PLAYER_UID,
+      league: league(),
+      movieFile: movieFile(),
+      now: releaseLock - 30 * 60 * 1_000,
+      transactions: [
+        ...baseTransactions,
+        drop("1.2", "future-film", fortyNineHourDrop),
+        bid("2.1", PLAYER_UID, "2", "future-film", 40, fortyNineHourDrop + 1_000),
+      ],
+    });
+
+    expect(fortySevenHourSnapshot.state.movies["future-film"].status).toBe("released");
+    expect(fortySevenHourSnapshot.state.movies["future-film"].ownerUid).toBe(null);
+    expect(fortyNineHourSnapshot.state.movies["future-film"].status).toBe("owned");
+    expect(fortyNineHourSnapshot.state.movies["future-film"].ownerUid).toBe(PLAYER_UID);
+  });
+
   it("rejects pickup attempts for non-free-agent films", () => {
     const snapshot = deriveLeagueSnapshot({
       generatedByUid: COMMISSIONER_UID,
@@ -181,6 +277,62 @@ describe("league state derivation", () => {
     expect(snapshot.state.invalidTransactions[0]?.reason).toBe("player is not on the clock");
     expect(snapshot.state.movies["future-film"].ownerUid).toBe(COMMISSIONER_UID);
     expect(snapshot.state.players[COMMISSIONER_UID].stubs).toBe(STARTING_STUBS);
+  });
+
+  it("puts undrafted unreleased films into waiver when the draft is complete", () => {
+    const draftCompletedAt = Date.UTC(2026, 4, 1, 12);
+    const draftLeague = {
+      ...league(),
+      draftCompletedAt,
+      draftOrder: null,
+      updatedAt: draftCompletedAt,
+    };
+    const snapshot = deriveLeagueSnapshot({
+      generatedByUid: COMMISSIONER_UID,
+      league: draftLeague,
+      movieFile: movieFile([
+        movie("drafted-film", "Drafted Film", "2026-07-14"),
+        movie("undrafted-film", "Undrafted Film", "2026-07-15"),
+      ]),
+      now: draftCompletedAt + 60 * 60 * 1_000,
+      transactions: [{ ...pickup("1.1", "drafted-film", draftCompletedAt - 1_000), fee: 0 }],
+    });
+
+    expect(snapshot.state.movies["drafted-film"].ownerUid).toBe(COMMISSIONER_UID);
+    expect(snapshot.state.movies["drafted-film"].waiverEndsAt).toBe(null);
+    expect(snapshot.state.movies["undrafted-film"].status).toBe("waiver");
+    expect(snapshot.state.movies["undrafted-film"].waiverEndsAt).toBe(draftCompletedAt + 48 * 60 * 60 * 1_000);
+    expect(snapshot.state.auctions[`waiver:undrafted-film:${draftCompletedAt + 48 * 60 * 60 * 1_000}`]).toMatchObject({
+      status: "open",
+    });
+  });
+
+  it("awards a draft-completion waiver to the highest bidder after 48 hours", () => {
+    const draftCompletedAt = Date.UTC(2026, 4, 1, 12);
+    const draftLeague = {
+      ...league(),
+      draftCompletedAt,
+      draftOrder: null,
+      updatedAt: draftCompletedAt,
+    };
+    const snapshot = deriveLeagueSnapshot({
+      generatedByUid: PLAYER_UID,
+      league: draftLeague,
+      movieFile: movieFile([
+        movie("drafted-film", "Drafted Film", "2026-07-14"),
+        movie("undrafted-film", "Undrafted Film", "2026-07-15"),
+      ]),
+      now: draftCompletedAt + 49 * 60 * 60 * 1_000,
+      transactions: [
+        { ...pickup("1.1", "drafted-film", draftCompletedAt - 1_000), fee: 0 },
+        bid("1.2", COMMISSIONER_UID, "1", "undrafted-film", 20, draftCompletedAt + 1_000),
+        bid("2.1", PLAYER_UID, "2", "undrafted-film", 40, draftCompletedAt + 2_000),
+      ],
+    });
+
+    expect(snapshot.state.movies["undrafted-film"].ownerUid).toBe(PLAYER_UID);
+    expect(snapshot.state.players[PLAYER_UID].theater).toContain("undrafted-film");
+    expect(snapshot.state.players[PLAYER_UID].stubs).toBe(STARTING_STUBS - 41);
   });
 
   it("awards a resolved initial auction to the highest bidder", () => {
@@ -331,12 +483,12 @@ describe("snapshot resolution", () => {
   });
 });
 
-function movieFile(): TrackedMovieFile {
+function movieFile(movies = [
+  movie("future-film", "Future Film", "2026-07-14"),
+  movie("released-film", "Released Film", "2026-06-01"),
+]): TrackedMovieFile {
   return parseTrackedMovieFile({
-    movies: [
-      movie("future-film", "Future Film", "2026-07-14"),
-      movie("released-film", "Released Film", "2026-06-01"),
-    ],
+    movies,
     movieDataVersion: "test-version",
     schemaVersion: 1,
     season: 2026,
@@ -351,6 +503,7 @@ function movie(id: string, title: string, releaseDate: string) {
     letterboxdAverage: null,
     letterboxdRatingCount: null,
     letterboxdSlug: null,
+    posterUrl: null,
     productionBudget: null,
     releaseDate,
     sourceNotes: ["test"],

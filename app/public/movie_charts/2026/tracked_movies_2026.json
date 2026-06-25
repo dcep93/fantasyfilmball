@@ -10,12 +10,14 @@
       "releaseDate": "2026-01-02",
       "domesticGross": 3711918,
       "productionBudget": null,
-      "letterboxdSlug": null,
-      "letterboxdAverage": null,
-      "letterboxdRatingCount": null,
+      "posterUrl": "https://a.ltrbxd.com/resized/film-poster/1/0/8/3/8/9/7/1083897-we-bury-the-dead-0-600-0-900-crop.jpg?v=5d38f3591a",
+      "letterboxdSlug": "film/we-bury-the-dead",
+      "letterboxdAverage": 2.71,
+      "letterboxdRatingCount": 69212,
       "sourceNotes": [
         "the-numbers-release-schedule",
-        "the-numbers-top-grossing"
+        "the-numbers-top-grossing",
+        "letterboxd-poster"
       ],
       "updatedAt": "2026-06-23"
     },
@@ -25,6 +27,7 @@
       "releaseDate": "2026-01-04",
       "domesticGross": 121507,
       "productionBudget": null,
+      "posterUrl": null,
       "letterboxdSlug": null,
       "letterboxdAverage": null,
       "letterboxdRatingCount": null,
@@ -39,6 +42,7 @@
       "releaseDate": "2026-01-08",
       "domesticGross": 2300000,
       "productionBudget": null,
+      "posterUrl": null,
       "letterboxdSlug": null,
       "letterboxdAverage": null,
       "letterboxdRatingCount": null,
@@ -54,14 +58,16 @@
       "releaseDate": "2026-01-09",
       "domesticGross": 25635665,
       "productionBudget": 24000000,
+      "posterUrl": "https://a.ltrbxd.com/resized/film-poster/9/1/0/6/0/91060-primate-0-600-0-900-crop.jpg?v=7a3328a51d",
       "letterboxdSlug": "film/primate",
       "letterboxdAverage": 3.84,
-      "letterboxdRatingCount": 1034,
+      "letterboxdRatingCount": 1060,
       "sourceNotes": [
         "the-numbers-release-schedule",
         "the-numbers-top-grossing",
         "letterboxd",
-        "the-numbers-budget"
+        "the-numbers-budget",
+        "letterboxd-poster"
       ],
       "updatedAt": "2026-06-23"
     },
@@ -71,14 +77,16 @@
       "releaseDate": "2026-01-09",
       "domesticGross": 17770308,
       "productionBudget": 90000000,
+      "posterUrl": "https://a.ltrbxd.com/resized/film-poster/7/5/5/3/8/2/755382-greenland-2-migration-0-600-0-900-crop.jpg?v=c6c6a8303f",
       "letterboxdSlug": "film/greenland-2-migration",
       "letterboxdAverage": 2.22,
-      "letterboxdRatingCount": 93119,
+      "letterboxdRatingCount": 93726,
       "sourceNotes": [
         "the-numbers-release-schedule",
         "the-numbers-top-grossing",
         "letterboxd",
-        "the-numbers-budget"
+        "the-numbers-budget",
+        "letterboxd-poster"
       ],
       "updatedAt": "2026-06-23"
     },
@@ -88,6 +96,7 @@
       "releaseDate": "2026-01-09",
       "domesticGross": 2236813,
       "productionBudget": null,
+      "posterUrl": null,
       "letterboxdSlug": null,
       "letterboxdAverage": null,
       "letterboxdRatingCount": null,
@@ -103,11 +112,13 @@
       "releaseDate": "2026-01-09",
       "domesticGross": 2008685,
       "productionBudget": null,
-      "letterboxdSlug": null,
+      "posterUrl": "https://a.ltrbxd.com/resized/film-poster/1/2/8/3/4/6/3/1283463-i-was-a-stranger-0-600-0-900-crop.jpg?v=96476792b5",
+      "letterboxdSlug": "film/i-was-a-stranger",
       "letterboxdAverage": null,
       "letterboxdRatingCount": null,
       "sourceNotes": [
-        "the-numbers-top-grossing"
+        "the-numbers-top-grossing",
+        "letterboxd-poster"
       ],
       "updatedAt": "2026-06-23"
     },
@@ -117,6 +128,7 @@
       "releaseDate": "2026-01-09",
       "domesticGross": 887687,
       "productionBudget": null,
+      "posterUrl": null,
       "letterboxdSlug": null,
       "letterboxdAverage": null,
       "letterboxdRatingCount": null,
@@ -131,6 +143,7 @@
       "releaseDate": "2026-01-09",
       "domesticGross": 514374,
       "productionBudget": null,
+      "posterUrl": null,
       "letterboxdSlug": null,
       "letterboxdAverage": null,
       "letterboxdRatingCount": null,
@@ -145,11 +158,13 @@
       "releaseDate": "2026-01-09",
       "domesticGross": 231318,
       "productionBudget": null,
-      "letterboxdSlug": null,
+      "posterUrl": "https://a.ltrbxd.com/resized/film-poster/4/7/6/4/1/6/476416-magalhaes-0-600-0-900-crop.jpg?v=10c085a7be",
+      "letterboxdSlug": "film/magalhaes",
       "letterboxdAverage": null,
       "letterboxdRatingCount": null,
       "sourceNotes": [
-        "the-numbers-top-grossing"
+        "the-numbers-top-grossing",
+        "letterboxd-poster"
       ],
       "updatedAt": "2026-06-23"
     },
@@ -159,12 +174,14 @@
       "releaseDate": "2026-01-09",
       "domesticGross": 73556,
       "productionBudget": null,
+      "posterUrl": "https://a.ltrbxd.com/resized/film-poster/1/2/9/8/8/7/4/1298874-holding-liat-0-600-0-900-crop.jpg?v=6c3b1f990f",
       "letterboxdSlug": "film/holding-liat",
       "letterboxdAverage": 3.54,
-      "letterboxdRatingCount": 820,
+      "letterboxdRatingCount": 826,
       "sourceNotes": [
         "the-numbers-top-grossing",
-        "letterboxd"
+        "letterboxd",
+        "letterboxd-poster"
       ],
       "updatedAt": "2026-06-23"
     },
@@ -174,13 +191,15 @@
       "releaseDate": "2026-01-09",
       "domesticGross": 48257,
       "productionBudget": null,
+      "posterUrl": "https://a.ltrbxd.com/resized/film-poster/1/0/9/6/6/2/9/1096629-obex-0-600-0-900-crop.jpg?v=7963dcae16",
       "letterboxdSlug": "film/obex",
       "letterboxdAverage": 3.33,
-      "letterboxdRatingCount": 6250,
+      "letterboxdRatingCount": 6274,
       "sourceNotes": [
         "the-numbers-release-schedule",
         "the-numbers-top-grossing",
-        "letterboxd"
+        "letterboxd",
+        "letterboxd-poster"
       ],
       "updatedAt": "2026-06-23"
     },
@@ -190,6 +209,7 @@
       "releaseDate": "2026-01-09",
       "domesticGross": 13032,
       "productionBudget": null,
+      "posterUrl": null,
       "letterboxdSlug": null,
       "letterboxdAverage": null,
       "letterboxdRatingCount": null,
@@ -204,14 +224,16 @@
       "releaseDate": "2026-01-16",
       "domesticGross": 25147583,
       "productionBudget": 63000000,
+      "posterUrl": "https://a.ltrbxd.com/resized/film-poster/1/1/5/6/4/0/9/1156409-28-years-later-the-bone-temple-0-600-0-900-crop.jpg?v=131058c6ff",
       "letterboxdSlug": "film/28-years-later-the-bone-temple",
       "letterboxdAverage": 3.84,
-      "letterboxdRatingCount": 743133,
+      "letterboxdRatingCount": 745005,
       "sourceNotes": [
         "the-numbers-release-schedule",
         "the-numbers-top-grossing",
         "letterboxd",
-        "the-numbers-budget"
+        "the-numbers-budget",
+        "letterboxd-poster"
       ],
       "updatedAt": "2026-06-23"
     },
@@ -221,13 +243,15 @@
       "releaseDate": "2026-01-16",
       "domesticGross": 2003436,
       "productionBudget": null,
+      "posterUrl": "https://a.ltrbxd.com/resized/film-poster/1/1/5/9/8/6/3/1159863-charlie-the-wonderdog-0-600-0-900-crop.jpg?v=84c9312cac",
       "letterboxdSlug": "film/charlie-the-wonderdog",
       "letterboxdAverage": 2.38,
-      "letterboxdRatingCount": 1279,
+      "letterboxdRatingCount": 1285,
       "sourceNotes": [
         "the-numbers-release-schedule",
         "the-numbers-top-grossing",
-        "letterboxd"
+        "letterboxd",
+        "letterboxd-poster"
       ],
       "updatedAt": "2026-06-23"
     },
@@ -237,12 +261,14 @@
       "releaseDate": "2026-01-16",
       "domesticGross": 1421315,
       "productionBudget": null,
+      "posterUrl": "https://a.ltrbxd.com/resized/film-poster/4/8/7/6/8/8/487688-vie-privee-0-600-0-900-crop.jpg?v=803b008bfb",
       "letterboxdSlug": "film/vie-privee",
       "letterboxdAverage": null,
       "letterboxdRatingCount": null,
       "sourceNotes": [
         "the-numbers-top-grossing",
-        "letterboxd"
+        "letterboxd",
+        "letterboxd-poster"
       ],
       "updatedAt": "2026-06-23"
     },
@@ -252,13 +278,15 @@
       "releaseDate": "2026-01-16",
       "domesticGross": 695290,
       "productionBudget": null,
+      "posterUrl": "https://a.ltrbxd.com/resized/film-poster/1/3/1/1/2/1/9/1311219-all-you-need-is-kill-2025-0-600-0-900-crop.jpg?v=897bb9681b",
       "letterboxdSlug": "film/all-you-need-is-kill-1",
       "letterboxdAverage": 3.31,
-      "letterboxdRatingCount": 17752,
+      "letterboxdRatingCount": 17799,
       "sourceNotes": [
         "the-numbers-release-schedule",
         "the-numbers-top-grossing",
-        "letterboxd"
+        "letterboxd",
+        "letterboxd-poster"
       ],
       "updatedAt": "2026-06-23"
     },
@@ -268,13 +296,15 @@
       "releaseDate": "2026-01-16",
       "domesticGross": 372115,
       "productionBudget": null,
+      "posterUrl": "https://a.ltrbxd.com/resized/film-poster/5/9/7/1/4/59714-night-patrol-0-600-0-900-crop.jpg?v=669da98750",
       "letterboxdSlug": "film/night-patrol",
       "letterboxdAverage": 2.46,
-      "letterboxdRatingCount": 1162,
+      "letterboxdRatingCount": 1164,
       "sourceNotes": [
         "the-numbers-release-schedule",
         "the-numbers-top-grossing",
-        "letterboxd"
+        "letterboxd",
+        "letterboxd-poster"
       ],
       "updatedAt": "2026-06-23"
     },
@@ -284,6 +314,7 @@
       "releaseDate": "2026-01-16",
       "domesticGross": 88547,
       "productionBudget": null,
+      "posterUrl": null,
       "letterboxdSlug": null,
       "letterboxdAverage": null,
       "letterboxdRatingCount": null,
@@ -298,6 +329,7 @@
       "releaseDate": "2026-01-19",
       "domesticGross": 87333,
       "productionBudget": null,
+      "posterUrl": null,
       "letterboxdSlug": null,
       "letterboxdAverage": null,
       "letterboxdRatingCount": null,
@@ -312,13 +344,15 @@
       "releaseDate": "2026-01-21",
       "domesticGross": 270123,
       "productionBudget": null,
+      "posterUrl": "https://a.ltrbxd.com/resized/film-poster/1/2/7/7/5/4/5/1277545-mr-nobody-against-putin-0-600-0-900-crop.jpg?v=e15d911787",
       "letterboxdSlug": "film/mr-nobody-against-putin",
       "letterboxdAverage": 3.68,
-      "letterboxdRatingCount": 41507,
+      "letterboxdRatingCount": 41618,
       "sourceNotes": [
         "the-numbers-release-schedule",
         "the-numbers-top-grossing",
-        "letterboxd"
+        "letterboxd",
+        "letterboxd-poster"
       ],
       "updatedAt": "2026-06-23"
     },
@@ -328,14 +362,16 @@
       "releaseDate": "2026-01-23",
       "domesticGross": 24390303,
       "productionBudget": 60000000,
+      "posterUrl": "https://a.ltrbxd.com/resized/film-poster/1/1/1/9/5/6/5/1119565-mercy-2026-0-600-0-900-crop.jpg?v=44de7ae605",
       "letterboxdSlug": "film/mercy-2026",
       "letterboxdAverage": 2.48,
-      "letterboxdRatingCount": 183942,
+      "letterboxdRatingCount": 184577,
       "sourceNotes": [
         "the-numbers-release-schedule",
         "the-numbers-top-grossing",
         "letterboxd",
-        "the-numbers-budget"
+        "the-numbers-budget",
+        "letterboxd-poster"
       ],
       "updatedAt": "2026-06-23"
     },
@@ -345,14 +381,16 @@
       "releaseDate": "2026-01-23",
       "domesticGross": 5544971,
       "productionBudget": 23000000,
+      "posterUrl": "https://a.ltrbxd.com/resized/film-poster/6/0/5/0/6/8/605068-return-to-silent-hill-0-600-0-900-crop.jpg?v=157d4db589",
       "letterboxdSlug": "film/return-to-silent-hill",
       "letterboxdAverage": 1.43,
-      "letterboxdRatingCount": 145695,
+      "letterboxdRatingCount": 146419,
       "sourceNotes": [
         "the-numbers-release-schedule",
         "the-numbers-top-grossing",
         "letterboxd",
-        "the-numbers-budget"
+        "the-numbers-budget",
+        "letterboxd-poster"
       ],
       "updatedAt": "2026-06-23"
     },
@@ -362,13 +400,15 @@
       "releaseDate": "2026-01-23",
       "domesticGross": 2644377,
       "productionBudget": null,
+      "posterUrl": "https://a.ltrbxd.com/resized/film-poster/1/3/2/7/2/3/2/1327232-clika-0-600-0-900-crop.jpg?v=38638b8b77",
       "letterboxdSlug": "film/clika",
-      "letterboxdAverage": 2.14,
-      "letterboxdRatingCount": 1877,
+      "letterboxdAverage": 2.13,
+      "letterboxdRatingCount": 1885,
       "sourceNotes": [
         "the-numbers-release-schedule",
         "the-numbers-top-grossing",
-        "letterboxd"
+        "letterboxd",
+        "letterboxd-poster"
       ],
       "updatedAt": "2026-06-23"
     },
@@ -378,13 +418,15 @@
       "releaseDate": "2026-01-23",
       "domesticGross": 955645,
       "productionBudget": 11114361,
+      "posterUrl": "https://a.ltrbxd.com/resized/film-poster/7/2/1/5/6/6/721566-arco-0-600-0-900-crop.jpg?v=dcaae85d56",
       "letterboxdSlug": "film/arco",
       "letterboxdAverage": 3.89,
-      "letterboxdRatingCount": 123521,
+      "letterboxdRatingCount": 123998,
       "sourceNotes": [
         "the-numbers-top-grossing",
         "letterboxd",
-        "the-numbers-budget"
+        "the-numbers-budget",
+        "letterboxd-poster"
       ],
       "updatedAt": "2026-06-23"
     },
@@ -394,13 +436,15 @@
       "releaseDate": "2026-01-23",
       "domesticGross": 629513,
       "productionBudget": null,
+      "posterUrl": "https://a.ltrbxd.com/resized/film-poster/1/1/1/8/9/8/2/1118982-standout-the-ben-kjar-story-0-600-0-900-crop.jpg?v=8c03697a5e",
       "letterboxdSlug": "film/standout-the-ben-kjar-story",
       "letterboxdAverage": null,
       "letterboxdRatingCount": null,
       "sourceNotes": [
         "the-numbers-release-schedule",
         "the-numbers-top-grossing",
-        "letterboxd"
+        "letterboxd",
+        "letterboxd-poster"
       ],
       "updatedAt": "2026-06-23"
     },
@@ -410,12 +454,14 @@
       "releaseDate": "2026-01-23",
       "domesticGross": 342239,
       "productionBudget": null,
+      "posterUrl": "https://a.ltrbxd.com/resized/film-poster/1/1/2/6/1/6/1/1126161-h-is-for-hawk-0-600-0-900-crop.jpg?v=78d2238ed4",
       "letterboxdSlug": "film/h-is-for-hawk",
       "letterboxdAverage": 3.31,
-      "letterboxdRatingCount": 7724,
+      "letterboxdRatingCount": 7761,
       "sourceNotes": [
         "the-numbers-top-grossing",
-        "letterboxd"
+        "letterboxd",
+        "letterboxd-poster"
       ],
       "updatedAt": "2026-06-23"
     },
@@ -425,14 +471,16 @@
       "releaseDate": "2026-01-30",
       "domesticGross": 64734795,
       "productionBudget": 40000000,
+      "posterUrl": "https://a.ltrbxd.com/resized/film-poster/1/0/8/4/1/1/7/1084117-send-help-0-600-0-900-crop.jpg?v=9d8917c355",
       "letterboxdSlug": "film/send-help",
       "letterboxdAverage": 3.32,
-      "letterboxdRatingCount": 986905,
+      "letterboxdRatingCount": 991108,
       "sourceNotes": [
         "the-numbers-release-schedule",
         "the-numbers-top-grossing",
         "letterboxd",
-        "the-numbers-budget"
+        "the-numbers-budget",
+        "letterboxd-poster"
       ],
       "updatedAt": "2026-06-23"
     },
@@ -442,14 +490,16 @@
       "releaseDate": "2026-01-30",
       "domesticGross": 41111208,
       "productionBudget": 3000000,
+      "posterUrl": "https://a.ltrbxd.com/resized/film-poster/1/0/0/6/1/5/9/1006159-iron-lung-0-600-0-900-crop.jpg?v=32674f7669",
       "letterboxdSlug": "film/iron-lung",
       "letterboxdAverage": 3.14,
-      "letterboxdRatingCount": 315533,
+      "letterboxdRatingCount": 317046,
       "sourceNotes": [
         "the-numbers-release-schedule",
         "the-numbers-top-grossing",
         "letterboxd",
-        "the-numbers-budget"
+        "the-numbers-budget",
+        "letterboxd-poster"
       ],
       "updatedAt": "2026-06-23"
     },
@@ -459,13 +509,15 @@
       "releaseDate": "2026-01-30",
       "domesticGross": 16357453,
       "productionBudget": null,
+      "posterUrl": "https://a.ltrbxd.com/resized/film-poster/1/2/9/4/6/4/5/1294645-melania-2026-0-600-0-900-crop.jpg?v=4f91fc8e45",
       "letterboxdSlug": "film/melania-2026",
       "letterboxdAverage": 1.1,
-      "letterboxdRatingCount": 24589,
+      "letterboxdRatingCount": 24605,
       "sourceNotes": [
         "the-numbers-release-schedule",
         "the-numbers-top-grossing",
-        "letterboxd"
+        "letterboxd",
+        "letterboxd-poster"
       ],
       "updatedAt": "2026-06-23"
     },
@@ -475,14 +527,16 @@
       "releaseDate": "2026-01-30",
       "domesticGross": 12805541,
       "productionBudget": 50000000,
+      "posterUrl": "https://a.ltrbxd.com/resized/film-poster/1/1/7/3/9/0/8/1173908-shelter-2026-0-600-0-900-crop.jpg?v=e8f25bbc7d",
       "letterboxdSlug": "film/shelter-2026",
       "letterboxdAverage": 2.66,
-      "letterboxdRatingCount": 60502,
+      "letterboxdRatingCount": 60873,
       "sourceNotes": [
         "the-numbers-release-schedule",
         "the-numbers-top-grossing",
         "letterboxd",
-        "the-numbers-budget"
+        "the-numbers-budget",
+        "letterboxd-poster"
       ],
       "updatedAt": "2026-06-23"
     },
@@ -492,13 +546,15 @@
       "releaseDate": "2026-01-30",
       "domesticGross": 3929912,
       "productionBudget": null,
+      "posterUrl": "https://a.ltrbxd.com/resized/film-poster/1/3/0/1/7/0/4/1301704-the-moment-2026-0-600-0-900-crop.jpg?v=b001663404",
       "letterboxdSlug": "film/the-moment-2026",
       "letterboxdAverage": 3.41,
-      "letterboxdRatingCount": 202879,
+      "letterboxdRatingCount": 203653,
       "sourceNotes": [
         "the-numbers-release-schedule",
         "the-numbers-top-grossing",
-        "letterboxd"
+        "letterboxd",
+        "letterboxd-poster"
       ],
       "updatedAt": "2026-06-23"
     },
@@ -508,6 +564,7 @@
       "releaseDate": "2026-01-30",
       "domesticGross": 1949379,
       "productionBudget": null,
+      "posterUrl": null,
       "letterboxdSlug": null,
       "letterboxdAverage": null,
       "letterboxdRatingCount": null,
@@ -522,6 +579,7 @@
       "releaseDate": "2026-01-30",
       "domesticGross": 277203,
       "productionBudget": null,
+      "posterUrl": null,
       "letterboxdSlug": null,
       "letterboxdAverage": null,
       "letterboxdRatingCount": null,
@@ -536,12 +594,14 @@
       "releaseDate": "2026-01-30",
       "domesticGross": 186507,
       "productionBudget": null,
+      "posterUrl": "https://a.ltrbxd.com/resized/film-poster/1/3/4/2/6/1/9/1342619-natchez-2025-0-600-0-900-crop.jpg?v=78b39b2572",
       "letterboxdSlug": "film/natchez-1",
       "letterboxdAverage": 4.16,
-      "letterboxdRatingCount": 3039,
+      "letterboxdRatingCount": 3062,
       "sourceNotes": [
         "the-numbers-top-grossing",
-        "letterboxd"
+        "letterboxd",
+        "letterboxd-poster"
       ],
       "updatedAt": "2026-06-23"
     },
@@ -551,6 +611,7 @@
       "releaseDate": "2026-01-30",
       "domesticGross": 146508,
       "productionBudget": null,
+      "posterUrl": null,
       "letterboxdSlug": null,
       "letterboxdAverage": null,
       "letterboxdRatingCount": null,
@@ -565,12 +626,14 @@
       "releaseDate": "2026-01-30",
       "domesticGross": 53192,
       "productionBudget": null,
+      "posterUrl": "https://a.ltrbxd.com/resized/film-poster/1/4/6/2/5/0/146250-islands-0-600-0-900-crop.jpg?v=1e9c6cb2c0",
       "letterboxdSlug": "film/islands",
       "letterboxdAverage": null,
       "letterboxdRatingCount": null,
       "sourceNotes": [
         "the-numbers-top-grossing",
-        "letterboxd"
+        "letterboxd",
+        "letterboxd-poster"
       ],
       "updatedAt": "2026-06-23"
     },
@@ -580,14 +643,16 @@
       "releaseDate": "2026-02-06",
       "domesticGross": 25736278,
       "productionBudget": 4000000,
+      "posterUrl": "https://a.ltrbxd.com/resized/film-poster/1/1/7/4/3/2/2/1174322-solo-mio-0-600-0-900-crop.jpg?v=ba45be2924",
       "letterboxdSlug": "film/solo-mio",
-      "letterboxdAverage": 3.08,
-      "letterboxdRatingCount": 26229,
+      "letterboxdAverage": 3.07,
+      "letterboxdRatingCount": 26388,
       "sourceNotes": [
         "the-numbers-release-schedule",
         "the-numbers-top-grossing",
         "letterboxd",
-        "the-numbers-budget"
+        "the-numbers-budget",
+        "letterboxd-poster"
       ],
       "updatedAt": "2026-06-23"
     },
@@ -597,6 +662,7 @@
       "releaseDate": "2026-02-06",
       "domesticGross": 13053400,
       "productionBudget": null,
+      "posterUrl": null,
       "letterboxdSlug": null,
       "letterboxdAverage": null,
       "letterboxdRatingCount": null,
@@ -611,13 +677,15 @@
       "releaseDate": "2026-02-06",
       "domesticGross": 8560986,
       "productionBudget": null,
+      "posterUrl": "https://a.ltrbxd.com/resized/film-poster/9/1/0/7/6/9/910769-the-strangers-chapter-3-0-600-0-900-crop.jpg?v=1475c2403f",
       "letterboxdSlug": "film/the-strangers-chapter-3",
       "letterboxdAverage": 1.55,
-      "letterboxdRatingCount": 38774,
+      "letterboxdRatingCount": 38999,
       "sourceNotes": [
         "the-numbers-release-schedule",
         "the-numbers-top-grossing",
-        "letterboxd"
+        "letterboxd",
+        "letterboxd-poster"
       ],
       "updatedAt": "2026-06-23"
     },
@@ -627,13 +695,15 @@
       "releaseDate": "2026-02-06",
       "domesticGross": 7232819,
       "productionBudget": null,
+      "posterUrl": "https://a.ltrbxd.com/resized/film-poster/1/4/6/8/8/0/7/1468807-stray-kids-the-dominate-experience-0-600-0-900-crop.jpg?v=61d8629bc7",
       "letterboxdSlug": "film/stray-kids-the-dominate-experience",
       "letterboxdAverage": 4.3,
-      "letterboxdRatingCount": 16903,
+      "letterboxdRatingCount": 16944,
       "sourceNotes": [
         "the-numbers-release-schedule",
         "the-numbers-top-grossing",
-        "letterboxd"
+        "letterboxd",
+        "letterboxd-poster"
       ],
       "updatedAt": "2026-06-23"
     },
@@ -643,12 +713,14 @@
       "releaseDate": "2026-02-06",
       "domesticGross": 3879285,
       "productionBudget": null,
+      "posterUrl": "https://a.ltrbxd.com/resized/film-poster/1/0/9/9/9/1/8/1099918-pillion-0-600-0-900-crop.jpg?v=b4238b31f3",
       "letterboxdSlug": "film/pillion",
       "letterboxdAverage": null,
       "letterboxdRatingCount": null,
       "sourceNotes": [
         "the-numbers-top-grossing",
-        "letterboxd"
+        "letterboxd",
+        "letterboxd-poster"
       ],
       "updatedAt": "2026-06-23"
     },
@@ -658,13 +730,15 @@
       "releaseDate": "2026-02-06",
       "domesticGross": 2997500,
       "productionBudget": null,
+      "posterUrl": "https://a.ltrbxd.com/resized/film-poster/1/4/5/0/1/5/9/1450159-bendito-corazon-0-600-0-900-crop.jpg?v=53e5f134ed",
       "letterboxdSlug": "film/bendito-corazon",
       "letterboxdAverage": 2.67,
       "letterboxdRatingCount": 625,
       "sourceNotes": [
         "the-numbers-release-schedule",
         "the-numbers-top-grossing",
-        "letterboxd"
+        "letterboxd",
+        "letterboxd-poster"
       ],
       "updatedAt": "2026-06-23"
     },
@@ -674,12 +748,14 @@
       "releaseDate": "2026-02-06",
       "domesticGross": 1677641,
       "productionBudget": null,
+      "posterUrl": "https://a.ltrbxd.com/resized/film-poster/1/0/3/7/7/7/7/1037777-sirat-2025-0-600-0-900-crop.jpg?v=1660cb1f29",
       "letterboxdSlug": "film/sirat-1",
       "letterboxdAverage": 3.56,
-      "letterboxdRatingCount": 314809,
+      "letterboxdRatingCount": 315453,
       "sourceNotes": [
         "the-numbers-top-grossing",
-        "letterboxd"
+        "letterboxd",
+        "letterboxd-poster"
       ],
       "updatedAt": "2026-06-23"
     },
@@ -689,13 +765,15 @@
       "releaseDate": "2026-02-06",
       "domesticGross": 1250972,
       "productionBudget": null,
+      "posterUrl": "https://a.ltrbxd.com/resized/film-poster/1/0/7/8/8/8/9/1078889-whistle-2025-1-0-600-0-900-crop.jpg?v=1009a79d28",
       "letterboxdSlug": "film/whistle-2026",
       "letterboxdAverage": 2.27,
-      "letterboxdRatingCount": 80605,
+      "letterboxdRatingCount": 80932,
       "sourceNotes": [
         "the-numbers-release-schedule",
         "the-numbers-top-grossing",
-        "letterboxd"
+        "letterboxd",
+        "letterboxd-poster"
       ],
       "updatedAt": "2026-06-23"
     },
@@ -705,12 +783,14 @@
       "releaseDate": "2026-02-06",
       "domesticGross": 1041544,
       "productionBudget": null,
+      "posterUrl": "https://a.ltrbxd.com/resized/film-poster/1/2/6/5/6/5/8/1265658-kokuho-0-600-0-900-crop.jpg?v=662ff79da5",
       "letterboxdSlug": "film/kokuho",
       "letterboxdAverage": 3.84,
-      "letterboxdRatingCount": 44404,
+      "letterboxdRatingCount": 44489,
       "sourceNotes": [
         "the-numbers-top-grossing",
-        "letterboxd"
+        "letterboxd",
+        "letterboxd-poster"
       ],
       "updatedAt": "2026-06-23"
     },
@@ -720,6 +800,7 @@
       "releaseDate": "2026-02-06",
       "domesticGross": 629039,
       "productionBudget": null,
+      "posterUrl": null,
       "letterboxdSlug": "film/scarlet-1",
       "letterboxdAverage": null,
       "letterboxdRatingCount": null,
@@ -735,6 +816,7 @@
       "releaseDate": "2026-02-06",
       "domesticGross": 256542,
       "productionBudget": null,
+      "posterUrl": null,
       "letterboxdSlug": null,
       "letterboxdAverage": null,
       "letterboxdRatingCount": null,
@@ -749,6 +831,7 @@
       "releaseDate": "2026-02-06",
       "domesticGross": 240000,
       "productionBudget": null,
+      "posterUrl": null,
       "letterboxdSlug": null,
       "letterboxdAverage": null,
       "letterboxdRatingCount": null,
@@ -764,11 +847,13 @@
       "releaseDate": "2026-02-06",
       "domesticGross": 214534,
       "productionBudget": null,
-      "letterboxdSlug": null,
-      "letterboxdAverage": null,
-      "letterboxdRatingCount": null,
+      "posterUrl": "https://a.ltrbxd.com/resized/film-poster/1/0/4/0/7/2/8/1040728-buffalo-kids-0-600-0-900-crop.jpg?v=812808b62e",
+      "letterboxdSlug": "film/buffalo-kids",
+      "letterboxdAverage": 3.14,
+      "letterboxdRatingCount": 2245,
       "sourceNotes": [
-        "the-numbers-top-grossing"
+        "the-numbers-top-grossing",
+        "letterboxd-poster"
       ],
       "updatedAt": "2026-06-23"
     },
@@ -778,6 +863,7 @@
       "releaseDate": "2026-02-06",
       "domesticGross": 142625,
       "productionBudget": null,
+      "posterUrl": null,
       "letterboxdSlug": null,
       "letterboxdAverage": null,
       "letterboxdRatingCount": null,
@@ -793,13 +879,15 @@
       "releaseDate": "2026-02-06",
       "domesticGross": 49681,
       "productionBudget": null,
+      "posterUrl": "https://a.ltrbxd.com/resized/film-poster/1/1/6/9/7/6/7/1169767-jimpa-0-600-0-900-crop.jpg?v=bc4932d342",
       "letterboxdSlug": "film/jimpa",
       "letterboxdAverage": 3.21,
-      "letterboxdRatingCount": 2540,
+      "letterboxdRatingCount": 2567,
       "sourceNotes": [
         "the-numbers-release-schedule",
         "the-numbers-top-grossing",
-        "letterboxd"
+        "letterboxd",
+        "letterboxd-poster"
       ],
       "updatedAt": "2026-06-23"
     },
@@ -809,13 +897,15 @@
       "releaseDate": "2026-02-06",
       "domesticGross": 30834,
       "productionBudget": null,
+      "posterUrl": "https://a.ltrbxd.com/resized/film-poster/4/6/9/3/9/46939-starman-0-600-0-900-crop.jpg?v=c0046f1463",
       "letterboxdSlug": "film/starman",
       "letterboxdAverage": 3.62,
-      "letterboxdRatingCount": 57221,
+      "letterboxdRatingCount": 57306,
       "sourceNotes": [
         "the-numbers-release-schedule",
         "the-numbers-top-grossing",
-        "letterboxd"
+        "letterboxd",
+        "letterboxd-poster"
       ],
       "updatedAt": "2026-06-23"
     },
@@ -825,14 +915,16 @@
       "releaseDate": "2026-02-13",
       "domesticGross": 103316898,
       "productionBudget": 80000000,
+      "posterUrl": "https://a.ltrbxd.com/resized/film-poster/1/1/7/9/9/5/3/1179953-goat-2026-0-600-0-900-crop.jpg?v=35c7b7eebe",
       "letterboxdSlug": "film/goat-2026",
       "letterboxdAverage": 3.36,
-      "letterboxdRatingCount": 268706,
+      "letterboxdRatingCount": 270675,
       "sourceNotes": [
         "the-numbers-release-schedule",
         "the-numbers-top-grossing",
         "letterboxd",
-        "the-numbers-budget"
+        "the-numbers-budget",
+        "letterboxd-poster"
       ],
       "updatedAt": "2026-06-23"
     },
@@ -842,14 +934,16 @@
       "releaseDate": "2026-02-13",
       "domesticGross": 84001072,
       "productionBudget": 80000000,
+      "posterUrl": "https://a.ltrbxd.com/resized/film-poster/4/9/8/8/7/49887-wuthering-heights-0-600-0-900-crop.jpg?v=f49bbfd3be",
       "letterboxdSlug": "film/wuthering-heights",
       "letterboxdAverage": 3.62,
-      "letterboxdRatingCount": 37935,
+      "letterboxdRatingCount": 37981,
       "sourceNotes": [
         "the-numbers-release-schedule",
         "the-numbers-top-grossing",
         "letterboxd",
-        "the-numbers-budget"
+        "the-numbers-budget",
+        "letterboxd-poster"
       ],
       "updatedAt": "2026-06-23"
     },
@@ -859,14 +953,16 @@
       "releaseDate": "2026-02-13",
       "domesticGross": 36588336,
       "productionBudget": 90000000,
+      "posterUrl": "https://a.ltrbxd.com/resized/film-poster/1/0/5/8/1/3/2/1058132-crime-101-0-600-0-900-crop.jpg?v=eaba4b3224",
       "letterboxdSlug": "film/crime-101",
       "letterboxdAverage": 3.09,
-      "letterboxdRatingCount": 260241,
+      "letterboxdRatingCount": 260739,
       "sourceNotes": [
         "the-numbers-release-schedule",
         "the-numbers-top-grossing",
         "letterboxd",
-        "the-numbers-budget"
+        "the-numbers-budget",
+        "letterboxd-poster"
       ],
       "updatedAt": "2026-06-23"
     },
@@ -876,6 +972,7 @@
       "releaseDate": "2026-02-13",
       "domesticGross": 8431443,
       "productionBudget": 20000000,
+      "posterUrl": null,
       "letterboxdSlug": null,
       "letterboxdAverage": null,
       "letterboxdRatingCount": null,
@@ -892,13 +989,15 @@
       "releaseDate": "2026-02-13",
       "domesticGross": 4044418,
       "productionBudget": null,
+      "posterUrl": "https://a.ltrbxd.com/resized/film-poster/1/0/4/1/0/1/2/1041012-nirvanna-the-band-the-show-the-movie-0-600-0-900-crop.jpg?v=4d80f82f8a",
       "letterboxdSlug": "film/nirvanna-the-band-the-show-the-movie",
       "letterboxdAverage": 4.27,
-      "letterboxdRatingCount": 195907,
+      "letterboxdRatingCount": 197113,
       "sourceNotes": [
         "the-numbers-release-schedule",
         "the-numbers-top-grossing",
-        "letterboxd"
+        "letterboxd",
+        "letterboxd-poster"
       ],
       "updatedAt": "2026-06-23"
     },
@@ -908,13 +1007,15 @@
       "releaseDate": "2026-02-13",
       "domesticGross": 1529237,
       "productionBudget": null,
+      "posterUrl": "https://a.ltrbxd.com/resized/film-poster/6/2/0/2/9/5/620295-cold-storage-2026-0-600-0-900-crop.jpg?v=684cafafe9",
       "letterboxdSlug": "film/cold-storage-2026",
       "letterboxdAverage": 2.77,
-      "letterboxdRatingCount": 94609,
+      "letterboxdRatingCount": 94988,
       "sourceNotes": [
         "the-numbers-release-schedule",
         "the-numbers-top-grossing",
-        "letterboxd"
+        "letterboxd",
+        "letterboxd-poster"
       ],
       "updatedAt": "2026-06-23"
     },
@@ -924,13 +1025,15 @@
       "releaseDate": "2026-02-13",
       "domesticGross": 454776,
       "productionBudget": null,
+      "posterUrl": "https://a.ltrbxd.com/resized/film-poster/1/3/4/7/0/1/1/1347011-the-mortuary-assistant-0-600-0-900-crop.jpg?v=da3fb8d5ce",
       "letterboxdSlug": "film/the-mortuary-assistant",
       "letterboxdAverage": 1.53,
-      "letterboxdRatingCount": 21382,
+      "letterboxdRatingCount": 21518,
       "sourceNotes": [
         "the-numbers-release-schedule",
         "the-numbers-top-grossing",
-        "letterboxd"
+        "letterboxd",
+        "letterboxd-poster"
       ],
       "updatedAt": "2026-06-23"
     },
@@ -940,13 +1043,15 @@
       "releaseDate": "2026-02-13",
       "domesticGross": 44307,
       "productionBudget": null,
+      "posterUrl": "https://a.ltrbxd.com/resized/film-poster/2/4/3/0/7/9/243079-by-design-0-600-0-900-crop.jpg?v=14144da19a",
       "letterboxdSlug": "film/by-design",
       "letterboxdAverage": null,
       "letterboxdRatingCount": null,
       "sourceNotes": [
         "the-numbers-release-schedule",
         "the-numbers-top-grossing",
-        "letterboxd"
+        "letterboxd",
+        "letterboxd-poster"
       ],
       "updatedAt": "2026-06-23"
     },
@@ -956,13 +1061,15 @@
       "releaseDate": "2026-02-13",
       "domesticGross": 27351,
       "productionBudget": null,
+      "posterUrl": "https://a.ltrbxd.com/resized/film-poster/1/3/3/6/9/9/9/1336999-a-road-at-night-0-600-0-900-crop.jpg?v=0837299571",
       "letterboxdSlug": "film/a-road-at-night",
       "letterboxdAverage": null,
       "letterboxdRatingCount": null,
       "sourceNotes": [
         "the-numbers-release-schedule",
         "the-numbers-top-grossing",
-        "letterboxd"
+        "letterboxd",
+        "letterboxd-poster"
       ],
       "updatedAt": "2026-06-23"
     },
@@ -972,13 +1079,15 @@
       "releaseDate": "2026-02-17",
       "domesticGross": 1606672,
       "productionBudget": null,
+      "posterUrl": "https://a.ltrbxd.com/resized/film-poster/1/1/8/7/6/3/1/1187631-blades-of-the-guardians-wind-rises-in-the-0-600-0-900-crop.jpg?v=8d0f038258",
       "letterboxdSlug": "film/blades-of-the-guardians",
       "letterboxdAverage": 3.55,
-      "letterboxdRatingCount": 6026,
+      "letterboxdRatingCount": 6149,
       "sourceNotes": [
         "the-numbers-release-schedule",
         "the-numbers-top-grossing",
-        "letterboxd"
+        "letterboxd",
+        "letterboxd-poster"
       ],
       "updatedAt": "2026-06-23"
     },
@@ -988,6 +1097,7 @@
       "releaseDate": "2026-02-19",
       "domesticGross": 501000,
       "productionBudget": null,
+      "posterUrl": null,
       "letterboxdSlug": null,
       "letterboxdAverage": null,
       "letterboxdRatingCount": null,
@@ -1002,14 +1112,16 @@
       "releaseDate": "2026-02-20",
       "domesticGross": 18588615,
       "productionBudget": 18000000,
+      "posterUrl": "https://a.ltrbxd.com/resized/film-poster/1/3/2/4/4/6/1/1324461-i-can-only-imagine-2-0-600-0-900-crop.jpg?v=4d808f7077",
       "letterboxdSlug": "film/i-can-only-imagine-2",
       "letterboxdAverage": 3.33,
-      "letterboxdRatingCount": 2707,
+      "letterboxdRatingCount": 2720,
       "sourceNotes": [
         "the-numbers-release-schedule",
         "the-numbers-top-grossing",
         "letterboxd",
-        "the-numbers-budget"
+        "the-numbers-budget",
+        "letterboxd-poster"
       ],
       "updatedAt": "2026-06-23"
     },
@@ -1019,12 +1131,14 @@
       "releaseDate": "2026-02-20",
       "domesticGross": 13571883,
       "productionBudget": null,
+      "posterUrl": "https://a.ltrbxd.com/resized/film-poster/1/3/2/2/5/8/3/1322583-epic-elvis-presley-in-concert-0-600-0-900-crop.jpg?v=99de3d392c",
       "letterboxdSlug": "film/epic-elvis-presley-in-concert",
       "letterboxdAverage": 3.97,
-      "letterboxdRatingCount": 30315,
+      "letterboxdRatingCount": 30381,
       "sourceNotes": [
         "the-numbers-top-grossing",
-        "letterboxd"
+        "letterboxd",
+        "letterboxd-poster"
       ],
       "updatedAt": "2026-06-23"
     },
@@ -1034,14 +1148,16 @@
       "releaseDate": "2026-02-20",
       "domesticGross": 7851599,
       "productionBudget": 15000000,
+      "posterUrl": "https://a.ltrbxd.com/resized/film-poster/3/9/9/5/0/4/399504-how-to-make-a-killing-2026-0-600-0-900-crop.jpg?v=be2948f44a",
       "letterboxdSlug": "film/how-to-make-a-killing-2026",
       "letterboxdAverage": 3.15,
-      "letterboxdRatingCount": 231504,
+      "letterboxdRatingCount": 237236,
       "sourceNotes": [
         "the-numbers-release-schedule",
         "the-numbers-top-grossing",
         "letterboxd",
-        "the-numbers-budget"
+        "the-numbers-budget",
+        "letterboxd-poster"
       ],
       "updatedAt": "2026-06-23"
     },
@@ -1051,6 +1167,7 @@
       "releaseDate": "2026-02-20",
       "domesticGross": 3754480,
       "productionBudget": null,
+      "posterUrl": null,
       "letterboxdSlug": null,
       "letterboxdAverage": null,
       "letterboxdRatingCount": null,
@@ -1066,6 +1183,7 @@
       "releaseDate": "2026-02-20",
       "domesticGross": 2555070,
       "productionBudget": 10000000,
+      "posterUrl": "https://a.ltrbxd.com/resized/film-poster/3/3/6/0/1/0/336010-psycho-killer-0-600-0-900-crop.jpg?v=ff758414ab",
       "letterboxdSlug": "film/psycho-killer",
       "letterboxdAverage": null,
       "letterboxdRatingCount": null,
@@ -1073,7 +1191,8 @@
         "the-numbers-release-schedule",
         "the-numbers-top-grossing",
         "letterboxd",
-        "the-numbers-budget"
+        "the-numbers-budget",
+        "letterboxd-poster"
       ],
       "updatedAt": "2026-06-23"
     },
@@ -1083,13 +1202,15 @@
       "releaseDate": "2026-02-20",
       "domesticGross": 1002905,
       "productionBudget": null,
+      "posterUrl": "https://a.ltrbxd.com/resized/film-poster/1/0/1/4/5/8/6/1014586-midwinter-break-0-600-0-900-crop.jpg?v=d70bff517f",
       "letterboxdSlug": "film/midwinter-break",
       "letterboxdAverage": 2.84,
-      "letterboxdRatingCount": 4375,
+      "letterboxdRatingCount": 4398,
       "sourceNotes": [
         "the-numbers-release-schedule",
         "the-numbers-top-grossing",
-        "letterboxd"
+        "letterboxd",
+        "letterboxd-poster"
       ],
       "updatedAt": "2026-06-23"
     },
@@ -1099,13 +1220,15 @@
       "releaseDate": "2026-02-20",
       "domesticGross": 213951,
       "productionBudget": null,
+      "posterUrl": "https://a.ltrbxd.com/resized/film-poster/1/3/0/7/9/7/1/1307971-this-is-not-a-test-2025-0-600-0-900-crop.jpg?v=6c3cf3471a",
       "letterboxdSlug": "film/this-is-not-a-test-1",
       "letterboxdAverage": 2.33,
-      "letterboxdRatingCount": 9367,
+      "letterboxdRatingCount": 9470,
       "sourceNotes": [
         "the-numbers-release-schedule",
         "the-numbers-top-grossing",
-        "letterboxd"
+        "letterboxd",
+        "letterboxd-poster"
       ],
       "updatedAt": "2026-06-23"
     },
@@ -1115,6 +1238,7 @@
       "releaseDate": "2026-02-20",
       "domesticGross": 78492,
       "productionBudget": null,
+      "posterUrl": null,
       "letterboxdSlug": null,
       "letterboxdAverage": null,
       "letterboxdRatingCount": null,
@@ -1130,6 +1254,7 @@
       "releaseDate": "2026-02-26",
       "domesticGross": 3700000,
       "productionBudget": null,
+      "posterUrl": null,
       "letterboxdSlug": null,
       "letterboxdAverage": null,
       "letterboxdRatingCount": null,
@@ -1144,14 +1269,16 @@
       "releaseDate": "2026-02-27",
       "domesticGross": 121935967,
       "productionBudget": 45000000,
+      "posterUrl": "https://a.ltrbxd.com/resized/film-poster/1/0/4/5/3/8/1/1045381-scream-7-0-600-0-900-crop.jpg?v=ec86a2dec8",
       "letterboxdSlug": "film/scream-7",
       "letterboxdAverage": 2.21,
-      "letterboxdRatingCount": 512641,
+      "letterboxdRatingCount": 514502,
       "sourceNotes": [
         "the-numbers-release-schedule",
         "the-numbers-top-grossing",
         "letterboxd",
-        "the-numbers-budget"
+        "the-numbers-budget",
+        "letterboxd-poster"
       ],
       "updatedAt": "2026-06-23"
     },
@@ -1161,12 +1288,14 @@
       "releaseDate": "2026-02-27",
       "domesticGross": 1374946,
       "productionBudget": null,
+      "posterUrl": "https://a.ltrbxd.com/resized/film-poster/1/3/3/9/1/8/5/1339185-pegasus-3-0-600-0-900-crop.jpg?v=a98f2714d9",
       "letterboxdSlug": "film/pegasus-3",
       "letterboxdAverage": 3.13,
-      "letterboxdRatingCount": 1182,
+      "letterboxdRatingCount": 1191,
       "sourceNotes": [
         "the-numbers-release-schedule",
-        "letterboxd"
+        "letterboxd",
+        "letterboxd-poster"
       ],
       "updatedAt": "2026-06-23"
     },
@@ -1176,6 +1305,7 @@
       "releaseDate": "2026-02-27",
       "domesticGross": 1275499,
       "productionBudget": null,
+      "posterUrl": null,
       "letterboxdSlug": null,
       "letterboxdAverage": null,
       "letterboxdRatingCount": null,
@@ -1190,12 +1320,14 @@
       "releaseDate": "2026-02-27",
       "domesticGross": 133797,
       "productionBudget": null,
+      "posterUrl": "https://a.ltrbxd.com/resized/film-poster/4/4/5/1/9/44519-dreams-0-600-0-900-crop.jpg?v=a2a17d6966",
       "letterboxdSlug": "film/dreams",
       "letterboxdAverage": 4.24,
-      "letterboxdRatingCount": 109386,
+      "letterboxdRatingCount": 109575,
       "sourceNotes": [
         "the-numbers-top-grossing",
-        "letterboxd"
+        "letterboxd",
+        "letterboxd-poster"
       ],
       "updatedAt": "2026-06-23"
     },
@@ -1205,6 +1337,7 @@
       "releaseDate": "2026-02-27",
       "domesticGross": 114569,
       "productionBudget": null,
+      "posterUrl": null,
       "letterboxdSlug": null,
       "letterboxdAverage": null,
       "letterboxdRatingCount": null,
@@ -1219,13 +1352,15 @@
       "releaseDate": "2026-02-27",
       "domesticGross": 45690,
       "productionBudget": null,
+      "posterUrl": "https://a.ltrbxd.com/resized/film-poster/1/3/9/3/3/0/9/1393309-the-napa-boys-0-600-0-900-crop.jpg?v=7297934446",
       "letterboxdSlug": "film/the-napa-boys",
       "letterboxdAverage": 3.36,
-      "letterboxdRatingCount": 4400,
+      "letterboxdRatingCount": 4433,
       "sourceNotes": [
         "the-numbers-release-schedule",
         "the-numbers-top-grossing",
-        "letterboxd"
+        "letterboxd",
+        "letterboxd-poster"
       ],
       "updatedAt": "2026-06-23"
     },
@@ -1235,13 +1370,15 @@
       "releaseDate": "2026-02-27",
       "domesticGross": 44341,
       "productionBudget": null,
+      "posterUrl": "https://a.ltrbxd.com/resized/film-poster/1/3/0/1/5/8/9/1301589-for-worse-0-600-0-900-crop.jpg?v=f466edd338",
       "letterboxdSlug": "film/for-worse",
-      "letterboxdAverage": 3.35,
-      "letterboxdRatingCount": 613,
+      "letterboxdAverage": 3.34,
+      "letterboxdRatingCount": 614,
       "sourceNotes": [
         "the-numbers-release-schedule",
         "the-numbers-top-grossing",
-        "letterboxd"
+        "letterboxd",
+        "letterboxd-poster"
       ],
       "updatedAt": "2026-06-23"
     },
@@ -1251,14 +1388,16 @@
       "releaseDate": "2026-03-06",
       "domesticGross": 166010783,
       "productionBudget": 150000000,
+      "posterUrl": "https://a.ltrbxd.com/resized/film-poster/1/2/0/7/5/5/7/1207557-hoppers-0-600-0-900-crop.jpg?v=7711e7b5a7",
       "letterboxdSlug": "film/hoppers",
-      "letterboxdAverage": 3.73,
-      "letterboxdRatingCount": 762450,
+      "letterboxdAverage": 3.72,
+      "letterboxdRatingCount": 771198,
       "sourceNotes": [
         "the-numbers-release-schedule",
         "the-numbers-top-grossing",
         "letterboxd",
-        "the-numbers-budget"
+        "the-numbers-budget",
+        "letterboxd-poster"
       ],
       "updatedAt": "2026-06-23"
     },
@@ -1268,14 +1407,16 @@
       "releaseDate": "2026-03-06",
       "domesticGross": 12744025,
       "productionBudget": 80000000,
+      "posterUrl": "https://a.ltrbxd.com/resized/film-poster/1/0/4/5/7/6/7/1045767-the-bride-2026-0-600-0-900-crop.jpg?v=1a15412f4b",
       "letterboxdSlug": "film/the-bride-2026",
       "letterboxdAverage": 2.82,
-      "letterboxdRatingCount": 276961,
+      "letterboxdRatingCount": 278057,
       "sourceNotes": [
         "the-numbers-release-schedule",
         "the-numbers-top-grossing",
         "letterboxd",
-        "the-numbers-budget"
+        "the-numbers-budget",
+        "letterboxd-poster"
       ],
       "updatedAt": "2026-06-23"
     },
@@ -1285,13 +1426,15 @@
       "releaseDate": "2026-03-06",
       "domesticGross": 744024,
       "productionBudget": null,
+      "posterUrl": "https://a.ltrbxd.com/resized/film-poster/1/2/6/9/0/1/7/1269017-protector-2025-0-600-0-900-crop.jpg?v=a80d5af1ec",
       "letterboxdSlug": "film/protector-2026",
       "letterboxdAverage": 2.38,
-      "letterboxdRatingCount": 4376,
+      "letterboxdRatingCount": 4418,
       "sourceNotes": [
         "the-numbers-release-schedule",
         "the-numbers-top-grossing",
-        "letterboxd"
+        "letterboxd",
+        "letterboxd-poster"
       ],
       "updatedAt": "2026-06-23"
     },
@@ -1301,13 +1444,15 @@
       "releaseDate": "2026-03-06",
       "domesticGross": 725979,
       "productionBudget": null,
+      "posterUrl": "https://a.ltrbxd.com/resized/film-poster/1/5/5/1/0/1/8/1551018-dolly-3-0-600-0-900-crop.jpg?v=9320fb5006",
       "letterboxdSlug": "film/dolly-2026",
       "letterboxdAverage": null,
       "letterboxdRatingCount": null,
       "sourceNotes": [
         "the-numbers-release-schedule",
         "the-numbers-top-grossing",
-        "letterboxd"
+        "letterboxd",
+        "letterboxd-poster"
       ],
       "updatedAt": "2026-06-23"
     },
@@ -1317,13 +1462,15 @@
       "releaseDate": "2026-03-06",
       "domesticGross": 511351,
       "productionBudget": null,
+      "posterUrl": "https://a.ltrbxd.com/resized/film-poster/4/0/9/9/3/40993-youngblood-0-600-0-900-crop.jpg?v=d043004015",
       "letterboxdSlug": "film/youngblood",
       "letterboxdAverage": 3.1,
-      "letterboxdRatingCount": 8580,
+      "letterboxdRatingCount": 8594,
       "sourceNotes": [
         "the-numbers-release-schedule",
         "the-numbers-top-grossing",
-        "letterboxd"
+        "letterboxd",
+        "letterboxd-poster"
       ],
       "updatedAt": "2026-06-23"
     },
@@ -1333,6 +1480,7 @@
       "releaseDate": "2026-03-06",
       "domesticGross": 99662,
       "productionBudget": null,
+      "posterUrl": null,
       "letterboxdSlug": null,
       "letterboxdAverage": null,
       "letterboxdRatingCount": null,
@@ -1347,11 +1495,13 @@
       "releaseDate": "2026-03-06",
       "domesticGross": 19200,
       "productionBudget": null,
-      "letterboxdSlug": null,
-      "letterboxdAverage": null,
-      "letterboxdRatingCount": null,
+      "posterUrl": "https://a.ltrbxd.com/resized/film-poster/6/8/8/3/4/4/688344-silver-star-0-600-0-900-crop.jpg?v=d6dd284d78",
+      "letterboxdSlug": "film/silver-star",
+      "letterboxdAverage": 3.51,
+      "letterboxdRatingCount": 1620,
       "sourceNotes": [
-        "the-numbers-top-grossing"
+        "the-numbers-top-grossing",
+        "letterboxd-poster"
       ],
       "updatedAt": "2026-06-23"
     },
@@ -1361,12 +1511,14 @@
       "releaseDate": "2026-03-06",
       "domesticGross": 5055,
       "productionBudget": null,
-      "letterboxdSlug": null,
+      "posterUrl": "https://a.ltrbxd.com/resized/film-poster/5/3/6/5/1/3/536513-heel-0-600-0-900-crop.jpg?v=4ad8cd1554",
+      "letterboxdSlug": "film/heel",
       "letterboxdAverage": null,
       "letterboxdRatingCount": null,
       "sourceNotes": [
         "the-numbers-release-schedule",
-        "the-numbers-top-grossing"
+        "the-numbers-top-grossing",
+        "letterboxd-poster"
       ],
       "updatedAt": "2026-06-23"
     },
@@ -1376,14 +1528,16 @@
       "releaseDate": "2026-03-13",
       "domesticGross": 48559430,
       "productionBudget": 25000000,
+      "posterUrl": "https://a.ltrbxd.com/resized/film-poster/1/2/5/4/8/3/0/1254830-reminders-of-him-0-600-0-900-crop.jpg?v=ca80727800",
       "letterboxdSlug": "film/reminders-of-him",
       "letterboxdAverage": 2.52,
-      "letterboxdRatingCount": 115784,
+      "letterboxdRatingCount": 116096,
       "sourceNotes": [
         "the-numbers-release-schedule",
         "the-numbers-top-grossing",
         "letterboxd",
-        "the-numbers-budget"
+        "the-numbers-budget",
+        "letterboxd-poster"
       ],
       "updatedAt": "2026-06-23"
     },
@@ -1393,6 +1547,7 @@
       "releaseDate": "2026-03-13",
       "domesticGross": 19971832,
       "productionBudget": 500000,
+      "posterUrl": "https://a.ltrbxd.com/resized/film-poster/2/2/1/6/0/5/221605-undertone-0-600-0-900-crop.jpg?v=4822214dec",
       "letterboxdSlug": "film/undertone",
       "letterboxdAverage": null,
       "letterboxdRatingCount": null,
@@ -1400,7 +1555,8 @@
         "the-numbers-release-schedule",
         "the-numbers-top-grossing",
         "letterboxd",
-        "the-numbers-budget"
+        "the-numbers-budget",
+        "letterboxd-poster"
       ],
       "updatedAt": "2026-06-23"
     },
@@ -1410,13 +1566,15 @@
       "releaseDate": "2026-03-13",
       "domesticGross": 906246,
       "productionBudget": null,
+      "posterUrl": "https://a.ltrbxd.com/resized/film-poster/1/1/7/9/7/4/0/1179740-slanted-0-600-0-900-crop.jpg?v=002df3482f",
       "letterboxdSlug": "film/slanted",
       "letterboxdAverage": 2.8,
-      "letterboxdRatingCount": 35176,
+      "letterboxdRatingCount": 35519,
       "sourceNotes": [
         "the-numbers-release-schedule",
         "the-numbers-top-grossing",
-        "letterboxd"
+        "letterboxd",
+        "letterboxd-poster"
       ],
       "updatedAt": "2026-06-23"
     },
@@ -1426,13 +1584,15 @@
       "releaseDate": "2026-03-13",
       "domesticGross": 35925,
       "productionBudget": null,
+      "posterUrl": "https://a.ltrbxd.com/resized/film-poster/3/7/2/8/0/37280-scared-to-death-0-600-0-900-crop.jpg?v=8a751fbbab",
       "letterboxdSlug": "film/scared-to-death",
       "letterboxdAverage": 2.12,
-      "letterboxdRatingCount": 1349,
+      "letterboxdRatingCount": 1350,
       "sourceNotes": [
         "the-numbers-release-schedule",
         "the-numbers-top-grossing",
-        "letterboxd"
+        "letterboxd",
+        "letterboxd-poster"
       ],
       "updatedAt": "2026-06-23"
     },
@@ -1442,12 +1602,14 @@
       "releaseDate": "2026-03-17",
       "domesticGross": 802849,
       "productionBudget": null,
+      "posterUrl": "https://a.ltrbxd.com/resized/film-poster/1/4/8/6/2/4/1/1486241-he-calls-me-daughter-0-600-0-900-crop.jpg?v=7aafb71843",
       "letterboxdSlug": "film/he-calls-me-daughter",
       "letterboxdAverage": null,
       "letterboxdRatingCount": null,
       "sourceNotes": [
         "the-numbers-top-grossing",
-        "letterboxd"
+        "letterboxd",
+        "letterboxd-poster"
       ],
       "updatedAt": "2026-06-23"
     },
@@ -1457,13 +1619,15 @@
       "releaseDate": "2026-03-19",
       "domesticGross": 28100759,
       "productionBudget": null,
+      "posterUrl": "https://a.ltrbxd.com/resized/film-poster/1/4/5/4/1/5/1/1454151-dhurandhar-the-revenge-0-600-0-900-crop.jpg?v=567766a7ed",
       "letterboxdSlug": "film/dhurandhar-the-revenge",
       "letterboxdAverage": 3.39,
-      "letterboxdRatingCount": 86066,
+      "letterboxdRatingCount": 86482,
       "sourceNotes": [
         "the-numbers-release-schedule",
         "the-numbers-top-grossing",
-        "letterboxd"
+        "letterboxd",
+        "letterboxd-poster"
       ],
       "updatedAt": "2026-06-23"
     },
@@ -1473,14 +1637,16 @@
       "releaseDate": "2026-03-20",
       "domesticGross": 344003335,
       "productionBudget": 200000000,
+      "posterUrl": "https://a.ltrbxd.com/resized/film-poster/6/1/1/2/8/8/611288-project-hail-mary-0-600-0-900-crop.jpg?v=ac31b6ec03",
       "letterboxdSlug": "film/project-hail-mary",
       "letterboxdAverage": 4.31,
-      "letterboxdRatingCount": 3209206,
+      "letterboxdRatingCount": 3227294,
       "sourceNotes": [
         "the-numbers-release-schedule",
         "the-numbers-top-grossing",
         "letterboxd",
-        "the-numbers-budget"
+        "the-numbers-budget",
+        "letterboxd-poster"
       ],
       "updatedAt": "2026-06-23"
     },
@@ -1490,14 +1656,16 @@
       "releaseDate": "2026-03-20",
       "domesticGross": 22986054,
       "productionBudget": 14000000,
+      "posterUrl": "https://a.ltrbxd.com/resized/film-poster/1/1/5/0/1/1/3/1150113-ready-or-not-2-here-i-come-0-600-0-900-crop.jpg?v=da35b35f85",
       "letterboxdSlug": "film/ready-or-not-2-here-i-come",
       "letterboxdAverage": 3.32,
-      "letterboxdRatingCount": 405557,
+      "letterboxdRatingCount": 407637,
       "sourceNotes": [
         "the-numbers-release-schedule",
         "the-numbers-top-grossing",
         "letterboxd",
-        "the-numbers-budget"
+        "the-numbers-budget",
+        "letterboxd-poster"
       ],
       "updatedAt": "2026-06-23"
     },
@@ -1507,12 +1675,14 @@
       "releaseDate": "2026-03-20",
       "domesticGross": 2925502,
       "productionBudget": null,
+      "posterUrl": "https://a.ltrbxd.com/resized/film-poster/1/0/3/2/9/4/5/1032945-the-pout-pout-fish-0-600-0-900-crop.jpg?v=74eb03ab36",
       "letterboxdSlug": "film/the-pout-pout-fish",
       "letterboxdAverage": 2.19,
-      "letterboxdRatingCount": 2600,
+      "letterboxdRatingCount": 2670,
       "sourceNotes": [
         "the-numbers-top-grossing",
-        "letterboxd"
+        "letterboxd",
+        "letterboxd-poster"
       ],
       "updatedAt": "2026-06-23"
     },
@@ -1522,12 +1692,14 @@
       "releaseDate": "2026-03-20",
       "domesticGross": 608945,
       "productionBudget": null,
+      "posterUrl": "https://a.ltrbxd.com/resized/film-poster/1/3/1/0/8/6/3/1310863-palestine-36-0-600-0-900-crop.jpg?v=f58e78fa67",
       "letterboxdSlug": "film/palestine-36",
       "letterboxdAverage": 3.91,
-      "letterboxdRatingCount": 19933,
+      "letterboxdRatingCount": 19978,
       "sourceNotes": [
         "the-numbers-top-grossing",
-        "letterboxd"
+        "letterboxd",
+        "letterboxd-poster"
       ],
       "updatedAt": "2026-06-23"
     },
@@ -1537,13 +1709,15 @@
       "releaseDate": "2026-03-20",
       "domesticGross": 306321,
       "productionBudget": null,
+      "posterUrl": "https://a.ltrbxd.com/resized/film-poster/1/3/9/3/0/0/4/1393004-marc-by-sofia-0-600-0-900-crop.jpg?v=0deb67dd6e",
       "letterboxdSlug": "film/marc-by-sofia",
       "letterboxdAverage": 3.34,
-      "letterboxdRatingCount": 4016,
+      "letterboxdRatingCount": 4034,
       "sourceNotes": [
         "the-numbers-release-schedule",
         "the-numbers-top-grossing",
-        "letterboxd"
+        "letterboxd",
+        "letterboxd-poster"
       ],
       "updatedAt": "2026-06-23"
     },
@@ -1553,13 +1727,15 @@
       "releaseDate": "2026-03-20",
       "domesticGross": 291795,
       "productionBudget": null,
+      "posterUrl": "https://a.ltrbxd.com/resized/film-poster/1/4/7/9/3/5/1/1479351-tow-1-0-600-0-900-crop.jpg?v=3de30ebdf7",
       "letterboxdSlug": "film/tow-1",
       "letterboxdAverage": null,
       "letterboxdRatingCount": null,
       "sourceNotes": [
         "the-numbers-release-schedule",
         "the-numbers-top-grossing",
-        "letterboxd"
+        "letterboxd",
+        "letterboxd-poster"
       ],
       "updatedAt": "2026-06-23"
     },
@@ -1569,12 +1745,14 @@
       "releaseDate": "2026-03-20",
       "domesticGross": 219271,
       "productionBudget": null,
+      "posterUrl": "https://a.ltrbxd.com/resized/film-poster/1/0/6/5/1/9/7/1065197-mirrors-no-3-0-600-0-900-crop.jpg?v=30ef3cac4b",
       "letterboxdSlug": "film/miroirs-no-3",
       "letterboxdAverage": 3.48,
-      "letterboxdRatingCount": 20269,
+      "letterboxdRatingCount": 20310,
       "sourceNotes": [
         "the-numbers-top-grossing",
-        "letterboxd"
+        "letterboxd",
+        "letterboxd-poster"
       ],
       "updatedAt": "2026-06-23"
     },
@@ -1584,12 +1762,14 @@
       "releaseDate": "2026-03-20",
       "domesticGross": 115168,
       "productionBudget": null,
+      "posterUrl": "https://a.ltrbxd.com/resized/film-poster/1/1/4/1/4/8/0/1141480-two-prosecutors-0-600-0-900-crop.jpg?v=f056157276",
       "letterboxdSlug": "film/two-prosecutors",
-      "letterboxdAverage": 3.45,
-      "letterboxdRatingCount": 13495,
+      "letterboxdAverage": 3.46,
+      "letterboxdRatingCount": 13591,
       "sourceNotes": [
         "the-numbers-top-grossing",
-        "letterboxd"
+        "letterboxd",
+        "letterboxd-poster"
       ],
       "updatedAt": "2026-06-23"
     },
@@ -1599,12 +1779,14 @@
       "releaseDate": "2026-03-20",
       "domesticGross": 102194,
       "productionBudget": null,
+      "posterUrl": "https://a.ltrbxd.com/resized/film-poster/9/6/8/3/1/2/968312-dead-lover-0-600-0-900-crop.jpg?v=86bf4b282f",
       "letterboxdSlug": "film/dead-lover",
       "letterboxdAverage": 3.56,
-      "letterboxdRatingCount": 4981,
+      "letterboxdRatingCount": 5013,
       "sourceNotes": [
         "the-numbers-top-grossing",
-        "letterboxd"
+        "letterboxd",
+        "letterboxd-poster"
       ],
       "updatedAt": "2026-06-23"
     },
@@ -1614,6 +1796,7 @@
       "releaseDate": "2026-03-20",
       "domesticGross": 41676,
       "productionBudget": null,
+      "posterUrl": null,
       "letterboxdSlug": null,
       "letterboxdAverage": null,
       "letterboxdRatingCount": null,
@@ -1628,14 +1811,16 @@
       "releaseDate": "2026-03-27",
       "domesticGross": 10882152,
       "productionBudget": 20000000,
+      "posterUrl": "https://a.ltrbxd.com/resized/film-poster/1/1/7/5/5/2/8/1175528-they-will-kill-you-0-600-0-900-crop.jpg?v=ed2974424c",
       "letterboxdSlug": "film/they-will-kill-you",
       "letterboxdAverage": 2.96,
-      "letterboxdRatingCount": 219389,
+      "letterboxdRatingCount": 224495,
       "sourceNotes": [
         "the-numbers-release-schedule",
         "the-numbers-top-grossing",
         "letterboxd",
-        "the-numbers-budget"
+        "the-numbers-budget",
+        "letterboxd-poster"
       ],
       "updatedAt": "2026-06-23"
     },
@@ -1645,13 +1830,15 @@
       "releaseDate": "2026-03-27",
       "domesticGross": 2322616,
       "productionBudget": null,
+      "posterUrl": "https://a.ltrbxd.com/resized/film-poster/1/3/2/7/7/7/5/1327775-forbidden-fruits-2026-0-600-0-900-crop.jpg?v=17f37342ce",
       "letterboxdSlug": "film/forbidden-fruits-2026",
       "letterboxdAverage": 3.02,
-      "letterboxdRatingCount": 133365,
+      "letterboxdRatingCount": 134430,
       "sourceNotes": [
         "the-numbers-release-schedule",
         "the-numbers-top-grossing",
-        "letterboxd"
+        "letterboxd",
+        "letterboxd-poster"
       ],
       "updatedAt": "2026-06-23"
     },
@@ -1661,13 +1848,15 @@
       "releaseDate": "2026-03-27",
       "domesticGross": 1271825,
       "productionBudget": null,
+      "posterUrl": "https://a.ltrbxd.com/resized/film-poster/1/4/6/4/9/3/3/1464933-the-ai-doc-or-how-i-became-an-apocaloptimist-0-600-0-900-crop.jpg?v=4f8067aed0",
       "letterboxdSlug": "film/the-ai-doc-or-how-i-became-an-apocaloptimist",
       "letterboxdAverage": 3.19,
-      "letterboxdRatingCount": 7089,
+      "letterboxdRatingCount": 7145,
       "sourceNotes": [
         "the-numbers-release-schedule",
         "the-numbers-top-grossing",
-        "letterboxd"
+        "letterboxd",
+        "letterboxd-poster"
       ],
       "updatedAt": "2026-06-23"
     },
@@ -1677,13 +1866,15 @@
       "releaseDate": "2026-03-27",
       "domesticGross": 620760,
       "productionBudget": null,
+      "posterUrl": "https://a.ltrbxd.com/resized/film-poster/1/3/0/1/5/4/1/1301541-fantasy-life-0-600-0-900-crop.jpg?v=d7ae2f6a2d",
       "letterboxdSlug": "film/fantasy-life",
       "letterboxdAverage": 2.99,
-      "letterboxdRatingCount": 4555,
+      "letterboxdRatingCount": 4568,
       "sourceNotes": [
         "the-numbers-release-schedule",
         "the-numbers-top-grossing",
-        "letterboxd"
+        "letterboxd",
+        "letterboxd-poster"
       ],
       "updatedAt": "2026-06-23"
     },
@@ -1693,12 +1884,14 @@
       "releaseDate": "2026-03-27",
       "domesticGross": 205481,
       "productionBudget": null,
+      "posterUrl": "https://a.ltrbxd.com/resized/film-poster/1/0/1/1/2/4/3/1011243-alpha-2026-0-600-0-900-crop.jpg?v=1fd30bb6a0",
       "letterboxdSlug": "film/alpha-2026",
       "letterboxdAverage": null,
       "letterboxdRatingCount": null,
       "sourceNotes": [
         "the-numbers-top-grossing",
-        "letterboxd"
+        "letterboxd",
+        "letterboxd-poster"
       ],
       "updatedAt": "2026-06-23"
     },
@@ -1708,6 +1901,7 @@
       "releaseDate": "2026-03-27",
       "domesticGross": 128268,
       "productionBudget": null,
+      "posterUrl": null,
       "letterboxdSlug": null,
       "letterboxdAverage": null,
       "letterboxdRatingCount": null,
@@ -1722,12 +1916,14 @@
       "releaseDate": "2026-03-27",
       "domesticGross": 76997,
       "productionBudget": null,
+      "posterUrl": "https://a.ltrbxd.com/resized/film-poster/1/5/0/9/4/2/0/1509420-jimmy-o-yang-finally-home-0-600-0-900-crop.jpg?v=1c0a3c2a98",
       "letterboxdSlug": "film/jimmy-o-yang-finally-home",
       "letterboxdAverage": null,
       "letterboxdRatingCount": null,
       "sourceNotes": [
         "the-numbers-top-grossing",
-        "letterboxd"
+        "letterboxd",
+        "letterboxd-poster"
       ],
       "updatedAt": "2026-06-23"
     },
@@ -1737,12 +1933,14 @@
       "releaseDate": "2026-03-27",
       "domesticGross": 62781,
       "productionBudget": null,
+      "posterUrl": "https://a.ltrbxd.com/resized/film-poster/1/3/4/2/3/1/8/1342318-our-hero-balthazar-0-600-0-900-crop.jpg?v=80d829171a",
       "letterboxdSlug": "film/our-hero-balthazar",
-      "letterboxdAverage": 3.7,
-      "letterboxdRatingCount": 7264,
+      "letterboxdAverage": 3.69,
+      "letterboxdRatingCount": 7339,
       "sourceNotes": [
         "the-numbers-top-grossing",
-        "letterboxd"
+        "letterboxd",
+        "letterboxd-poster"
       ],
       "updatedAt": "2026-06-23"
     },
@@ -1752,12 +1950,14 @@
       "releaseDate": "2026-03-27",
       "domesticGross": 48647,
       "productionBudget": null,
+      "posterUrl": "https://a.ltrbxd.com/resized/film-poster/1/2/9/2/2/5/6/1292256-kontinental-25-0-600-0-900-crop.jpg?v=de1a906e2d",
       "letterboxdSlug": "film/kontinental-25",
       "letterboxdAverage": 3.54,
-      "letterboxdRatingCount": 12840,
+      "letterboxdRatingCount": 12857,
       "sourceNotes": [
         "the-numbers-top-grossing",
-        "letterboxd"
+        "letterboxd",
+        "letterboxd-poster"
       ],
       "updatedAt": "2026-06-23"
     },
@@ -1767,11 +1967,13 @@
       "releaseDate": "2026-03-27",
       "domesticGross": 44726,
       "productionBudget": null,
-      "letterboxdSlug": null,
-      "letterboxdAverage": null,
-      "letterboxdRatingCount": null,
+      "posterUrl": "https://a.ltrbxd.com/resized/film-poster/1/1/0/3/5/6/3/1103563-chime-0-600-0-900-crop.jpg?v=1d10e9fa56",
+      "letterboxdSlug": "film/chime",
+      "letterboxdAverage": 3.61,
+      "letterboxdRatingCount": 53682,
       "sourceNotes": [
-        "the-numbers-top-grossing"
+        "the-numbers-top-grossing",
+        "letterboxd-poster"
       ],
       "updatedAt": "2026-06-23"
     },
@@ -1781,12 +1983,14 @@
       "releaseDate": "2026-03-27",
       "domesticGross": 41722,
       "productionBudget": null,
+      "posterUrl": "https://a.ltrbxd.com/resized/film-poster/6/4/9/2/4/64924-ken-0-600-0-900-crop.jpg?v=59a0af9587",
       "letterboxdSlug": "film/ken",
       "letterboxdAverage": 3.73,
-      "letterboxdRatingCount": 1595,
+      "letterboxdRatingCount": 1596,
       "sourceNotes": [
         "the-numbers-top-grossing",
-        "letterboxd"
+        "letterboxd",
+        "letterboxd-poster"
       ],
       "updatedAt": "2026-06-23"
     },
@@ -1796,6 +2000,7 @@
       "releaseDate": "2026-03-27",
       "domesticGross": 21437,
       "productionBudget": null,
+      "posterUrl": null,
       "letterboxdSlug": null,
       "letterboxdAverage": null,
       "letterboxdRatingCount": null,
@@ -1811,14 +2016,16 @@
       "releaseDate": "2026-04-01",
       "domesticGross": 429642730,
       "productionBudget": 110000000,
+      "posterUrl": "https://a.ltrbxd.com/resized/film-poster/1/1/1/0/0/8/0/1110080-the-super-mario-galaxy-movie-0-600-0-900-crop.jpg?v=fefcfca134",
       "letterboxdSlug": "film/the-super-mario-galaxy-movie",
       "letterboxdAverage": 2.89,
-      "letterboxdRatingCount": 689542,
+      "letterboxdRatingCount": 691555,
       "sourceNotes": [
         "the-numbers-release-schedule",
         "the-numbers-top-grossing",
         "letterboxd",
-        "the-numbers-budget"
+        "the-numbers-budget",
+        "letterboxd-poster"
       ],
       "updatedAt": "2026-06-23"
     },
@@ -1828,14 +2035,16 @@
       "releaseDate": "2026-04-03",
       "domesticGross": 48062006,
       "productionBudget": 28000000,
+      "posterUrl": "https://a.ltrbxd.com/resized/film-poster/1/2/0/5/4/9/4/1205494-the-drama-0-600-0-900-crop.jpg?v=2320acafd5",
       "letterboxdSlug": "film/the-drama",
       "letterboxdAverage": 3.69,
-      "letterboxdRatingCount": 1898685,
+      "letterboxdRatingCount": 1908107,
       "sourceNotes": [
         "the-numbers-release-schedule",
         "the-numbers-top-grossing",
         "letterboxd",
-        "the-numbers-budget"
+        "the-numbers-budget",
+        "letterboxd-poster"
       ],
       "updatedAt": "2026-06-23"
     },
@@ -1845,13 +2054,15 @@
       "releaseDate": "2026-04-03",
       "domesticGross": 8140331,
       "productionBudget": null,
+      "posterUrl": "https://a.ltrbxd.com/resized/film-poster/1/2/3/4/1/3/3/1234133-a-great-awakening-0-600-0-900-crop.jpg?v=425fb2e416",
       "letterboxdSlug": "film/a-great-awakening",
-      "letterboxdAverage": 3.08,
-      "letterboxdRatingCount": 1415,
+      "letterboxdAverage": 3.07,
+      "letterboxdRatingCount": 1426,
       "sourceNotes": [
         "the-numbers-release-schedule",
         "the-numbers-top-grossing",
-        "letterboxd"
+        "letterboxd",
+        "letterboxd-poster"
       ],
       "updatedAt": "2026-06-23"
     },
@@ -1861,6 +2072,7 @@
       "releaseDate": "2026-04-03",
       "domesticGross": 315872,
       "productionBudget": null,
+      "posterUrl": null,
       "letterboxdSlug": null,
       "letterboxdAverage": null,
       "letterboxdRatingCount": null,
@@ -1875,6 +2087,7 @@
       "releaseDate": "2026-04-03",
       "domesticGross": 54724,
       "productionBudget": null,
+      "posterUrl": null,
       "letterboxdSlug": null,
       "letterboxdAverage": null,
       "letterboxdRatingCount": null,
@@ -1889,13 +2102,15 @@
       "releaseDate": "2026-04-03",
       "domesticGross": 26599,
       "productionBudget": null,
+      "posterUrl": "https://a.ltrbxd.com/resized/film-poster/1/3/0/1/0/4/6/1301046-living-the-land-0-600-0-900-crop.jpg?v=14469fe10b",
       "letterboxdSlug": "film/living-the-land",
       "letterboxdAverage": 3.62,
-      "letterboxdRatingCount": 3022,
+      "letterboxdRatingCount": 3026,
       "sourceNotes": [
         "the-numbers-release-schedule",
         "the-numbers-top-grossing",
-        "letterboxd"
+        "letterboxd",
+        "letterboxd-poster"
       ],
       "updatedAt": "2026-06-23"
     },
@@ -1905,12 +2120,14 @@
       "releaseDate": "2026-04-05",
       "domesticGross": 301638,
       "productionBudget": null,
+      "posterUrl": "https://a.ltrbxd.com/resized/film-poster/4/5/8/5/0/45850-the-killer-0-600-0-900-crop.jpg?v=d65baa059e",
       "letterboxdSlug": "film/the-killer",
       "letterboxdAverage": 4.16,
-      "letterboxdRatingCount": 86364,
+      "letterboxdRatingCount": 86506,
       "sourceNotes": [
         "the-numbers-top-grossing",
-        "letterboxd"
+        "letterboxd",
+        "letterboxd-poster"
       ],
       "updatedAt": "2026-06-23"
     },
@@ -1920,13 +2137,15 @@
       "releaseDate": "2026-04-09",
       "domesticGross": 13948,
       "productionBudget": null,
+      "posterUrl": "https://a.ltrbxd.com/resized/film-poster/1/5/2/5/5/0/9/1525509-watching-mr-pearson-0-600-0-900-crop.jpg?v=5d949d2c3a",
       "letterboxdSlug": "film/watching-mr-pearson",
       "letterboxdAverage": null,
       "letterboxdRatingCount": null,
       "sourceNotes": [
         "the-numbers-release-schedule",
         "the-numbers-top-grossing",
-        "letterboxd"
+        "letterboxd",
+        "letterboxd-poster"
       ],
       "updatedAt": "2026-06-23"
     },
@@ -1936,6 +2155,7 @@
       "releaseDate": "2026-04-10",
       "domesticGross": 18723685,
       "productionBudget": 18000000,
+      "posterUrl": null,
       "letterboxdSlug": null,
       "letterboxdAverage": null,
       "letterboxdRatingCount": null,
@@ -1952,6 +2172,7 @@
       "releaseDate": "2026-04-10",
       "domesticGross": 3735090,
       "productionBudget": null,
+      "posterUrl": null,
       "letterboxdSlug": null,
       "letterboxdAverage": null,
       "letterboxdRatingCount": null,
@@ -1966,14 +2187,16 @@
       "releaseDate": "2026-04-10",
       "domesticGross": 2609598,
       "productionBudget": 7400000,
+      "posterUrl": "https://a.ltrbxd.com/resized/film-poster/4/4/6/7/4/44674-faces-of-death-0-600-0-900-crop.jpg?v=d5fdcf3945",
       "letterboxdSlug": "film/faces-of-death",
       "letterboxdAverage": 2.32,
-      "letterboxdRatingCount": 16606,
+      "letterboxdRatingCount": 16640,
       "sourceNotes": [
         "the-numbers-release-schedule",
         "the-numbers-top-grossing",
         "letterboxd",
-        "the-numbers-budget"
+        "the-numbers-budget",
+        "letterboxd-poster"
       ],
       "updatedAt": "2026-06-23"
     },
@@ -1983,13 +2206,15 @@
       "releaseDate": "2026-04-10",
       "domesticGross": 1807376,
       "productionBudget": null,
+      "posterUrl": "https://a.ltrbxd.com/resized/film-poster/1/2/8/3/6/8/4/1283684-the-christophers-0-600-0-900-crop.jpg?v=4269379fb4",
       "letterboxdSlug": "film/the-christophers",
       "letterboxdAverage": 3.5,
-      "letterboxdRatingCount": 31415,
+      "letterboxdRatingCount": 31901,
       "sourceNotes": [
         "the-numbers-release-schedule",
         "the-numbers-top-grossing",
-        "letterboxd"
+        "letterboxd",
+        "letterboxd-poster"
       ],
       "updatedAt": "2026-06-23"
     },
@@ -1999,13 +2224,15 @@
       "releaseDate": "2026-04-10",
       "domesticGross": 630102,
       "productionBudget": null,
+      "posterUrl": "https://a.ltrbxd.com/resized/film-poster/1/3/6/9/6/6/1/1369661-steal-this-story-please-0-600-0-900-crop.jpg?v=a9dfeaf185",
       "letterboxdSlug": "film/steal-this-story-please",
       "letterboxdAverage": 4.15,
-      "letterboxdRatingCount": 1873,
+      "letterboxdRatingCount": 1877,
       "sourceNotes": [
         "the-numbers-release-schedule",
         "the-numbers-top-grossing",
-        "letterboxd"
+        "letterboxd",
+        "letterboxd-poster"
       ],
       "updatedAt": "2026-06-23"
     },
@@ -2015,12 +2242,14 @@
       "releaseDate": "2026-04-10",
       "domesticGross": 600000,
       "productionBudget": null,
-      "letterboxdSlug": null,
-      "letterboxdAverage": null,
-      "letterboxdRatingCount": null,
+      "posterUrl": "https://a.ltrbxd.com/resized/film-poster/1/1/8/9/5/6/9/1189569-hunting-matthew-nichols-0-600-0-900-crop.jpg?v=3cb10e1d0e",
+      "letterboxdSlug": "film/hunting-matthew-nichols",
+      "letterboxdAverage": 2.62,
+      "letterboxdRatingCount": 7664,
       "sourceNotes": [
         "the-numbers-release-schedule",
-        "the-numbers-top-grossing"
+        "the-numbers-top-grossing",
+        "letterboxd-poster"
       ],
       "updatedAt": "2026-06-23"
     },
@@ -2030,13 +2259,15 @@
       "releaseDate": "2026-04-10",
       "domesticGross": 300088,
       "productionBudget": null,
+      "posterUrl": "https://a.ltrbxd.com/resized/film-poster/3/7/4/0/1/37401-hamlet-0-600-0-900-crop.jpg?v=1a49b12dd2",
       "letterboxdSlug": "film/hamlet",
       "letterboxdAverage": 3.74,
-      "letterboxdRatingCount": 21416,
+      "letterboxdRatingCount": 21433,
       "sourceNotes": [
         "the-numbers-release-schedule",
         "the-numbers-top-grossing",
-        "letterboxd"
+        "letterboxd",
+        "letterboxd-poster"
       ],
       "updatedAt": "2026-06-23"
     },
@@ -2046,12 +2277,14 @@
       "releaseDate": "2026-04-10",
       "domesticGross": 112217,
       "productionBudget": null,
+      "posterUrl": "https://a.ltrbxd.com/resized/film-poster/1/2/9/9/4/9/8/1299498-chao-2025-0-600-0-900-crop.jpg?v=d6ffaf00b8",
       "letterboxdSlug": "film/chao-1",
       "letterboxdAverage": 3.51,
-      "letterboxdRatingCount": 5379,
+      "letterboxdRatingCount": 5415,
       "sourceNotes": [
         "the-numbers-top-grossing",
-        "letterboxd"
+        "letterboxd",
+        "letterboxd-poster"
       ],
       "updatedAt": "2026-06-23"
     },
@@ -2061,13 +2294,15 @@
       "releaseDate": "2026-04-10",
       "domesticGross": 52689,
       "productionBudget": null,
+      "posterUrl": "https://a.ltrbxd.com/resized/film-poster/1/2/9/9/2/9/3/1299293-the-yeti-0-600-0-900-crop.jpg?v=de14315047",
       "letterboxdSlug": "film/the-yeti",
       "letterboxdAverage": 1.99,
-      "letterboxdRatingCount": 2683,
+      "letterboxdRatingCount": 2699,
       "sourceNotes": [
         "the-numbers-release-schedule",
         "the-numbers-top-grossing",
-        "letterboxd"
+        "letterboxd",
+        "letterboxd-poster"
       ],
       "updatedAt": "2026-06-23"
     },
@@ -2077,6 +2312,7 @@
       "releaseDate": "2026-04-11",
       "domesticGross": 6240000,
       "productionBudget": null,
+      "posterUrl": null,
       "letterboxdSlug": null,
       "letterboxdAverage": null,
       "letterboxdRatingCount": null,
@@ -2091,13 +2327,15 @@
       "releaseDate": "2026-04-16",
       "domesticGross": 1050000,
       "productionBudget": null,
+      "posterUrl": "https://a.ltrbxd.com/resized/film-poster/1/1/2/2/2/6/7/1122267-bhooth-bangla-0-600-0-900-crop.jpg?v=eccb3add6b",
       "letterboxdSlug": "film/bhooth-bangla",
-      "letterboxdAverage": 2.16,
-      "letterboxdRatingCount": 8388,
+      "letterboxdAverage": 2.15,
+      "letterboxdRatingCount": 8695,
       "sourceNotes": [
         "the-numbers-release-schedule",
         "the-numbers-top-grossing",
-        "letterboxd"
+        "letterboxd",
+        "letterboxd-poster"
       ],
       "updatedAt": "2026-06-23"
     },
@@ -2107,6 +2345,7 @@
       "releaseDate": "2026-04-17",
       "domesticGross": 29152113,
       "productionBudget": 22000000,
+      "posterUrl": null,
       "letterboxdSlug": null,
       "letterboxdAverage": null,
       "letterboxdRatingCount": null,
@@ -2123,6 +2362,7 @@
       "releaseDate": "2026-04-17",
       "domesticGross": 5071290,
       "productionBudget": null,
+      "posterUrl": null,
       "letterboxdSlug": "film/normal-2026",
       "letterboxdAverage": null,
       "letterboxdRatingCount": null,
@@ -2139,6 +2379,7 @@
       "releaseDate": "2026-04-17",
       "domesticGross": 2565507,
       "productionBudget": 20000000,
+      "posterUrl": "https://a.ltrbxd.com/resized/film-poster/2/5/0/1/5/9/250159-mother-mary-0-600-0-900-crop.jpg?v=4facfbc793",
       "letterboxdSlug": "film/mother-mary",
       "letterboxdAverage": null,
       "letterboxdRatingCount": null,
@@ -2146,7 +2387,8 @@
         "the-numbers-release-schedule",
         "the-numbers-top-grossing",
         "letterboxd",
-        "the-numbers-budget"
+        "the-numbers-budget",
+        "letterboxd-poster"
       ],
       "updatedAt": "2026-06-23"
     },
@@ -2156,13 +2398,15 @@
       "releaseDate": "2026-04-17",
       "domesticGross": 679591,
       "productionBudget": null,
+      "posterUrl": "https://a.ltrbxd.com/resized/film-poster/1/0/6/4/6/1/2/1064612-mile-end-kicks-0-600-0-900-crop.jpg?v=f73de5160c",
       "letterboxdSlug": "film/mile-end-kicks",
-      "letterboxdAverage": 3.21,
-      "letterboxdRatingCount": 37385,
+      "letterboxdAverage": 3.2,
+      "letterboxdRatingCount": 38010,
       "sourceNotes": [
         "the-numbers-release-schedule",
         "the-numbers-top-grossing",
-        "letterboxd"
+        "letterboxd",
+        "letterboxd-poster"
       ],
       "updatedAt": "2026-06-23"
     },
@@ -2172,13 +2416,15 @@
       "releaseDate": "2026-04-17",
       "domesticGross": 576164,
       "productionBudget": null,
+      "posterUrl": "https://a.ltrbxd.com/resized/film-poster/1/0/7/1/2/2/0/1071220-blue-heron-0-600-0-900-crop.jpg?v=d5d52f31b6",
       "letterboxdSlug": "film/blue-heron",
       "letterboxdAverage": 3.94,
-      "letterboxdRatingCount": 21789,
+      "letterboxdRatingCount": 22468,
       "sourceNotes": [
         "the-numbers-release-schedule",
         "the-numbers-top-grossing",
-        "letterboxd"
+        "letterboxd",
+        "letterboxd-poster"
       ],
       "updatedAt": "2026-06-23"
     },
@@ -2188,13 +2434,15 @@
       "releaseDate": "2026-04-17",
       "domesticGross": 449135,
       "productionBudget": null,
+      "posterUrl": "https://a.ltrbxd.com/resized/film-poster/1/5/0/1/3/5/5/1501355-lorne-2026-0-600-0-900-crop.jpg?v=6e51617781",
       "letterboxdSlug": "film/lorne-2026",
       "letterboxdAverage": 3.58,
-      "letterboxdRatingCount": 6916,
+      "letterboxdRatingCount": 7075,
       "sourceNotes": [
         "the-numbers-release-schedule",
         "the-numbers-top-grossing",
-        "letterboxd"
+        "letterboxd",
+        "letterboxd-poster"
       ],
       "updatedAt": "2026-06-23"
     },
@@ -2204,13 +2452,15 @@
       "releaseDate": "2026-04-17",
       "domesticGross": 232581,
       "productionBudget": null,
+      "posterUrl": "https://a.ltrbxd.com/resized/film-poster/1/2/3/2/0/7/9/1232079-erupcja-0-600-0-900-crop.jpg?v=dfa5abcd3c",
       "letterboxdSlug": "film/erupcja",
       "letterboxdAverage": 3.35,
-      "letterboxdRatingCount": 19613,
+      "letterboxdRatingCount": 20251,
       "sourceNotes": [
         "the-numbers-release-schedule",
         "the-numbers-top-grossing",
-        "letterboxd"
+        "letterboxd",
+        "letterboxd-poster"
       ],
       "updatedAt": "2026-06-23"
     },
@@ -2220,13 +2470,15 @@
       "releaseDate": "2026-04-17",
       "domesticGross": 144459,
       "productionBudget": null,
+      "posterUrl": "https://a.ltrbxd.com/resized/film-poster/1/3/4/9/9/3/8/1349938-everyone-is-lying-to-you-for-money-0-600-0-900-crop.jpg?v=622b0c2aa9",
       "letterboxdSlug": "film/everyone-is-lying-to-you-for-money",
       "letterboxdAverage": 3.68,
-      "letterboxdRatingCount": 897,
+      "letterboxdRatingCount": 900,
       "sourceNotes": [
         "the-numbers-release-schedule",
         "the-numbers-top-grossing",
-        "letterboxd"
+        "letterboxd",
+        "letterboxd-poster"
       ],
       "updatedAt": "2026-06-23"
     },
@@ -2236,13 +2488,15 @@
       "releaseDate": "2026-04-17",
       "domesticGross": 102397,
       "productionBudget": null,
+      "posterUrl": "https://a.ltrbxd.com/resized/film-poster/1/2/5/2/9/2/9/1252929-marama-0-600-0-900-crop.jpg?v=85a46f61e3",
       "letterboxdSlug": "film/marama",
       "letterboxdAverage": 3.54,
-      "letterboxdRatingCount": 8332,
+      "letterboxdRatingCount": 8580,
       "sourceNotes": [
         "the-numbers-release-schedule",
         "the-numbers-top-grossing",
-        "letterboxd"
+        "letterboxd",
+        "letterboxd-poster"
       ],
       "updatedAt": "2026-06-23"
     },
@@ -2252,13 +2506,15 @@
       "releaseDate": "2026-04-17",
       "domesticGross": 100783,
       "productionBudget": null,
+      "posterUrl": "https://a.ltrbxd.com/resized/film-poster/9/1/4/7/1/5/914715-fireflies-at-el-mozote-0-600-0-900-crop.jpg?v=03cd0bf2a6",
       "letterboxdSlug": "film/fireflies-at-el-mozote",
       "letterboxdAverage": null,
       "letterboxdRatingCount": null,
       "sourceNotes": [
         "the-numbers-release-schedule",
         "the-numbers-top-grossing",
-        "letterboxd"
+        "letterboxd",
+        "letterboxd-poster"
       ],
       "updatedAt": "2026-06-23"
     },
@@ -2268,12 +2524,14 @@
       "releaseDate": "2026-04-17",
       "domesticGross": 74343,
       "productionBudget": null,
+      "posterUrl": "https://a.ltrbxd.com/resized/film-poster/1/1/5/2/7/5/1/1152751-amrum-0-600-0-900-crop.jpg?v=3030abe919",
       "letterboxdSlug": "film/amrum",
       "letterboxdAverage": 3.45,
-      "letterboxdRatingCount": 15510,
+      "letterboxdRatingCount": 15556,
       "sourceNotes": [
         "the-numbers-top-grossing",
-        "letterboxd"
+        "letterboxd",
+        "letterboxd-poster"
       ],
       "updatedAt": "2026-06-23"
     },
@@ -2283,6 +2541,7 @@
       "releaseDate": "2026-04-17",
       "domesticGross": 67909,
       "productionBudget": null,
+      "posterUrl": null,
       "letterboxdSlug": null,
       "letterboxdAverage": null,
       "letterboxdRatingCount": null,
@@ -2297,6 +2556,7 @@
       "releaseDate": "2026-04-17",
       "domesticGross": 28875,
       "productionBudget": null,
+      "posterUrl": null,
       "letterboxdSlug": null,
       "letterboxdAverage": null,
       "letterboxdRatingCount": null,
@@ -2311,12 +2571,14 @@
       "releaseDate": "2026-04-17",
       "domesticGross": 19322,
       "productionBudget": null,
+      "posterUrl": "https://a.ltrbxd.com/resized/film-poster/1/1/8/9/0/6/1/1189061-wasteman-0-600-0-900-crop.jpg?v=39e5fcc3ac",
       "letterboxdSlug": "film/wasteman",
-      "letterboxdAverage": 3.76,
-      "letterboxdRatingCount": 44773,
+      "letterboxdAverage": 3.77,
+      "letterboxdRatingCount": 45032,
       "sourceNotes": [
         "the-numbers-top-grossing",
-        "letterboxd"
+        "letterboxd",
+        "letterboxd-poster"
       ],
       "updatedAt": "2026-06-23"
     },
@@ -2326,13 +2588,15 @@
       "releaseDate": "2026-04-22",
       "domesticGross": 1840000,
       "productionBudget": null,
+      "posterUrl": "https://a.ltrbxd.com/resized/film-poster/1/4/8/5/9/3/6/1485936-american-youngboy-0-600-0-900-crop.jpg?v=6b1c5aefa3",
       "letterboxdSlug": "film/american-youngboy",
       "letterboxdAverage": null,
       "letterboxdRatingCount": null,
       "sourceNotes": [
         "the-numbers-release-schedule",
         "the-numbers-top-grossing",
-        "letterboxd"
+        "letterboxd",
+        "letterboxd-poster"
       ],
       "updatedAt": "2026-06-23"
     },
@@ -2342,14 +2606,16 @@
       "releaseDate": "2026-04-24",
       "domesticGross": 367887098,
       "productionBudget": 155000000,
+      "posterUrl": "https://a.ltrbxd.com/resized/film-poster/8/4/1/1/0/3/841103-michael-2026-0-600-0-900-crop.jpg?v=1e8e478e40",
       "letterboxdSlug": "film/michael-2026",
       "letterboxdAverage": 3.6,
-      "letterboxdRatingCount": 1458709,
+      "letterboxdRatingCount": 1475380,
       "sourceNotes": [
         "the-numbers-release-schedule",
         "the-numbers-top-grossing",
         "letterboxd",
-        "the-numbers-budget"
+        "the-numbers-budget",
+        "letterboxd-poster"
       ],
       "updatedAt": "2026-06-23"
     },
@@ -2359,13 +2625,15 @@
       "releaseDate": "2026-04-24",
       "domesticGross": 2154696,
       "productionBudget": null,
+      "posterUrl": "https://a.ltrbxd.com/resized/film-poster/1/2/7/4/4/9/0/1274490-over-your-dead-body-2026-0-600-0-900-crop.jpg?v=5078cbe906",
       "letterboxdSlug": "film/over-your-dead-body-2026",
       "letterboxdAverage": 3.02,
-      "letterboxdRatingCount": 79292,
+      "letterboxdRatingCount": 82084,
       "sourceNotes": [
         "the-numbers-release-schedule",
         "the-numbers-top-grossing",
-        "letterboxd"
+        "letterboxd",
+        "letterboxd-poster"
       ],
       "updatedAt": "2026-06-23"
     },
@@ -2375,13 +2643,15 @@
       "releaseDate": "2026-04-24",
       "domesticGross": 1486030,
       "productionBudget": null,
+      "posterUrl": "https://a.ltrbxd.com/resized/film-poster/1/1/2/5/0/3/2/1125032-fuze-0-600-0-900-crop.jpg?v=86b23e167b",
       "letterboxdSlug": "film/fuze",
       "letterboxdAverage": 2.9,
-      "letterboxdRatingCount": 31903,
+      "letterboxdRatingCount": 32287,
       "sourceNotes": [
         "the-numbers-release-schedule",
         "the-numbers-top-grossing",
-        "letterboxd"
+        "letterboxd",
+        "letterboxd-poster"
       ],
       "updatedAt": "2026-06-23"
     },
@@ -2391,12 +2661,14 @@
       "releaseDate": "2026-04-24",
       "domesticGross": 1057988,
       "productionBudget": null,
+      "posterUrl": "https://a.ltrbxd.com/resized/film-poster/1/1/9/7/8/4/2/1197842-i-swear-0-600-0-900-crop.jpg?v=b8f019138e",
       "letterboxdSlug": "film/i-swear",
       "letterboxdAverage": 4.25,
-      "letterboxdRatingCount": 277749,
+      "letterboxdRatingCount": 278839,
       "sourceNotes": [
         "the-numbers-top-grossing",
-        "letterboxd"
+        "letterboxd",
+        "letterboxd-poster"
       ],
       "updatedAt": "2026-06-23"
     },
@@ -2406,6 +2678,7 @@
       "releaseDate": "2026-04-24",
       "domesticGross": 704280,
       "productionBudget": 140000000,
+      "posterUrl": "https://a.ltrbxd.com/resized/film-poster/8/4/3/7/6/84376-desert-warrior-0-600-0-900-crop.jpg?v=ecabbc757d",
       "letterboxdSlug": "film/desert-warrior",
       "letterboxdAverage": null,
       "letterboxdRatingCount": null,
@@ -2413,7 +2686,8 @@
         "the-numbers-release-schedule",
         "the-numbers-top-grossing",
         "letterboxd",
-        "the-numbers-budget"
+        "the-numbers-budget",
+        "letterboxd-poster"
       ],
       "updatedAt": "2026-06-23"
     },
@@ -2423,13 +2697,15 @@
       "releaseDate": "2026-04-24",
       "domesticGross": 101609,
       "productionBudget": null,
+      "posterUrl": "https://a.ltrbxd.com/resized/film-poster/1/1/1/7/2/1/5/1117215-omaha-0-600-0-900-crop.jpg?v=de8bed4dd0",
       "letterboxdSlug": "film/omaha",
       "letterboxdAverage": 3.63,
-      "letterboxdRatingCount": 6445,
+      "letterboxdRatingCount": 6569,
       "sourceNotes": [
         "the-numbers-release-schedule",
         "the-numbers-top-grossing",
-        "letterboxd"
+        "letterboxd",
+        "letterboxd-poster"
       ],
       "updatedAt": "2026-06-23"
     },
@@ -2439,12 +2715,14 @@
       "releaseDate": "2026-04-24",
       "domesticGross": 41513,
       "productionBudget": null,
-      "letterboxdSlug": null,
-      "letterboxdAverage": null,
-      "letterboxdRatingCount": null,
+      "posterUrl": "https://a.ltrbxd.com/resized/film-poster/3/8/0/5/4/38054-ricky-0-600-0-900-crop.jpg?v=3b6b72290e",
+      "letterboxdSlug": "film/ricky",
+      "letterboxdAverage": 2.9,
+      "letterboxdRatingCount": 2587,
       "sourceNotes": [
         "the-numbers-release-schedule",
-        "the-numbers-top-grossing"
+        "the-numbers-top-grossing",
+        "letterboxd-poster"
       ],
       "updatedAt": "2026-06-23"
     },
@@ -2454,13 +2732,15 @@
       "releaseDate": "2026-04-24",
       "domesticGross": 12270,
       "productionBudget": null,
+      "posterUrl": "https://a.ltrbxd.com/resized/film-poster/1/4/5/8/1/5/1/1458151-wasteland-cop-0-600-0-900-crop.jpg?v=902a997c02",
       "letterboxdSlug": "film/wasteland-cop",
       "letterboxdAverage": null,
       "letterboxdRatingCount": null,
       "sourceNotes": [
         "the-numbers-release-schedule",
         "the-numbers-top-grossing",
-        "letterboxd"
+        "letterboxd",
+        "letterboxd-poster"
       ],
       "updatedAt": "2026-06-23"
     },
@@ -2470,11 +2750,13 @@
       "releaseDate": "2026-04-24",
       "domesticGross": 10011,
       "productionBudget": null,
-      "letterboxdSlug": null,
+      "posterUrl": "https://a.ltrbxd.com/resized/film-poster/9/8/8/9/5/8/988958-kangaroo-island-0-600-0-900-crop.jpg?v=5af6209e38",
+      "letterboxdSlug": "film/kangaroo-island",
       "letterboxdAverage": null,
       "letterboxdRatingCount": null,
       "sourceNotes": [
-        "the-numbers-top-grossing"
+        "the-numbers-top-grossing",
+        "letterboxd-poster"
       ],
       "updatedAt": "2026-06-23"
     },
@@ -2484,6 +2766,7 @@
       "releaseDate": "2026-04-30",
       "domesticGross": 1947962,
       "productionBudget": null,
+      "posterUrl": null,
       "letterboxdSlug": "film/the-story-of-everything",
       "letterboxdAverage": null,
       "letterboxdRatingCount": null,
@@ -2500,14 +2783,16 @@
       "releaseDate": "2026-05-01",
       "domesticGross": 219307223,
       "productionBudget": 100000000,
+      "posterUrl": "https://a.ltrbxd.com/resized/film-poster/1/1/9/5/5/8/6/1195586-the-devil-wears-prada-2-0-600-0-900-crop.jpg?v=0d955add69",
       "letterboxdSlug": "film/the-devil-wears-prada-2",
       "letterboxdAverage": 3.19,
-      "letterboxdRatingCount": 1098951,
+      "letterboxdRatingCount": 1102987,
       "sourceNotes": [
         "the-numbers-release-schedule",
         "the-numbers-top-grossing",
         "letterboxd",
-        "the-numbers-budget"
+        "the-numbers-budget",
+        "letterboxd-poster"
       ],
       "updatedAt": "2026-06-23"
     },
@@ -2517,14 +2802,16 @@
       "releaseDate": "2026-05-01",
       "domesticGross": 17000014,
       "productionBudget": 5000000,
+      "posterUrl": "https://a.ltrbxd.com/resized/film-poster/1/3/0/8/5/8/7/1308587-hokum-0-600-0-900-crop.jpg?v=29deb57767",
       "letterboxdSlug": "film/hokum",
       "letterboxdAverage": 3.33,
-      "letterboxdRatingCount": 375447,
+      "letterboxdRatingCount": 380651,
       "sourceNotes": [
         "the-numbers-release-schedule",
         "the-numbers-top-grossing",
         "letterboxd",
-        "the-numbers-budget"
+        "the-numbers-budget",
+        "letterboxd-poster"
       ],
       "updatedAt": "2026-06-23"
     },
@@ -2534,13 +2821,15 @@
       "releaseDate": "2026-05-01",
       "domesticGross": 5576585,
       "productionBudget": null,
+      "posterUrl": "https://a.ltrbxd.com/resized/film-poster/4/4/9/5/4/44954-animal-farm-0-600-0-900-crop.jpg?v=8abaa7a388",
       "letterboxdSlug": "film/animal-farm",
       "letterboxdAverage": 3.37,
-      "letterboxdRatingCount": 47501,
+      "letterboxdRatingCount": 47177,
       "sourceNotes": [
         "the-numbers-release-schedule",
         "the-numbers-top-grossing",
-        "letterboxd"
+        "letterboxd",
+        "letterboxd-poster"
       ],
       "updatedAt": "2026-06-23"
     },
@@ -2550,13 +2839,15 @@
       "releaseDate": "2026-05-01",
       "domesticGross": 4345860,
       "productionBudget": null,
+      "posterUrl": "https://a.ltrbxd.com/resized/film-poster/1/0/1/5/7/6/5/1015765-deep-water-2026-0-600-0-900-crop.jpg?v=bd2c4b8363",
       "letterboxdSlug": "film/deep-water-2026",
-      "letterboxdAverage": 2.54,
-      "letterboxdRatingCount": 15322,
+      "letterboxdAverage": 2.53,
+      "letterboxdRatingCount": 16248,
       "sourceNotes": [
         "the-numbers-release-schedule",
         "the-numbers-top-grossing",
-        "letterboxd"
+        "letterboxd",
+        "letterboxd-poster"
       ],
       "updatedAt": "2026-06-23"
     },
@@ -2566,6 +2857,7 @@
       "releaseDate": "2026-05-01",
       "domesticGross": 1423753,
       "productionBudget": null,
+      "posterUrl": null,
       "letterboxdSlug": null,
       "letterboxdAverage": null,
       "letterboxdRatingCount": null,
@@ -2581,6 +2873,7 @@
       "releaseDate": "2026-05-01",
       "domesticGross": 743092,
       "productionBudget": null,
+      "posterUrl": null,
       "letterboxdSlug": null,
       "letterboxdAverage": null,
       "letterboxdRatingCount": null,
@@ -2596,6 +2889,7 @@
       "releaseDate": "2026-05-01",
       "domesticGross": 52983,
       "productionBudget": null,
+      "posterUrl": null,
       "letterboxdSlug": null,
       "letterboxdAverage": null,
       "letterboxdRatingCount": null,
@@ -2610,6 +2904,7 @@
       "releaseDate": "2026-05-01",
       "domesticGross": 44180,
       "productionBudget": null,
+      "posterUrl": null,
       "letterboxdSlug": null,
       "letterboxdAverage": null,
       "letterboxdRatingCount": null,
@@ -2624,13 +2919,15 @@
       "releaseDate": "2026-05-01",
       "domesticGross": 13853,
       "productionBudget": null,
+      "posterUrl": "https://a.ltrbxd.com/resized/film-poster/1/5/2/3/9/15239-boulevard-0-600-0-900-crop.jpg?v=21b2b0c3b0",
       "letterboxdSlug": "film/boulevard",
       "letterboxdAverage": null,
       "letterboxdRatingCount": null,
       "sourceNotes": [
         "the-numbers-release-schedule",
         "the-numbers-top-grossing",
-        "letterboxd"
+        "letterboxd",
+        "letterboxd-poster"
       ],
       "updatedAt": "2026-06-23"
     },
@@ -2640,14 +2937,16 @@
       "releaseDate": "2026-05-08",
       "domesticGross": 79654140,
       "productionBudget": 80000000,
+      "posterUrl": "https://a.ltrbxd.com/resized/film-poster/8/3/6/5/7/1/836571-mortal-kombat-ii-0-600-0-900-crop.jpg?v=6fea3b13de",
       "letterboxdSlug": "film/mortal-kombat-ii",
-      "letterboxdAverage": 2.92,
-      "letterboxdRatingCount": 220534,
+      "letterboxdAverage": 2.91,
+      "letterboxdRatingCount": 222652,
       "sourceNotes": [
         "the-numbers-release-schedule",
         "the-numbers-top-grossing",
         "letterboxd",
-        "the-numbers-budget"
+        "the-numbers-budget",
+        "letterboxd-poster"
       ],
       "updatedAt": "2026-06-23"
     },
@@ -2657,14 +2956,16 @@
       "releaseDate": "2026-05-08",
       "domesticGross": 64608518,
       "productionBudget": 75000000,
+      "posterUrl": "https://a.ltrbxd.com/resized/film-poster/1/1/8/3/1/3/5/1183135-the-sheep-detectives-0-600-0-900-crop.jpg?v=c7b622176e",
       "letterboxdSlug": "film/the-sheep-detectives",
       "letterboxdAverage": 3.81,
-      "letterboxdRatingCount": 303889,
+      "letterboxdRatingCount": 317853,
       "sourceNotes": [
         "the-numbers-release-schedule",
         "the-numbers-top-grossing",
         "letterboxd",
-        "the-numbers-budget"
+        "the-numbers-budget",
+        "letterboxd-poster"
       ],
       "updatedAt": "2026-06-23"
     },
@@ -2674,6 +2975,7 @@
       "releaseDate": "2026-05-08",
       "domesticGross": 9901485,
       "productionBudget": 20000000,
+      "posterUrl": null,
       "letterboxdSlug": null,
       "letterboxdAverage": null,
       "letterboxdRatingCount": null,
@@ -2690,13 +2992,15 @@
       "releaseDate": "2026-05-08",
       "domesticGross": 360391,
       "productionBudget": null,
+      "posterUrl": "https://a.ltrbxd.com/resized/film-poster/1/0/5/5/8/1/2/1055812-silent-friend-0-600-0-900-crop.jpg?v=d46efdd929",
       "letterboxdSlug": "film/silent-friend",
       "letterboxdAverage": 3.76,
-      "letterboxdRatingCount": 19374,
+      "letterboxdRatingCount": 19444,
       "sourceNotes": [
         "the-numbers-release-schedule",
         "the-numbers-top-grossing",
-        "letterboxd"
+        "letterboxd",
+        "letterboxd-poster"
       ],
       "updatedAt": "2026-06-23"
     },
@@ -2706,13 +3010,15 @@
       "releaseDate": "2026-05-08",
       "domesticGross": 69651,
       "productionBudget": null,
+      "posterUrl": "https://a.ltrbxd.com/resized/film-poster/1/3/0/1/5/5/1/1301551-the-python-hunt-0-600-0-900-crop.jpg?v=ba096121de",
       "letterboxdSlug": "film/the-python-hunt",
       "letterboxdAverage": 3.9,
-      "letterboxdRatingCount": 1896,
+      "letterboxdRatingCount": 1911,
       "sourceNotes": [
         "the-numbers-release-schedule",
         "the-numbers-top-grossing",
-        "letterboxd"
+        "letterboxd",
+        "letterboxd-poster"
       ],
       "updatedAt": "2026-06-23"
     },
@@ -2722,13 +3028,15 @@
       "releaseDate": "2026-05-08",
       "domesticGross": 31000,
       "productionBudget": null,
+      "posterUrl": "https://a.ltrbxd.com/resized/film-poster/1/2/8/2/4/2/3/1282423-blue-film-2025-0-600-0-900-crop.jpg?v=8295b01b96",
       "letterboxdSlug": "film/blue-film-1",
-      "letterboxdAverage": 3.5,
-      "letterboxdRatingCount": 5375,
+      "letterboxdAverage": 3.49,
+      "letterboxdRatingCount": 5699,
       "sourceNotes": [
         "the-numbers-release-schedule",
         "the-numbers-top-grossing",
-        "letterboxd"
+        "letterboxd",
+        "letterboxd-poster"
       ],
       "updatedAt": "2026-06-23"
     },
@@ -2738,13 +3046,15 @@
       "releaseDate": "2026-05-08",
       "domesticGross": 13100,
       "productionBudget": null,
+      "posterUrl": "https://a.ltrbxd.com/resized/film-poster/1/1/9/6/4/8/3/1196483-influenced-2026-0-600-0-900-crop.jpg?v=ed4eda2158",
       "letterboxdSlug": "film/influenced-2026",
       "letterboxdAverage": null,
       "letterboxdRatingCount": null,
       "sourceNotes": [
         "the-numbers-release-schedule",
         "the-numbers-top-grossing",
-        "letterboxd"
+        "letterboxd",
+        "letterboxd-poster"
       ],
       "updatedAt": "2026-06-23"
     },
@@ -2754,12 +3064,14 @@
       "releaseDate": "2026-05-10",
       "domesticGross": 39935,
       "productionBudget": null,
+      "posterUrl": "https://a.ltrbxd.com/resized/film-poster/4/3/7/5/1/43751-labyrinth-0-600-0-900-crop.jpg?v=608378d65b",
       "letterboxdSlug": "film/labyrinth",
       "letterboxdAverage": 3.76,
-      "letterboxdRatingCount": 487146,
+      "letterboxdRatingCount": 487965,
       "sourceNotes": [
         "the-numbers-top-grossing",
-        "letterboxd"
+        "letterboxd",
+        "letterboxd-poster"
       ],
       "updatedAt": "2026-06-23"
     },
@@ -2769,6 +3081,7 @@
       "releaseDate": "2026-05-15",
       "domesticGross": 215031825,
       "productionBudget": 1000000,
+      "posterUrl": "https://a.ltrbxd.com/resized/film-poster/1/4/8/5/1/4/8/1485148-obsession-2026-0-600-0-900-crop.jpg?v=5704a1c661",
       "letterboxdSlug": "film/obsession-2026",
       "letterboxdAverage": null,
       "letterboxdRatingCount": null,
@@ -2776,7 +3089,8 @@
         "the-numbers-release-schedule",
         "the-numbers-top-grossing",
         "letterboxd",
-        "the-numbers-budget"
+        "the-numbers-budget",
+        "letterboxd-poster"
       ],
       "updatedAt": "2026-06-23"
     },
@@ -2786,6 +3100,7 @@
       "releaseDate": "2026-05-15",
       "domesticGross": 5723890,
       "productionBudget": null,
+      "posterUrl": null,
       "letterboxdSlug": "film/in-the-grey",
       "letterboxdAverage": null,
       "letterboxdRatingCount": null,
@@ -2802,13 +3117,15 @@
       "releaseDate": "2026-05-15",
       "domesticGross": 4945741,
       "productionBudget": null,
+      "posterUrl": "https://a.ltrbxd.com/resized/film-poster/1/2/6/6/2/1/6/1266216-is-god-is-0-600-0-900-crop.jpg?v=088dc7a2fc",
       "letterboxdSlug": "film/is-god-is",
-      "letterboxdAverage": 3.67,
-      "letterboxdRatingCount": 46987,
+      "letterboxdAverage": 3.66,
+      "letterboxdRatingCount": 47477,
       "sourceNotes": [
         "the-numbers-release-schedule",
         "the-numbers-top-grossing",
-        "letterboxd"
+        "letterboxd",
+        "letterboxd-poster"
       ],
       "updatedAt": "2026-06-23"
     },
@@ -2818,6 +3135,7 @@
       "releaseDate": "2026-05-15",
       "domesticGross": 1165491,
       "productionBudget": null,
+      "posterUrl": null,
       "letterboxdSlug": null,
       "letterboxdAverage": null,
       "letterboxdRatingCount": null,
@@ -2833,6 +3151,7 @@
       "releaseDate": "2026-05-15",
       "domesticGross": 652300,
       "productionBudget": null,
+      "posterUrl": null,
       "letterboxdSlug": null,
       "letterboxdAverage": null,
       "letterboxdRatingCount": null,
@@ -2847,13 +3166,15 @@
       "releaseDate": "2026-05-15",
       "domesticGross": 56963,
       "productionBudget": null,
+      "posterUrl": "https://a.ltrbxd.com/resized/film-poster/1/1/7/1/5/9/1/1171591-forge-2025-0-600-0-900-crop.jpg?v=73c8075df1",
       "letterboxdSlug": "film/forge-1",
       "letterboxdAverage": 3.36,
-      "letterboxdRatingCount": 595,
+      "letterboxdRatingCount": 597,
       "sourceNotes": [
         "the-numbers-release-schedule",
         "the-numbers-top-grossing",
-        "letterboxd"
+        "letterboxd",
+        "letterboxd-poster"
       ],
       "updatedAt": "2026-06-23"
     },
@@ -2863,12 +3184,14 @@
       "releaseDate": "2026-05-15",
       "domesticGross": 26725,
       "productionBudget": null,
+      "posterUrl": "https://a.ltrbxd.com/resized/film-poster/9/5/7/3/5/8/957358-decorado-0-600-0-900-crop.jpg?v=309cf8dba9",
       "letterboxdSlug": "film/decorado",
       "letterboxdAverage": 3.52,
-      "letterboxdRatingCount": 4194,
+      "letterboxdRatingCount": 4243,
       "sourceNotes": [
         "the-numbers-top-grossing",
-        "letterboxd"
+        "letterboxd",
+        "letterboxd-poster"
       ],
       "updatedAt": "2026-06-23"
     },
@@ -2878,13 +3201,15 @@
       "releaseDate": "2026-05-15",
       "domesticGross": 24067,
       "productionBudget": null,
+      "posterUrl": "https://a.ltrbxd.com/resized/film-poster/1/5/2/2/2/3/1/1522231-magic-hour-2026-0-600-0-900-crop.jpg?v=e0a9f62ebc",
       "letterboxdSlug": "film/magic-hour-2026",
       "letterboxdAverage": null,
       "letterboxdRatingCount": null,
       "sourceNotes": [
         "the-numbers-release-schedule",
         "the-numbers-top-grossing",
-        "letterboxd"
+        "letterboxd",
+        "letterboxd-poster"
       ],
       "updatedAt": "2026-06-23"
     },
@@ -2894,13 +3219,15 @@
       "releaseDate": "2026-05-21",
       "domesticGross": 66240,
       "productionBudget": null,
+      "posterUrl": "https://a.ltrbxd.com/resized/film-poster/9/3/6/4/2/2/936422-stolen-kingdom-0-600-0-900-crop.jpg?v=83219f3d72",
       "letterboxdSlug": "film/stolen-kingdom",
       "letterboxdAverage": 3.82,
-      "letterboxdRatingCount": 1633,
+      "letterboxdRatingCount": 1651,
       "sourceNotes": [
         "the-numbers-release-schedule",
         "the-numbers-top-grossing",
-        "letterboxd"
+        "letterboxd",
+        "letterboxd-poster"
       ],
       "updatedAt": "2026-06-23"
     },
@@ -2910,13 +3237,15 @@
       "releaseDate": "2026-05-21",
       "domesticGross": 52804,
       "productionBudget": null,
+      "posterUrl": "https://a.ltrbxd.com/resized/film-poster/1/4/1/0/6/0/8/1410608-ask-e-jean-0-600-0-900-crop.jpg?v=1d3f974777",
       "letterboxdSlug": "film/ask-e-jean",
       "letterboxdAverage": 3.64,
-      "letterboxdRatingCount": 220,
+      "letterboxdRatingCount": 221,
       "sourceNotes": [
         "the-numbers-release-schedule",
         "the-numbers-top-grossing",
-        "letterboxd"
+        "letterboxd",
+        "letterboxd-poster"
       ],
       "updatedAt": "2026-06-23"
     },
@@ -2926,14 +3255,16 @@
       "releaseDate": "2026-05-22",
       "domesticGross": 172039029,
       "productionBudget": 165000000,
+      "posterUrl": "https://a.ltrbxd.com/resized/film-poster/1/1/1/1/0/7/3/1111073-star-wars-the-mandalorian-and-grogu-0-600-0-900-crop.jpg?v=5da24e2cba",
       "letterboxdSlug": "film/star-wars-the-mandalorian-and-grogu",
       "letterboxdAverage": 3.1,
-      "letterboxdRatingCount": 426278,
+      "letterboxdRatingCount": 430015,
       "sourceNotes": [
         "the-numbers-release-schedule",
         "the-numbers-top-grossing",
         "letterboxd",
-        "the-numbers-budget"
+        "the-numbers-budget",
+        "letterboxd-poster"
       ],
       "updatedAt": "2026-06-23"
     },
@@ -2943,14 +3274,16 @@
       "releaseDate": "2026-05-22",
       "domesticGross": 18041122,
       "productionBudget": 15000000,
+      "posterUrl": "https://a.ltrbxd.com/resized/film-poster/3/5/6/7/3/35673-passenger-0-600-0-900-crop.jpg?v=d70f861db1",
       "letterboxdSlug": "film/passenger",
       "letterboxdAverage": 3.87,
-      "letterboxdRatingCount": 3963,
+      "letterboxdRatingCount": 3964,
       "sourceNotes": [
         "the-numbers-release-schedule",
         "the-numbers-top-grossing",
         "letterboxd",
-        "the-numbers-budget"
+        "the-numbers-budget",
+        "letterboxd-poster"
       ],
       "updatedAt": "2026-06-23"
     },
@@ -2960,14 +3293,16 @@
       "releaseDate": "2026-05-22",
       "domesticGross": 9475493,
       "productionBudget": 20000000,
+      "posterUrl": "https://a.ltrbxd.com/resized/film-poster/1/1/1/0/8/1/0/1110810-i-love-boosters-0-600-0-900-crop.jpg?v=a760551168",
       "letterboxdSlug": "film/i-love-boosters",
       "letterboxdAverage": 3.81,
-      "letterboxdRatingCount": 134773,
+      "letterboxdRatingCount": 140275,
       "sourceNotes": [
         "the-numbers-release-schedule",
         "the-numbers-top-grossing",
         "letterboxd",
-        "the-numbers-budget"
+        "the-numbers-budget",
+        "letterboxd-poster"
       ],
       "updatedAt": "2026-06-23"
     },
@@ -2977,13 +3312,15 @@
       "releaseDate": "2026-05-22",
       "domesticGross": 4028984,
       "productionBudget": null,
+      "posterUrl": "https://a.ltrbxd.com/resized/film-poster/1/2/3/4/8/7/8/1234878-tuner-0-600-0-900-crop.jpg?v=075156069b",
       "letterboxdSlug": "film/tuner",
-      "letterboxdAverage": 3.74,
-      "letterboxdRatingCount": 66837,
+      "letterboxdAverage": 3.75,
+      "letterboxdRatingCount": 70632,
       "sourceNotes": [
         "the-numbers-release-schedule",
         "the-numbers-top-grossing",
-        "letterboxd"
+        "letterboxd",
+        "letterboxd-poster"
       ],
       "updatedAt": "2026-06-23"
     },
@@ -2993,13 +3330,15 @@
       "releaseDate": "2026-05-22",
       "domesticGross": 381815,
       "productionBudget": null,
+      "posterUrl": "https://a.ltrbxd.com/resized/film-poster/1/3/2/8/7/6/3/1328763-corporate-retreat-0-600-0-900-crop.jpg?v=36c686a018",
       "letterboxdSlug": "film/corporate-retreat",
       "letterboxdAverage": 1.83,
-      "letterboxdRatingCount": 3198,
+      "letterboxdRatingCount": 3205,
       "sourceNotes": [
         "the-numbers-release-schedule",
         "the-numbers-top-grossing",
-        "letterboxd"
+        "letterboxd",
+        "letterboxd-poster"
       ],
       "updatedAt": "2026-06-23"
     },
@@ -3009,13 +3348,15 @@
       "releaseDate": "2026-05-22",
       "domesticGross": 115653,
       "productionBudget": null,
+      "posterUrl": "https://a.ltrbxd.com/resized/film-poster/1/2/5/0/6/3/5/1250635-saccharine-2026-0-600-0-900-crop.jpg?v=b8d4297893",
       "letterboxdSlug": "film/saccharine-2026",
       "letterboxdAverage": 3.09,
-      "letterboxdRatingCount": 10362,
+      "letterboxdRatingCount": 10956,
       "sourceNotes": [
         "the-numbers-release-schedule",
         "the-numbers-top-grossing",
-        "letterboxd"
+        "letterboxd",
+        "letterboxd-poster"
       ],
       "updatedAt": "2026-06-23"
     },
@@ -3025,6 +3366,7 @@
       "releaseDate": "2026-05-29",
       "domesticGross": 175053084,
       "productionBudget": 10000000,
+      "posterUrl": "https://a.ltrbxd.com/resized/film-poster/1/3/6/2/3/0/5/1362305-backrooms-0-600-0-900-crop.jpg?v=e53c376eb2",
       "letterboxdSlug": "film/backrooms",
       "letterboxdAverage": null,
       "letterboxdRatingCount": null,
@@ -3032,7 +3374,8 @@
         "the-numbers-release-schedule",
         "the-numbers-top-grossing",
         "letterboxd",
-        "the-numbers-budget"
+        "the-numbers-budget",
+        "letterboxd-poster"
       ],
       "updatedAt": "2026-06-23"
     },
@@ -3042,14 +3385,16 @@
       "releaseDate": "2026-05-29",
       "domesticGross": 19298952,
       "productionBudget": 25000000,
+      "posterUrl": "https://a.ltrbxd.com/resized/film-poster/1/3/1/7/6/5/6/1317656-the-breadwinner-2026-0-600-0-900-crop.jpg?v=57c8b57119",
       "letterboxdSlug": "film/the-breadwinner-2026",
       "letterboxdAverage": 2.6,
-      "letterboxdRatingCount": 10417,
+      "letterboxdRatingCount": 10535,
       "sourceNotes": [
         "the-numbers-release-schedule",
         "the-numbers-top-grossing",
         "letterboxd",
-        "the-numbers-budget"
+        "the-numbers-budget",
+        "letterboxd-poster"
       ],
       "updatedAt": "2026-06-23"
     },
@@ -3059,13 +3404,15 @@
       "releaseDate": "2026-05-29",
       "domesticGross": 15146605,
       "productionBudget": null,
+      "posterUrl": "https://a.ltrbxd.com/resized/film-poster/1/1/9/8/9/7/2/1198972-pressure-2026-0-600-0-900-crop.jpg?v=38a01c694d",
       "letterboxdSlug": "film/pressure-2026",
-      "letterboxdAverage": 3.52,
-      "letterboxdRatingCount": 31878,
+      "letterboxdAverage": 3.51,
+      "letterboxdRatingCount": 33289,
       "sourceNotes": [
         "the-numbers-release-schedule",
         "the-numbers-top-grossing",
-        "letterboxd"
+        "letterboxd",
+        "letterboxd-poster"
       ],
       "updatedAt": "2026-06-23"
     },
@@ -3075,13 +3422,15 @@
       "releaseDate": "2026-05-29",
       "domesticGross": 2605478,
       "productionBudget": null,
+      "posterUrl": "https://a.ltrbxd.com/resized/film-poster/1/1/6/7/6/3/4/1167634-power-ballad-0-600-0-900-crop.jpg?v=31a4723ff8",
       "letterboxdSlug": "film/power-ballad",
       "letterboxdAverage": 3.26,
-      "letterboxdRatingCount": 29789,
+      "letterboxdRatingCount": 31376,
       "sourceNotes": [
         "the-numbers-release-schedule",
         "the-numbers-top-grossing",
-        "letterboxd"
+        "letterboxd",
+        "letterboxd-poster"
       ],
       "updatedAt": "2026-06-23"
     },
@@ -3091,13 +3440,15 @@
       "releaseDate": "2026-05-29",
       "domesticGross": 58416,
       "productionBudget": null,
+      "posterUrl": "https://a.ltrbxd.com/resized/film-poster/1/4/6/4/8/3/4/1464834-time-and-water-2026-0-600-0-900-crop.jpg?v=876ef8c627",
       "letterboxdSlug": "film/time-and-water-2026",
       "letterboxdAverage": 3.72,
-      "letterboxdRatingCount": 1503,
+      "letterboxdRatingCount": 1541,
       "sourceNotes": [
         "the-numbers-release-schedule",
         "the-numbers-top-grossing",
-        "letterboxd"
+        "letterboxd",
+        "letterboxd-poster"
       ],
       "updatedAt": "2026-06-23"
     },
@@ -3107,6 +3458,7 @@
       "releaseDate": "2026-05-29",
       "domesticGross": 33609,
       "productionBudget": null,
+      "posterUrl": null,
       "letterboxdSlug": null,
       "letterboxdAverage": null,
       "letterboxdRatingCount": null,
@@ -3121,12 +3473,14 @@
       "releaseDate": "2026-05-29",
       "domesticGross": 26551,
       "productionBudget": null,
+      "posterUrl": "https://a.ltrbxd.com/resized/film-poster/1/2/7/7/0/2/8/1277028-renoir-2025-0-600-0-900-crop.jpg?v=b5891a8ba6",
       "letterboxdSlug": "film/renoir-1",
       "letterboxdAverage": 3.41,
-      "letterboxdRatingCount": 8611,
+      "letterboxdRatingCount": 8637,
       "sourceNotes": [
         "the-numbers-top-grossing",
-        "letterboxd"
+        "letterboxd",
+        "letterboxd-poster"
       ],
       "updatedAt": "2026-06-23"
     },
@@ -3136,13 +3490,15 @@
       "releaseDate": "2026-05-31",
       "domesticGross": 644141,
       "productionBudget": null,
+      "posterUrl": "https://a.ltrbxd.com/resized/film-poster/1/5/2/7/6/1/9/1527619-revolutionary-america-0-600-0-900-crop.jpg?v=a0da5fa2e5",
       "letterboxdSlug": "film/revolutionary-america",
       "letterboxdAverage": null,
       "letterboxdRatingCount": null,
       "sourceNotes": [
         "the-numbers-release-schedule",
         "the-numbers-top-grossing",
-        "letterboxd"
+        "letterboxd",
+        "letterboxd-poster"
       ],
       "updatedAt": "2026-06-23"
     },
@@ -3152,12 +3508,14 @@
       "releaseDate": "2026-06-03",
       "domesticGross": 10711,
       "productionBudget": null,
-      "letterboxdSlug": null,
+      "posterUrl": "https://a.ltrbxd.com/resized/film-poster/1/2/3/3/9/3/3/1233933-the-easy-kind-0-600-0-900-crop.jpg?v=fde30adaad",
+      "letterboxdSlug": "film/the-easy-kind",
       "letterboxdAverage": null,
       "letterboxdRatingCount": null,
       "sourceNotes": [
         "the-numbers-release-schedule",
-        "the-numbers-top-grossing"
+        "the-numbers-top-grossing",
+        "letterboxd-poster"
       ],
       "updatedAt": "2026-06-23"
     },
@@ -3167,13 +3525,15 @@
       "releaseDate": "2026-06-04",
       "domesticGross": 24958833,
       "productionBudget": null,
+      "posterUrl": "https://a.ltrbxd.com/resized/film-poster/1/5/3/0/0/3/9/1530039-the-amazing-digital-circus-the-last-act-0-600-0-900-crop.jpg?v=06fd86b19c",
       "letterboxdSlug": "film/the-amazing-digital-circus-the-last-act",
-      "letterboxdAverage": 3.34,
-      "letterboxdRatingCount": 125313,
+      "letterboxdAverage": 3.32,
+      "letterboxdRatingCount": 134839,
       "sourceNotes": [
         "the-numbers-release-schedule",
         "the-numbers-top-grossing",
-        "letterboxd"
+        "letterboxd",
+        "letterboxd-poster"
       ],
       "updatedAt": "2026-06-23"
     },
@@ -3183,14 +3543,16 @@
       "releaseDate": "2026-06-05",
       "domesticGross": 97249724,
       "productionBudget": 30000000,
+      "posterUrl": "https://a.ltrbxd.com/resized/film-poster/4/9/4/4/8/49448-scary-movie-0-600-0-900-crop.jpg?v=cebddbead1",
       "letterboxdSlug": "film/scary-movie",
       "letterboxdAverage": 2.85,
-      "letterboxdRatingCount": 3224,
+      "letterboxdRatingCount": 3228,
       "sourceNotes": [
         "the-numbers-release-schedule",
         "the-numbers-top-grossing",
         "letterboxd",
-        "the-numbers-budget"
+        "the-numbers-budget",
+        "letterboxd-poster"
       ],
       "updatedAt": "2026-06-23"
     },
@@ -3200,14 +3562,16 @@
       "releaseDate": "2026-06-05",
       "domesticGross": 57489787,
       "productionBudget": 170000000,
+      "posterUrl": "https://a.ltrbxd.com/resized/film-poster/4/5/1/0/4/45104-masters-of-the-universe-0-600-0-900-crop.jpg?v=e36bf3f17f",
       "letterboxdSlug": "film/masters-of-the-universe",
-      "letterboxdAverage": 2.5,
-      "letterboxdRatingCount": 43255,
+      "letterboxdAverage": 2.49,
+      "letterboxdRatingCount": 43449,
       "sourceNotes": [
         "the-numbers-release-schedule",
         "the-numbers-top-grossing",
         "letterboxd",
-        "the-numbers-budget"
+        "the-numbers-budget",
+        "letterboxd-poster"
       ],
       "updatedAt": "2026-06-23"
     },
@@ -3217,13 +3581,15 @@
       "releaseDate": "2026-06-05",
       "domesticGross": 263008,
       "productionBudget": null,
+      "posterUrl": "https://a.ltrbxd.com/resized/film-poster/1/2/0/9/4/4/0/1209440-carolina-caroline-0-600-0-900-crop.jpg?v=c959b8da6d",
       "letterboxdSlug": "film/carolina-caroline",
-      "letterboxdAverage": 3.5,
-      "letterboxdRatingCount": 8357,
+      "letterboxdAverage": 3.51,
+      "letterboxdRatingCount": 10166,
       "sourceNotes": [
         "the-numbers-release-schedule",
         "the-numbers-top-grossing",
-        "letterboxd"
+        "letterboxd",
+        "letterboxd-poster"
       ],
       "updatedAt": "2026-06-23"
     },
@@ -3233,12 +3599,14 @@
       "releaseDate": "2026-06-05",
       "domesticGross": 68418,
       "productionBudget": null,
+      "posterUrl": "https://a.ltrbxd.com/resized/film-poster/1/4/2/0/6/6/2/1420662-another-world-2026-0-600-0-900-crop.jpg?v=24c219bd6c",
       "letterboxdSlug": "film/another-world-2026",
       "letterboxdAverage": null,
       "letterboxdRatingCount": null,
       "sourceNotes": [
         "the-numbers-top-grossing",
-        "letterboxd"
+        "letterboxd",
+        "letterboxd-poster"
       ],
       "updatedAt": "2026-06-23"
     },
@@ -3248,13 +3616,15 @@
       "releaseDate": "2026-06-05",
       "domesticGross": 51035,
       "productionBudget": null,
+      "posterUrl": "https://a.ltrbxd.com/resized/film-poster/1/3/1/8/9/4/3/1318943-jinsei-0-600-0-900-crop.jpg?v=d657ba0839",
       "letterboxdSlug": "film/jinsei",
       "letterboxdAverage": 3.3,
-      "letterboxdRatingCount": 1618,
+      "letterboxdRatingCount": 1646,
       "sourceNotes": [
         "the-numbers-release-schedule",
         "the-numbers-top-grossing",
-        "letterboxd"
+        "letterboxd",
+        "letterboxd-poster"
       ],
       "updatedAt": "2026-06-23"
     },
@@ -3264,13 +3634,15 @@
       "releaseDate": "2026-06-05",
       "domesticGross": 10523,
       "productionBudget": null,
+      "posterUrl": "https://a.ltrbxd.com/resized/film-poster/1/5/5/6/8/7/2/1556872-chum-2026-0-600-0-900-crop.jpg?v=b8750e015a",
       "letterboxdSlug": "film/chum-2026",
-      "letterboxdAverage": 1.7,
-      "letterboxdRatingCount": 1191,
+      "letterboxdAverage": 1.65,
+      "letterboxdRatingCount": 1255,
       "sourceNotes": [
         "the-numbers-release-schedule",
         "the-numbers-top-grossing",
-        "letterboxd"
+        "letterboxd",
+        "letterboxd-poster"
       ],
       "updatedAt": "2026-06-23"
     },
@@ -3280,6 +3652,7 @@
       "releaseDate": "2026-06-05",
       "domesticGross": 9923,
       "productionBudget": null,
+      "posterUrl": null,
       "letterboxdSlug": "film/underland-1",
       "letterboxdAverage": null,
       "letterboxdRatingCount": null,
@@ -3296,14 +3669,16 @@
       "releaseDate": "2026-06-12",
       "domesticGross": 78987640,
       "productionBudget": 115000000,
+      "posterUrl": "https://a.ltrbxd.com/resized/film-poster/1/1/5/9/2/5/1/1159251-disclosure-day-0-600-0-900-crop.jpg?v=9ae810e4bb",
       "letterboxdSlug": "film/disclosure-day",
-      "letterboxdAverage": 3.17,
-      "letterboxdRatingCount": 562828,
+      "letterboxdAverage": 3.15,
+      "letterboxdRatingCount": 601322,
       "sourceNotes": [
         "the-numbers-release-schedule",
         "the-numbers-top-grossing",
         "letterboxd",
-        "the-numbers-budget"
+        "the-numbers-budget",
+        "letterboxd-poster"
       ],
       "updatedAt": "2026-06-23"
     },
@@ -3313,14 +3688,16 @@
       "releaseDate": "2026-06-12",
       "domesticGross": 5265007,
       "productionBudget": 20000000,
+      "posterUrl": "https://a.ltrbxd.com/resized/film-poster/1/1/6/4/1/5/4/1164154-the-furious-0-600-0-900-crop.jpg?v=f880a59523",
       "letterboxdSlug": "film/the-furious",
-      "letterboxdAverage": 3.86,
-      "letterboxdRatingCount": 54056,
+      "letterboxdAverage": 3.85,
+      "letterboxdRatingCount": 59719,
       "sourceNotes": [
         "the-numbers-release-schedule",
         "the-numbers-top-grossing",
         "letterboxd",
-        "the-numbers-budget"
+        "the-numbers-budget",
+        "letterboxd-poster"
       ],
       "updatedAt": "2026-06-23"
     },
@@ -3330,13 +3707,15 @@
       "releaseDate": "2026-06-12",
       "domesticGross": 3403792,
       "productionBudget": null,
+      "posterUrl": "https://a.ltrbxd.com/resized/film-poster/1/4/1/6/3/1/3/1416313-stop-that-train-0-600-0-900-crop.jpg?v=8423afafd4",
       "letterboxdSlug": "film/stop-that-train",
-      "letterboxdAverage": 3.14,
-      "letterboxdRatingCount": 25906,
+      "letterboxdAverage": 3.13,
+      "letterboxdRatingCount": 27906,
       "sourceNotes": [
         "the-numbers-release-schedule",
         "the-numbers-top-grossing",
-        "letterboxd"
+        "letterboxd",
+        "letterboxd-poster"
       ],
       "updatedAt": "2026-06-23"
     },
@@ -3346,13 +3725,15 @@
       "releaseDate": "2026-06-12",
       "domesticGross": 22985,
       "productionBudget": null,
+      "posterUrl": "https://a.ltrbxd.com/resized/film-poster/1/1/0/2/3/4/3/1102343-promised-sky-0-600-0-900-crop.jpg?v=c868f57334",
       "letterboxdSlug": "film/promised-sky",
       "letterboxdAverage": 3.48,
-      "letterboxdRatingCount": 2807,
+      "letterboxdRatingCount": 2819,
       "sourceNotes": [
         "the-numbers-release-schedule",
         "the-numbers-top-grossing",
-        "letterboxd"
+        "letterboxd",
+        "letterboxd-poster"
       ],
       "updatedAt": "2026-06-23"
     },
@@ -3362,13 +3743,15 @@
       "releaseDate": "2026-06-12",
       "domesticGross": 4898,
       "productionBudget": null,
+      "posterUrl": "https://a.ltrbxd.com/resized/film-poster/9/6/5/5/6/1/965561-o-horizon-2025-0-600-0-900-crop.jpg?v=8383d3e347",
       "letterboxdSlug": "film/o-horizon-1",
       "letterboxdAverage": null,
       "letterboxdRatingCount": null,
       "sourceNotes": [
         "the-numbers-release-schedule",
         "the-numbers-top-grossing",
-        "letterboxd"
+        "letterboxd",
+        "letterboxd-poster"
       ],
       "updatedAt": "2026-06-23"
     },
@@ -3378,6 +3761,7 @@
       "releaseDate": "2026-06-15",
       "domesticGross": 31365,
       "productionBudget": null,
+      "posterUrl": null,
       "letterboxdSlug": null,
       "letterboxdAverage": null,
       "letterboxdRatingCount": null,
@@ -3392,13 +3776,15 @@
       "releaseDate": "2026-06-17",
       "domesticGross": 367941,
       "productionBudget": null,
+      "posterUrl": "https://a.ltrbxd.com/resized/film-poster/1/5/4/4/7/0/4/1544704-gregg-allman-the-music-of-my-soul-0-600-0-900-crop.jpg?v=27fbee3b83",
       "letterboxdSlug": "film/gregg-allman-the-music-of-my-soul",
       "letterboxdAverage": null,
       "letterboxdRatingCount": null,
       "sourceNotes": [
         "the-numbers-release-schedule",
         "the-numbers-top-grossing",
-        "letterboxd"
+        "letterboxd",
+        "letterboxd-poster"
       ],
       "updatedAt": "2026-06-23"
     },
@@ -3408,13 +3794,15 @@
       "releaseDate": "2026-06-19",
       "domesticGross": 159677837,
       "productionBudget": null,
+      "posterUrl": "https://a.ltrbxd.com/resized/film-poster/9/7/7/1/8/6/977186-toy-story-5-0-600-0-900-crop.jpg?v=d0ac6a7d01",
       "letterboxdSlug": "film/toy-story-5",
-      "letterboxdAverage": 3.79,
-      "letterboxdRatingCount": 225410,
+      "letterboxdAverage": 3.77,
+      "letterboxdRatingCount": 300117,
       "sourceNotes": [
         "the-numbers-release-schedule",
         "the-numbers-top-grossing",
-        "letterboxd"
+        "letterboxd",
+        "letterboxd-poster"
       ],
       "updatedAt": "2026-06-23"
     },
@@ -3424,14 +3812,16 @@
       "releaseDate": "2026-06-19",
       "domesticGross": 2867662,
       "productionBudget": 20000000,
+      "posterUrl": "https://a.ltrbxd.com/resized/film-poster/1/1/6/7/8/5/8/1167858-the-death-of-robin-hood-0-600-0-900-crop.jpg?v=39347a2edd",
       "letterboxdSlug": "film/the-death-of-robin-hood",
-      "letterboxdAverage": 3.11,
-      "letterboxdRatingCount": 17376,
+      "letterboxdAverage": 3.09,
+      "letterboxdRatingCount": 23064,
       "sourceNotes": [
         "the-numbers-release-schedule",
         "the-numbers-top-grossing",
         "letterboxd",
-        "the-numbers-budget"
+        "the-numbers-budget",
+        "letterboxd-poster"
       ],
       "updatedAt": "2026-06-23"
     },
@@ -3441,13 +3831,15 @@
       "releaseDate": "2026-06-19",
       "domesticGross": 2610696,
       "productionBudget": null,
+      "posterUrl": "https://a.ltrbxd.com/resized/film-poster/1/4/3/7/6/2/2/1437622-leviticus-2026-0-600-0-900-crop.jpg?v=87cb79b6d2",
       "letterboxdSlug": "film/leviticus-2026",
       "letterboxdAverage": 3.79,
-      "letterboxdRatingCount": 65240,
+      "letterboxdRatingCount": 94822,
       "sourceNotes": [
         "the-numbers-release-schedule",
         "the-numbers-top-grossing",
-        "letterboxd"
+        "letterboxd",
+        "letterboxd-poster"
       ],
       "updatedAt": "2026-06-23"
     },
@@ -3457,13 +3849,15 @@
       "releaseDate": "2026-06-19",
       "domesticGross": 1511430,
       "productionBudget": null,
+      "posterUrl": "https://a.ltrbxd.com/resized/film-poster/1/2/8/1/2/3/0/1281230-girls-like-girls-0-600-0-900-crop.jpg?v=81265f1a60",
       "letterboxdSlug": "film/girls-like-girls",
-      "letterboxdAverage": 3.3,
-      "letterboxdRatingCount": 23397,
+      "letterboxdAverage": 3.26,
+      "letterboxdRatingCount": 31326,
       "sourceNotes": [
         "the-numbers-release-schedule",
         "the-numbers-top-grossing",
-        "letterboxd"
+        "letterboxd",
+        "letterboxd-poster"
       ],
       "updatedAt": "2026-06-23"
     },
@@ -3473,6 +3867,7 @@
       "releaseDate": "2026-06-19",
       "domesticGross": 58206,
       "productionBudget": null,
+      "posterUrl": null,
       "letterboxdSlug": null,
       "letterboxdAverage": null,
       "letterboxdRatingCount": null,
@@ -3488,13 +3883,15 @@
       "releaseDate": "2026-06-19",
       "domesticGross": 22726,
       "productionBudget": null,
+      "posterUrl": "https://a.ltrbxd.com/resized/film-poster/1/2/8/3/3/5/3/1283353-rose-of-nevada-0-600-0-900-crop.jpg?v=3664bd071f",
       "letterboxdSlug": "film/rose-of-nevada",
       "letterboxdAverage": 3.45,
-      "letterboxdRatingCount": 15377,
+      "letterboxdRatingCount": 15600,
       "sourceNotes": [
         "the-numbers-release-schedule",
         "the-numbers-top-grossing",
-        "letterboxd"
+        "letterboxd",
+        "letterboxd-poster"
       ],
       "updatedAt": "2026-06-23"
     },
@@ -3504,6 +3901,7 @@
       "releaseDate": "2026-06-19",
       "domesticGross": 15000,
       "productionBudget": null,
+      "posterUrl": null,
       "letterboxdSlug": "film/unidentified-1",
       "letterboxdAverage": null,
       "letterboxdRatingCount": null,
@@ -3520,13 +3918,15 @@
       "releaseDate": "2026-06-19",
       "domesticGross": 8369,
       "productionBudget": null,
+      "posterUrl": "https://a.ltrbxd.com/resized/film-poster/1/4/1/2/2/3/9/1412239-peter-asher-everywhere-man-0-600-0-900-crop.jpg?v=9648a0b3b8",
       "letterboxdSlug": "film/peter-asher-everywhere-man",
       "letterboxdAverage": null,
       "letterboxdRatingCount": null,
       "sourceNotes": [
         "the-numbers-release-schedule",
         "the-numbers-top-grossing",
-        "letterboxd"
+        "letterboxd",
+        "letterboxd-poster"
       ],
       "updatedAt": "2026-06-23"
     },
@@ -3536,11 +3936,13 @@
       "releaseDate": "2026-06-26",
       "domesticGross": null,
       "productionBudget": null,
-      "letterboxdSlug": null,
+      "posterUrl": "https://a.ltrbxd.com/resized/film-poster/1/4/8/1/8/5/1/1481851-jackass-best-and-last-0-600-0-900-crop.jpg?v=42485392b4",
+      "letterboxdSlug": "film/jackass-best-and-last",
       "letterboxdAverage": null,
       "letterboxdRatingCount": null,
       "sourceNotes": [
-        "the-numbers-release-schedule"
+        "the-numbers-release-schedule",
+        "letterboxd-poster"
       ],
       "updatedAt": "2026-06-23"
     },
@@ -3550,6 +3952,7 @@
       "releaseDate": "2026-06-26",
       "domesticGross": null,
       "productionBudget": null,
+      "posterUrl": null,
       "letterboxdSlug": null,
       "letterboxdAverage": null,
       "letterboxdRatingCount": null,
@@ -3564,12 +3967,14 @@
       "releaseDate": "2026-06-26",
       "domesticGross": null,
       "productionBudget": 170000000,
-      "letterboxdSlug": null,
-      "letterboxdAverage": null,
-      "letterboxdRatingCount": null,
+      "posterUrl": "https://a.ltrbxd.com/resized/film-poster/4/6/9/5/0/46950-supergirl-0-600-0-900-crop.jpg?v=78a11da3a4",
+      "letterboxdSlug": "film/supergirl",
+      "letterboxdAverage": 2,
+      "letterboxdRatingCount": 24117,
       "sourceNotes": [
         "the-numbers-release-schedule",
-        "the-numbers-budget"
+        "the-numbers-budget",
+        "letterboxd-poster"
       ],
       "updatedAt": "2026-06-23"
     },
@@ -3579,11 +3984,13 @@
       "releaseDate": "2026-06-28",
       "domesticGross": null,
       "productionBudget": null,
-      "letterboxdSlug": null,
+      "posterUrl": "https://a.ltrbxd.com/resized/film-poster/1/1/7/0/7/9/9/1170799-the-token-groomsman-0-600-0-900-crop.jpg?v=ed391afee5",
+      "letterboxdSlug": "film/the-token-groomsman",
       "letterboxdAverage": null,
       "letterboxdRatingCount": null,
       "sourceNotes": [
-        "the-numbers-release-schedule"
+        "the-numbers-release-schedule",
+        "letterboxd-poster"
       ],
       "updatedAt": "2026-06-23"
     },
@@ -3593,12 +4000,14 @@
       "releaseDate": "2026-07-01",
       "domesticGross": null,
       "productionBudget": 85000000,
-      "letterboxdSlug": null,
-      "letterboxdAverage": null,
-      "letterboxdRatingCount": null,
+      "posterUrl": "https://a.ltrbxd.com/resized/film-poster/7/8/9/8/8/7/789887-minions-monsters-0-600-0-900-crop.jpg?v=c913c88a5a",
+      "letterboxdSlug": "film/minions-and-monsters",
+      "letterboxdAverage": 3.17,
+      "letterboxdRatingCount": 927,
       "sourceNotes": [
         "the-numbers-release-schedule",
-        "the-numbers-budget"
+        "the-numbers-budget",
+        "letterboxd-poster"
       ],
       "updatedAt": "2026-06-23"
     },
@@ -3608,11 +4017,13 @@
       "releaseDate": "2026-07-03",
       "domesticGross": null,
       "productionBudget": null,
-      "letterboxdSlug": null,
-      "letterboxdAverage": null,
-      "letterboxdRatingCount": null,
+      "posterUrl": "https://a.ltrbxd.com/resized/film-poster/1/1/9/0/3/5/3/1190353-young-washington-0-600-0-900-crop.jpg?v=08eb32bafd",
+      "letterboxdSlug": "film/young-washington",
+      "letterboxdAverage": 2.54,
+      "letterboxdRatingCount": 1024,
       "sourceNotes": [
-        "the-numbers-release-schedule"
+        "the-numbers-release-schedule",
+        "letterboxd-poster"
       ],
       "updatedAt": "2026-06-23"
     },
@@ -3622,11 +4033,13 @@
       "releaseDate": "2026-07-10",
       "domesticGross": null,
       "productionBudget": null,
-      "letterboxdSlug": null,
+      "posterUrl": "https://a.ltrbxd.com/resized/film-poster/1/0/9/7/0/2/2/1097022-evil-dead-burn-0-600-0-900-crop.jpg?v=97f1ed61e5",
+      "letterboxdSlug": "film/evil-dead-burn",
       "letterboxdAverage": null,
       "letterboxdRatingCount": null,
       "sourceNotes": [
-        "the-numbers-release-schedule"
+        "the-numbers-release-schedule",
+        "letterboxd-poster"
       ],
       "updatedAt": "2026-06-23"
     },
@@ -3636,11 +4049,13 @@
       "releaseDate": "2026-07-10",
       "domesticGross": null,
       "productionBudget": null,
-      "letterboxdSlug": null,
-      "letterboxdAverage": null,
-      "letterboxdRatingCount": null,
+      "posterUrl": "https://a.ltrbxd.com/resized/film-poster/1/3/5/3/4/0/8/1353408-gail-daughtry-and-the-celebrity-sex-pass-0-600-0-900-crop.jpg?v=cd9d330b88",
+      "letterboxdSlug": "film/gail-daughtry-and-the-celebrity-sex-pass",
+      "letterboxdAverage": 3.4,
+      "letterboxdRatingCount": 1080,
       "sourceNotes": [
-        "the-numbers-release-schedule"
+        "the-numbers-release-schedule",
+        "letterboxd-poster"
       ],
       "updatedAt": "2026-06-23"
     },
@@ -3650,11 +4065,13 @@
       "releaseDate": "2026-07-10",
       "domesticGross": null,
       "productionBudget": null,
-      "letterboxdSlug": null,
+      "posterUrl": "https://a.ltrbxd.com/resized/film-poster/1/0/0/0/2/7/7/1000277-moana-0-600-0-900-crop.jpg?v=e60c5cd42d",
+      "letterboxdSlug": "film/moana",
       "letterboxdAverage": null,
       "letterboxdRatingCount": null,
       "sourceNotes": [
-        "the-numbers-release-schedule"
+        "the-numbers-release-schedule",
+        "letterboxd-poster"
       ],
       "updatedAt": "2026-06-23"
     },
@@ -3664,12 +4081,14 @@
       "releaseDate": "2026-07-17",
       "domesticGross": null,
       "productionBudget": 250000000,
-      "letterboxdSlug": null,
-      "letterboxdAverage": null,
-      "letterboxdRatingCount": null,
+      "posterUrl": "https://a.ltrbxd.com/resized/film-poster/4/1/0/9/6/41096-the-odyssey-0-600-0-900-crop.jpg?v=b2a55713ac",
+      "letterboxdSlug": "film/the-odyssey",
+      "letterboxdAverage": 3.09,
+      "letterboxdRatingCount": 10658,
       "sourceNotes": [
         "the-numbers-release-schedule",
-        "the-numbers-budget"
+        "the-numbers-budget",
+        "letterboxd-poster"
       ],
       "updatedAt": "2026-06-23"
     },
@@ -3679,11 +4098,13 @@
       "releaseDate": "2026-07-23",
       "domesticGross": null,
       "productionBudget": null,
-      "letterboxdSlug": null,
+      "posterUrl": "https://a.ltrbxd.com/resized/film-poster/1/3/5/6/4/5/0/1356450-bad-counselors-0-600-0-900-crop.jpg?v=cc884189eb",
+      "letterboxdSlug": "film/bad-counselors",
       "letterboxdAverage": null,
       "letterboxdRatingCount": null,
       "sourceNotes": [
-        "the-numbers-release-schedule"
+        "the-numbers-release-schedule",
+        "letterboxd-poster"
       ],
       "updatedAt": "2026-06-23"
     },
@@ -3693,11 +4114,13 @@
       "releaseDate": "2026-07-24",
       "domesticGross": null,
       "productionBudget": null,
-      "letterboxdSlug": null,
-      "letterboxdAverage": null,
-      "letterboxdRatingCount": null,
+      "posterUrl": "https://a.ltrbxd.com/resized/film-poster/7/6/5/1/2/76512-her-private-hell-0-600-0-900-crop.jpg?v=d890946323",
+      "letterboxdSlug": "film/her-private-hell",
+      "letterboxdAverage": 2.98,
+      "letterboxdRatingCount": 379,
       "sourceNotes": [
-        "the-numbers-release-schedule"
+        "the-numbers-release-schedule",
+        "letterboxd-poster"
       ],
       "updatedAt": "2026-06-23"
     },
@@ -3707,12 +4130,14 @@
       "releaseDate": "2026-07-24",
       "domesticGross": null,
       "productionBudget": 30000000,
-      "letterboxdSlug": null,
-      "letterboxdAverage": null,
-      "letterboxdRatingCount": null,
+      "posterUrl": "https://a.ltrbxd.com/resized/film-poster/7/3/6/5/1/73651-motor-city-0-600-0-900-crop.jpg?v=823396016b",
+      "letterboxdSlug": "film/motor-city",
+      "letterboxdAverage": 3.2,
+      "letterboxdRatingCount": 597,
       "sourceNotes": [
         "the-numbers-release-schedule",
-        "the-numbers-budget"
+        "the-numbers-budget",
+        "letterboxd-poster"
       ],
       "updatedAt": "2026-06-23"
     },
@@ -3722,11 +4147,13 @@
       "releaseDate": "2026-07-31",
       "domesticGross": null,
       "productionBudget": null,
-      "letterboxdSlug": null,
-      "letterboxdAverage": null,
-      "letterboxdRatingCount": null,
+      "posterUrl": "https://a.ltrbxd.com/resized/film-poster/1/1/7/0/9/5/4/1170954-i-want-your-sex-0-600-0-900-crop.jpg?v=c13a0c57b7",
+      "letterboxdSlug": "film/i-want-your-sex",
+      "letterboxdAverage": 3.55,
+      "letterboxdRatingCount": 4043,
       "sourceNotes": [
-        "the-numbers-release-schedule"
+        "the-numbers-release-schedule",
+        "letterboxd-poster"
       ],
       "updatedAt": "2026-06-23"
     },
@@ -3736,11 +4163,13 @@
       "releaseDate": "2026-07-31",
       "domesticGross": null,
       "productionBudget": null,
-      "letterboxdSlug": null,
+      "posterUrl": "https://a.ltrbxd.com/resized/film-poster/8/7/2/8/7/1/872871-spider-man-brand-new-day-0-600-0-900-crop.jpg?v=c4e8aa418f",
+      "letterboxdSlug": "film/spider-man-brand-new-day",
       "letterboxdAverage": null,
       "letterboxdRatingCount": null,
       "sourceNotes": [
-        "the-numbers-release-schedule"
+        "the-numbers-release-schedule",
+        "letterboxd-poster"
       ],
       "updatedAt": "2026-06-23"
     },
@@ -3750,11 +4179,13 @@
       "releaseDate": "2026-08-07",
       "domesticGross": null,
       "productionBudget": null,
-      "letterboxdSlug": null,
-      "letterboxdAverage": null,
-      "letterboxdRatingCount": null,
+      "posterUrl": "https://a.ltrbxd.com/resized/film-poster/2/0/7/0/9/20709-ice-cream-man-0-600-0-900-crop.jpg?v=e41039bd97",
+      "letterboxdSlug": "film/ice-cream-man",
+      "letterboxdAverage": 2.49,
+      "letterboxdRatingCount": 16967,
       "sourceNotes": [
-        "the-numbers-release-schedule"
+        "the-numbers-release-schedule",
+        "letterboxd-poster"
       ],
       "updatedAt": "2026-06-23"
     },
@@ -3764,11 +4195,13 @@
       "releaseDate": "2026-08-07",
       "domesticGross": null,
       "productionBudget": null,
-      "letterboxdSlug": null,
+      "posterUrl": "https://a.ltrbxd.com/resized/film-poster/5/7/3/0/4/57304-one-night-only-0-600-0-900-crop.jpg?v=289bf43243",
+      "letterboxdSlug": "film/one-night-only",
       "letterboxdAverage": null,
       "letterboxdRatingCount": null,
       "sourceNotes": [
-        "the-numbers-release-schedule"
+        "the-numbers-release-schedule",
+        "letterboxd-poster"
       ],
       "updatedAt": "2026-06-23"
     },
@@ -3778,11 +4211,13 @@
       "releaseDate": "2026-08-07",
       "domesticGross": null,
       "productionBudget": null,
-      "letterboxdSlug": null,
+      "posterUrl": "https://a.ltrbxd.com/resized/film-poster/6/0/0/3/8/4/600384-super-troopers-3-0-600-0-900-crop.jpg?v=984535517a",
+      "letterboxdSlug": "film/super-troopers-3",
       "letterboxdAverage": null,
       "letterboxdRatingCount": null,
       "sourceNotes": [
-        "the-numbers-release-schedule"
+        "the-numbers-release-schedule",
+        "letterboxd-poster"
       ],
       "updatedAt": "2026-06-23"
     },
@@ -3792,11 +4227,13 @@
       "releaseDate": "2026-08-13",
       "domesticGross": null,
       "productionBudget": null,
-      "letterboxdSlug": null,
+      "posterUrl": "https://a.ltrbxd.com/resized/film-poster/1/1/4/2/0/0/8/1142008-fauzi-0-600-0-900-crop.jpg?v=582dde3048",
+      "letterboxdSlug": "film/fauzi",
       "letterboxdAverage": null,
       "letterboxdRatingCount": null,
       "sourceNotes": [
-        "the-numbers-release-schedule"
+        "the-numbers-release-schedule",
+        "letterboxd-poster"
       ],
       "updatedAt": "2026-06-23"
     },
@@ -3806,11 +4243,13 @@
       "releaseDate": "2026-08-14",
       "domesticGross": null,
       "productionBudget": null,
-      "letterboxdSlug": null,
+      "posterUrl": "https://a.ltrbxd.com/resized/film-poster/1/0/7/1/9/6/9/1071969-paw-patrol-the-dino-movie-0-600-0-900-crop.jpg?v=d6ada6e62e",
+      "letterboxdSlug": "film/paw-patrol-the-dino-movie",
       "letterboxdAverage": null,
       "letterboxdRatingCount": null,
       "sourceNotes": [
-        "the-numbers-release-schedule"
+        "the-numbers-release-schedule",
+        "letterboxd-poster"
       ],
       "updatedAt": "2026-06-23"
     },
@@ -3820,11 +4259,13 @@
       "releaseDate": "2026-08-14",
       "domesticGross": null,
       "productionBudget": null,
-      "letterboxdSlug": null,
+      "posterUrl": "https://a.ltrbxd.com/resized/film-poster/1/3/8/2/2/5/138225-the-brink-of-war-0-600-0-900-crop.jpg?v=e1d9f2bc6a",
+      "letterboxdSlug": "film/the-brink-of-war",
       "letterboxdAverage": null,
       "letterboxdRatingCount": null,
       "sourceNotes": [
-        "the-numbers-release-schedule"
+        "the-numbers-release-schedule",
+        "letterboxd-poster"
       ],
       "updatedAt": "2026-06-23"
     },
@@ -3834,12 +4275,14 @@
       "releaseDate": "2026-08-14",
       "domesticGross": null,
       "productionBudget": 85000000,
-      "letterboxdSlug": null,
+      "posterUrl": "https://a.ltrbxd.com/resized/film-poster/9/9/2/9/6/2/992962-the-end-of-oak-street-0-600-0-900-crop.jpg?v=218459e27c",
+      "letterboxdSlug": "film/the-end-of-oak-street",
       "letterboxdAverage": null,
       "letterboxdRatingCount": null,
       "sourceNotes": [
         "the-numbers-release-schedule",
-        "the-numbers-budget"
+        "the-numbers-budget",
+        "letterboxd-poster"
       ],
       "updatedAt": "2026-06-23"
     },
@@ -3849,11 +4292,13 @@
       "releaseDate": "2026-08-14",
       "domesticGross": null,
       "productionBudget": null,
-      "letterboxdSlug": null,
+      "posterUrl": "https://a.ltrbxd.com/resized/film-poster/1/1/1/0/3/7/4/1110374-the-wrong-girls-0-600-0-900-crop.jpg?v=32fbe2078c",
+      "letterboxdSlug": "film/the-wrong-girls",
       "letterboxdAverage": null,
       "letterboxdRatingCount": null,
       "sourceNotes": [
-        "the-numbers-release-schedule"
+        "the-numbers-release-schedule",
+        "letterboxd-poster"
       ],
       "updatedAt": "2026-06-23"
     },
@@ -3863,11 +4308,13 @@
       "releaseDate": "2026-08-21",
       "domesticGross": null,
       "productionBudget": null,
-      "letterboxdSlug": null,
+      "posterUrl": "https://a.ltrbxd.com/resized/film-poster/8/2/8/6/1/82861-hot-spot-0-600-0-900-crop.jpg?v=79263eaa1f",
+      "letterboxdSlug": "film/hot-spot",
       "letterboxdAverage": null,
       "letterboxdRatingCount": null,
       "sourceNotes": [
-        "the-numbers-release-schedule"
+        "the-numbers-release-schedule",
+        "letterboxd-poster"
       ],
       "updatedAt": "2026-06-23"
     },
@@ -3877,11 +4324,13 @@
       "releaseDate": "2026-08-21",
       "domesticGross": null,
       "productionBudget": null,
-      "letterboxdSlug": null,
+      "posterUrl": "https://a.ltrbxd.com/resized/film-poster/1/1/7/4/1/5/7/1174157-insidious-out-of-the-further-0-600-0-900-crop.jpg?v=b6c81c5505",
+      "letterboxdSlug": "film/insidious-out-of-the-further",
       "letterboxdAverage": null,
       "letterboxdRatingCount": null,
       "sourceNotes": [
-        "the-numbers-release-schedule"
+        "the-numbers-release-schedule",
+        "letterboxd-poster"
       ],
       "updatedAt": "2026-06-23"
     },
@@ -3891,11 +4340,13 @@
       "releaseDate": "2026-08-21",
       "domesticGross": null,
       "productionBudget": null,
-      "letterboxdSlug": null,
+      "posterUrl": "https://a.ltrbxd.com/resized/film-poster/1/5/5/2/1552-mutiny-0-600-0-900-crop.jpg?v=d0894957ec",
+      "letterboxdSlug": "film/mutiny",
       "letterboxdAverage": null,
       "letterboxdRatingCount": null,
       "sourceNotes": [
-        "the-numbers-release-schedule"
+        "the-numbers-release-schedule",
+        "letterboxd-poster"
       ],
       "updatedAt": "2026-06-23"
     },
@@ -3905,11 +4356,13 @@
       "releaseDate": "2026-08-21",
       "domesticGross": null,
       "productionBudget": null,
-      "letterboxdSlug": null,
+      "posterUrl": "https://a.ltrbxd.com/resized/film-poster/5/3/6/7/1/0/536710-spa-weekend-0-600-0-900-crop.jpg?v=640190dbd0",
+      "letterboxdSlug": "film/spa-weekend",
       "letterboxdAverage": null,
       "letterboxdRatingCount": null,
       "sourceNotes": [
-        "the-numbers-release-schedule"
+        "the-numbers-release-schedule",
+        "letterboxd-poster"
       ],
       "updatedAt": "2026-06-23"
     },
@@ -3919,6 +4372,7 @@
       "releaseDate": "2026-08-21",
       "domesticGross": null,
       "productionBudget": null,
+      "posterUrl": null,
       "letterboxdSlug": null,
       "letterboxdAverage": null,
       "letterboxdRatingCount": null,
@@ -3933,11 +4387,13 @@
       "releaseDate": "2026-08-28",
       "domesticGross": null,
       "productionBudget": null,
-      "letterboxdSlug": null,
-      "letterboxdAverage": null,
-      "letterboxdRatingCount": null,
+      "posterUrl": "https://a.ltrbxd.com/resized/film-poster/4/2/5/4/5/42545-buddy-0-600-0-900-crop.jpg?v=f973afa918",
+      "letterboxdSlug": "film/buddy",
+      "letterboxdAverage": 2.52,
+      "letterboxdRatingCount": 1708,
       "sourceNotes": [
-        "the-numbers-release-schedule"
+        "the-numbers-release-schedule",
+        "letterboxd-poster"
       ],
       "updatedAt": "2026-06-23"
     },
@@ -3947,11 +4403,13 @@
       "releaseDate": "2026-08-28",
       "domesticGross": null,
       "productionBudget": null,
-      "letterboxdSlug": null,
-      "letterboxdAverage": null,
-      "letterboxdRatingCount": null,
+      "posterUrl": "https://a.ltrbxd.com/resized/film-poster/4/7/2/4/4/47244-cliffhanger-0-600-0-900-crop.jpg?v=cdfa66ed44",
+      "letterboxdSlug": "film/cliffhanger",
+      "letterboxdAverage": 3.23,
+      "letterboxdRatingCount": 71901,
       "sourceNotes": [
-        "the-numbers-release-schedule"
+        "the-numbers-release-schedule",
+        "letterboxd-poster"
       ],
       "updatedAt": "2026-06-23"
     },
@@ -3961,12 +4419,14 @@
       "releaseDate": "2026-08-28",
       "domesticGross": null,
       "productionBudget": 70000000,
-      "letterboxdSlug": null,
+      "posterUrl": "https://a.ltrbxd.com/resized/film-poster/1/0/8/9/0/8/8/1089088-coyote-vs-acme-0-600-0-900-crop.jpg?v=a5ef5c162e",
+      "letterboxdSlug": "film/coyote-vs-acme",
       "letterboxdAverage": null,
       "letterboxdRatingCount": null,
       "sourceNotes": [
         "the-numbers-release-schedule",
-        "the-numbers-budget"
+        "the-numbers-budget",
+        "letterboxd-poster"
       ],
       "updatedAt": "2026-06-23"
     },
@@ -3976,11 +4436,13 @@
       "releaseDate": "2026-08-28",
       "domesticGross": null,
       "productionBudget": null,
-      "letterboxdSlug": null,
-      "letterboxdAverage": null,
-      "letterboxdRatingCount": null,
+      "posterUrl": "https://a.ltrbxd.com/resized/film-poster/1/2/3/4/3/9/8/1234398-finding-emily-0-600-0-900-crop.jpg?v=1b5859bc03",
+      "letterboxdSlug": "film/finding-emily",
+      "letterboxdAverage": 3.75,
+      "letterboxdRatingCount": 18015,
       "sourceNotes": [
-        "the-numbers-release-schedule"
+        "the-numbers-release-schedule",
+        "letterboxd-poster"
       ],
       "updatedAt": "2026-06-23"
     },
@@ -3990,6 +4452,7 @@
       "releaseDate": "2026-08-28",
       "domesticGross": null,
       "productionBudget": null,
+      "posterUrl": null,
       "letterboxdSlug": null,
       "letterboxdAverage": null,
       "letterboxdRatingCount": null,
@@ -4004,12 +4467,14 @@
       "releaseDate": "2026-08-28",
       "domesticGross": null,
       "productionBudget": 110000000,
-      "letterboxdSlug": null,
+      "posterUrl": "https://a.ltrbxd.com/resized/film-poster/1/2/6/9/2/8/7/1269287-the-dog-stars-0-600-0-900-crop.jpg?v=b44af504b0",
+      "letterboxdSlug": "film/the-dog-stars",
       "letterboxdAverage": null,
       "letterboxdRatingCount": null,
       "sourceNotes": [
         "the-numbers-release-schedule",
-        "the-numbers-budget"
+        "the-numbers-budget",
+        "letterboxd-poster"
       ],
       "updatedAt": "2026-06-23"
     },
@@ -4019,11 +4484,13 @@
       "releaseDate": "2026-08-30",
       "domesticGross": null,
       "productionBudget": null,
-      "letterboxdSlug": null,
+      "posterUrl": "https://a.ltrbxd.com/resized/film-poster/1/2/3/6/0/1/5/1236015-4-kids-walk-into-a-bank-0-600-0-900-crop.jpg?v=6a1dbe625b",
+      "letterboxdSlug": "film/4-kids-walk-into-a-bank",
       "letterboxdAverage": null,
       "letterboxdRatingCount": null,
       "sourceNotes": [
-        "the-numbers-release-schedule"
+        "the-numbers-release-schedule",
+        "letterboxd-poster"
       ],
       "updatedAt": "2026-06-23"
     },
@@ -4033,11 +4500,13 @@
       "releaseDate": "2026-09-02",
       "domesticGross": null,
       "productionBudget": null,
-      "letterboxdSlug": null,
+      "posterUrl": "https://a.ltrbxd.com/resized/film-poster/9/9/3/2/4/7/993247-fall-2-deadpoint-0-600-0-900-crop.jpg?v=5124d88f07",
+      "letterboxdSlug": "film/fall-2-deadpoint",
       "letterboxdAverage": null,
       "letterboxdRatingCount": null,
       "sourceNotes": [
-        "the-numbers-release-schedule"
+        "the-numbers-release-schedule",
+        "letterboxd-poster"
       ],
       "updatedAt": "2026-06-23"
     },
@@ -4047,11 +4516,13 @@
       "releaseDate": "2026-09-04",
       "domesticGross": null,
       "productionBudget": null,
-      "letterboxdSlug": null,
+      "posterUrl": "https://a.ltrbxd.com/resized/film-poster/3/9/3/1/7/5/393175-by-any-means-0-600-0-900-crop.jpg?v=7bda147213",
+      "letterboxdSlug": "film/by-any-means",
       "letterboxdAverage": null,
       "letterboxdRatingCount": null,
       "sourceNotes": [
-        "the-numbers-release-schedule"
+        "the-numbers-release-schedule",
+        "letterboxd-poster"
       ],
       "updatedAt": "2026-06-23"
     },
@@ -4061,11 +4532,13 @@
       "releaseDate": "2026-09-04",
       "domesticGross": null,
       "productionBudget": null,
-      "letterboxdSlug": null,
-      "letterboxdAverage": null,
-      "letterboxdRatingCount": null,
+      "posterUrl": "https://a.ltrbxd.com/resized/film-poster/4/3/8/0/7/43807-how-to-rob-a-bank-0-600-0-900-crop.jpg?v=7619a1f4a6",
+      "letterboxdSlug": "film/how-to-rob-a-bank",
+      "letterboxdAverage": 3.01,
+      "letterboxdRatingCount": 625,
       "sourceNotes": [
-        "the-numbers-release-schedule"
+        "the-numbers-release-schedule",
+        "letterboxd-poster"
       ],
       "updatedAt": "2026-06-23"
     },
@@ -4075,11 +4548,13 @@
       "releaseDate": "2026-09-04",
       "domesticGross": null,
       "productionBudget": null,
-      "letterboxdSlug": null,
+      "posterUrl": "https://a.ltrbxd.com/resized/film-poster/3/5/5/0/4/4/355044-onslaught-0-600-0-900-crop.jpg?v=8b7526d77f",
+      "letterboxdSlug": "film/onslaught",
       "letterboxdAverage": null,
       "letterboxdRatingCount": null,
       "sourceNotes": [
-        "the-numbers-release-schedule"
+        "the-numbers-release-schedule",
+        "letterboxd-poster"
       ],
       "updatedAt": "2026-06-23"
     },
@@ -4089,11 +4564,13 @@
       "releaseDate": "2026-09-11",
       "domesticGross": null,
       "productionBudget": null,
-      "letterboxdSlug": null,
+      "posterUrl": "https://a.ltrbxd.com/resized/film-poster/1/5/7/5/2/0/6/1575206-daniel-the-fiery-furnace-0-600-0-900-crop.jpg?v=24df664011",
+      "letterboxdSlug": "film/daniel-the-fiery-furnace",
       "letterboxdAverage": null,
       "letterboxdRatingCount": null,
       "sourceNotes": [
-        "the-numbers-release-schedule"
+        "the-numbers-release-schedule",
+        "letterboxd-poster"
       ],
       "updatedAt": "2026-06-23"
     },
@@ -4103,11 +4580,13 @@
       "releaseDate": "2026-09-11",
       "domesticGross": null,
       "productionBudget": null,
-      "letterboxdSlug": null,
+      "posterUrl": "https://a.ltrbxd.com/resized/film-poster/1/1/8/5/0/2/2/1185022-practical-magic-2-0-600-0-900-crop.jpg?v=dad03df930",
+      "letterboxdSlug": "film/practical-magic-2",
       "letterboxdAverage": null,
       "letterboxdRatingCount": null,
       "sourceNotes": [
-        "the-numbers-release-schedule"
+        "the-numbers-release-schedule",
+        "letterboxd-poster"
       ],
       "updatedAt": "2026-06-23"
     },
@@ -4117,11 +4596,13 @@
       "releaseDate": "2026-09-11",
       "domesticGross": null,
       "productionBudget": null,
-      "letterboxdSlug": null,
+      "posterUrl": "https://a.ltrbxd.com/resized/film-poster/2/5/4/8/1/5/254815-runner-0-600-0-900-crop.jpg?v=5eb728f0ae",
+      "letterboxdSlug": "film/runner",
       "letterboxdAverage": null,
       "letterboxdRatingCount": null,
       "sourceNotes": [
-        "the-numbers-release-schedule"
+        "the-numbers-release-schedule",
+        "letterboxd-poster"
       ],
       "updatedAt": "2026-06-23"
     },
@@ -4131,11 +4612,13 @@
       "releaseDate": "2026-09-11",
       "domesticGross": null,
       "productionBudget": null,
-      "letterboxdSlug": null,
+      "posterUrl": "https://a.ltrbxd.com/resized/film-poster/1/5/2/9/4/5/152945-the-fix-0-600-0-900-crop.jpg?v=ce6ea56d17",
+      "letterboxdSlug": "film/the-fix",
       "letterboxdAverage": null,
       "letterboxdRatingCount": null,
       "sourceNotes": [
-        "the-numbers-release-schedule"
+        "the-numbers-release-schedule",
+        "letterboxd-poster"
       ],
       "updatedAt": "2026-06-23"
     },
@@ -4145,11 +4628,13 @@
       "releaseDate": "2026-09-11",
       "domesticGross": null,
       "productionBudget": null,
-      "letterboxdSlug": null,
+      "posterUrl": "https://a.ltrbxd.com/resized/film-poster/3/6/6/3/9/36639-the-uprising-0-600-0-900-crop.jpg?v=baaf810b6e",
+      "letterboxdSlug": "film/the-uprising",
       "letterboxdAverage": null,
       "letterboxdRatingCount": null,
       "sourceNotes": [
-        "the-numbers-release-schedule"
+        "the-numbers-release-schedule",
+        "letterboxd-poster"
       ],
       "updatedAt": "2026-06-23"
     },
@@ -4159,6 +4644,7 @@
       "releaseDate": "2026-09-11",
       "domesticGross": null,
       "productionBudget": null,
+      "posterUrl": null,
       "letterboxdSlug": null,
       "letterboxdAverage": null,
       "letterboxdRatingCount": null,
@@ -4173,6 +4659,7 @@
       "releaseDate": "2026-09-18",
       "domesticGross": null,
       "productionBudget": null,
+      "posterUrl": null,
       "letterboxdSlug": null,
       "letterboxdAverage": null,
       "letterboxdRatingCount": null,
@@ -4187,11 +4674,13 @@
       "releaseDate": "2026-09-18",
       "domesticGross": null,
       "productionBudget": null,
-      "letterboxdSlug": null,
+      "posterUrl": "https://a.ltrbxd.com/resized/film-poster/1/3/5/3/9/6/8/1353968-shaun-the-sheep-the-beast-of-mossy-bottom-0-600-0-900-crop.jpg?v=aab6cd0ba2",
+      "letterboxdSlug": "film/shaun-the-sheep-the-beast-of-mossy-bottom",
       "letterboxdAverage": null,
       "letterboxdRatingCount": null,
       "sourceNotes": [
-        "the-numbers-release-schedule"
+        "the-numbers-release-schedule",
+        "letterboxd-poster"
       ],
       "updatedAt": "2026-06-23"
     },
@@ -4201,11 +4690,13 @@
       "releaseDate": "2026-09-18",
       "domesticGross": null,
       "productionBudget": null,
-      "letterboxdSlug": null,
+      "posterUrl": "https://a.ltrbxd.com/resized/film-poster/1/0/3/0/5/9/103059-the-weight-0-600-0-900-crop.jpg?v=246b88365e",
+      "letterboxdSlug": "film/the-weight",
       "letterboxdAverage": null,
       "letterboxdRatingCount": null,
       "sourceNotes": [
-        "the-numbers-release-schedule"
+        "the-numbers-release-schedule",
+        "letterboxd-poster"
       ],
       "updatedAt": "2026-06-23"
     },
@@ -4215,11 +4706,13 @@
       "releaseDate": "2026-09-25",
       "domesticGross": null,
       "productionBudget": null,
-      "letterboxdSlug": null,
-      "letterboxdAverage": null,
-      "letterboxdRatingCount": null,
+      "posterUrl": "https://a.ltrbxd.com/resized/film-poster/1/0/1/4/9/3/2/1014932-charlie-harper-0-600-0-900-crop.jpg?v=32ec2845f5",
+      "letterboxdSlug": "film/charlie-harper",
+      "letterboxdAverage": 3.37,
+      "letterboxdRatingCount": 222,
       "sourceNotes": [
-        "the-numbers-release-schedule"
+        "the-numbers-release-schedule",
+        "letterboxd-poster"
       ],
       "updatedAt": "2026-06-23"
     },
@@ -4229,6 +4722,7 @@
       "releaseDate": "2026-09-25",
       "domesticGross": null,
       "productionBudget": null,
+      "posterUrl": null,
       "letterboxdSlug": null,
       "letterboxdAverage": null,
       "letterboxdRatingCount": null,
@@ -4243,11 +4737,13 @@
       "releaseDate": "2026-09-25",
       "domesticGross": null,
       "productionBudget": null,
-      "letterboxdSlug": null,
+      "posterUrl": "https://a.ltrbxd.com/resized/film-poster/7/7/1/8/2/4/771824-heart-of-the-beast-0-600-0-900-crop.jpg?v=5760999d88",
+      "letterboxdSlug": "film/heart-of-the-beast",
       "letterboxdAverage": null,
       "letterboxdRatingCount": null,
       "sourceNotes": [
-        "the-numbers-release-schedule"
+        "the-numbers-release-schedule",
+        "letterboxd-poster"
       ],
       "updatedAt": "2026-06-23"
     },
@@ -4257,11 +4753,13 @@
       "releaseDate": "2026-09-25",
       "domesticGross": null,
       "productionBudget": null,
-      "letterboxdSlug": null,
-      "letterboxdAverage": null,
-      "letterboxdRatingCount": null,
+      "posterUrl": "https://a.ltrbxd.com/resized/film-poster/1/2/6/5/1/9/4/1265194-victorian-psycho-0-600-0-900-crop.jpg?v=092895bcaf",
+      "letterboxdSlug": "film/victorian-psycho",
+      "letterboxdAverage": 3.19,
+      "letterboxdRatingCount": 820,
       "sourceNotes": [
-        "the-numbers-release-schedule"
+        "the-numbers-release-schedule",
+        "letterboxd-poster"
       ],
       "updatedAt": "2026-06-23"
     },
@@ -4271,6 +4769,7 @@
       "releaseDate": "2026-09-25",
       "domesticGross": null,
       "productionBudget": null,
+      "posterUrl": null,
       "letterboxdSlug": null,
       "letterboxdAverage": null,
       "letterboxdRatingCount": null,
@@ -4285,11 +4784,13 @@
       "releaseDate": "2026-09-26",
       "domesticGross": null,
       "productionBudget": null,
-      "letterboxdSlug": null,
+      "posterUrl": "https://a.ltrbxd.com/resized/film-poster/1/0/8/9/6/8/2/1089682-primetime-0-600-0-900-crop.jpg?v=f389cff79f",
+      "letterboxdSlug": "film/primetime",
       "letterboxdAverage": null,
       "letterboxdRatingCount": null,
       "sourceNotes": [
-        "the-numbers-release-schedule"
+        "the-numbers-release-schedule",
+        "letterboxd-poster"
       ],
       "updatedAt": "2026-06-23"
     },
@@ -4299,11 +4800,13 @@
       "releaseDate": "2026-10-02",
       "domesticGross": null,
       "productionBudget": null,
-      "letterboxdSlug": null,
-      "letterboxdAverage": null,
-      "letterboxdRatingCount": null,
+      "posterUrl": "https://a.ltrbxd.com/resized/film-poster/6/0/5/1/7/8/605178-crawlers-0-600-0-900-crop.jpg?v=ba320214a4",
+      "letterboxdSlug": "film/crawlers",
+      "letterboxdAverage": 2.32,
+      "letterboxdRatingCount": 2860,
       "sourceNotes": [
-        "the-numbers-release-schedule"
+        "the-numbers-release-schedule",
+        "letterboxd-poster"
       ],
       "updatedAt": "2026-06-23"
     },
@@ -4313,12 +4816,14 @@
       "releaseDate": "2026-10-02",
       "domesticGross": null,
       "productionBudget": 125000000,
-      "letterboxdSlug": null,
+      "posterUrl": "https://a.ltrbxd.com/resized/film-poster/2/1/6/9/6/3/216963-digger-0-600-0-900-crop.jpg?v=95461df21e",
+      "letterboxdSlug": "film/digger",
       "letterboxdAverage": null,
       "letterboxdRatingCount": null,
       "sourceNotes": [
         "the-numbers-release-schedule",
-        "the-numbers-budget"
+        "the-numbers-budget",
+        "letterboxd-poster"
       ],
       "updatedAt": "2026-06-23"
     },
@@ -4328,11 +4833,13 @@
       "releaseDate": "2026-10-02",
       "domesticGross": null,
       "productionBudget": null,
-      "letterboxdSlug": null,
+      "posterUrl": "https://a.ltrbxd.com/resized/film-poster/1/2/3/0/9/4/8/1230948-rolling-loud-the-movie-0-600-0-900-crop.jpg?v=f943cce614",
+      "letterboxdSlug": "film/rolling-loud",
       "letterboxdAverage": null,
       "letterboxdRatingCount": null,
       "sourceNotes": [
-        "the-numbers-release-schedule"
+        "the-numbers-release-schedule",
+        "letterboxd-poster"
       ],
       "updatedAt": "2026-06-23"
     },
@@ -4342,12 +4849,14 @@
       "releaseDate": "2026-10-02",
       "domesticGross": null,
       "productionBudget": 40000000,
-      "letterboxdSlug": null,
+      "posterUrl": "https://a.ltrbxd.com/resized/film-poster/6/6/9/6/1/6/669616-verity-0-600-0-900-crop.jpg?v=00ea8f96ce",
+      "letterboxdSlug": "film/verity",
       "letterboxdAverage": null,
       "letterboxdRatingCount": null,
       "sourceNotes": [
         "the-numbers-release-schedule",
-        "the-numbers-budget"
+        "the-numbers-budget",
+        "letterboxd-poster"
       ],
       "updatedAt": "2026-06-23"
     },
@@ -4357,11 +4866,13 @@
       "releaseDate": "2026-10-09",
       "domesticGross": null,
       "productionBudget": null,
-      "letterboxdSlug": null,
-      "letterboxdAverage": null,
-      "letterboxdRatingCount": null,
+      "posterUrl": "https://a.ltrbxd.com/resized/film-poster/3/7/9/4/1/37941-angel-and-the-badman-0-600-0-900-crop.jpg?v=2953152165",
+      "letterboxdSlug": "film/angel-and-the-badman",
+      "letterboxdAverage": 3.29,
+      "letterboxdRatingCount": 2870,
       "sourceNotes": [
-        "the-numbers-release-schedule"
+        "the-numbers-release-schedule",
+        "letterboxd-poster"
       ],
       "updatedAt": "2026-06-23"
     },
@@ -4371,11 +4882,13 @@
       "releaseDate": "2026-10-09",
       "domesticGross": null,
       "productionBudget": null,
-      "letterboxdSlug": null,
+      "posterUrl": "https://a.ltrbxd.com/resized/film-poster/1/2/8/4/4/8/0/1284480-other-mommy-0-600-0-900-crop.jpg?v=8e6d797714",
+      "letterboxdSlug": "film/other-mommy",
       "letterboxdAverage": null,
       "letterboxdRatingCount": null,
       "sourceNotes": [
-        "the-numbers-release-schedule"
+        "the-numbers-release-schedule",
+        "letterboxd-poster"
       ],
       "updatedAt": "2026-06-23"
     },
@@ -4385,11 +4898,13 @@
       "releaseDate": "2026-10-09",
       "domesticGross": null,
       "productionBudget": null,
-      "letterboxdSlug": null,
+      "posterUrl": "https://a.ltrbxd.com/resized/film-poster/1/5/8/2/3/4/1/1582341-she-saw-us-0-600-0-900-crop.jpg?v=9e0790bd66",
+      "letterboxdSlug": "film/she-saw-us",
       "letterboxdAverage": null,
       "letterboxdRatingCount": null,
       "sourceNotes": [
-        "the-numbers-release-schedule"
+        "the-numbers-release-schedule",
+        "letterboxd-poster"
       ],
       "updatedAt": "2026-06-23"
     },
@@ -4399,11 +4914,13 @@
       "releaseDate": "2026-10-09",
       "domesticGross": null,
       "productionBudget": null,
-      "letterboxdSlug": null,
+      "posterUrl": "https://a.ltrbxd.com/resized/film-poster/1/1/6/4/6/6/9/1164669-the-social-reckoning-0-600-0-900-crop.jpg?v=2f1446aede",
+      "letterboxdSlug": "film/the-social-reckoning",
       "letterboxdAverage": null,
       "letterboxdRatingCount": null,
       "sourceNotes": [
-        "the-numbers-release-schedule"
+        "the-numbers-release-schedule",
+        "letterboxd-poster"
       ],
       "updatedAt": "2026-06-23"
     },
@@ -4413,11 +4930,13 @@
       "releaseDate": "2026-10-16",
       "domesticGross": null,
       "productionBudget": null,
-      "letterboxdSlug": null,
+      "posterUrl": "https://a.ltrbxd.com/resized/film-poster/1/3/8/7/4/1/9/1387419-flywheel-ignition-of-the-soul-0-600-0-900-crop.jpg?v=18ad5c4a10",
+      "letterboxdSlug": "film/flywheel-ignition-of-the-soul",
       "letterboxdAverage": null,
       "letterboxdRatingCount": null,
       "sourceNotes": [
-        "the-numbers-release-schedule"
+        "the-numbers-release-schedule",
+        "letterboxd-poster"
       ],
       "updatedAt": "2026-06-23"
     },
@@ -4427,11 +4946,13 @@
       "releaseDate": "2026-10-16",
       "domesticGross": null,
       "productionBudget": null,
-      "letterboxdSlug": null,
-      "letterboxdAverage": null,
-      "letterboxdRatingCount": null,
+      "posterUrl": "https://a.ltrbxd.com/resized/film-poster/1/1/5/5/6/4/1/1155641-poetic-license-0-600-0-900-crop.jpg?v=93c4327756",
+      "letterboxdSlug": "film/poetic-license",
+      "letterboxdAverage": 3.74,
+      "letterboxdRatingCount": 1534,
       "sourceNotes": [
-        "the-numbers-release-schedule"
+        "the-numbers-release-schedule",
+        "letterboxd-poster"
       ],
       "updatedAt": "2026-06-23"
     },
@@ -4441,11 +4962,13 @@
       "releaseDate": "2026-10-16",
       "domesticGross": null,
       "productionBudget": null,
-      "letterboxdSlug": null,
-      "letterboxdAverage": null,
-      "letterboxdRatingCount": null,
+      "posterUrl": "https://a.ltrbxd.com/resized/film-poster/4/9/2/3/2/49232-sense-and-sensibility-0-600-0-900-crop.jpg?v=15cebc0b43",
+      "letterboxdSlug": "film/sense-and-sensibility",
+      "letterboxdAverage": 3.86,
+      "letterboxdRatingCount": 225293,
       "sourceNotes": [
-        "the-numbers-release-schedule"
+        "the-numbers-release-schedule",
+        "letterboxd-poster"
       ],
       "updatedAt": "2026-06-23"
     },
@@ -4455,11 +4978,13 @@
       "releaseDate": "2026-10-16",
       "domesticGross": null,
       "productionBudget": null,
-      "letterboxdSlug": null,
-      "letterboxdAverage": null,
-      "letterboxdRatingCount": null,
+      "posterUrl": "https://a.ltrbxd.com/resized/film-poster/4/5/0/8/6/45086-street-fighter-0-600-0-900-crop.jpg?v=18703ee1ca",
+      "letterboxdSlug": "film/street-fighter",
+      "letterboxdAverage": 2.18,
+      "letterboxdRatingCount": 58022,
       "sourceNotes": [
-        "the-numbers-release-schedule"
+        "the-numbers-release-schedule",
+        "letterboxd-poster"
       ],
       "updatedAt": "2026-06-23"
     },
@@ -4469,11 +4994,13 @@
       "releaseDate": "2026-10-16",
       "domesticGross": null,
       "productionBudget": null,
-      "letterboxdSlug": null,
+      "posterUrl": "https://a.ltrbxd.com/resized/film-poster/1/1/3/9/8/3/4/1139834-whalefall-0-600-0-900-crop.jpg?v=dd7b1ebc45",
+      "letterboxdSlug": "film/whalefall",
       "letterboxdAverage": null,
       "letterboxdRatingCount": null,
       "sourceNotes": [
-        "the-numbers-release-schedule"
+        "the-numbers-release-schedule",
+        "letterboxd-poster"
       ],
       "updatedAt": "2026-06-23"
     },
@@ -4483,12 +5010,14 @@
       "releaseDate": "2026-10-23",
       "domesticGross": null,
       "productionBudget": 40000000,
-      "letterboxdSlug": null,
+      "posterUrl": "https://a.ltrbxd.com/resized/film-poster/1/2/8/4/6/3/6/1284636-clayface-0-600-0-900-crop.jpg?v=eb305849d5",
+      "letterboxdSlug": "film/clayface",
       "letterboxdAverage": null,
       "letterboxdRatingCount": null,
       "sourceNotes": [
         "the-numbers-release-schedule",
-        "the-numbers-budget"
+        "the-numbers-budget",
+        "letterboxd-poster"
       ],
       "updatedAt": "2026-06-23"
     },
@@ -4498,11 +5027,13 @@
       "releaseDate": "2026-10-23",
       "domesticGross": null,
       "productionBudget": null,
-      "letterboxdSlug": null,
+      "posterUrl": "https://a.ltrbxd.com/resized/film-poster/7/7/2/2/4/2/772242-klara-and-the-sun-0-600-0-900-crop.jpg?v=71963f1a96",
+      "letterboxdSlug": "film/klara-and-the-sun",
       "letterboxdAverage": null,
       "letterboxdRatingCount": null,
       "sourceNotes": [
-        "the-numbers-release-schedule"
+        "the-numbers-release-schedule",
+        "letterboxd-poster"
       ],
       "updatedAt": "2026-06-23"
     },
@@ -4512,6 +5043,7 @@
       "releaseDate": "2026-10-23",
       "domesticGross": null,
       "productionBudget": null,
+      "posterUrl": null,
       "letterboxdSlug": null,
       "letterboxdAverage": null,
       "letterboxdRatingCount": null,
@@ -4526,6 +5058,7 @@
       "releaseDate": "2026-10-23",
       "domesticGross": null,
       "productionBudget": null,
+      "posterUrl": null,
       "letterboxdSlug": null,
       "letterboxdAverage": null,
       "letterboxdRatingCount": null,
@@ -4540,11 +5073,13 @@
       "releaseDate": "2026-10-23",
       "domesticGross": null,
       "productionBudget": null,
-      "letterboxdSlug": null,
+      "posterUrl": "https://a.ltrbxd.com/resized/film-poster/1/1/7/2/7/4/5/1172745-wife-dog-0-600-0-900-crop.jpg?v=c1202e201d",
+      "letterboxdSlug": "film/wife-and-dog",
       "letterboxdAverage": null,
       "letterboxdRatingCount": null,
       "sourceNotes": [
-        "the-numbers-release-schedule"
+        "the-numbers-release-schedule",
+        "letterboxd-poster"
       ],
       "updatedAt": "2026-06-23"
     },
@@ -4554,6 +5089,7 @@
       "releaseDate": "2026-10-23",
       "domesticGross": null,
       "productionBudget": null,
+      "posterUrl": null,
       "letterboxdSlug": null,
       "letterboxdAverage": null,
       "letterboxdRatingCount": null,
@@ -4568,11 +5104,13 @@
       "releaseDate": "2026-10-30",
       "domesticGross": null,
       "productionBudget": null,
-      "letterboxdSlug": null,
+      "posterUrl": "https://a.ltrbxd.com/resized/film-poster/8/4/4/2/1/8/844218-christmas-at-the-kringles-0-600-0-900-crop.jpg?v=34a957af1b",
+      "letterboxdSlug": "film/christmas-at-the-kringles",
       "letterboxdAverage": null,
       "letterboxdRatingCount": null,
       "sourceNotes": [
-        "the-numbers-release-schedule"
+        "the-numbers-release-schedule",
+        "letterboxd-poster"
       ],
       "updatedAt": "2026-06-23"
     },
@@ -4582,11 +5120,13 @@
       "releaseDate": "2026-10-30",
       "domesticGross": null,
       "productionBudget": null,
-      "letterboxdSlug": null,
-      "letterboxdAverage": null,
-      "letterboxdRatingCount": null,
+      "posterUrl": "https://a.ltrbxd.com/resized/film-poster/1/0/8/0/8/9/2/1080892-wicker-0-600-0-900-crop.jpg?v=bc5c33beef",
+      "letterboxdSlug": "film/wicker",
+      "letterboxdAverage": 3.79,
+      "letterboxdRatingCount": 841,
       "sourceNotes": [
-        "the-numbers-release-schedule"
+        "the-numbers-release-schedule",
+        "letterboxd-poster"
       ],
       "updatedAt": "2026-06-23"
     },
@@ -4596,11 +5136,13 @@
       "releaseDate": "2026-11-06",
       "domesticGross": null,
       "productionBudget": null,
-      "letterboxdSlug": null,
-      "letterboxdAverage": null,
-      "letterboxdRatingCount": null,
+      "posterUrl": "https://a.ltrbxd.com/resized/film-poster/1/0/1/4/6/9/1/1014691-archangel-0-600-0-900-crop.jpg?v=564c082d3a",
+      "letterboxdSlug": "film/archangel",
+      "letterboxdAverage": 3.1,
+      "letterboxdRatingCount": 1626,
       "sourceNotes": [
-        "the-numbers-release-schedule"
+        "the-numbers-release-schedule",
+        "letterboxd-poster"
       ],
       "updatedAt": "2026-06-23"
     },
@@ -4610,6 +5152,7 @@
       "releaseDate": "2026-11-06",
       "domesticGross": null,
       "productionBudget": null,
+      "posterUrl": null,
       "letterboxdSlug": null,
       "letterboxdAverage": null,
       "letterboxdRatingCount": null,
@@ -4624,11 +5167,13 @@
       "releaseDate": "2026-11-06",
       "domesticGross": null,
       "productionBudget": null,
-      "letterboxdSlug": null,
+      "posterUrl": "https://a.ltrbxd.com/resized/film-poster/1/5/5/9/7/0/7/1559707-drummer-boy-0-600-0-900-crop.jpg?v=673d5c03ad",
+      "letterboxdSlug": "film/drummer-boy",
       "letterboxdAverage": null,
       "letterboxdRatingCount": null,
       "sourceNotes": [
-        "the-numbers-release-schedule"
+        "the-numbers-release-schedule",
+        "letterboxd-poster"
       ],
       "updatedAt": "2026-06-23"
     },
@@ -4638,11 +5183,13 @@
       "releaseDate": "2026-11-06",
       "domesticGross": null,
       "productionBudget": null,
-      "letterboxdSlug": null,
+      "posterUrl": "https://a.ltrbxd.com/resized/film-poster/1/2/6/6/6/8/4/1266684-godzilla-minus-zero-0-600-0-900-crop.jpg?v=2b725569bd",
+      "letterboxdSlug": "film/godzilla-minus-zero",
       "letterboxdAverage": null,
       "letterboxdRatingCount": null,
       "sourceNotes": [
-        "the-numbers-release-schedule"
+        "the-numbers-release-schedule",
+        "letterboxd-poster"
       ],
       "updatedAt": "2026-06-23"
     },
@@ -4652,11 +5199,13 @@
       "releaseDate": "2026-11-06",
       "domesticGross": null,
       "productionBudget": null,
-      "letterboxdSlug": null,
+      "posterUrl": "https://a.ltrbxd.com/resized/film-poster/1/5/9/2/1/7/159217-jimmy-0-600-0-900-crop.jpg?v=7fe228496c",
+      "letterboxdSlug": "film/jimmy",
       "letterboxdAverage": null,
       "letterboxdRatingCount": null,
       "sourceNotes": [
-        "the-numbers-release-schedule"
+        "the-numbers-release-schedule",
+        "letterboxd-poster"
       ],
       "updatedAt": "2026-06-23"
     },
@@ -4666,6 +5215,7 @@
       "releaseDate": "2026-11-06",
       "domesticGross": null,
       "productionBudget": null,
+      "posterUrl": null,
       "letterboxdSlug": null,
       "letterboxdAverage": null,
       "letterboxdRatingCount": null,
@@ -4680,6 +5230,7 @@
       "releaseDate": "2026-11-13",
       "domesticGross": null,
       "productionBudget": null,
+      "posterUrl": null,
       "letterboxdSlug": null,
       "letterboxdAverage": null,
       "letterboxdRatingCount": null,
@@ -4694,11 +5245,13 @@
       "releaseDate": "2026-11-13",
       "domesticGross": null,
       "productionBudget": null,
-      "letterboxdSlug": null,
+      "posterUrl": "https://a.ltrbxd.com/resized/film-poster/1/1/7/0/9/8/3/1170983-the-great-beyond-0-600-0-900-crop.jpg?v=8adcc2b1be",
+      "letterboxdSlug": "film/the-great-beyond",
       "letterboxdAverage": null,
       "letterboxdRatingCount": null,
       "sourceNotes": [
-        "the-numbers-release-schedule"
+        "the-numbers-release-schedule",
+        "letterboxd-poster"
       ],
       "updatedAt": "2026-06-23"
     },
@@ -4708,12 +5261,14 @@
       "releaseDate": "2026-11-20",
       "domesticGross": null,
       "productionBudget": 185000000,
-      "letterboxdSlug": null,
+      "posterUrl": "https://a.ltrbxd.com/resized/film-poster/1/1/8/2/6/9/2/1182692-the-hunger-games-sunrise-on-the-reaping-0-600-0-900-crop.jpg?v=959770a171",
+      "letterboxdSlug": "film/the-hunger-games-sunrise-on-the-reaping",
       "letterboxdAverage": null,
       "letterboxdRatingCount": null,
       "sourceNotes": [
         "the-numbers-release-schedule",
-        "the-numbers-budget"
+        "the-numbers-budget",
+        "letterboxd-poster"
       ],
       "updatedAt": "2026-06-23"
     },
@@ -4723,11 +5278,13 @@
       "releaseDate": "2026-11-25",
       "domesticGross": null,
       "productionBudget": null,
-      "letterboxdSlug": null,
+      "posterUrl": "https://a.ltrbxd.com/resized/film-poster/1/2/8/3/6/9/1/1283691-focker-in-law-0-600-0-900-crop.jpg?v=9a1071f5ce",
+      "letterboxdSlug": "film/focker-in-law",
       "letterboxdAverage": null,
       "letterboxdRatingCount": null,
       "sourceNotes": [
-        "the-numbers-release-schedule"
+        "the-numbers-release-schedule",
+        "letterboxd-poster"
       ],
       "updatedAt": "2026-06-23"
     },
@@ -4737,11 +5294,13 @@
       "releaseDate": "2026-11-25",
       "domesticGross": null,
       "productionBudget": null,
-      "letterboxdSlug": null,
-      "letterboxdAverage": null,
-      "letterboxdRatingCount": null,
+      "posterUrl": "https://a.ltrbxd.com/resized/film-poster/6/2/1/4/1/62141-hexed-0-600-0-900-crop.jpg?v=8e72ada681",
+      "letterboxdSlug": "film/hexed",
+      "letterboxdAverage": 3.05,
+      "letterboxdRatingCount": 621,
       "sourceNotes": [
-        "the-numbers-release-schedule"
+        "the-numbers-release-schedule",
+        "letterboxd-poster"
       ],
       "updatedAt": "2026-06-23"
     },
@@ -4751,11 +5310,13 @@
       "releaseDate": "2026-11-26",
       "domesticGross": null,
       "productionBudget": null,
-      "letterboxdSlug": null,
+      "posterUrl": "https://a.ltrbxd.com/resized/film-poster/1/3/3/8/4/5/6/1338456-hershey-0-600-0-900-crop.jpg?v=7647b8f97c",
+      "letterboxdSlug": "film/hershey",
       "letterboxdAverage": null,
       "letterboxdRatingCount": null,
       "sourceNotes": [
-        "the-numbers-release-schedule"
+        "the-numbers-release-schedule",
+        "letterboxd-poster"
       ],
       "updatedAt": "2026-06-23"
     },
@@ -4765,11 +5326,13 @@
       "releaseDate": "2026-12-04",
       "domesticGross": null,
       "productionBudget": null,
-      "letterboxdSlug": null,
+      "posterUrl": "https://a.ltrbxd.com/resized/film-poster/9/7/2/1/8/7/972187-violent-night-2-0-600-0-900-crop.jpg?v=aaec092986",
+      "letterboxdSlug": "film/violent-night-2",
       "letterboxdAverage": null,
       "letterboxdRatingCount": null,
       "sourceNotes": [
-        "the-numbers-release-schedule"
+        "the-numbers-release-schedule",
+        "letterboxd-poster"
       ],
       "updatedAt": "2026-06-23"
     },
@@ -4779,11 +5342,13 @@
       "releaseDate": "2026-12-18",
       "domesticGross": null,
       "productionBudget": null,
-      "letterboxdSlug": null,
+      "posterUrl": "https://a.ltrbxd.com/resized/film-poster/9/0/3/8/8/9/903889-avengers-doomsday-0-600-0-900-crop.jpg?v=c9f05fc5bb",
+      "letterboxdSlug": "film/avengers-doomsday",
       "letterboxdAverage": null,
       "letterboxdRatingCount": null,
       "sourceNotes": [
-        "the-numbers-release-schedule"
+        "the-numbers-release-schedule",
+        "letterboxd-poster"
       ],
       "updatedAt": "2026-06-23"
     },
@@ -4793,11 +5358,13 @@
       "releaseDate": "2026-12-18",
       "domesticGross": null,
       "productionBudget": null,
-      "letterboxdSlug": null,
+      "posterUrl": "https://a.ltrbxd.com/resized/film-poster/1/0/5/7/4/6/1/1057461-dune-part-three-0-600-0-900-crop.jpg?v=40891fb149",
+      "letterboxdSlug": "film/dune-part-three",
       "letterboxdAverage": null,
       "letterboxdRatingCount": null,
       "sourceNotes": [
-        "the-numbers-release-schedule"
+        "the-numbers-release-schedule",
+        "letterboxd-poster"
       ],
       "updatedAt": "2026-06-23"
     },
@@ -4807,11 +5374,13 @@
       "releaseDate": "2026-12-23",
       "domesticGross": null,
       "productionBudget": null,
-      "letterboxdSlug": null,
+      "posterUrl": "https://a.ltrbxd.com/resized/film-poster/1/1/8/2/7/1/6/1182716-the-angry-birds-movie-3-0-600-0-900-crop.jpg?v=33b5ebc9e4",
+      "letterboxdSlug": "film/the-angry-birds-movie-3",
       "letterboxdAverage": null,
       "letterboxdRatingCount": null,
       "sourceNotes": [
-        "the-numbers-release-schedule"
+        "the-numbers-release-schedule",
+        "letterboxd-poster"
       ],
       "updatedAt": "2026-06-23"
     },
@@ -4821,11 +5390,13 @@
       "releaseDate": "2026-12-25",
       "domesticGross": null,
       "productionBudget": null,
-      "letterboxdSlug": null,
+      "posterUrl": "https://a.ltrbxd.com/resized/film-poster/3/2/6/8/8/1/326881-a-place-in-hell-0-600-0-900-crop.jpg?v=811ec7b3e9",
+      "letterboxdSlug": "film/a-place-in-hell",
       "letterboxdAverage": null,
       "letterboxdRatingCount": null,
       "sourceNotes": [
-        "the-numbers-release-schedule"
+        "the-numbers-release-schedule",
+        "letterboxd-poster"
       ],
       "updatedAt": "2026-06-23"
     },
@@ -4835,11 +5406,13 @@
       "releaseDate": "2026-12-25",
       "domesticGross": null,
       "productionBudget": null,
-      "letterboxdSlug": null,
+      "posterUrl": "https://a.ltrbxd.com/resized/film-poster/1/1/4/5/2/0/5/1145205-jumanji-open-world-0-600-0-900-crop.jpg?v=233360a021",
+      "letterboxdSlug": "film/jumanji-open-world",
       "letterboxdAverage": null,
       "letterboxdRatingCount": null,
       "sourceNotes": [
-        "the-numbers-release-schedule"
+        "the-numbers-release-schedule",
+        "letterboxd-poster"
       ],
       "updatedAt": "2026-06-23"
     },
@@ -4849,6 +5422,7 @@
       "releaseDate": "2026-12-25",
       "domesticGross": null,
       "productionBudget": null,
+      "posterUrl": null,
       "letterboxdSlug": null,
       "letterboxdAverage": null,
       "letterboxdRatingCount": null,
@@ -4863,6 +5437,7 @@
       "releaseDate": "2026-12-25",
       "domesticGross": null,
       "productionBudget": null,
+      "posterUrl": null,
       "letterboxdSlug": null,
       "letterboxdAverage": null,
       "letterboxdRatingCount": null,
@@ -4877,11 +5452,13 @@
       "releaseDate": "2026-12-31",
       "domesticGross": null,
       "productionBudget": null,
-      "letterboxdSlug": null,
-      "letterboxdAverage": null,
-      "letterboxdRatingCount": null,
+      "posterUrl": "https://a.ltrbxd.com/resized/film-poster/9/8/1/4/3/7/981437-bitter-christmas-0-600-0-900-crop.jpg?v=e53e0d2801",
+      "letterboxdSlug": "film/bitter-christmas",
+      "letterboxdAverage": 3.15,
+      "letterboxdRatingCount": 39936,
       "sourceNotes": [
-        "the-numbers-release-schedule"
+        "the-numbers-release-schedule",
+        "letterboxd-poster"
       ],
       "updatedAt": "2026-06-23"
     },
@@ -4891,11 +5468,13 @@
       "releaseDate": "2026-12-31",
       "domesticGross": null,
       "productionBudget": null,
-      "letterboxdSlug": null,
+      "posterUrl": "https://a.ltrbxd.com/resized/film-poster/1/2/9/0/8/6/5/1290865-fablehaven-0-600-0-900-crop.jpg?v=c6d53b85d3",
+      "letterboxdSlug": "film/fablehaven",
       "letterboxdAverage": null,
       "letterboxdRatingCount": null,
       "sourceNotes": [
-        "the-numbers-release-schedule"
+        "the-numbers-release-schedule",
+        "letterboxd-poster"
       ],
       "updatedAt": "2026-06-23"
     },
@@ -4905,11 +5484,13 @@
       "releaseDate": "2026-12-31",
       "domesticGross": null,
       "productionBudget": null,
-      "letterboxdSlug": null,
+      "posterUrl": "https://a.ltrbxd.com/resized/film-poster/9/8/8/9/2/7/988927-maserati-the-brothers-0-600-0-900-crop.jpg?v=5d83b8968a",
+      "letterboxdSlug": "film/maserati-the-brothers",
       "letterboxdAverage": null,
       "letterboxdRatingCount": null,
       "sourceNotes": [
-        "the-numbers-release-schedule"
+        "the-numbers-release-schedule",
+        "letterboxd-poster"
       ],
       "updatedAt": "2026-06-23"
     },
@@ -4919,11 +5500,13 @@
       "releaseDate": "2026-12-31",
       "domesticGross": null,
       "productionBudget": null,
-      "letterboxdSlug": null,
+      "posterUrl": "https://a.ltrbxd.com/resized/film-poster/1/1/7/1/1/8/2/1171182-november-1963-0-600-0-900-crop.jpg?v=1bed6adac3",
+      "letterboxdSlug": "film/november-1963",
       "letterboxdAverage": null,
       "letterboxdRatingCount": null,
       "sourceNotes": [
-        "the-numbers-release-schedule"
+        "the-numbers-release-schedule",
+        "letterboxd-poster"
       ],
       "updatedAt": "2026-06-23"
     },
@@ -4933,6 +5516,7 @@
       "releaseDate": "2026-12-31",
       "domesticGross": null,
       "productionBudget": null,
+      "posterUrl": null,
       "letterboxdSlug": null,
       "letterboxdAverage": null,
       "letterboxdRatingCount": null,
@@ -4947,6 +5531,7 @@
       "releaseDate": "2026-12-31",
       "domesticGross": null,
       "productionBudget": null,
+      "posterUrl": null,
       "letterboxdSlug": null,
       "letterboxdAverage": null,
       "letterboxdRatingCount": null,
@@ -4961,11 +5546,13 @@
       "releaseDate": "2026-12-31",
       "domesticGross": null,
       "productionBudget": null,
-      "letterboxdSlug": null,
+      "posterUrl": "https://a.ltrbxd.com/resized/film-poster/1/0/9/5/8/7/3/1095873-thanksgiving-2-1-0-600-0-900-crop.jpg?v=1daf2673d7",
+      "letterboxdSlug": "film/thanksgiving-2-1",
       "letterboxdAverage": null,
       "letterboxdRatingCount": null,
       "sourceNotes": [
-        "the-numbers-release-schedule"
+        "the-numbers-release-schedule",
+        "letterboxd-poster"
       ],
       "updatedAt": "2026-06-23"
     },
@@ -4975,11 +5562,13 @@
       "releaseDate": "2026-12-31",
       "domesticGross": null,
       "productionBudget": null,
-      "letterboxdSlug": null,
-      "letterboxdAverage": null,
-      "letterboxdRatingCount": null,
+      "posterUrl": "https://a.ltrbxd.com/resized/film-poster/2/1/0/3/4/21034-the-beast-0-600-0-900-crop.jpg?v=8b51a123bb",
+      "letterboxdSlug": "film/the-beast",
+      "letterboxdAverage": 3.04,
+      "letterboxdRatingCount": 10575,
       "sourceNotes": [
-        "the-numbers-release-schedule"
+        "the-numbers-release-schedule",
+        "letterboxd-poster"
       ],
       "updatedAt": "2026-06-23"
     },
@@ -4989,11 +5578,13 @@
       "releaseDate": "2026-12-31",
       "domesticGross": null,
       "productionBudget": null,
-      "letterboxdSlug": null,
+      "posterUrl": "https://a.ltrbxd.com/resized/film-poster/6/6/2/5/0/3/662503-true-haunting-0-600-0-900-crop.jpg?v=8f5dce6d15",
+      "letterboxdSlug": "film/the-haunting-in-wicker-park",
       "letterboxdAverage": null,
       "letterboxdRatingCount": null,
       "sourceNotes": [
-        "the-numbers-release-schedule"
+        "the-numbers-release-schedule",
+        "letterboxd-poster"
       ],
       "updatedAt": "2026-06-23"
     },
@@ -5003,11 +5594,13 @@
       "releaseDate": "2026-12-31",
       "domesticGross": null,
       "productionBudget": null,
-      "letterboxdSlug": null,
+      "posterUrl": "https://a.ltrbxd.com/resized/film-poster/1/6/5/0/5/7/165057-the-sun-never-sets-0-600-0-900-crop.jpg?v=53897362be",
+      "letterboxdSlug": "film/the-sun-never-sets",
       "letterboxdAverage": null,
       "letterboxdRatingCount": null,
       "sourceNotes": [
-        "the-numbers-release-schedule"
+        "the-numbers-release-schedule",
+        "letterboxd-poster"
       ],
       "updatedAt": "2026-06-23"
     },
@@ -5017,6 +5610,7 @@
       "releaseDate": "2026-12-31",
       "domesticGross": null,
       "productionBudget": null,
+      "posterUrl": null,
       "letterboxdSlug": null,
       "letterboxdAverage": null,
       "letterboxdRatingCount": null,

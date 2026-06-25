@@ -6,6 +6,7 @@ export type TrackedMovie = {
   releaseDate: string;
   domesticGross: number | null;
   productionBudget: number | null;
+  posterUrl: string | null;
   letterboxdSlug: string | null;
   letterboxdAverage: number | null;
   letterboxdRatingCount: number | null;
@@ -93,6 +94,7 @@ function parseTrackedMovie(value: unknown): TrackedMovie {
     letterboxdAverage: nullableNumber(value.letterboxdAverage, "letterboxdAverage"),
     letterboxdRatingCount: nullableNumber(value.letterboxdRatingCount, "letterboxdRatingCount"),
     letterboxdSlug: nullableString(value.letterboxdSlug, "letterboxdSlug"),
+    posterUrl: nullableString(value.posterUrl, "posterUrl"),
     productionBudget: nullableNumber(value.productionBudget, "productionBudget"),
     releaseDate,
     sourceNotes,

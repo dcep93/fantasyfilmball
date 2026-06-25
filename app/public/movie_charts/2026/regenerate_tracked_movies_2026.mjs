@@ -282,6 +282,7 @@ async function fetchLetterboxd(movie) {
         letterboxdRatingCount:
           typeof rating?.ratingCount === "number" ? Math.trunc(rating.ratingCount) : null,
         letterboxdSlug: slug,
+        posterUrl: typeof data.image === "string" ? data.image : null,
       };
     } catch {
       // Try the next plausible slug.
@@ -291,6 +292,7 @@ async function fetchLetterboxd(movie) {
     letterboxdAverage: null,
     letterboxdRatingCount: null,
     letterboxdSlug: null,
+    posterUrl: null,
   };
 }
 
@@ -304,10 +306,7 @@ async function main() {
 
   for (const [index, movie] of movies.entries()) {
     const productionBudget = await fetchBudget(movie.href);
-    const letterboxd =
-      movie.releaseDate <= TODAY || movie.domesticGross
-        ? await fetchLetterboxd(movie)
-        : { letterboxdAverage: null, letterboxdRatingCount: null, letterboxdSlug: null };
+    const letterboxd = await fetchLetterboxd(movie);
 
     if (letterboxd.letterboxdSlug) {
       movie.sourceNotes.push("letterboxd");
@@ -322,6 +321,7 @@ async function main() {
       releaseDate: movie.releaseDate,
       domesticGross: movie.domesticGross,
       productionBudget,
+      posterUrl: letterboxd.posterUrl,
       letterboxdSlug: letterboxd.letterboxdSlug,
       letterboxdAverage: letterboxd.letterboxdAverage,
       letterboxdRatingCount: letterboxd.letterboxdRatingCount,

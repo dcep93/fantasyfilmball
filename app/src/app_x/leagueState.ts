@@ -18,8 +18,14 @@ export type MovieStateStatus =
 
 export type DerivedMovieState = {
   auctionDeadline: number;
+  domesticGross: number | null;
+  letterboxdAverage: number | null;
+  letterboxdRatingCount: number | null;
+  letterboxdSlug: string | null;
   locked: boolean;
   ownerUid: string | null;
+  posterUrl: string | null;
+  productionBudget: number | null;
   releaseDate: string;
   status: MovieStateStatus;
   title: string;
@@ -113,8 +119,14 @@ export function deriveLeagueSnapshot({
     movie.id,
     {
       auctionDeadline: initialAuctionDeadline(movie.releaseDate),
+      domesticGross: movie.domesticGross,
+      letterboxdAverage: movie.letterboxdAverage,
+      letterboxdRatingCount: movie.letterboxdRatingCount,
+      letterboxdSlug: movie.letterboxdSlug,
       locked: false,
       ownerUid: null,
+      posterUrl: movie.posterUrl,
+      productionBudget: movie.productionBudget,
       releaseDate: movie.releaseDate,
       status: "future" as MovieStateStatus,
       title: movie.title,
@@ -125,12 +137,32 @@ export function deriveLeagueSnapshot({
   const auctions: Record<string, DerivedAuctionState> = {};
   const invalidTransactions: InvalidTransaction[] = [];
   const bids: BidRuntime[] = [];
+  const draftCompletedAt = draftCompletedAtForLeague(league);
+  const maxDraftPickCount = Object.keys(activeMembers).length * league.config.draftRounds;
   let draftPickIndex = 0;
+
+  applyDraftCompletionWaivers(movies, draftCompletedAt);
 
   for (const transaction of sortTransactions(transactions)) {
     const player = players[transaction.playerUid];
     if (!player) {
       invalidTransactions.push(invalid(transaction, "player is not active in this league"));
+      continue;
+    }
+
+    if (isCompletedDraftPickup(transaction, league, draftCompletedAt, draftPickIndex, maxDraftPickCount)) {
+      if (
+        applyDraftPickup(
+          transaction as LeagueTransaction & { filmId: string; kind: "pickup" },
+          player,
+          league.config.maxTheaterSize,
+          movies,
+          transaction.createdAt,
+          invalidTransactions,
+        )
+      ) {
+        draftPickIndex += 1;
+      }
       continue;
     }
 
@@ -158,13 +190,20 @@ export function deriveLeagueSnapshot({
           player,
           league.config.maxTheaterSize,
           movies,
-          now,
+          transaction.createdAt,
           invalidTransactions,
         )
       ) {
         draftPickIndex += 1;
       }
       continue;
+    }
+
+    if (transaction.kind === "pickup" || transaction.kind === "drop") {
+      if (transaction.fee !== 1) {
+        invalidTransactions.push(invalid(transaction, "operation fee must be 1 stub"));
+        continue;
+      }
     }
 
     if (!charge(player, transaction.fee, league.config.startingStubs)) {
@@ -200,7 +239,7 @@ export function deriveLeagueSnapshot({
         player,
         league.config.maxTheaterSize,
         movies,
-        now,
+        transaction.createdAt,
         invalidTransactions,
       );
       continue;
@@ -211,13 +250,14 @@ export function deriveLeagueSnapshot({
         transaction as LeagueTransaction & { filmId: string; kind: "drop" },
         player,
         movies,
-        now,
+        transaction.createdAt,
         invalidTransactions,
       );
       continue;
     }
   }
 
+  awardResolvedWaiverAuctions(bids, players, movies, league, now, invalidTransactions);
   awardResolvedInitialAuctions(bids, players, movies, league, now, invalidTransactions);
   refreshClockState(movies, auctions, now);
 
@@ -262,6 +302,49 @@ function transactionDraftState(league: CommissionerLeague, draftPickIndex: numbe
     currentUsername: league.draftOrder[draftPickIndex],
     phase: "active" as const,
   };
+}
+
+function draftCompletedAtForLeague(league: CommissionerLeague) {
+  if (typeof league.draftCompletedAt === "number") {
+    return league.draftCompletedAt;
+  }
+
+  return league.draftOrder === null ? league.updatedAt : null;
+}
+
+function isCompletedDraftPickup(
+  transaction: LeagueTransaction,
+  league: CommissionerLeague,
+  draftCompletedAt: number | null,
+  draftPickIndex: number,
+  maxDraftPickCount: number,
+) {
+  return (
+    league.draftOrder === null &&
+    draftCompletedAt !== null &&
+    draftPickIndex < maxDraftPickCount &&
+    transaction.kind === "pickup" &&
+    transaction.fee === 0 &&
+    transaction.createdAt <= draftCompletedAt
+  );
+}
+
+function applyDraftCompletionWaivers(
+  movies: Record<string, DerivedMovieState>,
+  draftCompletedAt: number | null,
+) {
+  if (draftCompletedAt === null) {
+    return;
+  }
+
+  for (const movie of Object.values(movies)) {
+    if (releaseLockTime(movie.releaseDate) <= draftCompletedAt) {
+      continue;
+    }
+
+    movie.status = "waiver";
+    movie.waiverEndsAt = draftCompletedAt + WAIVER_MS;
+  }
 }
 
 export function initialAuctionDeadline(releaseDate: string) {
@@ -323,6 +406,7 @@ function applyPickup(
 
   movie.ownerUid = transaction.playerUid;
   movie.status = "owned";
+  movie.waiverEndsAt = null;
   player.theater.push(transaction.filmId);
 }
 
@@ -353,6 +437,7 @@ function applyDraftPickup(
 
   movie.ownerUid = transaction.playerUid;
   movie.status = "owned";
+  movie.waiverEndsAt = null;
   player.theater.push(transaction.filmId);
   return true;
 }
@@ -415,7 +500,7 @@ function awardResolvedInitialAuctions(
 
   for (const [filmId, filmBids] of byFilm.entries()) {
     const movie = movies[filmId];
-    if (!movie || movie.ownerUid || releaseLockTime(movie.releaseDate) <= now) {
+    if (!movie || movie.ownerUid || movie.waiverEndsAt || releaseLockTime(movie.releaseDate) <= now) {
       continue;
     }
 
@@ -424,30 +509,89 @@ function awardResolvedInitialAuctions(
       .sort((left, right) => right.amount - left.amount || left.createdAt - right.createdAt);
 
     for (const bid of ranked) {
-      const player = players[bid.transaction.playerUid];
-      if (!player) {
-        continue;
+      if (awardBid(bid, movie, filmId, players, movies, league, now, invalidTransactions)) {
+        break;
       }
-
-      if (player.spent + bid.amount > league.config.startingStubs) {
-        invalidTransactions.push(invalid(bid.transaction, "player cannot pay winning bid"));
-        continue;
-      }
-
-      if (player.theater.length >= league.config.maxTheaterSize) {
-        if (!bid.dropFilmId || !dropForBid(bid, player, movies, now)) {
-          invalidTransactions.push(invalid(bid.transaction, "winning bid has no valid roster room"));
-          continue;
-        }
-      }
-
-      charge(player, bid.amount, league.config.startingStubs);
-      player.theater.push(filmId);
-      movie.ownerUid = bid.transaction.playerUid;
-      movie.status = "owned";
-      break;
     }
   }
+}
+
+function awardResolvedWaiverAuctions(
+  bids: BidRuntime[],
+  players: Record<string, PlayerRuntime>,
+  movies: Record<string, DerivedMovieState>,
+  league: CommissionerLeague,
+  now: number,
+  invalidTransactions: InvalidTransaction[],
+) {
+  for (const [filmId, movie] of Object.entries(movies)) {
+    if (!movie.waiverEndsAt || movie.ownerUid || releaseLockTime(movie.releaseDate) <= now) {
+      continue;
+    }
+
+    const waiverStartedAt = movie.waiverEndsAt - WAIVER_MS;
+    if (now < movie.waiverEndsAt) {
+      continue;
+    }
+
+    const ranked = bids
+      .filter((bid) => {
+        return (
+          bid.filmId === filmId &&
+          bid.createdAt >= waiverStartedAt &&
+          bid.createdAt < (movie.waiverEndsAt ?? 0)
+        );
+      })
+      .sort((left, right) => right.amount - left.amount || left.createdAt - right.createdAt);
+
+    let awarded = false;
+    for (const bid of ranked) {
+      if (awardBid(bid, movie, filmId, players, movies, league, now, invalidTransactions)) {
+        awarded = true;
+        break;
+      }
+    }
+
+    if (!awarded) {
+      movie.waiverEndsAt = null;
+      refreshOneMovie(movie, now);
+    }
+  }
+}
+
+function awardBid(
+  bid: BidRuntime,
+  movie: DerivedMovieState,
+  filmId: string,
+  players: Record<string, PlayerRuntime>,
+  movies: Record<string, DerivedMovieState>,
+  league: CommissionerLeague,
+  now: number,
+  invalidTransactions: InvalidTransaction[],
+) {
+  const player = players[bid.transaction.playerUid];
+  if (!player) {
+    return false;
+  }
+
+  if (player.spent + bid.amount > league.config.startingStubs) {
+    invalidTransactions.push(invalid(bid.transaction, "player cannot pay winning bid"));
+    return false;
+  }
+
+  if (player.theater.length >= league.config.maxTheaterSize) {
+    if (!bid.dropFilmId || !dropForBid(bid, player, movies, now)) {
+      invalidTransactions.push(invalid(bid.transaction, "winning bid has no valid roster room"));
+      return false;
+    }
+  }
+
+  charge(player, bid.amount, league.config.startingStubs);
+  player.theater.push(filmId);
+  movie.ownerUid = bid.transaction.playerUid;
+  movie.status = "owned";
+  movie.waiverEndsAt = null;
+  return true;
 }
 
 function dropForBid(
