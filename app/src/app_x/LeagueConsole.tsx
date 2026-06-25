@@ -35,15 +35,27 @@ type LeagueConsoleProps = {
   onNavigate: (pathname: string) => void;
   onSignOut: () => void;
   universeState: UniverseState;
-  user: User;
+  user: User | null;
 };
 
 type LeagueConsoleView = "league" | "scoring" | "available";
+type LeagueShortcutView = LeagueConsoleView | "theater";
 type LeagueRoute = {
   commissionerUsername: string;
   leagueId: string;
   playerUsername: string | null;
   section: LeagueConsoleView | "theater";
+};
+
+type DraftStatus = {
+  currentUsername: string | null;
+  isCurrentUserTurn: boolean;
+  order: string[];
+  phase: "active" | "complete" | "not-started";
+  pickIndex: number;
+  round: number;
+  shouldFinalize: boolean;
+  totalRounds: number;
 };
 
 const EMPTY_UNIVERSE = {};
@@ -83,7 +95,7 @@ export default function LeagueConsole({
   user,
 }: LeagueConsoleProps) {
   const [view, setView] = useState<LeagueConsoleView>("league");
-  const accountLabel = usernameFromEmail(user.email, "player");
+  const accountLabel = user ? usernameFromEmail(user.email, "player") : "Not Logged In";
   const [movieFile, setMovieFile] = useState<TrackedMovieFile | null>(null);
   const [movieFileError, setMovieFileError] = useState<string | null>(null);
   const [message, setMessage] = useState<string | null>(null);
@@ -110,6 +122,14 @@ export default function LeagueConsole({
       ? routeLeague.section
       : "league"
     : view;
+  const activeShortcut: LeagueShortcutView = routeLeague?.section === "theater" ? "theater" : activeView;
+  const ownMember = user && selectedLeague ? selectedLeague.league.members[user.uid] ?? null : null;
+  const ownTheaterPath =
+    selectedLeague && ownMember && user
+      ? `${leaguePath(selectedLeague)}/theater/${encodeURIComponent(
+          usernameFromEmail(ownMember.email, user.uid),
+        )}`
+      : null;
 
   function changeView(nextView: LeagueConsoleView) {
     setView(nextView);
@@ -119,6 +139,12 @@ export default function LeagueConsole({
 
     const basePath = leaguePath(selectedLeague);
     onNavigate(nextView === "league" ? basePath : `${basePath}/${nextView}`);
+  }
+
+  function openOwnTheater() {
+    if (ownTheaterPath) {
+      onNavigate(ownTheaterPath);
+    }
   }
 
   useEffect(() => {
@@ -155,13 +181,17 @@ export default function LeagueConsole({
   if (universeState.status === "error") {
     return (
       <Shell
-        activeView={activeView}
+        activeShortcut={activeShortcut}
         accountLabel={accountLabel}
         leagueMenuLabel={leagueMenuLabel}
+        ownTheaterPath={ownTheaterPath}
         title="League Home"
         onNavigate={onNavigate}
+        onLeaguePickerClick={() => setMessage("During the inaugural season, there is only one league that exists.")}
+        onOpenOwnTheater={openOwnTheater}
         onSignOut={onSignOut}
         onViewChange={changeView}
+        user={user}
       >
         <section className="ffb-panel">
           <p className="ffb-label">Realtime Database</p>
@@ -182,7 +212,19 @@ export default function LeagueConsole({
     }
 
     return (
-      <Shell activeView={activeView} accountLabel={accountLabel} leagueMenuLabel={leagueMenuLabel} title="League picker" onNavigate={onNavigate} onSignOut={onSignOut} onViewChange={changeView}>
+      <Shell
+        activeShortcut={activeShortcut}
+        accountLabel={accountLabel}
+        leagueMenuLabel={leagueMenuLabel}
+        ownTheaterPath={ownTheaterPath}
+        title="League picker"
+        onNavigate={onNavigate}
+        onLeaguePickerClick={() => setMessage("During the inaugural season, there is only one league that exists.")}
+        onOpenOwnTheater={openOwnTheater}
+        onSignOut={onSignOut}
+        onViewChange={changeView}
+        user={user}
+      >
         <section className="ffb-panel">
           <p className="ffb-label">Tracked movies</p>
           <h2>Unable to load movies</h2>
@@ -198,13 +240,17 @@ export default function LeagueConsole({
 
   return (
     <Shell
-      activeView={activeView}
+      activeShortcut={activeShortcut}
       accountLabel={accountLabel}
       leagueMenuLabel={leagueMenuLabel}
+      ownTheaterPath={ownTheaterPath}
       title={selectedLeague ? selectedLeague.league.name : "League picker"}
       onNavigate={onNavigate}
+      onLeaguePickerClick={() => setMessage("During the inaugural season, there is only one league that exists.")}
+      onOpenOwnTheater={openOwnTheater}
       onSignOut={onSignOut}
       onViewChange={changeView}
+      user={user}
     >
       {message ? <p className="ffb-toast">{message}</p> : null}
       {activeView === "scoring" ? (
@@ -250,22 +296,30 @@ export default function LeagueConsole({
 
 function Shell({
   accountLabel,
-  activeView,
+  activeShortcut,
   children,
   leagueMenuLabel,
+  onLeaguePickerClick,
   onNavigate,
+  onOpenOwnTheater,
   onSignOut,
   onViewChange,
+  ownTheaterPath,
   title,
+  user,
 }: {
   accountLabel: string;
-  activeView: LeagueConsoleView;
+  activeShortcut: LeagueShortcutView;
   children?: ReactNode;
   leagueMenuLabel: string | null;
+  onLeaguePickerClick?: () => void;
   onNavigate: (pathname: string) => void;
+  onOpenOwnTheater: () => void;
   onSignOut: () => void;
   onViewChange: (view: LeagueConsoleView) => void;
+  ownTheaterPath: string | null;
   title: string;
+  user: User | null;
 }) {
   const [isAccountMenuOpen, setIsAccountMenuOpen] = useState(false);
   const accountMenuRef = useRef<HTMLDivElement | null>(null);
@@ -337,7 +391,7 @@ function Shell({
                     type="button"
                     onClick={() => {
                       setIsAccountMenuOpen(false);
-                      onNavigate("/league");
+                      onLeaguePickerClick?.();
                     }}
                   >
                     League Picker
@@ -347,10 +401,14 @@ function Shell({
                     type="button"
                     onClick={() => {
                       setIsAccountMenuOpen(false);
-                      onSignOut();
+                      if (user) {
+                        onSignOut();
+                      } else {
+                        onNavigate("/league");
+                      }
                     }}
                   >
-                    Sign Out
+                    {user ? "Sign Out" : "Sign In"}
                   </button>
                 </div>
               ) : null}
@@ -358,25 +416,33 @@ function Shell({
           </div>
           <div className="ffb-app-tabs" role="group" aria-label="League views">
             <button
-              aria-pressed={activeView === "league"}
-              type="button"
-              onClick={() => onViewChange("league")}
-            >
-              League
-            </button>
-            <button
-              aria-pressed={activeView === "scoring"}
+              aria-pressed={activeShortcut === "scoring"}
               type="button"
               onClick={() => onViewChange("scoring")}
             >
               Scoring
             </button>
             <button
-              aria-pressed={activeView === "available"}
+              aria-pressed={activeShortcut === "league"}
+              type="button"
+              onClick={() => onViewChange("league")}
+            >
+              League
+            </button>
+            <button
+              aria-pressed={activeShortcut === "available"}
               type="button"
               onClick={() => onViewChange("available")}
             >
               Available
+            </button>
+            <button
+              aria-pressed={activeShortcut === "theater"}
+              disabled={!ownTheaterPath}
+              type="button"
+              onClick={onOpenOwnTheater}
+            >
+              Theater
             </button>
           </div>
         </nav>
@@ -401,13 +467,13 @@ function LeagueDiscovery({
   movieFile: TrackedMovieFile;
   routeLeague: LeagueRoute | null;
   universeValue: unknown;
-  user: User;
+  user: User | null;
 }) {
   const [leagueName, setLeagueName] = useState("FantasyFilmBall");
   const [isWriting, setIsWriting] = useState(false);
-  const memberships = readMemberships(universeValue, user.uid);
+  const memberships = user ? readMemberships(universeValue, user.uid) : {};
   const ownLeagues = readLeagueSummaries(universeValue).filter(
-    (summary) => Boolean(memberships[summary.membershipKey]) || summary.commissionerUid === user.uid,
+    (summary) => Boolean(user && (memberships[summary.membershipKey] || summary.commissionerUid === user.uid)),
   );
   const routeMatches = routeLeague
     ? readLeagueSummaries(universeValue, routeLeague.leagueId).filter(
@@ -422,6 +488,10 @@ function LeagueDiscovery({
     onMessage(null);
 
     try {
+      if (!user) {
+        throw new Error("Sign in before starting a league.");
+      }
+
       const now = timestamp();
       const cleanLeagueId = String(Math.floor(now / 1000));
       const league = makeDefaultLeague(user, leagueName, cleanLeagueId);
@@ -466,6 +536,10 @@ function LeagueDiscovery({
     onMessage(null);
 
     try {
+      if (!user) {
+        throw new Error("Sign in before requesting to join.");
+      }
+
       const key = summary.membershipKey;
       const now = timestamp();
 
@@ -524,8 +598,8 @@ function LeagueDiscovery({
             League name
             <input value={leagueName} onChange={(event) => setLeagueName(event.target.value)} />
           </label>
-          <button className="ffb-primary" disabled={isWriting} type="submit">
-            {isWriting ? "Starting" : "Start League"}
+          <button className="ffb-primary" disabled={isWriting || !user} type="submit">
+            {user ? (isWriting ? "Starting" : "Start League") : "Sign in to start a league"}
           </button>
         </form>
       </div>
@@ -550,7 +624,7 @@ function LeagueList({
   onNavigate: (pathname: string) => void;
   onRequestJoin: (summary: LeagueSummary) => Promise<void>;
   title: string;
-  user: User;
+  user: User | null;
 }) {
   return (
     <section className="ffb-log" aria-labelledby={`${title.replace(/\W+/g, "-")}-title`}>
@@ -559,8 +633,8 @@ function LeagueList({
         {leagues.length > 0 ? (
           leagues.map((summary) => {
             const membership = memberships[summary.membershipKey];
-            const member = summary.league.members[user.uid];
-            const isKicked = Boolean(summary.league.kicked[user.uid]);
+            const member = user ? summary.league.members[user.uid] : null;
+            const isKicked = Boolean(user && summary.league.kicked[user.uid]);
             const isActive = Boolean(member);
             const route = `${commissionerUsername(summary)}/${summary.league.leagueId}`;
             const createdDate = new Date(summary.league.createdAt).toLocaleDateString();
@@ -574,7 +648,7 @@ function LeagueList({
                 >
                   {summary.league.name} · {route} · {createdDate}
                 </button>
-                {!isActive || isKicked ? (
+                {user && (!isActive || isKicked) ? (
                   <div className="ffb-actions">
                   {!isActive && !isKicked ? (
                     <button
@@ -625,39 +699,41 @@ function LeagueDashboard({
   routeSection: LeagueRoute["section"];
   summary: LeagueSummary;
   universeValue: unknown;
-  user: User;
+  user: User | null;
 }) {
   const [isWriting, setIsWriting] = useState(false);
   const [renderNow] = useState(() => timestamp());
+  const viewerUid = user?.uid ?? null;
   const transactions = useMemo(
     () => readTransactions(universeValue, summary),
     [summary, universeValue],
   );
   const ownTransactions = useMemo(
-    () => readOwnTransactions(universeValue, user.uid, summary),
-    [summary, universeValue, user.uid],
+    () => (viewerUid ? readOwnTransactions(universeValue, viewerUid, summary) : {}),
+    [summary, universeValue, viewerUid],
   );
   const snapshotResolution = useMemo(
     () =>
       resolveLeagueSnapshot({
-        generatedByUid: user.uid,
+        generatedByUid: viewerUid ?? "signed-out",
         movieFile,
         now: renderNow,
         summary,
         transactions,
         universeValue,
       }),
-    [movieFile, renderNow, summary, transactions, universeValue, user.uid],
+    [movieFile, renderNow, summary, transactions, universeValue, viewerUid],
   );
-  const currentMember = summary.league.members[user.uid];
-  const isCommissioner = summary.commissionerUid === user.uid;
+  const currentMember = viewerUid ? summary.league.members[viewerUid] : undefined;
+  const isCommissioner = Boolean(viewerUid && summary.commissionerUid === viewerUid);
   const isActive = Boolean(currentMember);
-  const isKicked = Boolean(summary.league.kicked[user.uid]);
+  const isKicked = Boolean(viewerUid && summary.league.kicked[viewerUid]);
   const pendingRequests = getPendingRequests(universeValue, summary);
   const kickedRequests = getKickedRequests(universeValue, summary);
+  const draftStatus = getDraftStatus(summary, transactions, snapshotResolution, user);
 
   useEffect(() => {
-    if (!isActive || !snapshotResolution.shouldWrite) {
+    if (!user || !isActive || !snapshotResolution.shouldWrite) {
       return;
     }
 
@@ -685,10 +761,14 @@ function LeagueDashboard({
     snapshotResolution.snapshot,
     onMessage,
     summary.membershipKey,
-    user.uid,
+    user,
   ]);
 
   async function writeOwnTransaction(transaction: LeagueTransaction) {
+    if (!user) {
+      throw new Error("Sign in before submitting transactions.");
+    }
+
     await updateEncoded(client, `users/${user.uid}`, {
       [`transactions/${summary.membershipKey}/${transaction.txnId}`]: transaction,
       updatedAt: serverTimestamp(),
@@ -696,6 +776,10 @@ function LeagueDashboard({
   }
 
   async function requestJoin() {
+    if (!user) {
+      throw new Error("Sign in before requesting to join.");
+    }
+
     if (isKicked) {
       throw new Error("You cannot rejoin this league.");
     }
@@ -727,7 +811,7 @@ function LeagueDashboard({
   }
 
   async function acceptRequest(request: JoinRequest) {
-    if (!isCommissioner) {
+    if (!user || !isCommissioner) {
       throw new Error("Only the commissioner can accept join requests.");
     }
 
@@ -746,7 +830,7 @@ function LeagueDashboard({
   }
 
   async function kickRequest(request: JoinRequest) {
-    if (!isCommissioner) {
+    if (!user || !isCommissioner) {
       throw new Error("Only the commissioner can kick join requests.");
     }
 
@@ -757,6 +841,44 @@ function LeagueDashboard({
       updatedAt: serverTimestamp(),
     });
   }
+
+  async function startDraft(rounds: number) {
+    if (!user || !isCommissioner) {
+      throw new Error("Only the commissioner can begin the draft.");
+    }
+
+    if (summary.league.draftOrder !== undefined) {
+      throw new Error("This league has already started or completed its draft.");
+    }
+
+    const draftOrder = buildSnakeDraftOrder(summary, rounds);
+    if (draftOrder.length === 0) {
+      throw new Error("A draft needs at least one member.");
+    }
+
+    const now = timestamp();
+    await updateEncoded(client, `users/${user.uid}`, {
+      [`leagues/${summary.league.leagueId}/config/draftRounds`]: rounds,
+      [`leagues/${summary.league.leagueId}/draftOrder`]: draftOrder,
+      [`leagues/${summary.league.leagueId}/updatedAt`]: now,
+      updatedAt: serverTimestamp(),
+    });
+  }
+
+  useEffect(() => {
+    if (!user || !isCommissioner || !draftStatus.shouldFinalize) {
+      return;
+    }
+
+    const now = timestamp();
+    updateEncoded(client, `users/${user.uid}`, {
+      [`leagues/${summary.league.leagueId}/draftOrder`]: null,
+      [`leagues/${summary.league.leagueId}/updatedAt`]: now,
+      updatedAt: serverTimestamp(),
+    }).catch((error: unknown) => {
+      onMessage(error instanceof Error ? `Draft finalization failed: ${error.message}` : "Draft finalization failed.");
+    });
+  }, [client, draftStatus.shouldFinalize, isCommissioner, onMessage, summary.league.leagueId, user]);
 
   return (
     <>
@@ -769,6 +891,8 @@ function LeagueDashboard({
       ) : routeSection === "available" ? (
         <AvailableFilmsPanel
           disabled={isWriting}
+          draftStatus={draftStatus}
+          isCommissioner={isCommissioner}
           member={currentMember ?? null}
           ownTransactions={ownTransactions}
           resolution={snapshotResolution}
@@ -780,9 +904,26 @@ function LeagueDashboard({
               return `${transaction.kind} ${transaction.txnId} logged.`;
             })
           }
+          onStartDraft={(rounds) =>
+            runAction(async () => {
+              await startDraft(rounds);
+              return `Started ${rounds}-round snake draft.`;
+            })
+          }
         />
       ) : (
         <>
+      <DraftPanel
+        disabled={isWriting}
+        draftStatus={draftStatus}
+        isCommissioner={isCommissioner}
+        onStart={(rounds) =>
+          runAction(async () => {
+            await startDraft(rounds);
+            return `Started ${rounds}-round snake draft.`;
+          })
+        }
+      />
       <TheatersPanel
         disabled={isWriting}
         isCommissioner={isCommissioner}
@@ -807,9 +948,10 @@ function LeagueDashboard({
         user={user}
       />
 
-      {isActive ? (
+      {isActive && user && currentMember ? (
         <MyTheaterActionsPanel
           disabled={isWriting}
+          draftStatus={draftStatus}
           member={currentMember}
           ownTransactions={ownTransactions}
           resolution={snapshotResolution}
@@ -835,7 +977,7 @@ function LeagueDashboard({
           {!currentMember && !isKicked ? (
             <button
               className="ffb-primary"
-              disabled={isWriting}
+              disabled={isWriting || !user}
               type="button"
               onClick={() =>
                 runAction(async () => {
@@ -844,7 +986,7 @@ function LeagueDashboard({
                 })
               }
             >
-              Request to Join
+              {user ? "Request to Join" : "Sign in to request access"}
             </button>
           ) : null}
         </section>
@@ -852,7 +994,7 @@ function LeagueDashboard({
 
       <TransactionLog resolution={snapshotResolution} summary={summary} transactions={transactions} />
 
-      {isCommissioner ? (
+      {isCommissioner && user ? (
         <CommissionerPanel
           client={client}
           isWriting={isWriting}
@@ -976,7 +1118,7 @@ function TheatersPanel({
   resolution: SnapshotResolution;
   summary: LeagueSummary;
   transactions: LeagueTransaction[];
-  user: User;
+  user: User | null;
 }) {
   const state = resolution.snapshot.state;
   const players = Object.values(state.players).sort((left, right) => {
@@ -1009,7 +1151,7 @@ function TheatersPanel({
           const username = playerUsername(summary, player.uid, player.uid);
           const unreleased = player.theater.filter((filmId) => !state.movies[filmId]?.locked);
           const released = player.theater.filter((filmId) => state.movies[filmId]?.locked);
-          const isCurrentPlayer = player.uid === user.uid;
+          const isCurrentPlayer = Boolean(user && player.uid === user.uid);
           return (
             <button
               className={`ffb-theater-row ffb-theater-row--button${
@@ -1131,8 +1273,84 @@ function PlayerDetailPanel({
   );
 }
 
+function DraftPanel({
+  disabled,
+  draftStatus,
+  isCommissioner,
+  onStart,
+}: {
+  disabled: boolean;
+  draftStatus: DraftStatus;
+  isCommissioner: boolean;
+  onStart: (rounds: number) => void;
+}) {
+  const [rounds, setRounds] = useState(2);
+
+  if (draftStatus.phase === "complete") {
+    return null;
+  }
+
+  return (
+    <section className={`ffb-player-detail ffb-draft-panel${draftStatus.isCurrentUserTurn ? " ffb-draft-panel--turn" : ""}`}>
+      <div className="ffb-universe-head">
+        <div>
+          <p className="ffb-label">Draft</p>
+          <h2>{draftStatus.phase === "active" ? "Snake draft active" : "Draft not started"}</h2>
+        </div>
+        {draftStatus.phase === "active" ? (
+          <span>
+            Round {draftStatus.round}/{draftStatus.totalRounds}
+          </span>
+        ) : null}
+      </div>
+      {draftStatus.phase === "not-started" ? (
+        <div className="ffb-draft-start">
+          <p>Only the commissioner can begin a random-order snake draft.</p>
+          <label>
+            Rounds
+            <input
+              min={1}
+              max={12}
+              type="number"
+              value={rounds}
+              onChange={(event) => setRounds(Math.max(1, Number(event.target.value) || 1))}
+            />
+          </label>
+          <button
+            className="ffb-primary"
+            disabled={disabled || !isCommissioner}
+            type="button"
+            onClick={() => onStart(rounds)}
+          >
+            Start Draft
+          </button>
+        </div>
+      ) : (
+        <>
+          <p>
+            {draftStatus.isCurrentUserTurn
+              ? "You're on the clock. Draft a film from the available list."
+              : `${draftStatus.currentUsername} is on the clock.`}
+          </p>
+          <ol className="ffb-draft-order">
+            {draftStatus.order.map((username, index) => (
+              <li
+                className={index === draftStatus.pickIndex ? "ffb-draft-order-current" : ""}
+                key={`${username}-${index}`}
+              >
+                {username}
+              </li>
+            ))}
+          </ol>
+        </>
+      )}
+    </section>
+  );
+}
+
 function MyTheaterActionsPanel({
   disabled,
+  draftStatus,
   member,
   onDrop,
   ownTransactions,
@@ -1140,6 +1358,7 @@ function MyTheaterActionsPanel({
   user,
 }: {
   disabled: boolean;
+  draftStatus: DraftStatus;
   member: LeagueMember;
   onDrop: (transaction: LeagueTransaction) => void;
   ownTransactions: Record<string, LeagueTransaction>;
@@ -1180,7 +1399,7 @@ function MyTheaterActionsPanel({
                   {movie.releaseDate} · {movie.locked ? "Released" : "Unreleased"}
                 </p>
               </div>
-              {!movie.locked ? (
+              {!movie.locked && draftStatus.phase === "complete" ? (
                 <button disabled={disabled} type="button" onClick={() => dropFilm(filmId, movie.title)}>
                   Drop
                 </button>
@@ -1197,7 +1416,10 @@ function MyTheaterActionsPanel({
 
 function AvailableFilmsPanel({
   disabled,
+  draftStatus,
+  isCommissioner,
   member,
+  onStartDraft,
   onSubmit,
   ownTransactions,
   resolution,
@@ -1205,17 +1427,21 @@ function AvailableFilmsPanel({
   user,
 }: {
   disabled: boolean;
+  draftStatus: DraftStatus;
+  isCommissioner: boolean;
   member: LeagueMember | null;
+  onStartDraft: (rounds: number) => void;
   onSubmit: (transaction: LeagueTransaction) => void;
   ownTransactions: Record<string, LeagueTransaction>;
   resolution: SnapshotResolution;
   summary: LeagueSummary;
-  user: User;
+  user: User | null;
 }) {
   const [bidFilmId, setBidFilmId] = useState<string | null>(null);
   const state = resolution.snapshot.state;
-  const player = state.players[user.uid] ?? null;
+  const player = user ? state.players[user.uid] ?? null : null;
   const isTheaterFull = Boolean(player && player.theater.length >= summary.league.config.maxTheaterSize);
+  const canDraft = Boolean(member && draftStatus.phase === "active" && draftStatus.isCurrentUserTurn);
   const ownedFilms = (player?.theater ?? [])
     .map((filmId) => ({ filmId, movie: state.movies[filmId] }))
     .filter((row): row is { filmId: string; movie: NonNullable<typeof row.movie> } => Boolean(row.movie))
@@ -1232,69 +1458,96 @@ function AvailableFilmsPanel({
   const bidFilm = bidFilmId ? movies.find(({ filmId }) => filmId === bidFilmId) ?? null : null;
 
   function pickupFilm(filmId: string) {
-    if (!member) {
+    if (!member || !user) {
       return;
     }
 
     onSubmit(simpleTransaction(member, ownTransactions, user, filmId, "pickup"));
   }
 
+  function draftFilm(filmId: string) {
+    if (!member || !user) {
+      return;
+    }
+
+    onSubmit(simpleTransaction(member, ownTransactions, user, filmId, "pickup", 0));
+  }
+
   return (
-    <section className="ffb-player-detail" aria-labelledby="available-films-title">
-      <div className="ffb-universe-head">
-        <div>
-          <p className="ffb-label">Market</p>
-          <h2 id="available-films-title">Available Films</h2>
+    <>
+      <DraftPanel
+        disabled={disabled}
+        draftStatus={draftStatus}
+        isCommissioner={isCommissioner}
+        onStart={onStartDraft}
+      />
+      <section
+        className={`ffb-player-detail${draftStatus.isCurrentUserTurn ? " ffb-draft-panel--turn" : ""}`}
+        aria-labelledby="available-films-title"
+      >
+        <div className="ffb-universe-head">
+          <div>
+            <p className="ffb-label">Market</p>
+            <h2 id="available-films-title">Available Films</h2>
+          </div>
+          <span>{movies.length} films</span>
         </div>
-        <span>{movies.length} films</span>
-      </div>
-      {movies.length > 0 ? (
-        <div className="ffb-player-film-list ffb-available-film-list">
-          {movies.map(({ filmId, movie }) => (
-            <article key={filmId}>
-              <div>
-                <h3>{movie.title}</h3>
-                <p>
-                  {movie.releaseDate} · {availableStatusLabel(movie.status)}
-                </p>
-              </div>
-              {movie.status === "free-agent" ? (
-                <button
-                  disabled={disabled || !member || isTheaterFull}
-                  type="button"
-                  onClick={() => pickupFilm(filmId)}
-                >
-                  Pickup
-                </button>
-              ) : isAuctionStatus(movie.status) ? (
-                <button disabled={disabled || !member} type="button" onClick={() => setBidFilmId(filmId)}>
-                  Bid
-                </button>
-              ) : null}
-            </article>
-          ))}
-        </div>
-      ) : (
-        <p className="ffb-muted">No films are available right now.</p>
-      )}
-      {bidFilm && member ? (
-        <BidModal
-          disabled={disabled}
-          filmId={bidFilm.filmId}
-          movieTitle={bidFilm.movie.title}
-          member={member}
-          ownTransactions={ownTransactions}
-          ownedFilms={ownedFilms}
-          summary={summary}
-          user={user}
-          onClose={() => setBidFilmId(null)}
-          onSubmit={(transaction) => {
-            onSubmit(transaction);
-            setBidFilmId(null);
-          }}
-        />
-      ) : null}
-    </section>
+        {movies.length > 0 ? (
+          <div className="ffb-player-film-list ffb-available-film-list">
+            {movies.map(({ filmId, movie }) => (
+              <article key={filmId}>
+                <div>
+                  <h3>{movie.title}</h3>
+                  <p>
+                    {movie.releaseDate} · {availableStatusLabel(movie.status)}
+                  </p>
+                </div>
+                {draftStatus.phase === "active" ? (
+                  <button
+                    disabled={disabled || !canDraft || isTheaterFull}
+                    type="button"
+                    onClick={() => draftFilm(filmId)}
+                  >
+                    Draft
+                  </button>
+                ) : draftStatus.phase !== "complete" ? null : movie.status === "free-agent" ? (
+                  <button
+                    disabled={disabled || !member || isTheaterFull}
+                    type="button"
+                    onClick={() => pickupFilm(filmId)}
+                  >
+                    Pickup
+                  </button>
+                ) : isAuctionStatus(movie.status) ? (
+                  <button disabled={disabled || !member} type="button" onClick={() => setBidFilmId(filmId)}>
+                    Bid
+                  </button>
+                ) : null}
+              </article>
+            ))}
+          </div>
+        ) : (
+          <p className="ffb-muted">No films are available right now.</p>
+        )}
+        {bidFilm && member && user ? (
+          <BidModal
+            disabled={disabled}
+            filmId={bidFilm.filmId}
+            movieTitle={bidFilm.movie.title}
+            member={member}
+            ownTransactions={ownTransactions}
+            ownedFilms={ownedFilms}
+            summary={summary}
+            user={user}
+            onClose={() => setBidFilmId(null)}
+            onSubmit={(transaction) => {
+              onSubmit(transaction);
+              setBidFilmId(null);
+            }}
+          />
+        ) : null}
+      </section>
+    </>
   );
 }
 
@@ -1395,9 +1648,10 @@ function simpleTransaction(
   user: User,
   filmId: string,
   kind: "drop" | "pickup",
+  fee = 1,
 ): LeagueTransaction {
   return {
-    ...transactionBase(member, ownTransactions, user),
+    ...transactionBase(member, ownTransactions, user, fee),
     filmId,
     kind,
   };
@@ -1435,10 +1689,11 @@ function transactionBase(
   member: LeagueMember,
   ownTransactions: Record<string, LeagueTransaction>,
   user: User,
+  fee = 1,
 ) {
   return {
     createdAt: timestamp(),
-    fee: 1,
+    fee,
     playerId: member.playerId,
     playerUid: user.uid,
     txnId: nextTxnId(member, ownTransactions),
@@ -1529,6 +1784,97 @@ function getKickedRequests(value: unknown, summary: LeagueSummary): JoinRequest[
         uid,
       };
     });
+}
+
+function getDraftStatus(
+  summary: LeagueSummary,
+  transactions: LeagueTransaction[],
+  resolution: SnapshotResolution,
+  user: User | null,
+): DraftStatus {
+  const totalRounds = summary.league.config.draftRounds;
+  const draftOrder = summary.league.draftOrder;
+  const base = {
+    order: Array.isArray(draftOrder) ? draftOrder : [],
+    pickIndex: 0,
+    round: 0,
+    shouldFinalize: false,
+    totalRounds,
+  };
+
+  if (draftOrder === undefined) {
+    return {
+      ...base,
+      currentUsername: null,
+      isCurrentUserTurn: false,
+      phase: "not-started",
+    };
+  }
+
+  if (draftOrder === null) {
+    return {
+      ...base,
+      currentUsername: null,
+      isCurrentUserTurn: false,
+      phase: "complete",
+    };
+  }
+
+  const invalidKeys = new Set(
+    resolution.snapshot.state.invalidTransactions.map((transaction) => `${transaction.uid}:${transaction.txnId}`),
+  );
+  const pickIndex = transactions
+    .slice()
+    .sort((left, right) => left.createdAt - right.createdAt || left.txnId.localeCompare(right.txnId))
+    .filter(
+      (transaction) =>
+        transaction.kind === "pickup" &&
+        transaction.fee === 0 &&
+        !invalidKeys.has(`${transaction.playerUid}:${transaction.txnId}`),
+    ).length;
+
+  if (pickIndex >= draftOrder.length) {
+    return {
+      ...base,
+      currentUsername: null,
+      isCurrentUserTurn: false,
+      phase: "complete",
+      pickIndex,
+      round: totalRounds,
+      shouldFinalize: true,
+    };
+  }
+
+  const usernamesPerRound = Math.max(1, Math.round(draftOrder.length / Math.max(1, totalRounds)));
+  const round = Math.floor(pickIndex / usernamesPerRound) + 1;
+  const currentUsername = draftOrder[pickIndex] ?? null;
+  const userUsername = user ? usernameFromEmail(summary.league.members[user.uid]?.email, user.uid) : null;
+
+  return {
+    ...base,
+    currentUsername,
+    isCurrentUserTurn: Boolean(userUsername && currentUsername === userUsername),
+    phase: "active",
+    pickIndex,
+    round,
+  };
+}
+
+function buildSnakeDraftOrder(summary: LeagueSummary, rounds: number) {
+  const usernames = Object.values(summary.league.members)
+    .slice()
+    .sort((left, right) => left.playerId.localeCompare(right.playerId))
+    .map((member) => usernameFromEmail(member.email, member.playerId));
+  const shuffled = usernames.slice();
+
+  for (let index = shuffled.length - 1; index > 0; index -= 1) {
+    const swapIndex = Math.floor(Math.random() * (index + 1));
+    [shuffled[index], shuffled[swapIndex]] = [shuffled[swapIndex], shuffled[index]];
+  }
+
+  return Array.from({ length: rounds }, (_, roundIndex) =>
+    roundIndex % 2 === 0 ? shuffled : shuffled.slice().reverse(),
+  ).flat();
 }
 
 function nextAvailablePlayerId(summary: LeagueSummary) {

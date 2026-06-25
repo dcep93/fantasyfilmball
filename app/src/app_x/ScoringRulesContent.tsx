@@ -19,7 +19,7 @@ type ContentProps = {
   onChangeLeague?: () => void;
   onOpenLeague: () => void;
   selectedLeague: LeagueSummary | null;
-  user: User;
+  user: User | null;
 };
 
 type MovieRow = {
@@ -74,10 +74,10 @@ export function ScoringRulesContent({
   }, []);
 
   const currentRules = selectedLeague?.league.scoring ?? DEFAULT_SCORING_RULES;
-  const isCommissioner = Boolean(selectedLeague && selectedLeague.commissionerUid === user.uid);
+  const isCommissioner = Boolean(selectedLeague && user && selectedLeague.commissionerUid === user.uid);
 
   async function saveRules(rules: ScoringRuleSet) {
-    if (!selectedLeague || !isCommissioner) {
+    if (!selectedLeague || !user || !isCommissioner) {
       throw new Error("Only this league's commissioner can edit scoring positions and formulas.");
     }
 

@@ -24,6 +24,7 @@ export type LeagueMember = {
 };
 
 export type LeagueConfig = {
+  draftRounds: number;
   maxTheaterSize: number;
   regularSeasonEnd: string;
   regularSeasonStart: string;
@@ -34,6 +35,7 @@ export type CommissionerLeague = {
   commissionerUid: string;
   config: LeagueConfig;
   createdAt: number;
+  draftOrder?: string[] | null;
   kicked: Record<string, true>;
   leagueId: string;
   members: Record<string, LeagueMember>;
@@ -261,6 +263,7 @@ export function makeDefaultLeague(user: User, leagueName: string, leagueId = DEF
   return {
     commissionerUid: user.uid,
     config: {
+      draftRounds: 2,
       maxTheaterSize: 10,
       regularSeasonEnd: `${season}-08-31`,
       regularSeasonStart: `${season}-05-01`,
@@ -383,6 +386,7 @@ function readCommissionerLeague(value: unknown): CommissionerLeague | null {
     commissionerUid,
     config: readConfig(value.config, season),
     createdAt,
+    draftOrder: readDraftOrder(value),
     kicked: readKicked(value.kicked),
     leagueId,
     members: readMembers(value.members),
@@ -418,6 +422,26 @@ function readMembers(value: unknown): Record<string, LeagueMember> {
   return members;
 }
 
+function readDraftOrder(value: Record<string, unknown>): string[] | null | undefined {
+  if (!Object.prototype.hasOwnProperty.call(value, "draftOrder")) {
+    return undefined;
+  }
+
+  if (value.draftOrder === null) {
+    return null;
+  }
+
+  if (!Array.isArray(value.draftOrder)) {
+    return undefined;
+  }
+
+  const usernames = value.draftOrder
+    .map((username) => (typeof username === "string" ? username.trim() : ""))
+    .filter(Boolean);
+
+  return usernames.length > 0 ? usernames : undefined;
+}
+
 function readKicked(value: unknown): Record<string, true> {
   if (!isRecord(value)) {
     return {};
@@ -437,6 +461,7 @@ function readConfig(value: unknown, season: number): LeagueConfig {
 
   const defaults = defaultConfig(season);
   return {
+    draftRounds: asNumber(value.draftRounds) ?? defaults.draftRounds,
     maxTheaterSize: asNumber(value.maxTheaterSize) ?? defaults.maxTheaterSize,
     regularSeasonEnd: asString(value.regularSeasonEnd) ?? defaults.regularSeasonEnd,
     regularSeasonStart: asString(value.regularSeasonStart) ?? defaults.regularSeasonStart,
@@ -446,6 +471,7 @@ function readConfig(value: unknown, season: number): LeagueConfig {
 
 function defaultConfig(season: number): LeagueConfig {
   return {
+    draftRounds: 2,
     maxTheaterSize: 10,
     regularSeasonEnd: `${season}-08-31`,
     regularSeasonStart: `${season}-05-01`,

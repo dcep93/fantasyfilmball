@@ -161,6 +161,28 @@ describe("league state derivation", () => {
     expect(snapshot.state.invalidTransactions[0]?.reason).toBe("movie is not a free agent");
   });
 
+  it("allows only the current draft username to make a zero-fee draft pickup", () => {
+    const draftLeague = {
+      ...league(),
+      draftOrder: ["commissioner", "player"],
+    };
+    const now = Date.UTC(2026, 4, 1);
+    const snapshot = deriveLeagueSnapshot({
+      generatedByUid: COMMISSIONER_UID,
+      league: draftLeague,
+      movieFile: movieFile(),
+      now,
+      transactions: [
+        { ...pickup("2.1", "future-film", now), fee: 0, playerId: "2", playerUid: PLAYER_UID },
+        { ...pickup("1.1", "future-film", now + 1_000), fee: 0 },
+      ],
+    });
+
+    expect(snapshot.state.invalidTransactions[0]?.reason).toBe("player is not on the clock");
+    expect(snapshot.state.movies["future-film"].ownerUid).toBe(COMMISSIONER_UID);
+    expect(snapshot.state.players[COMMISSIONER_UID].stubs).toBe(STARTING_STUBS);
+  });
+
   it("awards a resolved initial auction to the highest bidder", () => {
     const now = Date.UTC(2026, 4, 16, 12);
     const transactions = [
@@ -341,12 +363,14 @@ function league(): CommissionerLeague {
   return {
     commissionerUid: COMMISSIONER_UID,
     config: {
+      draftRounds: 2,
       maxTheaterSize: 10,
       regularSeasonEnd: "2026-08-31",
       regularSeasonStart: "2026-05-01",
       startingStubs: STARTING_STUBS,
     },
     createdAt: 1,
+    draftOrder: null,
     kicked: {},
     leagueId: DEFAULT_LEAGUE_ID,
     members: {

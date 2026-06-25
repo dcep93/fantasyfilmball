@@ -189,6 +189,7 @@
   display: inline-flex;
   min-height: 2.2rem;
   align-items: center;
+  gap: 0.42rem;
   border: 0;
   border-radius: 0.35rem;
   padding: 0.48rem 0.72rem;
@@ -198,6 +199,19 @@
   font-size: 0.92rem;
   font-weight: 850;
   cursor: pointer;
+}
+
+.ffb-account-chip::after {
+  content: "";
+  width: 0.42rem;
+  height: 0.42rem;
+  border-right: 0.12rem solid currentColor;
+  border-bottom: 0.12rem solid currentColor;
+  transform: translateY(-0.12rem) rotate(45deg);
+}
+
+.ffb-account-chip[aria-expanded="true"]::after {
+  transform: translateY(0.12rem) rotate(225deg);
 }
 
 .ffb-account-menu {
@@ -274,6 +288,11 @@
   color: var(--ww-text-strong);
   background: rgba(216, 179, 138, 0.16);
   box-shadow: inset 0 0 0 0.0625rem rgba(228, 193, 150, 0.18);
+}
+
+.ffb-app-nav button:disabled {
+  cursor: not-allowed;
+  opacity: 0.44;
 }
 
 .ffb-actions {
@@ -624,6 +643,67 @@ button:disabled:hover {
   border-radius: 0.5rem;
   padding: 1rem;
   background: var(--ww-panel);
+}
+
+.ffb-draft-panel {
+  background: rgba(36, 28, 24, 0.88);
+}
+
+.ffb-draft-panel--turn {
+  border-color: rgba(255, 123, 195, 0.72);
+  background: linear-gradient(135deg, rgba(255, 123, 195, 0.28), rgba(36, 28, 24, 0.9));
+  box-shadow: 0 0 0 0.18rem rgba(255, 123, 195, 0.12), 0 1.4rem 3.2rem rgba(0, 0, 0, 0.24);
+}
+
+.ffb-draft-start {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) minmax(7rem, 0.18fr) auto;
+  gap: 0.75rem;
+  align-items: end;
+}
+
+.ffb-draft-start label {
+  display: grid;
+  gap: 0.35rem;
+  color: var(--ww-text-muted);
+  font-size: 0.78rem;
+  font-weight: 850;
+}
+
+.ffb-draft-start input {
+  min-height: 2.35rem;
+  box-sizing: border-box;
+  border: 0.0625rem solid var(--ww-border);
+  border-radius: 0.5rem;
+  padding: 0.45rem 0.6rem;
+  color: var(--ww-text);
+  background: rgba(16, 12, 10, 0.72);
+  font: inherit;
+}
+
+.ffb-draft-order {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.45rem;
+  margin: 0.85rem 0 0;
+  padding: 0;
+  list-style: none;
+}
+
+.ffb-draft-order li {
+  border: 0.0625rem solid var(--ww-border-soft);
+  border-radius: 999rem;
+  padding: 0.34rem 0.62rem;
+  color: var(--ww-text-muted);
+  background: rgba(16, 12, 10, 0.36);
+  font-size: 0.88rem;
+  font-weight: 760;
+}
+
+.ffb-draft-order-current {
+  border-color: rgba(255, 123, 195, 0.62) !important;
+  color: var(--ww-text-strong) !important;
+  background: rgba(255, 123, 195, 0.18) !important;
 }
 
 .ffb-player-film-list {

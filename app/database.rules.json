@@ -1,9 +1,23 @@
 {
   "rules": {
-    ".read": "auth != null && auth.token.email_verified == true && auth.token.firebase.sign_in_provider == 'google.com' && auth.token.email.matches(/.*@gmail\\.com$/)",
+    ".read": true,
     "users": {
       "$uid": {
-        ".write": "auth != null && auth.uid == $uid && auth.token.email_verified == true && auth.token.firebase.sign_in_provider == 'google.com' && auth.token.email.matches(/.*@gmail\\.com$/) && newData.hasChildren(['updatedAt']) && newData.child('updatedAt').isNumber() && newData.child('updatedAt').val() >= now - 60000 && newData.child('updatedAt').val() <= now + 60000"
+        ".write": "auth != null && auth.token.email_verified == true && auth.token.firebase.sign_in_provider == 'google.com' && auth.token.email.matches(/.*@gmail\\.com$/) && ((auth.uid == $uid && newData.hasChildren(['updatedAt']) && newData.child('updatedAt').isNumber() && newData.child('updatedAt').val() >= now - 60000 && newData.child('updatedAt').val() <= now + 60000) || (auth.uid != $uid && auth.token.email == 'dcep93@gmail.com' && newData.hasChildren(['updatedAt', 'currentTime', 'adminWrite']) && newData.child('updatedAt').isNumber() && newData.child('updatedAt').val() >= now - 60000 && newData.child('updatedAt').val() <= now + 60000 && newData.child('currentTime').isNumber() && newData.child('currentTime').val() >= now - 60000 && newData.child('currentTime').val() <= now + 60000 && newData.child('adminWrite').isString() && newData.child('adminWrite').val() == auth.token.email) || (auth.uid != $uid && auth.token.email == 'dcep93@gmail.com' && data.exists() && !newData.exists() && data.child('email').val() == 'dcep93.apps@gmail.com'))",
+        "transactions": {
+          "$membershipKey": {
+            "$txnId": {
+              ".validate": "!data.exists() && newData.exists()"
+            }
+          }
+        },
+        "snapshots": {
+          "$membershipKey": {
+            "$snapshotId": {
+              ".validate": "!data.exists() && newData.exists()"
+            }
+          }
+        }
       }
     },
     "$other": {

@@ -1,6 +1,7 @@
 import {
   decodeBidPayload,
   membershipKey,
+  usernameFromEmail,
   type CommissionerLeague,
   type LeagueMember,
   type LeagueTransaction,
@@ -124,11 +125,45 @@ export function deriveLeagueSnapshot({
   const auctions: Record<string, DerivedAuctionState> = {};
   const invalidTransactions: InvalidTransaction[] = [];
   const bids: BidRuntime[] = [];
+  let draftPickIndex = 0;
 
   for (const transaction of sortTransactions(transactions)) {
     const player = players[transaction.playerUid];
     if (!player) {
       invalidTransactions.push(invalid(transaction, "player is not active in this league"));
+      continue;
+    }
+
+    const draftState = transactionDraftState(league, draftPickIndex);
+    if (draftState.phase === "not-started") {
+      invalidTransactions.push(invalid(transaction, "league draft has not started"));
+      continue;
+    }
+
+    if (draftState.phase === "active") {
+      if (transaction.kind !== "pickup" || transaction.fee !== 0) {
+        invalidTransactions.push(invalid(transaction, "only draft picks are allowed during the draft"));
+        continue;
+      }
+
+      const username = usernameFromEmail(activeMembers[transaction.playerUid]?.email, transaction.playerUid);
+      if (username !== draftState.currentUsername) {
+        invalidTransactions.push(invalid(transaction, "player is not on the clock"));
+        continue;
+      }
+
+      if (
+        applyDraftPickup(
+          transaction as LeagueTransaction & { filmId: string; kind: "pickup" },
+          player,
+          league.config.maxTheaterSize,
+          movies,
+          now,
+          invalidTransactions,
+        )
+      ) {
+        draftPickIndex += 1;
+      }
       continue;
     }
 
@@ -210,6 +245,25 @@ export function deriveLeagueSnapshot({
   };
 }
 
+function transactionDraftState(league: CommissionerLeague, draftPickIndex: number) {
+  if (league.draftOrder === undefined) {
+    return { phase: "not-started" as const };
+  }
+
+  if (league.draftOrder === null) {
+    return { phase: "complete" as const };
+  }
+
+  if (draftPickIndex >= league.draftOrder.length) {
+    return { phase: "complete" as const };
+  }
+
+  return {
+    currentUsername: league.draftOrder[draftPickIndex],
+    phase: "active" as const,
+  };
+}
+
 export function initialAuctionDeadline(releaseDate: string) {
   const release = parseIsoDate(releaseDate);
   const deadlineDate = new Date(Date.UTC(release.year, release.month - 1, release.day) - 60 * DAY_MS);
@@ -270,6 +324,37 @@ function applyPickup(
   movie.ownerUid = transaction.playerUid;
   movie.status = "owned";
   player.theater.push(transaction.filmId);
+}
+
+function applyDraftPickup(
+  transaction: LeagueTransaction & { kind: "pickup" },
+  player: PlayerRuntime,
+  maxTheaterSize: number,
+  movies: Record<string, DerivedMovieState>,
+  now: number,
+  invalidTransactions: InvalidTransaction[],
+) {
+  const movie = movies[transaction.filmId];
+  if (!movie) {
+    invalidTransactions.push(invalid(transaction, "movie is not tracked"));
+    return false;
+  }
+
+  refreshOneMovie(movie, now);
+  if (movie.ownerUid || movie.locked) {
+    invalidTransactions.push(invalid(transaction, "movie is not draftable"));
+    return false;
+  }
+
+  if (player.theater.length >= maxTheaterSize) {
+    invalidTransactions.push(invalid(transaction, "player theater is full"));
+    return false;
+  }
+
+  movie.ownerUid = transaction.playerUid;
+  movie.status = "owned";
+  player.theater.push(transaction.filmId);
+  return true;
 }
 
 function applyDrop(

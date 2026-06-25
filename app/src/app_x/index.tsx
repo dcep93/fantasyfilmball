@@ -183,13 +183,13 @@ function useAuth(client: FirebaseClient | null): AuthState {
   return authState;
 }
 
-function useUniverse(client: FirebaseClient | null, user: User | null): UniverseState {
+function useUniverse(client: FirebaseClient | null): UniverseState {
   const [universeState, setUniverseState] = useState<UniverseState>({
     status: "idle",
   });
 
   useEffect(() => {
-    if (!client || !user) {
+    if (!client) {
       return;
     }
 
@@ -205,7 +205,7 @@ function useUniverse(client: FirebaseClient | null, user: User | null): Universe
         setUniverseState({ status: "error", message: error.message });
       },
     );
-  }, [client, user]);
+  }, [client]);
 
   return universeState;
 }
@@ -1243,7 +1243,7 @@ function PrivateApp() {
   const client = clientState.status === "ready" ? clientState.client : null;
   const authState = useAuth(client);
   const user = authState.status === "signed-in" ? authState.user : null;
-  const universeState = useUniverse(client, user);
+  const universeState = useUniverse(client);
 
   useEffect(() => {
     if (authState.status === "signed-in" && pathname === "/league") {
@@ -1285,22 +1285,26 @@ function PrivateApp() {
     return <main className="ffb-page" aria-label="Checking sign-in" />;
   }
 
-  if (authState.status === "signed-out") {
+  if (authState.status === "signed-out" && pathname === "/league") {
     return <LoginPage client={clientState.client} />;
+  }
+
+  if (authState.status === "signed-out" && !pathname.startsWith("/league/")) {
+    return <LandingPage />;
   }
 
   if (pathname === "/league") {
     return <main className="ffb-page" aria-label="Opening league" />;
   }
 
-  if (pathname === "/debug") {
+  if (pathname === "/debug" && user) {
     return (
       <DebugConsole
         client={clientState.client}
         onNavigate={navigateTo}
         onSignOut={signOutToLeague}
         universeState={universeState}
-        user={authState.user}
+        user={user}
       />
     );
   }
@@ -1312,7 +1316,7 @@ function PrivateApp() {
       onNavigate={navigateTo}
       onSignOut={signOutToLeague}
       universeState={universeState}
-      user={authState.user}
+      user={user}
     />
   );
 }
