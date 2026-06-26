@@ -93,4 +93,17 @@ cat <<EOF2 >.firebaserc
 }
 EOF2
 
-firebase deploy --non-interactive --project "$project_id"
+deploy_output="$(mktemp)"
+set +e
+firebase deploy --non-interactive --project "$project_id" 2>&1 | tee "$deploy_output"
+deploy_status="${PIPESTATUS[0]}"
+set -e
+
+if [[ "$deploy_status" -ne 0 ]]; then
+	if grep -Fq "is the current active version" "$deploy_output"; then
+		echo "Firebase Hosting already has this version live; treating deploy as successful."
+		exit 0
+	fi
+
+	exit "$deploy_status"
+fi
