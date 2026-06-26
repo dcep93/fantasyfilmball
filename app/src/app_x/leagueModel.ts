@@ -63,6 +63,8 @@ export type BidPayload = {
 
 export type BaseTransaction = {
   createdAt: number;
+  enteredByUid?: string;
+  enteredByUsername?: string;
   fee: number;
   playerId: string;
   playerUid: string;
@@ -80,6 +82,58 @@ export type SimpleTransaction = BaseTransaction & {
 };
 
 export type LeagueTransaction = BidTransaction | SimpleTransaction;
+
+export type BaseCommissionerEvent = {
+  commissionerUid: string;
+  createdAt: number;
+  eventId: string;
+  leagueId: string;
+};
+
+export type AcceptMemberEvent = BaseCommissionerEvent & {
+  email: string;
+  kind: "accept-member";
+  playerId: string;
+  targetUid: string;
+};
+
+export type KickMemberEvent = BaseCommissionerEvent & {
+  kind: "kick-member";
+  targetUid: string;
+};
+
+export type StartDraftEvent = BaseCommissionerEvent & {
+  draftOrder: string[];
+  draftRounds: number;
+  kind: "start-draft";
+};
+
+export type FinalizeDraftEvent = BaseCommissionerEvent & {
+  kind: "finalize-draft";
+};
+
+export type RenameLeagueEvent = BaseCommissionerEvent & {
+  kind: "rename-league";
+  name: string;
+};
+
+export type UpdateScoringEvent = BaseCommissionerEvent & {
+  kind: "update-scoring";
+  scoring: ScoringRuleSet;
+};
+
+export type DeleteLeagueEvent = BaseCommissionerEvent & {
+  kind: "delete-league";
+};
+
+export type CommissionerEvent =
+  | AcceptMemberEvent
+  | DeleteLeagueEvent
+  | FinalizeDraftEvent
+  | KickMemberEvent
+  | RenameLeagueEvent
+  | StartDraftEvent
+  | UpdateScoringEvent;
 
 export const DEFAULT_LEAGUE_ID = "defaultLeagueId";
 export const STARTING_STUBS = 1000;
@@ -163,15 +217,21 @@ export function readLeagueSummaries(value: unknown, leagueId?: string): LeagueSu
         continue;
       }
 
-      const commissioner = league.members[uid];
+      const events = readCommissionerEventsFromRoot(root, membershipKey(uid, league.leagueId), uid);
+      const effectiveLeague = applyCommissionerEvents(league, events);
+      if (!effectiveLeague) {
+        continue;
+      }
+
+      const commissioner = effectiveLeague.members[uid];
       summaries.push({
         commissionerEmail,
         commissionerLabel: commissioner
           ? usernameFromEmail(commissioner.email, "commissioner")
           : usernameFromEmail(commissionerEmail, "commissioner"),
         commissionerUid: uid,
-        league,
-        membershipKey: membershipKey(uid, league.leagueId),
+        league: effectiveLeague,
+        membershipKey: membershipKey(uid, effectiveLeague.leagueId),
       });
     }
   }
@@ -231,6 +291,8 @@ export function readTransactions(
     }
   }
 
+  transactions.push(...readProxyTransactions(value, summary));
+
   return transactions.sort((left, right) => left.createdAt - right.createdAt);
 }
 
@@ -248,12 +310,73 @@ export function readOwnTransactions(
 
   for (const [txnId, raw] of Object.entries(rawTransactions)) {
     const transaction = readTransaction(raw);
-    if (transaction && transaction.txnId === txnId) {
+    if (transaction && transaction.txnId === txnId && transaction.playerUid === uid) {
       transactions[txnId] = transaction;
     }
   }
 
+  for (const transaction of readProxyTransactions(value, summary).filter(
+    (candidate) => candidate.playerUid === uid,
+  )) {
+    transactions[transaction.txnId] = transaction;
+  }
+
   return transactions;
+}
+
+function readProxyTransactions(value: unknown, summary: LeagueSummary): LeagueTransaction[] {
+  const transactions: LeagueTransaction[] = [];
+  const activeUids = new Set(Object.keys(summary.league.members));
+  const root = getUserRoot(value, summary.commissionerUid);
+  const byLeague = isRecord(root.proxyTransactions) ? root.proxyTransactions : {};
+  const rawTransactions = isRecord(byLeague[summary.membershipKey])
+    ? (byLeague[summary.membershipKey] as Record<string, unknown>)
+    : {};
+
+  for (const [txnId, raw] of Object.entries(rawTransactions)) {
+    const transaction = readTransaction(raw);
+    if (
+      transaction &&
+      transaction.txnId === txnId &&
+      transaction.enteredByUid === summary.commissionerUid &&
+      activeUids.has(transaction.playerUid) &&
+      summary.league.members[transaction.playerUid]?.playerId === transaction.playerId
+    ) {
+      transactions.push(transaction);
+    }
+  }
+
+  return transactions;
+}
+
+export function readCommissionerEvents(value: unknown, summary: LeagueSummary): CommissionerEvent[] {
+  const root = getUserRoot(value, summary.commissionerUid);
+  return readCommissionerEventsFromRoot(root, summary.membershipKey, summary.commissionerUid).filter(
+    (event) => event.leagueId === summary.league.leagueId,
+  );
+}
+
+export function readOwnCommissionerEvents(
+  value: unknown,
+  uid: string,
+  summary: LeagueSummary,
+): Record<string, CommissionerEvent> {
+  if (uid !== summary.commissionerUid) {
+    return {};
+  }
+
+  return Object.fromEntries(readCommissionerEvents(value, summary).map((event) => [event.eventId, event]));
+}
+
+export function nextCommissionerEventId(events: Record<string, CommissionerEvent>) {
+  const nextIndex =
+    Object.keys(events)
+      .filter((eventId) => eventId.startsWith("c."))
+      .map((eventId) => Number(eventId.split(".")[1]))
+      .filter((value) => Number.isInteger(value) && value > 0)
+      .reduce((max, value) => Math.max(max, value), 0) + 1;
+
+  return `c.${nextIndex}`;
 }
 
 export function makeDefaultLeague(user: User, leagueName: string, leagueId = DEFAULT_LEAGUE_ID) {
@@ -557,8 +680,169 @@ function readTransaction(value: unknown): LeagueTransaction | null {
   return null;
 }
 
+function readCommissionerEventsFromRoot(
+  root: Record<string, unknown>,
+  key: string,
+  commissionerUid: string,
+): CommissionerEvent[] {
+  const byLeague = isRecord(root.commissionerEvents) ? root.commissionerEvents : {};
+  const rawEvents = isRecord(byLeague[key]) ? (byLeague[key] as Record<string, unknown>) : {};
+  const events: CommissionerEvent[] = [];
+
+  for (const [eventId, raw] of Object.entries(rawEvents)) {
+    const event = readCommissionerEvent(raw);
+    if (event && event.eventId === eventId && event.commissionerUid === commissionerUid) {
+      events.push(event);
+    }
+  }
+
+  return sortCommissionerEvents(events);
+}
+
+function applyCommissionerEvents(league: CommissionerLeague, events: CommissionerEvent[]) {
+  let isDeleted = false;
+  const effective: CommissionerLeague = {
+    ...league,
+    config: { ...league.config },
+    kicked: { ...league.kicked },
+    members: { ...league.members },
+    scoring: cloneScoring(league.scoring),
+  };
+
+  for (const event of sortCommissionerEvents(events)) {
+    if (event.leagueId !== league.leagueId || event.commissionerUid !== league.commissionerUid) {
+      continue;
+    }
+
+    effective.updatedAt = Math.max(effective.updatedAt, event.createdAt);
+
+    if (event.kind === "accept-member") {
+      effective.members[event.targetUid] = {
+        email: event.email,
+        joinedAt: event.createdAt,
+        playerId: event.playerId,
+      };
+      delete effective.kicked[event.targetUid];
+      continue;
+    }
+
+    if (event.kind === "kick-member") {
+      delete effective.members[event.targetUid];
+      effective.kicked[event.targetUid] = true;
+      continue;
+    }
+
+    if (event.kind === "start-draft") {
+      effective.config.draftRounds = event.draftRounds;
+      effective.draftOrder = event.draftOrder;
+      delete effective.draftCompletedAt;
+      continue;
+    }
+
+    if (event.kind === "finalize-draft") {
+      effective.draftOrder = null;
+      effective.draftCompletedAt = event.createdAt;
+      continue;
+    }
+
+    if (event.kind === "rename-league") {
+      effective.name = event.name;
+      continue;
+    }
+
+    if (event.kind === "update-scoring") {
+      effective.scoring = cloneScoring(event.scoring);
+      continue;
+    }
+
+    if (event.kind === "delete-league") {
+      isDeleted = true;
+    }
+  }
+
+  return isDeleted ? null : effective;
+}
+
+function sortCommissionerEvents(events: CommissionerEvent[]) {
+  return events.slice().sort((left, right) => {
+    return left.createdAt - right.createdAt || left.eventId.localeCompare(right.eventId);
+  });
+}
+
+function cloneScoring(scoring: ScoringRuleSet): ScoringRuleSet {
+  return {
+    ...scoring,
+    positions: scoring.positions.map((position) => ({ ...position })),
+  };
+}
+
+function readCommissionerEvent(value: unknown): CommissionerEvent | null {
+  if (!isRecord(value)) {
+    return null;
+  }
+
+  const base = readBaseCommissionerEvent(value);
+  const kind = asString(value.kind);
+  if (!base || !kind) {
+    return null;
+  }
+
+  if (kind === "accept-member") {
+    const email = typeof value.email === "string" ? value.email : "";
+    const playerId = asString(value.playerId);
+    const targetUid = asString(value.targetUid);
+    return playerId && targetUid ? { ...base, email, kind, playerId, targetUid } : null;
+  }
+
+  if (kind === "kick-member") {
+    const targetUid = asString(value.targetUid);
+    return targetUid ? { ...base, kind, targetUid } : null;
+  }
+
+  if (kind === "start-draft") {
+    const draftRounds = asNumber(value.draftRounds);
+    const draftOrder = Array.isArray(value.draftOrder)
+      ? value.draftOrder
+          .map((username) => (typeof username === "string" ? username.trim() : ""))
+          .filter(Boolean)
+      : [];
+    return draftRounds && draftOrder.length > 0 ? { ...base, draftOrder, draftRounds, kind } : null;
+  }
+
+  if (kind === "finalize-draft" || kind === "delete-league") {
+    return { ...base, kind };
+  }
+
+  if (kind === "rename-league") {
+    const name = asString(value.name);
+    return name ? { ...base, kind, name } : null;
+  }
+
+  if (kind === "update-scoring") {
+    const scoring = readScoring(value.scoring);
+    return scoring ? { ...base, kind, scoring } : null;
+  }
+
+  return null;
+}
+
+function readBaseCommissionerEvent(value: Record<string, unknown>): BaseCommissionerEvent | null {
+  const commissionerUid = asString(value.commissionerUid);
+  const createdAt = asNumber(value.createdAt);
+  const eventId = asString(value.eventId);
+  const leagueId = asString(value.leagueId);
+
+  if (!commissionerUid || !createdAt || !eventId || !leagueId) {
+    return null;
+  }
+
+  return { commissionerUid, createdAt, eventId, leagueId };
+}
+
 function readBaseTransaction(value: Record<string, unknown>): BaseTransaction | null {
   const createdAt = asNumber(value.createdAt);
+  const enteredByUid = asString(value.enteredByUid);
+  const enteredByUsername = asString(value.enteredByUsername);
   const fee = asNumber(value.fee);
   const playerId = asString(value.playerId);
   const playerUid = asString(value.playerUid);
@@ -568,7 +852,15 @@ function readBaseTransaction(value: Record<string, unknown>): BaseTransaction | 
     return null;
   }
 
-  return { createdAt, fee, playerId, playerUid, txnId };
+  return {
+    createdAt,
+    ...(enteredByUid ? { enteredByUid } : {}),
+    ...(enteredByUsername ? { enteredByUsername } : {}),
+    fee,
+    playerId,
+    playerUid,
+    txnId,
+  };
 }
 
 function readBidPayload(value: unknown): BidPayload | null {

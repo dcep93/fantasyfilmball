@@ -436,7 +436,6 @@ button:disabled:hover {
 
 .ffb-centered-panel,
 .ffb-log,
-.ffb-score-summary,
 .ffb-scoring-editor,
 .ffb-score-table {
   width: min(68rem, 100%);
@@ -445,7 +444,6 @@ button:disabled:hover {
 }
 
 .ffb-centered-panel,
-.ffb-score-summary,
 .ffb-scoring-editor,
 .ffb-score-table,
 .ffb-log {
@@ -511,15 +509,6 @@ button:disabled:hover {
 
 .ffb-picker-grid > .ffb-log {
   margin-bottom: 0;
-}
-
-.ffb-score-summary strong {
-  display: block;
-  color: var(--ww-title-pink);
-  font-family: "Comic Sans MS", "Comic Sans", "Chalkboard SE", "Trebuchet MS", sans-serif;
-  font-size: 4rem;
-  font-weight: 400;
-  line-height: 0.95;
 }
 
 .ffb-toast {
@@ -817,6 +806,15 @@ button:disabled:hover {
   box-shadow: 0 0.35rem 0.85rem rgba(0, 0, 0, 0.22);
 }
 
+.ffb-available-film-list .ffb-film-title {
+  grid-template-columns: 4.7rem minmax(0, 1fr);
+}
+
+.ffb-available-film-list .ffb-film-title img,
+.ffb-available-film-list .ffb-film-title span {
+  width: 4.7rem;
+}
+
 .ffb-film-title span {
   display: grid;
   place-items: center;
@@ -866,10 +864,6 @@ button:disabled:hover {
   padding: 0;
 }
 
-.ffb-released-panel > .ffb-universe-head {
-  padding: 1rem;
-}
-
 .ffb-released-table {
   overflow-x: auto;
 }
@@ -877,14 +871,15 @@ button:disabled:hover {
 .ffb-released-row {
   display: grid;
   grid-template-columns:
+    2.2rem
     minmax(16rem, 1.45fr)
+    minmax(5rem, 0.42fr)
     minmax(7rem, 0.6fr)
     minmax(7rem, 0.65fr)
     repeat(2, minmax(5.4rem, 0.46fr))
     minmax(4.8rem, 0.4fr)
-    minmax(5.8rem, 0.48fr)
-    minmax(5rem, 0.42fr);
-  min-width: 58rem;
+    minmax(5.8rem, 0.48fr);
+  min-width: 61rem;
   gap: 0.7rem;
   align-items: center;
   border-top: 0.0625rem solid var(--ww-border-soft);
@@ -924,6 +919,11 @@ button:disabled:hover {
   font-weight: 900;
 }
 
+.ffb-released-index {
+  color: var(--ww-accent-cyan);
+  font-weight: 850;
+}
+
 .ffb-max-points-cell {
   display: inline-flex;
   align-items: center;
@@ -940,12 +940,12 @@ button:disabled:hover {
 }
 
 .ffb-released-row .ffb-film-title {
-  grid-template-columns: 2rem minmax(0, 1fr);
+  grid-template-columns: 4rem minmax(0, 1fr);
 }
 
 .ffb-released-row .ffb-film-title img,
 .ffb-released-row .ffb-film-title span {
-  width: 2rem;
+  width: 4rem;
 }
 
 .ffb-modal-backdrop {
@@ -992,6 +992,20 @@ button:disabled:hover {
   border-radius: 0.5rem;
   background: var(--ww-panel-soft);
   box-shadow: 0 1.4rem 3.2rem rgba(0, 0, 0, 0.22);
+}
+
+.ffb-commissioner-panel-disabled {
+  opacity: 0.56;
+  filter: grayscale(0.22);
+}
+
+.ffb-commissioner-panel-disabled .ffb-commissioner-card {
+  background: rgba(20, 15, 12, 0.24);
+}
+
+.ffb-commissioner-panel-disabled input,
+.ffb-commissioner-panel-disabled button {
+  cursor: not-allowed;
 }
 
 .ffb-commissioner-grid {
@@ -1135,14 +1149,6 @@ button:disabled:hover {
   margin: 0;
 }
 
-.ffb-score-summary {
-  display: grid;
-  grid-template-columns: minmax(0, 1fr) auto;
-  gap: 1rem;
-  align-items: center;
-  padding: 1.2rem;
-}
-
 .ffb-info-panel {
   width: min(68rem, 100%);
   margin: 0 auto 1rem;
@@ -1151,24 +1157,35 @@ button:disabled:hover {
 }
 
 .ffb-scoring-editor {
-  margin-bottom: 1rem;
-}
-
-.ffb-position-editor-list,
-.ffb-scoring-tables {
+  width: min(72rem, 100%);
   display: grid;
+  grid-template-columns: 1fr;
   gap: 1rem;
+  margin-bottom: 1rem;
+  padding: 1rem;
 }
 
-.ffb-position-editor {
+.ffb-scoring-editor-head {
   display: grid;
-  grid-template-columns: minmax(8rem, 0.7fr) minmax(12rem, 1.2fr) minmax(12rem, 1fr) auto;
-  gap: 0.75rem;
+  grid-template-columns: minmax(0, 1fr) minmax(15rem, 0.34fr);
+  gap: 1rem;
   align-items: end;
-  border-top: 0.0625rem solid var(--ww-border-soft);
-  padding-top: 0.85rem;
 }
 
+.ffb-scoring-editor-head h2 {
+  margin: 0.1rem 0 0.35rem;
+  color: var(--ww-text-strong);
+  font-size: 1.65rem;
+  line-height: 1.08;
+}
+
+.ffb-scoring-editor-head p {
+  max-width: 42rem;
+  margin: 0;
+  color: var(--ww-text-muted);
+}
+
+.ffb-scoring-editor-head label,
 .ffb-position-editor label {
   display: grid;
   gap: 0.35rem;
@@ -1177,6 +1194,7 @@ button:disabled:hover {
   font-weight: 850;
 }
 
+.ffb-scoring-editor-head input,
 .ffb-position-editor input {
   min-height: 2.45rem;
   box-sizing: border-box;
@@ -1188,8 +1206,102 @@ button:disabled:hover {
   font: inherit;
 }
 
+.ffb-position-editor-list,
 .ffb-scoring-tables {
-  width: min(68rem, 100%);
+  display: grid;
+  gap: 1rem;
+}
+
+.ffb-year-toolbar {
+  display: flex;
+  width: min(72rem, 100%);
+  box-sizing: border-box;
+  align-items: end;
+  justify-content: space-between;
+  gap: 0.85rem;
+  margin: 0 auto 1rem;
+}
+
+.ffb-year-toolbar label {
+  display: grid;
+  gap: 0.32rem;
+  color: var(--ww-text-muted);
+  font-size: 0.78rem;
+  font-weight: 850;
+}
+
+.ffb-year-toolbar select {
+  min-height: 2.35rem;
+  min-width: 7.5rem;
+  box-sizing: border-box;
+  border: 0.0625rem solid var(--ww-border);
+  border-radius: 0.5rem;
+  padding: 0.48rem 2rem 0.48rem 0.68rem;
+  color: var(--ww-text);
+  background: rgba(16, 12, 10, 0.72);
+  font: inherit;
+  font-weight: 850;
+}
+
+.ffb-year-toolbar span {
+  color: var(--ww-text-soft);
+  font-size: 0.9rem;
+}
+
+.ffb-position-editor {
+  display: grid;
+  grid-template-columns: auto minmax(0, 1fr) auto;
+  gap: 0.85rem;
+  align-items: center;
+  border: 0.0625rem solid var(--ww-border-soft);
+  border-radius: 0.5rem;
+  padding: 0.85rem;
+  background: rgba(16, 12, 10, 0.36);
+}
+
+.ffb-position-editor > .ffb-category-icon {
+  width: 4.2rem;
+  height: 4.2rem;
+  border-radius: 0.75rem;
+}
+
+.ffb-position-editor-fields {
+  display: grid;
+  grid-template-columns: minmax(9rem, 0.8fr) minmax(13rem, 1.15fr) minmax(12rem, 1fr);
+  gap: 0.75rem;
+  min-width: 0;
+}
+
+.ffb-formula-field input {
+  font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, "Liberation Mono", monospace;
+  font-size: 0.88rem;
+}
+
+.ffb-position-editor-side {
+  display: grid;
+  justify-items: end;
+  gap: 0.6rem;
+}
+
+.ffb-position-editor-status {
+  border: 0.0625rem solid rgba(46, 138, 150, 0.28);
+  border-radius: 999rem;
+  padding: 0.36rem 0.55rem;
+  color: var(--ww-accent-cyan);
+  background: rgba(46, 138, 150, 0.1);
+  font-size: 0.78rem;
+  font-weight: 900;
+  white-space: nowrap;
+}
+
+.ffb-position-editor-status--bad {
+  border-color: rgba(255, 159, 176, 0.38);
+  color: #ff9fb0;
+  background: rgba(147, 31, 54, 0.18);
+}
+
+.ffb-scoring-tables {
+  width: min(72rem, 100%);
   margin: 0 auto;
 }
 
@@ -1198,19 +1310,45 @@ button:disabled:hover {
 }
 
 .ffb-score-table-head {
-  display: flex;
-  justify-content: space-between;
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) minmax(14rem, 0.45fr);
   gap: 1rem;
-  padding: 1rem 1rem 0.5rem;
+  align-items: start;
+  padding: 1rem;
+}
+
+.ffb-score-table-title {
+  display: grid;
+  grid-template-columns: auto minmax(0, 1fr);
+  gap: 0.85rem;
+  align-items: start;
+  min-width: 0;
+}
+
+.ffb-score-table-title > .ffb-category-icon {
+  width: 4.6rem;
+  height: 4.6rem;
+  border-radius: 0.85rem;
+}
+
+.ffb-score-table-head h2 {
+  margin: 0.18rem 0 0;
+  color: var(--ww-text-strong);
+  font-size: 1.35rem;
+  line-height: 1.15;
 }
 
 .ffb-score-table-head code {
   align-self: start;
   border: 0.0625rem solid var(--ww-border-soft);
   border-radius: 0.5rem;
-  padding: 0.45rem 0.6rem;
+  padding: 0.55rem 0.65rem;
   color: var(--ww-accent-cyan);
   background: rgba(16, 12, 10, 0.52);
+  font-size: 0.82rem;
+  line-height: 1.45;
+  white-space: normal;
+  overflow-wrap: anywhere;
 }
 
 .ffb-table-wrap {
@@ -1219,7 +1357,7 @@ button:disabled:hover {
 
 .ffb-score-table table {
   width: 100%;
-  min-width: 44rem;
+  min-width: 48rem;
   border-collapse: collapse;
 }
 
@@ -1234,11 +1372,68 @@ button:disabled:hover {
   color: var(--ww-accent-cyan);
   font-size: 0.74rem;
   font-weight: 850;
+  background: rgba(16, 12, 10, 0.26);
 }
 
 .ffb-score-table td {
   color: var(--ww-text-soft);
   font-size: 0.88rem;
+}
+
+.ffb-score-rank {
+  color: var(--ww-text-muted) !important;
+  font-weight: 900;
+}
+
+.ffb-score-points {
+  color: var(--ww-accent-pink) !important;
+  font-weight: 950;
+}
+
+.ffb-score-film {
+  display: grid;
+  grid-template-columns: 4rem minmax(0, 1fr);
+  gap: 0.72rem;
+  align-items: center;
+  min-width: 0;
+}
+
+.ffb-score-film img,
+.ffb-score-film span {
+  width: 4rem;
+  aspect-ratio: 2 / 3;
+  border: 0.0625rem solid var(--ww-border-soft);
+  border-radius: 0.34rem;
+  object-fit: cover;
+  background: rgba(255, 123, 195, 0.1);
+  box-shadow: 0 0.35rem 0.85rem rgba(0, 0, 0, 0.22);
+}
+
+.ffb-score-film span {
+  display: grid;
+  place-items: center;
+  color: var(--ww-title-pink);
+  font-family: "Comic Sans MS", "Comic Sans", "Chalkboard SE", "Trebuchet MS", sans-serif;
+  font-size: 1.6rem;
+  font-weight: 900;
+}
+
+.ffb-score-film strong {
+  color: var(--ww-text);
+  font-weight: 900;
+}
+
+.ffb-score-film-link {
+  color: var(--ww-text);
+  font-weight: 900;
+  text-decoration: none;
+}
+
+.ffb-score-film-link:hover,
+.ffb-score-film-link:focus-visible {
+  color: var(--ww-accent-cyan);
+  text-decoration: underline;
+  text-underline-offset: 0.18em;
 }
 
 .ffb-copy {
@@ -1578,6 +1773,14 @@ button:disabled:hover {
   border-radius: 0.65rem;
   object-fit: cover;
   box-shadow: 0 0.35rem 0.75rem rgba(0, 0, 0, 0.22);
+}
+
+.ffb-category-icon--fallback {
+  display: inline-grid;
+  place-items: center;
+  color: var(--ww-text-strong);
+  background: rgba(255, 123, 195, 0.16);
+  font-weight: 950;
 }
 
 .ffb-category-header {
@@ -2032,8 +2235,9 @@ button:disabled:hover {
   .ffb-commissioner-grid,
   .ffb-landing-summary,
   .ffb-picker-grid,
-  .ffb-score-summary,
-  .ffb-scoring-editor {
+  .ffb-score-table-head,
+  .ffb-scoring-editor,
+  .ffb-scoring-editor-head {
     grid-template-columns: 1fr;
   }
 
@@ -2123,6 +2327,25 @@ button:disabled:hover {
 
   .ffb-position-editor {
     grid-template-columns: 1fr;
+  }
+
+  .ffb-year-toolbar {
+    align-items: start;
+    flex-direction: column;
+  }
+
+  .ffb-position-editor-fields {
+    grid-template-columns: 1fr;
+  }
+
+  .ffb-position-editor-side {
+    justify-items: start;
+  }
+
+  .ffb-score-table-title > .ffb-category-icon,
+  .ffb-position-editor > .ffb-category-icon {
+    width: 3.9rem;
+    height: 3.9rem;
   }
 
   .ffb-term-tip {

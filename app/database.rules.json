@@ -11,6 +11,13 @@
             }
           }
         },
+        "commissionerEvents": {
+          "$membershipKey": {
+            "$eventId": {
+              ".validate": "!data.exists() && newData.exists()"
+            }
+          }
+        },
         "snapshots": {
           "$membershipKey": {
             "$snapshotId": {

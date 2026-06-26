@@ -10,7 +10,11 @@ import {
   DEFAULT_LEAGUE_ID,
   STARTING_STUBS,
   membershipKey,
+  nextTxnId,
   obfuscateBidPayload,
+  readLeagueSummaries,
+  readOwnTransactions,
+  readTransactions,
   type CommissionerLeague,
   type LeagueTransaction,
 } from "./leagueModel";
@@ -86,6 +90,139 @@ describe("tracked movie parsing", () => {
         movies: [{ id: "bad", title: "Bad", releaseDate: "tomorrow" }],
       }),
     ).toThrow("Movie row metadata is invalid.");
+  });
+});
+
+describe("commissioner events", () => {
+  it("applies commissioner events when reading league summaries", () => {
+    const seed = league();
+    delete seed.members[PLAYER_UID];
+    seed.draftOrder = undefined;
+
+    const summaries = readLeagueSummaries({
+      users: {
+        [COMMISSIONER_UID]: {
+          commissionerEvents: {
+            [LEAGUE_KEY]: {
+              "c.1": {
+                commissionerUid: COMMISSIONER_UID,
+                createdAt: 10,
+                email: "player@gmail.com",
+                eventId: "c.1",
+                kind: "accept-member",
+                leagueId: DEFAULT_LEAGUE_ID,
+                playerId: "2",
+                targetUid: PLAYER_UID,
+              },
+              "c.2": {
+                commissionerUid: COMMISSIONER_UID,
+                createdAt: 20,
+                eventId: "c.2",
+                kind: "rename-league",
+                leagueId: DEFAULT_LEAGUE_ID,
+                name: "Logged League",
+              },
+              "c.3": {
+                commissionerUid: COMMISSIONER_UID,
+                createdAt: 30,
+                draftOrder: ["commissioner", "player"],
+                draftRounds: 1,
+                eventId: "c.3",
+                kind: "start-draft",
+                leagueId: DEFAULT_LEAGUE_ID,
+              },
+              "c.4": {
+                commissionerUid: COMMISSIONER_UID,
+                createdAt: 40,
+                eventId: "c.4",
+                kind: "finalize-draft",
+                leagueId: DEFAULT_LEAGUE_ID,
+              },
+            },
+          },
+          email: "commissioner@gmail.com",
+          leagues: { [DEFAULT_LEAGUE_ID]: seed },
+        },
+      },
+    });
+
+    expect(summaries).toHaveLength(1);
+    expect(summaries[0].league.name).toBe("Logged League");
+    expect(summaries[0].league.members[PLAYER_UID]).toMatchObject({
+      email: "player@gmail.com",
+      playerId: "2",
+    });
+    expect(summaries[0].league.config.draftRounds).toBe(1);
+    expect(summaries[0].league.draftOrder).toBeNull();
+    expect(summaries[0].league.draftCompletedAt).toBe(40);
+  });
+
+  it("hides deleted leagues through commissioner events", () => {
+    const summaries = readLeagueSummaries({
+      users: {
+        [COMMISSIONER_UID]: {
+          commissionerEvents: {
+            [LEAGUE_KEY]: {
+              "c.1": {
+                commissionerUid: COMMISSIONER_UID,
+                createdAt: 10,
+                eventId: "c.1",
+                kind: "delete-league",
+                leagueId: DEFAULT_LEAGUE_ID,
+              },
+            },
+          },
+          email: "commissioner@gmail.com",
+          leagues: { [DEFAULT_LEAGUE_ID]: league() },
+        },
+      },
+    });
+
+    expect(summaries).toEqual([]);
+  });
+});
+
+describe("commissioner proxy transactions", () => {
+  it("applies commissioner-entered player actions from the commissioner folder", () => {
+    const proxiedPickup: LeagueTransaction = {
+      ...pickup("2.1", "future-film", Date.UTC(2026, 4, 16)),
+      enteredByUid: COMMISSIONER_UID,
+      enteredByUsername: "commissioner",
+      playerId: "2",
+      playerUid: PLAYER_UID,
+    };
+    const value = {
+      users: {
+        [COMMISSIONER_UID]: {
+          proxyTransactions: {
+            [LEAGUE_KEY]: {
+              [proxiedPickup.txnId]: proxiedPickup,
+            },
+          },
+        },
+        [PLAYER_UID]: {},
+      },
+    };
+    const leagueSummary = summary();
+    const transactions = readTransactions(value, leagueSummary);
+
+    expect(transactions).toEqual([proxiedPickup]);
+    expect(readOwnTransactions(value, PLAYER_UID, leagueSummary)).toEqual({
+      [proxiedPickup.txnId]: proxiedPickup,
+    });
+    const playerTransactions = readOwnTransactions(value, PLAYER_UID, leagueSummary);
+    expect(nextTxnId(leagueSummary.league.members[PLAYER_UID], playerTransactions)).toBe("2.2");
+
+    const snapshot = deriveLeagueSnapshot({
+      generatedByUid: COMMISSIONER_UID,
+      league: leagueSummary.league,
+      movieFile: movieFile(),
+      now: Date.UTC(2026, 4, 16, 1),
+      transactions,
+    });
+
+    expect(snapshot.state.movies["future-film"].ownerUid).toBe(PLAYER_UID);
+    expect(snapshot.state.players[PLAYER_UID].theater).toContain("future-film");
   });
 });
 
@@ -539,7 +676,10 @@ function league(): CommissionerLeague {
       },
     },
     name: "Test League",
-    scoring: DEFAULT_SCORING_RULES,
+    scoring: {
+      ...DEFAULT_SCORING_RULES,
+      updatedAt: 1,
+    },
     season: 2026,
     updatedAt: 1,
   };

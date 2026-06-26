@@ -11,12 +11,21 @@ import {
 import {
   onValue,
   ref,
+  update,
   type DataSnapshot,
 } from "firebase/database";
 import DebugConsole from "./DebugConsole";
-import { decodeFirebaseValue } from "./firebaseCodec";
+import { decodeFirebaseValue, encodeFirebaseValue } from "./firebaseCodec";
 import { getFirebaseClient, type FirebaseClient } from "./firebaseClient";
 import LeagueConsole from "./LeagueConsole";
+import { getUsers, type UniverseState } from "./leagueModel";
+import {
+  PREVIEW_LEAGUE_PATH,
+  previewRootUids,
+  previewSeedUsers,
+  previewUniverseWithFallback,
+  previewUser,
+} from "./previewData";
 import {
   DEFAULT_SCORING_RULES,
   evaluateFormula,
@@ -35,12 +44,6 @@ type AuthState =
   | { status: "loading" }
   | { status: "signed-out" }
   | { status: "signed-in"; user: User };
-
-type UniverseState =
-  | { status: "idle" }
-  | { status: "loading" }
-  | { status: "ready"; value: unknown }
-  | { status: "error"; message: string };
 
 type ScoreAxisKey = keyof MovieScoreInput;
 
@@ -122,19 +125,30 @@ const SCORE_BROWN = "#d8b38a";
 const SCORE_BLUE = "#5aa9ff";
 const DEFAULT_LEAGUE_PATH = "/league/dcep93/1782180560";
 
-function usePathname() {
-  const [pathname, setPathname] = useState(() => window.location.pathname);
+type AppLocation = {
+  pathname: string;
+  search: string;
+};
+
+function useAppLocation() {
+  const [location, setLocation] = useState<AppLocation>(() => ({
+    pathname: window.location.pathname,
+    search: window.location.search,
+  }));
 
   useEffect(() => {
-    function syncPathname() {
-      setPathname(window.location.pathname);
+    function syncLocation() {
+      setLocation({
+        pathname: window.location.pathname,
+        search: window.location.search,
+      });
     }
 
-    window.addEventListener("popstate", syncPathname);
-    return () => window.removeEventListener("popstate", syncPathname);
+    window.addEventListener("popstate", syncLocation);
+    return () => window.removeEventListener("popstate", syncLocation);
   }, []);
 
-  return pathname;
+  return location;
 }
 
 function useFirebaseClient(): LoadState {
@@ -211,7 +225,17 @@ function useUniverse(client: FirebaseClient | null): UniverseState {
 }
 
 function navigateTo(pathname: string) {
-  window.history.pushState(null, "", pathname);
+  const target = new URL(pathname, window.location.origin);
+  if (!pathname.includes("?")) {
+    target.search = window.location.search;
+  }
+
+  const nextUrl = `${target.pathname}${target.search}${target.hash}`;
+  if (nextUrl === `${window.location.pathname}${window.location.search}${window.location.hash}`) {
+    return;
+  }
+
+  window.history.pushState(null, "", nextUrl);
   window.dispatchEvent(new PopStateEvent("popstate"));
 }
 
@@ -1229,7 +1253,7 @@ function errorMessage(error: unknown) {
 }
 
 function AppShell() {
-  const pathname = usePathname();
+  const { pathname } = useAppLocation();
 
   if (pathname === "/") {
     return <LandingPage />;
@@ -1243,7 +1267,8 @@ function AppShell() {
 }
 
 function PrivateApp() {
-  const pathname = usePathname();
+  const { pathname, search } = useAppLocation();
+  const isPreviewPath = pathname === "/preview" || pathname.startsWith("/preview/");
   const clientState = useFirebaseClient();
   const client = clientState.status === "ready" ? clientState.client : null;
   const authState = useAuth(client);
@@ -1266,7 +1291,7 @@ function PrivateApp() {
     navigateTo("/league");
   }
 
-  if (!pathname.startsWith("/league") && pathname !== "/debug") {
+  if (!pathname.startsWith("/league") && pathname !== "/debug" && !isPreviewPath) {
     return <LandingPage />;
   }
 
@@ -1288,6 +1313,18 @@ function PrivateApp() {
 
   if (authState.status === "loading") {
     return <main className="ffb-page" aria-label="Checking sign-in" />;
+  }
+
+  if (isPreviewPath) {
+    return (
+      <PreviewApp
+        actualUser={user}
+        client={clientState.client}
+        pathname={pathname}
+        search={search}
+        universeState={universeState}
+      />
+    );
   }
 
   if (authState.status === "signed-out" && pathname === "/league") {
@@ -1318,11 +1355,139 @@ function PrivateApp() {
     <LeagueConsole
       client={clientState.client}
       pathname={pathname}
+      search={search}
       onNavigate={navigateTo}
       onSignOut={signOutToLeague}
       universeState={universeState}
       user={user}
     />
+  );
+}
+
+function PreviewApp({
+  actualUser,
+  client,
+  pathname,
+  search,
+  universeState,
+}: {
+  actualUser: User | null;
+  client: FirebaseClient;
+  pathname: string;
+  search: string;
+  universeState: UniverseState;
+}) {
+  const [resetMessage, setResetMessage] = useState<string | null>(null);
+  const previewLogin = new URLSearchParams(search).get("login");
+  const simulatedUser = previewUser(previewLogin);
+  const previewUniverseState: UniverseState =
+    universeState.status === "ready"
+      ? { status: "ready", value: previewUniverseWithFallback(universeState.value) }
+      : universeState;
+  const translatedPathname = previewPathToLeaguePath(pathname);
+  const canReset = actualUser?.email === "dcep93@gmail.com";
+
+  async function resetPreview() {
+    if (!actualUser || !canReset) {
+      setResetMessage("Sign in as dcep93@gmail.com to reset preview data.");
+      return;
+    }
+
+    setResetMessage(null);
+    try {
+      await resetPreviewFirebase(client, actualUser, universeState.status === "ready" ? universeState.value : {});
+      setResetMessage("Preview reset.");
+    } catch (error: unknown) {
+      setResetMessage(error instanceof Error ? error.message : "Preview reset failed.");
+    }
+  }
+
+  function navigatePreview(path: string) {
+    if (path === "/league") {
+      navigateTo("/preview");
+      return;
+    }
+
+    if (path.startsWith(PREVIEW_LEAGUE_PATH)) {
+      navigateTo(`/preview${path.slice(PREVIEW_LEAGUE_PATH.length)}`);
+      return;
+    }
+
+    navigateTo(path);
+  }
+
+  function clearPreviewLogin() {
+    const url = new URL(window.location.href);
+    url.pathname = pathname;
+    url.searchParams.delete("login");
+    navigateTo(`${url.pathname}${url.search}`);
+  }
+
+  return (
+    <>
+      {resetMessage ? <p className="ffb-toast ffb-preview-toast">{resetMessage}</p> : null}
+      <LeagueConsole
+        client={client}
+        pathname={translatedPathname}
+        previewReset={{
+          disabled: !canReset,
+          onReset: resetPreview,
+        }}
+        search={search}
+        onNavigate={navigatePreview}
+        onSignOut={clearPreviewLogin}
+        universeState={previewUniverseState}
+        user={simulatedUser}
+        writerUser={canReset ? actualUser : null}
+      />
+    </>
+  );
+}
+
+function previewPathToLeaguePath(pathname: string) {
+  const suffix = pathname === "/preview" ? "" : pathname.replace(/^\/preview/, "");
+  return `${PREVIEW_LEAGUE_PATH}${suffix}`;
+}
+
+async function resetPreviewFirebase(client: FirebaseClient, user: User, universeValue: unknown) {
+  const existingUsers = getUsers(universeValue);
+  const seedUsers = previewSeedUsers();
+  const resetUids = previewRootUids();
+
+  for (const uid of resetUids) {
+    if (!existingUsers[uid]) {
+      continue;
+    }
+
+    await writePreviewRoot(client, user, uid, {
+      commissionerEvents: null,
+      leagueMemberships: null,
+      leagues: null,
+      snapshots: null,
+      transactions: null,
+    });
+  }
+
+  for (const [uid, rootValue] of Object.entries(seedUsers)) {
+    await writePreviewRoot(client, user, uid, rootValue);
+  }
+}
+
+function writePreviewRoot(
+  client: FirebaseClient,
+  user: User,
+  uid: string,
+  value: Record<string, unknown>,
+) {
+  const now = Date.now();
+  return update(
+    ref(client.database, `users/${uid}`),
+    encodeFirebaseValue({
+      ...value,
+      adminWrite: user.email ?? "",
+      currentTime: now,
+      updatedAt: now,
+    }) as Record<string, unknown>,
   );
 }
 

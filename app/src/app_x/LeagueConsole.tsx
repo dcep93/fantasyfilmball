@@ -3,10 +3,13 @@ import type { User } from "firebase/auth";
 import { ref, serverTimestamp, update } from "firebase/database";
 import { encodeFirebaseValue } from "./firebaseCodec";
 import type { FirebaseClient } from "./firebaseClient";
+import { loadHistoricalReleasedMovies } from "./historicalMovieData";
 import { deriveLeagueSnapshot, type DerivedMovieState } from "./leagueState";
 import { resolveLeagueSnapshot, snapshotIdFor, type SnapshotResolution } from "./leagueSnapshots";
 import { ScoringRulesContent } from "./ScoringRulesContent";
 import { evaluateFormula, type MovieScoreInput, type ScoringRuleSet } from "./scoringRules";
+import { YearSelectorToolbar } from "./YearSelectorToolbar";
+import { replaceYearQuery, yearFromSearch } from "./yearQuery";
 import {
   commissionerUsername,
   decodeBidPayload,
@@ -15,14 +18,18 @@ import {
   leaguePath,
   makeDefaultLeague,
   membershipKey,
+  nextCommissionerEventId,
   nextTxnId,
   obfuscateBidPayload,
+  readCommissionerEvents,
   readLeagueSummaries,
   readMemberships,
+  readOwnCommissionerEvents,
   readOwnTransactions,
   readTransactions,
   usernameFromEmail,
   type BidPayload,
+  type CommissionerEvent,
   type LeagueMember,
   type LeagueSummary,
   type LeagueTransaction,
@@ -33,10 +40,16 @@ import { loadTrackedMovieFile, type TrackedMovieFile } from "./movieData";
 type LeagueConsoleProps = {
   client: FirebaseClient;
   pathname: string;
+  previewReset?: {
+    disabled: boolean;
+    onReset: () => void;
+  };
+  search: string;
   onNavigate: (pathname: string) => void;
   onSignOut: () => void;
   universeState: UniverseState;
   user: User | null;
+  writerUser?: User | null;
 };
 
 type LeagueConsoleView = "league" | "scoring" | "available" | "released";
@@ -77,6 +90,72 @@ function updateEncoded(client: FirebaseClient, path: string, value: Record<strin
   return update(ref(client.database, path), encodeFirebaseValue(value) as Record<string, unknown>);
 }
 
+function updateUserRoot(
+  client: FirebaseClient,
+  targetUid: string,
+  writerUser: User,
+  value: Record<string, unknown>,
+) {
+  const now = timestamp();
+  const adminFields =
+    writerUser.uid === targetUid
+      ? {}
+      : {
+          adminWrite: writerUser.email ?? "",
+          currentTime: now,
+        };
+
+  return updateEncoded(client, `users/${targetUid}`, {
+    ...value,
+    ...adminFields,
+  });
+}
+
+type CommissionerEventPayload =
+  | { email: string; kind: "accept-member"; playerId: string; targetUid: string }
+  | { kind: "delete-league" }
+  | { kind: "finalize-draft" }
+  | { kind: "kick-member"; targetUid: string }
+  | { draftOrder: string[]; draftRounds: number; kind: "start-draft" }
+  | { kind: "rename-league"; name: string }
+  | { kind: "update-scoring"; scoring: ScoringRuleSet };
+
+async function appendCommissionerEvent(
+  client: FirebaseClient,
+  writerUser: User,
+  summary: LeagueSummary,
+  universeValue: unknown,
+  payload: CommissionerEventPayload,
+) {
+  const eventId = nextCommissionerEventId(
+    readOwnCommissionerEvents(universeValue, summary.commissionerUid, summary),
+  );
+  const event = {
+    ...payload,
+    commissionerUid: summary.commissionerUid,
+    createdAt: timestamp(),
+    eventId,
+    leagueId: summary.league.leagueId,
+  } as CommissionerEvent;
+
+  await updateUserRoot(client, summary.commissionerUid, writerUser, {
+    [`commissionerEvents/${summary.membershipKey}/${event.eventId}`]: event,
+    updatedAt: serverTimestamp(),
+  });
+}
+
+function leagueSectionLabel(section: LeagueRoute["section"] | LeagueConsoleView | null | undefined) {
+  return section === "available"
+    ? "Available"
+    : section === "released"
+      ? "Released"
+      : section === "scoring"
+        ? "Scoring"
+        : section === "theater"
+          ? "Theater"
+          : "League Home";
+}
+
 function leagueRoute(pathname: string): LeagueRoute | null {
   const [, root, commissioner, leagueId, section, playerUsername] = pathname.split("/");
   if (root !== "league" || !commissioner || !leagueId) {
@@ -100,17 +179,18 @@ function leagueRoute(pathname: string): LeagueRoute | null {
 export default function LeagueConsole({
   client,
   pathname,
+  previewReset,
+  search,
   onNavigate,
   onSignOut,
   universeState,
   user,
+  writerUser = user,
 }: LeagueConsoleProps) {
   const [view, setView] = useState<LeagueConsoleView>("league");
-  const accountLabel = user ? usernameFromEmail(user.email, "player") : "Not Logged In";
   const [movieFile, setMovieFile] = useState<TrackedMovieFile | null>(null);
   const [movieFileError, setMovieFileError] = useState<string | null>(null);
   const [message, setMessage] = useState<string | null>(null);
-  const [readyRouteKey, setReadyRouteKey] = useState<string | null>(null);
   const universeValue = useMemo(
     () => (universeState.status === "ready" ? universeState.value : EMPTY_UNIVERSE),
     [universeState],
@@ -120,14 +200,24 @@ export default function LeagueConsole({
     () =>
       routeLeague
         ? findLeagueSummaryByPath(universeValue, routeLeague.commissionerUsername, routeLeague.leagueId)
-        : null,
+      : null,
     [routeLeague, universeValue],
   );
-  const routeKey = routeLeague ? `${routeLeague.commissionerUsername}/${routeLeague.leagueId}` : null;
-  const directRouteReady = !routeKey || readyRouteKey === routeKey;
+  const actingUser = useMemo(
+    () => resolveActingUser(user, selectedLeague, search),
+    [search, selectedLeague, user],
+  );
+  const actualAccountLabel = user ? usernameFromEmail(user.email, "player") : "Not Logged In";
+  const accountLabel =
+    actingUser && user && actingUser.uid !== user.uid
+      ? `${usernameFromEmail(actingUser.email, actingUser.uid)} via ${actualAccountLabel}`
+      : actualAccountLabel;
   const leagueMenuLabel = selectedLeague
     ? `${commissionerUsername(selectedLeague)}/${selectedLeague.league.leagueId}`
     : null;
+  const routeLabel = routeLeague ? leagueSectionLabel(routeLeague.section) : null;
+  const shellKicker = routeLeague ? routeLabel ?? "League Home" : "FantasyFilmBall";
+  const shellTitle = selectedLeague ? selectedLeague.league.name : routeLabel ?? "League picker";
   const activeView: LeagueConsoleView = routeLeague
     ? routeLeague.section === "scoring" ||
       routeLeague.section === "available" ||
@@ -136,22 +226,23 @@ export default function LeagueConsole({
       : "league"
     : view;
   const activeShortcut: LeagueShortcutView = routeLeague?.section === "theater" ? "theater" : activeView;
-  const ownMember = user && selectedLeague ? selectedLeague.league.members[user.uid] ?? null : null;
+  const ownMember = actingUser && selectedLeague ? selectedLeague.league.members[actingUser.uid] ?? null : null;
   const ownTheaterPath =
-    selectedLeague && ownMember && user
+    selectedLeague && ownMember && actingUser
       ? `${leaguePath(selectedLeague)}/theater/${encodeURIComponent(
-          usernameFromEmail(ownMember.email, user.uid),
+          usernameFromEmail(ownMember.email, actingUser.uid),
         )}`
       : null;
 
   function changeView(nextView: LeagueConsoleView) {
-    setView(nextView);
     if (!selectedLeague) {
+      setView(nextView);
       return;
     }
 
     const basePath = leaguePath(selectedLeague);
-    onNavigate(nextView === "league" ? basePath : `${basePath}/${nextView}`);
+    const nextPath = nextView === "league" ? basePath : `${basePath}/${nextView}`;
+    onNavigate(nextPath);
   }
 
   function openOwnTheater() {
@@ -160,14 +251,16 @@ export default function LeagueConsole({
     }
   }
 
-  useEffect(() => {
-    if (!routeKey) {
-      return;
+  async function saveScoringRules(rules: ScoringRuleSet) {
+    if (!selectedLeague || !user || !writerUser || selectedLeague.commissionerUid !== user.uid) {
+      throw new Error("Only this league's commissioner can edit scoring positions and formulas.");
     }
 
-    const timeoutId = window.setTimeout(() => setReadyRouteKey(routeKey), 400);
-    return () => window.clearTimeout(timeoutId);
-  }, [routeKey]);
+    await appendCommissionerEvent(client, writerUser, selectedLeague, universeValue, {
+      kind: "update-scoring",
+      scoring: rules,
+    });
+  }
 
   useEffect(() => {
     let active = true;
@@ -198,7 +291,9 @@ export default function LeagueConsole({
         accountLabel={accountLabel}
         leagueMenuLabel={leagueMenuLabel}
         ownTheaterPath={ownTheaterPath}
-        title="League Home"
+        kicker={shellKicker}
+        previewReset={previewReset}
+        title={shellTitle}
         onNavigate={onNavigate}
         onLeaguePickerClick={() => setMessage("During the inaugural season, there is only one league that exists.")}
         onOpenOwnTheater={openOwnTheater}
@@ -219,7 +314,7 @@ export default function LeagueConsole({
     return <main className="ffb-page" aria-label="Loading league" />;
   }
 
-  if (!movieFile) {
+  if (!movieFile && activeView !== "scoring") {
     if (!movieFileError) {
       return <main className="ffb-page" aria-label="Loading movie data" />;
     }
@@ -230,7 +325,9 @@ export default function LeagueConsole({
         accountLabel={accountLabel}
         leagueMenuLabel={leagueMenuLabel}
         ownTheaterPath={ownTheaterPath}
-        title="League picker"
+        kicker={shellKicker}
+        previewReset={previewReset}
+        title={shellTitle}
         onNavigate={onNavigate}
         onLeaguePickerClick={() => setMessage("During the inaugural season, there is only one league that exists.")}
         onOpenOwnTheater={openOwnTheater}
@@ -247,17 +344,15 @@ export default function LeagueConsole({
     );
   }
 
-  if (routeLeague && !selectedLeague && !directRouteReady) {
-    return <main className="ffb-page" aria-label="Loading league" />;
-  }
-
   return (
     <Shell
       activeShortcut={activeShortcut}
       accountLabel={accountLabel}
       leagueMenuLabel={leagueMenuLabel}
       ownTheaterPath={ownTheaterPath}
-      title={selectedLeague ? selectedLeague.league.name : "League picker"}
+      kicker={shellKicker}
+      previewReset={previewReset}
+      title={shellTitle}
       onNavigate={onNavigate}
       onLeaguePickerClick={() => setMessage("During the inaugural season, there is only one league that exists.")}
       onOpenOwnTheater={openOwnTheater}
@@ -268,16 +363,17 @@ export default function LeagueConsole({
       {message ? <p className="ffb-toast">{message}</p> : null}
       {activeView === "scoring" ? (
         <ScoringRulesContent
-          client={client}
           onChangeLeague={() => {
             onNavigate("/league");
             setView("league");
           }}
           onOpenLeague={() => changeView("league")}
+          onSaveRules={saveScoringRules}
+          search={search}
           selectedLeague={selectedLeague}
           user={user}
         />
-      ) : selectedLeague ? (
+      ) : selectedLeague && movieFile ? (
         <LeagueDashboard
           client={client}
           onClearSelection={() => {
@@ -288,11 +384,13 @@ export default function LeagueConsole({
           onNavigate={onNavigate}
           routeSection={routeLeague?.section ?? "league"}
           playerUsername={routeLeague?.playerUsername ?? null}
+          search={search}
           summary={selectedLeague}
           universeValue={universeValue}
-          user={user}
+          user={actingUser}
+          writerUser={writerUser}
         />
-      ) : (
+      ) : movieFile ? (
         <LeagueDiscovery
           client={client}
           onMessage={setMessage}
@@ -302,15 +400,48 @@ export default function LeagueConsole({
           universeValue={universeValue}
           user={user}
         />
-      )}
+      ) : null}
     </Shell>
   );
+}
+
+function resolveActingUser(actualUser: User | null, summary: LeagueSummary | null, search: string) {
+  if (!actualUser || !summary) {
+    return actualUser;
+  }
+
+  const login = new URLSearchParams(search).get("login")?.trim();
+  if (!login || actualUser.uid !== summary.commissionerUid) {
+    return actualUser;
+  }
+
+  const actingMember = Object.entries(summary.league.members).find(([, member]) => {
+    return usernameFromEmail(member.email, "").toLowerCase() === login.toLowerCase();
+  });
+
+  if (!actingMember) {
+    return actualUser;
+  }
+
+  const [uid, member] = actingMember;
+  return userFromLeagueMember(uid, member);
+}
+
+function userFromLeagueMember(uid: string, member: LeagueMember) {
+  return {
+    displayName: usernameFromEmail(member.email, uid),
+    email: member.email,
+    emailVerified: true,
+    isAnonymous: false,
+    uid,
+  } as User;
 }
 
 function Shell({
   accountLabel,
   activeShortcut,
   children,
+  kicker,
   leagueMenuLabel,
   onLeaguePickerClick,
   onNavigate,
@@ -318,12 +449,14 @@ function Shell({
   onSignOut,
   onViewChange,
   ownTheaterPath,
+  previewReset,
   title,
   user,
 }: {
   accountLabel: string;
   activeShortcut: LeagueShortcutView;
   children?: ReactNode;
+  kicker: string;
   leagueMenuLabel: string | null;
   onLeaguePickerClick?: () => void;
   onNavigate: (pathname: string) => void;
@@ -331,6 +464,10 @@ function Shell({
   onSignOut: () => void;
   onViewChange: (view: LeagueConsoleView) => void;
   ownTheaterPath: string | null;
+  previewReset?: {
+    disabled: boolean;
+    onReset: () => void;
+  };
   title: string;
   user: User | null;
 }) {
@@ -360,11 +497,21 @@ function Shell({
     <main className="ffb-page">
       <header className="ffb-header">
         <div>
-          <p className="ffb-kicker">{title === "League picker" ? "FantasyFilmBall" : "League Home"}</p>
+          <p className="ffb-kicker">{kicker}</p>
           <h1>{title}</h1>
         </div>
         <nav className="ffb-app-nav" aria-label={title}>
           <div className="ffb-app-tools" role="group" aria-label="Account">
+            {previewReset ? (
+              <button
+                className="ffb-preview-reset-button"
+                disabled={previewReset.disabled}
+                type="button"
+                onClick={previewReset.onReset}
+              >
+                Reset
+              </button>
+            ) : null}
             <div className="ffb-account-menu" ref={accountMenuRef}>
               <button
                 aria-expanded={isAccountMenuOpen}
@@ -708,9 +855,11 @@ function LeagueDashboard({
   onNavigate,
   playerUsername: selectedPlayerUsername,
   routeSection,
+  search,
   summary,
   universeValue,
   user,
+  writerUser = user,
 }: {
   client: FirebaseClient;
   movieFile: TrackedMovieFile;
@@ -719,13 +868,20 @@ function LeagueDashboard({
   onNavigate: (pathname: string) => void;
   playerUsername: string | null;
   routeSection: LeagueRoute["section"];
+  search: string;
   summary: LeagueSummary;
   universeValue: unknown;
   user: User | null;
+  writerUser?: User | null;
 }) {
   const [isWriting, setIsWriting] = useState(false);
   const [renderNow] = useState(() => timestamp());
+  const finalizingDraftRef = useRef<string | null>(null);
   const viewerUid = user?.uid ?? null;
+  const commissionerEvents = useMemo(
+    () => readCommissionerEvents(universeValue, summary),
+    [summary, universeValue],
+  );
   const transactions = useMemo(
     () => readTransactions(universeValue, summary),
     [summary, universeValue],
@@ -747,9 +903,20 @@ function LeagueDashboard({
     [movieFile, renderNow, summary, transactions, universeValue, viewerUid],
   );
   const currentMember = viewerUid ? summary.league.members[viewerUid] : undefined;
-  const isCommissioner = Boolean(viewerUid && summary.commissionerUid === viewerUid);
+  const isCommissioner = Boolean(
+    (viewerUid && summary.commissionerUid === viewerUid) ||
+      (writerUser && summary.commissionerUid === writerUser.uid),
+  );
+  const isCommissionerProxyAction = Boolean(
+    user &&
+      writerUser &&
+      user.uid !== writerUser.uid &&
+      writerUser.uid === summary.commissionerUid &&
+      summary.league.members[user.uid],
+  );
   const isActive = Boolean(currentMember);
   const isKicked = Boolean(viewerUid && summary.league.kicked[viewerUid]);
+  const isActionDisabled = isWriting || !writerUser;
   const pendingRequests = getPendingRequests(universeValue, summary);
   const kickedRequests = getKickedRequests(universeValue, summary);
   const draftStatus = getDraftStatus(summary, transactions, snapshotResolution, user);
@@ -761,7 +928,13 @@ function LeagueDashboard({
 
     let active = true;
     const snapshot = snapshotResolution.snapshot;
-    updateEncoded(client, `users/${user.uid}`, {
+    const writer = writerUser;
+    if (!writer) {
+      return;
+    }
+
+    const snapshotOwnerUid = isCommissionerProxyAction ? summary.commissionerUid : user.uid;
+    updateUserRoot(client, snapshotOwnerUid, writer, {
       [`snapshots/${summary.membershipKey}/${snapshotIdFor(snapshot)}`]: snapshot,
       updatedAt: serverTimestamp(),
     })
@@ -779,11 +952,14 @@ function LeagueDashboard({
   }, [
     client,
     isActive,
+    isCommissionerProxyAction,
     snapshotResolution.shouldWrite,
     snapshotResolution.snapshot,
     onMessage,
+    summary.commissionerUid,
     summary.membershipKey,
     user,
+    writerUser,
   ]);
 
   async function writeOwnTransaction(transaction: LeagueTransaction) {
@@ -791,8 +967,24 @@ function LeagueDashboard({
       throw new Error("Sign in before submitting transactions.");
     }
 
-    await updateEncoded(client, `users/${user.uid}`, {
-      [`transactions/${summary.membershipKey}/${transaction.txnId}`]: transaction,
+    if (!writerUser) {
+      throw new Error("Sign in with an account that can write preview data.");
+    }
+
+    const transactionWithAudit = isCommissionerProxyAction
+      ? {
+          ...transaction,
+          enteredByUid: writerUser.uid,
+          enteredByUsername: usernameFromEmail(writerUser.email, writerUser.uid),
+        }
+      : transaction;
+    const writeUid = isCommissionerProxyAction ? summary.commissionerUid : user.uid;
+    const writePath = isCommissionerProxyAction
+      ? `proxyTransactions/${summary.membershipKey}/${transaction.txnId}`
+      : `transactions/${summary.membershipKey}/${transaction.txnId}`;
+
+    await updateUserRoot(client, writeUid, writerUser, {
+      [writePath]: transactionWithAudit,
       updatedAt: serverTimestamp(),
     });
   }
@@ -806,8 +998,12 @@ function LeagueDashboard({
       throw new Error("You cannot rejoin this league.");
     }
 
+    if (!writerUser) {
+      throw new Error("Sign in with an account that can write preview data.");
+    }
+
     const now = timestamp();
-    await updateEncoded(client, `users/${user.uid}`, {
+    await updateUserRoot(client, user.uid, writerUser, {
       email: user.email,
       [`leagueMemberships/${summary.membershipKey}`]: {
         commissionerUid: summary.commissionerUid,
@@ -832,22 +1028,25 @@ function LeagueDashboard({
     }
   }
 
+  async function writeCommissionerEvent(payload: CommissionerEventPayload) {
+    if (!user || !writerUser || !isCommissioner) {
+      throw new Error("Only the commissioner can change league settings.");
+    }
+
+    await appendCommissionerEvent(client, writerUser, summary, universeValue, payload);
+  }
+
   async function acceptRequest(request: JoinRequest) {
     if (!user || !isCommissioner) {
       throw new Error("Only the commissioner can accept join requests.");
     }
 
     const playerId = nextAvailablePlayerId(summary);
-    const now = timestamp();
-    await updateEncoded(client, `users/${user.uid}`, {
-      [`leagues/${summary.league.leagueId}/members/${request.uid}`]: {
-        email: request.email ?? "",
-        joinedAt: now,
-        playerId,
-      },
-      [`leagues/${summary.league.leagueId}/kicked/${request.uid}`]: null,
-      [`leagues/${summary.league.leagueId}/updatedAt`]: now,
-      updatedAt: serverTimestamp(),
+    await writeCommissionerEvent({
+      email: request.email ?? "",
+      kind: "accept-member",
+      playerId,
+      targetUid: request.uid,
     });
   }
 
@@ -856,11 +1055,9 @@ function LeagueDashboard({
       throw new Error("Only the commissioner can kick join requests.");
     }
 
-    const now = timestamp();
-    await updateEncoded(client, `users/${user.uid}`, {
-      [`leagues/${summary.league.leagueId}/kicked/${request.uid}`]: true,
-      [`leagues/${summary.league.leagueId}/updatedAt`]: now,
-      updatedAt: serverTimestamp(),
+    await writeCommissionerEvent({
+      kind: "kick-member",
+      targetUid: request.uid,
     });
   }
 
@@ -878,30 +1075,40 @@ function LeagueDashboard({
       throw new Error("A draft needs at least one member.");
     }
 
-    const now = timestamp();
-    await updateEncoded(client, `users/${user.uid}`, {
-      [`leagues/${summary.league.leagueId}/config/draftRounds`]: rounds,
-      [`leagues/${summary.league.leagueId}/draftOrder`]: draftOrder,
-      [`leagues/${summary.league.leagueId}/updatedAt`]: now,
-      updatedAt: serverTimestamp(),
+    await writeCommissionerEvent({
+      draftOrder,
+      draftRounds: rounds,
+      kind: "start-draft",
     });
   }
 
   useEffect(() => {
-    if (!user || !isCommissioner || !draftStatus.shouldFinalize) {
+    if (!writerUser || !isCommissioner || !draftStatus.shouldFinalize) {
       return;
     }
 
-    const now = timestamp();
-    updateEncoded(client, `users/${user.uid}`, {
-      [`leagues/${summary.league.leagueId}/draftCompletedAt`]: now,
-      [`leagues/${summary.league.leagueId}/draftOrder`]: null,
-      [`leagues/${summary.league.leagueId}/updatedAt`]: now,
-      updatedAt: serverTimestamp(),
+    const finalizeKey = `${summary.membershipKey}:${draftStatus.pickIndex}`;
+    if (finalizingDraftRef.current === finalizeKey) {
+      return;
+    }
+
+    finalizingDraftRef.current = finalizeKey;
+    appendCommissionerEvent(client, writerUser, summary, universeValue, {
+      kind: "finalize-draft",
     }).catch((error: unknown) => {
+      finalizingDraftRef.current = null;
       onMessage(error instanceof Error ? `Draft finalization failed: ${error.message}` : "Draft finalization failed.");
     });
-  }, [client, draftStatus.shouldFinalize, isCommissioner, onMessage, summary.league.leagueId, user]);
+  }, [
+    client,
+    draftStatus.pickIndex,
+    draftStatus.shouldFinalize,
+    isCommissioner,
+    onMessage,
+    summary,
+    universeValue,
+    writerUser,
+  ]);
 
   return (
     <>
@@ -912,8 +1119,8 @@ function LeagueDashboard({
           summary={summary}
         />
       ) : routeSection === "available" ? (
-        <AvailableFilmsPanel
-          disabled={isWriting}
+          <AvailableFilmsPanel
+          disabled={isActionDisabled}
           draftStatus={draftStatus}
           isCommissioner={isCommissioner}
           member={currentMember ?? null}
@@ -935,11 +1142,11 @@ function LeagueDashboard({
           }
         />
       ) : routeSection === "released" ? (
-        <ReleasedFilmsPanel resolution={snapshotResolution} summary={summary} />
+        <ReleasedFilmsPanel resolution={snapshotResolution} search={search} summary={summary} />
       ) : (
         <>
       <TheatersPanel
-        disabled={isWriting}
+        disabled={isActionDisabled}
         isCommissioner={isCommissioner}
         onAcceptRequest={(request) =>
           runAction(async () => {
@@ -964,7 +1171,7 @@ function LeagueDashboard({
 
       {isActive && user && currentMember ? (
         <MyTheaterActionsPanel
-          disabled={isWriting}
+          disabled={isActionDisabled}
           draftStatus={draftStatus}
           member={currentMember}
           ownTransactions={ownTransactions}
@@ -990,13 +1197,15 @@ function LeagueDashboard({
           </p>
           <button
             className="ffb-primary"
-            disabled={isWriting || !user || Boolean(currentMember) || isKicked}
+            disabled={isActionDisabled || Boolean(currentMember) || isKicked}
             type="button"
             onClick={() =>
-              runAction(async () => {
-                await requestJoin();
-                return `Requested to join ${summary.league.name}.`;
-              })
+              user
+                ? runAction(async () => {
+                    await requestJoin();
+                    return `Requested to join ${summary.league.name}.`;
+                  })
+                : onNavigate("/league")
             }
           >
             {!user
@@ -1010,18 +1219,31 @@ function LeagueDashboard({
         </section>
       )}
 
-      <TransactionLog resolution={snapshotResolution} summary={summary} transactions={transactions} />
+      <TransactionLog
+        commissionerEvents={commissionerEvents}
+        resolution={snapshotResolution}
+        summary={summary}
+        transactions={transactions}
+      />
 
-      {isCommissioner && user ? (
-        <CommissionerPanel
-          client={client}
-          isWriting={isWriting}
-          onDeleted={onClearSelection}
-          onRun={runAction}
-          summary={summary}
-          user={user}
-        />
-      ) : null}
+      <CommissionerPanel
+        canEdit={Boolean(isCommissioner && user)}
+        isWriting={isActionDisabled}
+        onDelete={() =>
+          runAction(async () => {
+            await writeCommissionerEvent({ kind: "delete-league" });
+            onClearSelection();
+            return `${summary.league.name} deleted.`;
+          })
+        }
+        onRename={(name) =>
+          runAction(async () => {
+            await writeCommissionerEvent({ kind: "rename-league", name });
+            return "League name updated.";
+          })
+        }
+        summary={summary}
+      />
         </>
       )}
     </>
@@ -1029,55 +1251,50 @@ function LeagueDashboard({
 }
 
 function CommissionerPanel({
-  client,
+  canEdit,
   isWriting,
-  onDeleted,
-  onRun,
+  onDelete,
+  onRename,
   summary,
-  user,
 }: {
-  client: FirebaseClient;
+  canEdit: boolean;
   isWriting: boolean;
-  onDeleted: () => void;
-  onRun: (action: () => Promise<string>) => void;
+  onDelete: () => void;
+  onRename: (name: string) => void;
   summary: LeagueSummary;
-  user: User;
 }) {
   const [leagueName, setLeagueName] = useState(summary.league.name);
   const [deleteConfirmation, setDeleteConfirmation] = useState("");
+  const isDisabled = isWriting || !canEdit;
 
   async function renameLeague(event: FormEvent) {
     event.preventDefault();
-    onRun(async () => {
-      await updateEncoded(client, `users/${user.uid}`, {
-        [`leagues/${summary.league.leagueId}/name`]: leagueName.trim() || summary.league.name,
-        [`leagues/${summary.league.leagueId}/updatedAt`]: timestamp(),
-        updatedAt: serverTimestamp(),
-      });
-      return "League name updated.";
-    });
+    if (isDisabled) {
+      return;
+    }
+
+    onRename(leagueName.trim() || summary.league.name);
   }
 
   async function deleteLeague(event: FormEvent) {
     event.preventDefault();
-    onRun(async () => {
-      await updateEncoded(client, `users/${user.uid}`, {
-        [`leagueMemberships/${summary.membershipKey}`]: null,
-        [`leagues/${summary.league.leagueId}`]: null,
-        [`snapshots/${summary.membershipKey}`]: null,
-        [`transactions/${summary.membershipKey}`]: null,
-        updatedAt: serverTimestamp(),
-      });
-      onDeleted();
-      return `${summary.league.name} deleted.`;
-    });
+    if (isDisabled || deleteConfirmation !== summary.league.leagueId) {
+      return;
+    }
+
+    onDelete();
   }
 
   return (
-    <section className="ffb-commissioner-panel" aria-labelledby="commissioner-title">
+    <section
+      className={`ffb-commissioner-panel${canEdit ? "" : " ffb-commissioner-panel-disabled"}`}
+      aria-disabled={!canEdit}
+      aria-labelledby="commissioner-title"
+    >
       <div className="ffb-universe-head">
         <div>
           <h2 id="commissioner-title">Commissioner Settings</h2>
+          {!canEdit ? <p className="ffb-muted">Only the commissioner can change these settings.</p> : null}
         </div>
       </div>
       <div className="ffb-commissioner-grid">
@@ -1085,8 +1302,8 @@ function CommissionerPanel({
           <div>
             <h3>League name</h3>
           </div>
-          <input value={leagueName} onChange={(event) => setLeagueName(event.target.value)} />
-          <button className="ffb-primary" disabled={isWriting} type="submit">
+          <input disabled={isDisabled} value={leagueName} onChange={(event) => setLeagueName(event.target.value)} />
+          <button className="ffb-primary" disabled={isDisabled} type="submit">
             Rename
           </button>
         </form>
@@ -1096,13 +1313,14 @@ function CommissionerPanel({
             <h3>Delete league</h3>
           </div>
           <input
+            disabled={isDisabled}
             placeholder={`Type ${summary.league.leagueId} to confirm`}
             value={deleteConfirmation}
             onChange={(event) => setDeleteConfirmation(event.target.value)}
           />
           <button
             className="ffb-danger-button"
-            disabled={isWriting || deleteConfirmation !== summary.league.leagueId}
+            disabled={isDisabled || deleteConfirmation !== summary.league.leagueId}
             type="submit"
           >
             Delete League
@@ -1189,7 +1407,7 @@ function TheatersPanel({
                 {unreleased.length}/{spentByPlayer[player.uid] ?? 0}
               </span>
               <span role="cell">
-                {released.length}/{formatPoints(earnedPointsByPlayer[player.uid] ?? 0)}
+                {released.length}/{formatSummaryPoints(earnedPointsByPlayer[player.uid] ?? 0)}
               </span>
             </button>
           );
@@ -1255,20 +1473,46 @@ type ReleasedSort = {
   key: ReleasedSortKey;
 };
 
+type ReleasedYear = "2025" | "2026";
+
+const RELEASED_YEARS: ReleasedYear[] = ["2025", "2026"];
+
+function defaultReleasedYear(): ReleasedYear {
+  const currentYear = String(new Date().getFullYear()) as ReleasedYear;
+  return RELEASED_YEARS.includes(currentYear) ? currentYear : "2025";
+}
+
 function ReleasedFilmsPanel({
   resolution,
+  search,
   summary,
 }: {
   resolution: SnapshotResolution;
+  search: string;
   summary: LeagueSummary;
 }) {
-  const [sort, setSort] = useState<ReleasedSort>({ direction: "desc", key: "releaseDate" });
+  const [sort, setSort] = useState<ReleasedSort>({ direction: "desc", key: "maxPoints" });
+  const releasedYear = yearFromSearch(search, RELEASED_YEARS, defaultReleasedYear());
+  const [historicalMovies, setHistoricalMovies] = useState<
+    { filmId: string; movie: DerivedMovieState }[]
+  >([]);
+  const [historicalMovieError, setHistoricalMovieError] = useState<string | null>(null);
   const state = resolution.snapshot.state;
   const ownerPoints = releasedPointsByPlayer(summary, resolution);
-  const rows = Object.entries(state.movies)
-    .filter(([, movie]) => movie.locked)
+  const movieEntries =
+    releasedYear === "2025"
+      ? historicalMovies.map(({ filmId, movie }) => [filmId, movie] as const)
+      : Object.entries(state.movies).filter(
+          ([, movie]) => movie.locked && movie.releaseDate.startsWith(`${releasedYear}-`),
+        );
+  const rows = movieEntries
     .map(([filmId, movie]) => {
-      const owner = movie.ownerUid ? playerUsername(summary, movie.ownerUid, movie.ownerUid) : "Unowned";
+      const owner =
+        releasedYear === "2025"
+          ? "Unowned"
+          : movie.ownerUid
+            ? playerUsername(summary, movie.ownerUid, movie.ownerUid)
+            : "Unowned";
       const strongestCategory = strongestMovieCategory(movie, summary.league.scoring);
       const maxPoints = strongestCategory?.score ?? 0;
 
@@ -1282,6 +1526,36 @@ function ReleasedFilmsPanel({
       };
     })
     .sort((left, right) => compareReleasedRows(left, right, sort));
+
+  useEffect(() => {
+    let active = true;
+
+    if (releasedYear !== "2025") {
+      return () => {
+        active = false;
+      };
+    }
+
+    loadHistoricalReleasedMovies("2025")
+      .then((movies) => {
+        if (active) {
+          setHistoricalMovieError(null);
+          setHistoricalMovies(movies);
+        }
+      })
+      .catch((error: unknown) => {
+        if (active) {
+          setHistoricalMovieError(
+            error instanceof Error ? error.message : "Historical movie data failed to load.",
+          );
+          setHistoricalMovies([]);
+        }
+      });
+
+    return () => {
+      active = false;
+    };
+  }, [releasedYear]);
 
   function changeSort(key: ReleasedSortKey) {
     setSort((current) => {
@@ -1297,50 +1571,62 @@ function ReleasedFilmsPanel({
   }
 
   return (
-    <section className="ffb-player-detail ffb-released-panel" aria-labelledby="released-films-title">
-      <div className="ffb-universe-head">
-        <div>
-          <p className="ffb-label">Released</p>
-          <h2 id="released-films-title">Released Films</h2>
-        </div>
-        <span>{rows.length} films</span>
-      </div>
-      {rows.length > 0 ? (
-        <div className="ffb-released-table" role="table" aria-label="Released films">
-          <div className="ffb-released-row ffb-released-row--head" role="row">
-            <SortHeader activeSort={sort} label="Film" sortKey="title" onSort={changeSort} />
-            <SortHeader activeSort={sort} label="Release Day" sortKey="releaseDate" onSort={changeSort} />
-            <SortHeader activeSort={sort} label="Owner" sortKey="owner" onSort={changeSort} />
-            <SortHeader activeSort={sort} label="Gross" sortKey="gross" onSort={changeSort} />
-            <SortHeader activeSort={sort} label="Budget" sortKey="budget" onSort={changeSort} />
-            <SortHeader activeSort={sort} label="LB Avg" sortKey="lbAverage" onSort={changeSort} />
-            <SortHeader activeSort={sort} label="LB Ratings" sortKey="lbRatings" onSort={changeSort} />
-            <SortHeader activeSort={sort} label="Max Pts" sortKey="maxPoints" onSort={changeSort} />
-          </div>
-          {rows.map(({ filmId, maxPoints, movie, owner, strongestCategory }) => (
-            <div className="ffb-released-row" key={filmId} role="row">
-              <div role="cell">
-                <FilmTitle movie={movie} />
-              </div>
-              <span role="cell">{formatReleaseDay(movie.releaseDate)}</span>
-              <span role="cell">{owner}</span>
-              <span role="cell">{formatMoney(movie.domesticGross)}</span>
-              <span role="cell">{formatMoney(movie.productionBudget)}</span>
-              <span role="cell">{formatRating(movie.letterboxdAverage)}</span>
-              <span role="cell">{formatCount(movie.letterboxdRatingCount)}</span>
-              <strong className="ffb-max-points-cell" role="cell">
-                {formatPoints(maxPoints)}
-                {strongestCategory ? (
-                  <img alt="" src={strongestCategory.iconSrc} title={strongestCategory.name} />
-                ) : null}
-              </strong>
+    <>
+      <YearSelectorToolbar
+        count={rows.length}
+        value={releasedYear}
+        years={RELEASED_YEARS}
+        onChange={(year) => {
+          setHistoricalMovieError(null);
+          if (year !== "2025") {
+            setHistoricalMovies([]);
+          }
+          replaceYearQuery(year);
+        }}
+      />
+      {historicalMovieError ? <p className="ffb-error">{historicalMovieError}</p> : null}
+      <section className="ffb-player-detail ffb-released-panel" aria-label="Released films">
+        {rows.length > 0 ? (
+          <div className="ffb-released-table" role="table" aria-label="Released films">
+            <div className="ffb-released-row ffb-released-row--head" role="row">
+              <span role="columnheader">#</span>
+              <SortHeader activeSort={sort} label="Film" sortKey="title" onSort={changeSort} />
+              <SortHeader activeSort={sort} label="Max Pts" sortKey="maxPoints" onSort={changeSort} />
+              <SortHeader activeSort={sort} label="Release Day" sortKey="releaseDate" onSort={changeSort} />
+              <SortHeader activeSort={sort} label="Owner" sortKey="owner" onSort={changeSort} />
+              <SortHeader activeSort={sort} label="Gross" sortKey="gross" onSort={changeSort} />
+              <SortHeader activeSort={sort} label="Budget" sortKey="budget" onSort={changeSort} />
+              <SortHeader activeSort={sort} label="LB Avg" sortKey="lbAverage" onSort={changeSort} />
+              <SortHeader activeSort={sort} label="LB Ratings" sortKey="lbRatings" onSort={changeSort} />
             </div>
-          ))}
-        </div>
-      ) : (
-        <p className="ffb-muted">No tracked films have released yet.</p>
-      )}
-    </section>
+            {rows.map(({ filmId, maxPoints, movie, owner, strongestCategory }, index) => (
+              <div className="ffb-released-row" key={filmId} role="row">
+                <span className="ffb-released-index" role="cell">
+                  {index + 1}
+                </span>
+                <div role="cell">
+                  <FilmTitle movie={movie} />
+                </div>
+                <strong className="ffb-max-points-cell" role="cell">
+                  {formatPoints(maxPoints)}
+                  {strongestCategory ? (
+                    <img alt="" src={strongestCategory.iconSrc} title={strongestCategory.name} />
+                  ) : null}
+                </strong>
+                <span role="cell">{formatReleaseDay(movie.releaseDate)}</span>
+                <span role="cell">{owner}</span>
+                <span role="cell">{formatMoney(movie.domesticGross)}</span>
+                <span role="cell">{formatMoney(movie.productionBudget)}</span>
+                <span role="cell">{formatRating(movie.letterboxdAverage)}</span>
+                <span role="cell">{formatCount(movie.letterboxdRatingCount)}</span>
+              </div>
+            ))}
+          </div>
+        ) : (
+          <p className="ffb-muted">No tracked films have released yet.</p>
+        )}
+      </section>
+    </>
   );
 }
 
@@ -1910,44 +2196,86 @@ function transactionBase(
 }
 
 function TransactionLog({
+  commissionerEvents,
   resolution,
   summary,
   transactions,
 }: {
+  commissionerEvents: CommissionerEvent[];
   resolution: SnapshotResolution;
   summary: LeagueSummary;
   transactions: LeagueTransaction[];
 }) {
   const [now] = useState(() => timestamp());
+  const timelineItems = combinedTimeline(transactions, commissionerEvents);
 
   return (
     <section className="ffb-log" aria-labelledby="log-title">
       <div className="ffb-universe-head">
         <div>
           <p className="ffb-label">Shared log</p>
-          <h2 id="log-title">Transactions</h2>
+          <h2 id="log-title">Timeline</h2>
         </div>
-        <span>{transactions.length}</span>
+        <span>{timelineItems.length}</span>
       </div>
       <div className="ffb-log-list">
-        {transactions.length > 0 ? (
-          transactions
-            .slice()
-            .reverse()
-            .map((transaction) => (
-              <article className="ffb-log-item" key={`${transaction.playerUid}-${transaction.txnId}`}>
+        {timelineItems.length > 0 ? (
+          timelineItems.map((item) => (
+              <article className="ffb-log-item" key={item.key}>
                 <p className="ffb-log-meta">
-                  {transaction.txnId} · {new Date(transaction.createdAt).toLocaleString()}
+                  {item.id} · {new Date(item.createdAt).toLocaleString()}
                 </p>
-                <h3>{transactionText(transaction, resolution, summary, now)}</h3>
+                <h3>
+                  {item.kind === "commissioner"
+                    ? commissionerEventText(item.event, summary)
+                    : transactionText(item.transaction, resolution, summary, now)}
+                </h3>
               </article>
             ))
         ) : (
-          <p className="ffb-muted">No league transactions yet.</p>
+          <p className="ffb-muted">No league events yet.</p>
         )}
       </div>
     </section>
   );
+}
+
+type TimelineItem =
+  | {
+      createdAt: number;
+      event: CommissionerEvent;
+      id: string;
+      key: string;
+      kind: "commissioner";
+    }
+  | {
+      createdAt: number;
+      id: string;
+      key: string;
+      kind: "player";
+      transaction: LeagueTransaction;
+    };
+
+function combinedTimeline(
+  transactions: LeagueTransaction[],
+  commissionerEvents: CommissionerEvent[],
+): TimelineItem[] {
+  return [
+    ...transactions.map((transaction) => ({
+      createdAt: transaction.createdAt,
+      id: transaction.txnId,
+      key: `player:${transaction.enteredByUid ?? transaction.playerUid}:${transaction.playerUid}:${transaction.txnId}`,
+      kind: "player" as const,
+      transaction,
+    })),
+    ...commissionerEvents.map((event) => ({
+      createdAt: event.createdAt,
+      event,
+      id: event.eventId,
+      key: `commissioner:${event.commissionerUid}:${event.eventId}`,
+      kind: "commissioner" as const,
+    })),
+  ].sort((left, right) => right.createdAt - left.createdAt || right.id.localeCompare(left.id));
 }
 
 type JoinRequest = {
@@ -2307,6 +2635,10 @@ function formatPoints(value: number) {
   return Number.isFinite(value) ? value.toFixed(1) : "0.0";
 }
 
+function formatSummaryPoints(value: number) {
+  return Number.isFinite(value) ? Number(value.toFixed(1)).toLocaleString() : "0";
+}
+
 function formatRating(value: number | null | undefined) {
   return typeof value === "number" && Number.isFinite(value) ? value.toFixed(2) : "n/a";
 }
@@ -2337,6 +2669,9 @@ function transactionText(
   now: number,
 ) {
   const player = playerUsername(summary, transaction.playerUid, transaction.playerUid);
+  const auditSuffix = transaction.enteredByUsername
+    ? ` (entered by ${transaction.enteredByUsername})`
+    : "";
 
   if (transaction.kind === "bid") {
     const payload = decodeBidPayload(transaction.obfuscatedPayload, {
@@ -2346,25 +2681,62 @@ function transactionText(
     });
 
     if (!payload) {
-      return `${player} placed bid ${transaction.txnId}, but the payload could not be decoded.`;
+      return `${player} placed bid ${transaction.txnId}, but the payload could not be decoded${auditSuffix}.`;
     }
 
     const movie = resolution.snapshot.state.movies[payload.filmId];
     if (movie && movie.auctionDeadline > now) {
-      return `${player} placed bid ${transaction.txnId}`;
+      return `${player} placed bid ${transaction.txnId}${auditSuffix}`;
     }
 
     const drop = payload.dropFilmId ? ` with drop ${payload.dropFilmId}` : "";
-    return `${player} bid ${payload.amount} stubs on ${payload.filmId}${drop}.`;
+    return `${player} bid ${payload.amount} stubs on ${payload.filmId}${drop}${auditSuffix}.`;
   }
 
   if (transaction.kind === "pickup") {
-    return `${player} picked up ${transaction.filmId}.`;
+    return `${player} picked up ${transaction.filmId}${auditSuffix}.`;
   }
 
   if (transaction.kind === "drop") {
-    return `${player} dropped ${transaction.filmId}; 48-hour waiver begins.`;
+    return `${player} dropped ${transaction.filmId}; 48-hour waiver begins${auditSuffix}.`;
   }
 
-  return `${player} recorded ${transaction.filmId}.`;
+  return `${player} recorded ${transaction.filmId}${auditSuffix}.`;
+}
+
+function commissionerEventText(event: CommissionerEvent, summary: LeagueSummary) {
+  const commissioner = usernameFromEmail(
+    summary.league.members[event.commissionerUid]?.email ?? summary.commissionerEmail,
+    summary.commissionerLabel,
+  );
+
+  if (event.kind === "accept-member") {
+    return `${commissioner} accepted ${usernameFromEmail(event.email, event.targetUid)} into the league.`;
+  }
+
+  if (event.kind === "kick-member") {
+    return `${commissioner} kicked ${event.targetUid} from the league.`;
+  }
+
+  if (event.kind === "start-draft") {
+    return `${commissioner} started a ${event.draftRounds}-round snake draft.`;
+  }
+
+  if (event.kind === "finalize-draft") {
+    return `${commissioner} finalized the draft.`;
+  }
+
+  if (event.kind === "rename-league") {
+    return `${commissioner} renamed the league to ${event.name}.`;
+  }
+
+  if (event.kind === "update-scoring") {
+    return `${commissioner} updated scoring rules.`;
+  }
+
+  if (event.kind === "delete-league") {
+    return `${commissioner} deleted the league.`;
+  }
+
+  return `${commissioner} changed league settings.`;
 }
