@@ -1,6 +1,7 @@
 import type { User } from "firebase/auth";
 import {
   makeDefaultLeague,
+  firebasePathKey,
   membershipKey,
   obfuscateBidPayload,
   type CommissionerEvent,
@@ -10,7 +11,7 @@ import {
 } from "./leagueModel";
 
 export const PREVIEW_LEAGUE_ID = "preview";
-export const PREVIEW_OWNER_UID = "dcep93.apps";
+export const PREVIEW_OWNER_UID = "dcep93-apps";
 export const PREVIEW_OWNER_EMAIL = "dcep93.apps@gmail.com";
 export const PREVIEW_LEAGUE_PATH = "/league/dcep93-apps/preview";
 
@@ -149,13 +150,14 @@ function previewSeedLeague(): CommissionerLeague {
 
 function previewCommissionerEvents(league: CommissionerLeague): Record<string, CommissionerEvent> {
   const acceptedPlayers = PREVIEW_PLAYERS.slice(1).map((player, index) => {
+    const eventId = `c.${index + 1}`;
     return [
-      `c.${index + 1}`,
+      firebasePathKey(eventId),
       {
         commissionerUid: PREVIEW_OWNER_UID,
         createdAt: PREVIEW_CREATED_AT + (index + 1) * 60_000,
         email: player.email,
-        eventId: `c.${index + 1}`,
+        eventId,
         kind: "accept-member",
         leagueId: league.leagueId,
         playerId: player.playerId,
@@ -167,7 +169,7 @@ function previewCommissionerEvents(league: CommissionerLeague): Record<string, C
   return Object.fromEntries([
     ...acceptedPlayers,
     [
-      "c.4",
+      firebasePathKey("c.4"),
       {
         commissionerUid: PREVIEW_OWNER_UID,
         createdAt: PREVIEW_DRAFT_STARTED_AT,
@@ -188,7 +190,7 @@ function previewCommissionerEvents(league: CommissionerLeague): Record<string, C
       } satisfies CommissionerEvent,
     ],
     [
-      "c.5",
+      firebasePathKey("c.5"),
       {
         commissionerUid: PREVIEW_OWNER_UID,
         createdAt: PREVIEW_DRAFT_FINALIZED_AT,
@@ -235,7 +237,7 @@ function previewTransactionsForPlayer(
     rows.push(simplePreviewTransaction(member, player, "pickup-1", "moana", "pickup", 1));
   }
 
-  return Object.fromEntries(rows.map((transaction) => [transaction.txnId, transaction]));
+  return Object.fromEntries(rows.map((transaction) => [firebasePathKey(transaction.txnId), transaction]));
 }
 
 function simplePreviewTransaction(

@@ -13,6 +13,7 @@ import { replaceYearQuery, yearFromSearch } from "./yearQuery";
 import {
   commissionerUsername,
   decodeBidPayload,
+  firebasePathKey,
   findLeagueSummaryByPath,
   getUsers,
   leaguePath,
@@ -44,6 +45,7 @@ type LeagueConsoleProps = {
     disabled: boolean;
     onReset: () => void;
   };
+  snapshotOwnerUidOverride?: string;
   search: string;
   onNavigate: (pathname: string) => void;
   onSignOut: () => void;
@@ -139,7 +141,7 @@ async function appendCommissionerEvent(
   } as CommissionerEvent;
 
   await updateUserRoot(client, summary.commissionerUid, writerUser, {
-    [`commissionerEvents/${summary.membershipKey}/${event.eventId}`]: event,
+    [`commissionerEvents/${summary.membershipKey}/${firebasePathKey(event.eventId)}`]: event,
     updatedAt: serverTimestamp(),
   });
 }
@@ -180,6 +182,7 @@ export default function LeagueConsole({
   client,
   pathname,
   previewReset,
+  snapshotOwnerUidOverride,
   search,
   onNavigate,
   onSignOut,
@@ -203,10 +206,11 @@ export default function LeagueConsole({
       : null,
     [routeLeague, universeValue],
   );
-  const actingUser = useMemo(
+  const actingUserResolution = useMemo(
     () => resolveActingUser(user, selectedLeague, search),
     [search, selectedLeague, user],
   );
+  const actingUser = actingUserResolution.user;
   const actualAccountLabel = user ? usernameFromEmail(user.email, "player") : "Not Logged In";
   const accountLabel =
     actingUser && user && actingUser.uid !== user.uid
@@ -360,6 +364,7 @@ export default function LeagueConsole({
       onViewChange={changeView}
       user={user}
     >
+      {actingUserResolution.warning ? <p className="ffb-toast">{actingUserResolution.warning}</p> : null}
       {message ? <p className="ffb-toast">{message}</p> : null}
       {activeView === "scoring" ? (
         <ScoringRulesContent
@@ -389,6 +394,7 @@ export default function LeagueConsole({
           universeValue={universeValue}
           user={actingUser}
           writerUser={writerUser}
+          snapshotOwnerUidOverride={snapshotOwnerUidOverride}
         />
       ) : movieFile ? (
         <LeagueDiscovery
@@ -407,24 +413,39 @@ export default function LeagueConsole({
 
 function resolveActingUser(actualUser: User | null, summary: LeagueSummary | null, search: string) {
   if (!actualUser || !summary) {
-    return actualUser;
+    return { user: actualUser, warning: null };
   }
 
   const login = new URLSearchParams(search).get("login")?.trim();
   if (!login || actualUser.uid !== summary.commissionerUid) {
-    return actualUser;
+    return { user: actualUser, warning: null };
   }
 
-  const actingMember = Object.entries(summary.league.members).find(([, member]) => {
-    return usernameFromEmail(member.email, "").toLowerCase() === login.toLowerCase();
+  const actingMember = Object.entries(summary.league.members).find(([uid, member]) => {
+    return loginMatchesMember(login, uid, member);
   });
 
   if (!actingMember) {
-    return actualUser;
+    return {
+      user: actualUser,
+      warning: `No league member matches login=${login}.`,
+    };
   }
 
   const [uid, member] = actingMember;
-  return userFromLeagueMember(uid, member);
+  return { user: userFromLeagueMember(uid, member), warning: null };
+}
+
+function loginMatchesMember(login: string, uid: string, member: LeagueMember) {
+  const normalizedLogin = normalizeLoginKey(login);
+  const emailLocalPart = member.email.split("@")[0] ?? "";
+  const candidates = [uid, member.email, emailLocalPart, usernameFromEmail(member.email, "")];
+
+  return candidates.some((candidate) => normalizeLoginKey(candidate) === normalizedLogin);
+}
+
+function normalizeLoginKey(value: string) {
+  return value.trim().toLowerCase().replace(/[^a-z0-9]+/g, ".");
 }
 
 function userFromLeagueMember(uid: string, member: LeagueMember) {
@@ -681,7 +702,7 @@ function LeagueDiscovery({
           updatedAt: timestamp(),
         },
         [`leagues/${cleanLeagueId}`]: league,
-        [`snapshots/${key}/${snapshotIdFor(snapshot)}`]: snapshot,
+        [`snapshots/${key}/${firebasePathKey(snapshotIdFor(snapshot))}`]: snapshot,
         updatedAt: serverTimestamp(),
       });
 
@@ -856,6 +877,7 @@ function LeagueDashboard({
   playerUsername: selectedPlayerUsername,
   routeSection,
   search,
+  snapshotOwnerUidOverride,
   summary,
   universeValue,
   user,
@@ -869,6 +891,7 @@ function LeagueDashboard({
   playerUsername: string | null;
   routeSection: LeagueRoute["section"];
   search: string;
+  snapshotOwnerUidOverride?: string;
   summary: LeagueSummary;
   universeValue: unknown;
   user: User | null;
@@ -933,15 +956,30 @@ function LeagueDashboard({
       return;
     }
 
-    const snapshotOwnerUid = isCommissionerProxyAction ? summary.commissionerUid : user.uid;
-    updateUserRoot(client, snapshotOwnerUid, writer, {
-      [`snapshots/${summary.membershipKey}/${snapshotIdFor(snapshot)}`]: snapshot,
+    const snapshotOwnerUid = snapshotOwnerUidOverride ?? (isCommissionerProxyAction ? summary.commissionerUid : user.uid);
+    const snapshotKey = firebasePathKey(snapshotIdFor(snapshot));
+    const snapshotPath = `snapshots/${summary.membershipKey}/${snapshotKey}`;
+    const snapshotUpdate = {
+      [snapshotPath]: snapshot,
       updatedAt: serverTimestamp(),
-    })
+    };
+    updateUserRoot(client, snapshotOwnerUid, writer, snapshotUpdate)
       .catch((error: unknown) => {
         if (active) {
+          const debug = snapshotWriteDebug({
+            error,
+            isCommissionerProxyAction,
+            snapshot,
+            snapshotOwnerUid,
+            snapshotPath,
+            writer,
+          });
+          console.error("Snapshot save failed", {
+            ...debug,
+            update: snapshotUpdate,
+          });
           onMessage(
-            error instanceof Error ? `Snapshot save failed: ${error.message}` : "Snapshot save failed.",
+            `Snapshot save failed: ${debug.message}`,
           );
         }
       });
@@ -956,6 +994,7 @@ function LeagueDashboard({
     snapshotResolution.shouldWrite,
     snapshotResolution.snapshot,
     onMessage,
+    snapshotOwnerUidOverride,
     summary.commissionerUid,
     summary.membershipKey,
     user,
@@ -980,8 +1019,8 @@ function LeagueDashboard({
       : transaction;
     const writeUid = isCommissionerProxyAction ? summary.commissionerUid : user.uid;
     const writePath = isCommissionerProxyAction
-      ? `proxyTransactions/${summary.membershipKey}/${transaction.txnId}`
-      : `transactions/${summary.membershipKey}/${transaction.txnId}`;
+      ? `proxyTransactions/${summary.membershipKey}/${firebasePathKey(transaction.txnId)}`
+      : `transactions/${summary.membershipKey}/${firebasePathKey(transaction.txnId)}`;
 
     await updateUserRoot(client, writeUid, writerUser, {
       [writePath]: transactionWithAudit,
@@ -2655,6 +2694,44 @@ function formatReleaseDay(value: string) {
     year: "numeric",
     timeZone: "UTC",
   });
+}
+
+function snapshotWriteDebug({
+  error,
+  isCommissionerProxyAction,
+  snapshot,
+  snapshotOwnerUid,
+  snapshotPath,
+  writer,
+}: {
+  error: unknown;
+  isCommissionerProxyAction: boolean;
+  snapshot: SnapshotResolution["snapshot"];
+  snapshotOwnerUid: string;
+  snapshotPath: string;
+  writer: User;
+}) {
+  const message = error instanceof Error ? error.message : "Permission denied.";
+  const metadata = {
+    activeMemberUids: snapshot.activeMemberUids,
+    commissionerUid: snapshot.commissionerUid,
+    generatedAt: snapshot.generatedAt,
+    generatedByUid: snapshot.generatedByUid,
+    isCommissionerProxyAction,
+    leagueId: snapshot.leagueId,
+    membershipKey: snapshot.membershipKey,
+    movieDataVersion: snapshot.movieDataVersion,
+    snapshotPath: `users/${snapshotOwnerUid}/${snapshotPath}`,
+    targetOwnerUid: snapshotOwnerUid,
+    transactionWatermarks: snapshot.transactionWatermarks,
+    writerEmail: writer.email,
+    writerUid: writer.uid,
+  };
+
+  return {
+    ...metadata,
+    message: `${message}. Tried users/${snapshotOwnerUid}/${snapshotPath}; writer=${writer.uid}; generatedBy=${snapshot.generatedByUid}; members=${snapshot.activeMemberUids.join(", ")}.`,
+  };
 }
 
 function playerUsername(summary: LeagueSummary, uid: string, fallback: string) {

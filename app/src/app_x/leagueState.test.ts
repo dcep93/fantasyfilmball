@@ -9,6 +9,7 @@ import {
 import {
   DEFAULT_LEAGUE_ID,
   STARTING_STUBS,
+  firebasePathKey,
   membershipKey,
   nextTxnId,
   obfuscateBidPayload,
@@ -104,7 +105,7 @@ describe("commissioner events", () => {
         [COMMISSIONER_UID]: {
           commissionerEvents: {
             [LEAGUE_KEY]: {
-              "c.1": {
+              [firebasePathKey("c.1")]: {
                 commissionerUid: COMMISSIONER_UID,
                 createdAt: 10,
                 email: "player@gmail.com",
@@ -114,7 +115,7 @@ describe("commissioner events", () => {
                 playerId: "2",
                 targetUid: PLAYER_UID,
               },
-              "c.2": {
+              [firebasePathKey("c.2")]: {
                 commissionerUid: COMMISSIONER_UID,
                 createdAt: 20,
                 eventId: "c.2",
@@ -122,7 +123,7 @@ describe("commissioner events", () => {
                 leagueId: DEFAULT_LEAGUE_ID,
                 name: "Logged League",
               },
-              "c.3": {
+              [firebasePathKey("c.3")]: {
                 commissionerUid: COMMISSIONER_UID,
                 createdAt: 30,
                 draftOrder: ["commissioner", "player"],
@@ -131,7 +132,7 @@ describe("commissioner events", () => {
                 kind: "start-draft",
                 leagueId: DEFAULT_LEAGUE_ID,
               },
-              "c.4": {
+              [firebasePathKey("c.4")]: {
                 commissionerUid: COMMISSIONER_UID,
                 createdAt: 40,
                 eventId: "c.4",
@@ -163,7 +164,7 @@ describe("commissioner events", () => {
         [COMMISSIONER_UID]: {
           commissionerEvents: {
             [LEAGUE_KEY]: {
-              "c.1": {
+              [firebasePathKey("c.1")]: {
                 commissionerUid: COMMISSIONER_UID,
                 createdAt: 10,
                 eventId: "c.1",
@@ -196,7 +197,7 @@ describe("commissioner proxy transactions", () => {
         [COMMISSIONER_UID]: {
           proxyTransactions: {
             [LEAGUE_KEY]: {
-              [proxiedPickup.txnId]: proxiedPickup,
+              [firebasePathKey(proxiedPickup.txnId)]: proxiedPickup,
             },
           },
         },

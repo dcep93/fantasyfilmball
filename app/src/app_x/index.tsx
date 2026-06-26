@@ -21,6 +21,7 @@ import LeagueConsole from "./LeagueConsole";
 import { getUsers, type UniverseState } from "./leagueModel";
 import {
   PREVIEW_LEAGUE_PATH,
+  PREVIEW_OWNER_UID,
   previewRootUids,
   previewSeedUsers,
   previewUniverseWithFallback,
@@ -1434,6 +1435,7 @@ function PreviewApp({
           onReset: resetPreview,
         }}
         search={search}
+        snapshotOwnerUidOverride={PREVIEW_OWNER_UID}
         onNavigate={navigatePreview}
         onSignOut={clearPreviewLogin}
         universeState={previewUniverseState}

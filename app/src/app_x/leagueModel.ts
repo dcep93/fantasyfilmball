@@ -266,6 +266,14 @@ function slugPart(value: string | null | undefined) {
     .replace(/^-+|-+$/g, "");
 }
 
+export function firebasePathKey(value: string) {
+  return encodeURIComponent(value).replace(/\./g, "%2E");
+}
+
+function keyMatchesId(key: string, id: string) {
+  return key === id || key === firebasePathKey(id);
+}
+
 export function readTransactions(
   value: unknown,
   summary: LeagueSummary,
@@ -285,7 +293,7 @@ export function readTransactions(
 
     for (const [txnId, raw] of Object.entries(rawTransactions)) {
       const transaction = readTransaction(raw);
-      if (transaction && transaction.txnId === txnId && transaction.playerUid === uid) {
+      if (transaction && keyMatchesId(txnId, transaction.txnId) && transaction.playerUid === uid) {
         transactions.push(transaction);
       }
     }
@@ -310,8 +318,8 @@ export function readOwnTransactions(
 
   for (const [txnId, raw] of Object.entries(rawTransactions)) {
     const transaction = readTransaction(raw);
-    if (transaction && transaction.txnId === txnId && transaction.playerUid === uid) {
-      transactions[txnId] = transaction;
+    if (transaction && keyMatchesId(txnId, transaction.txnId) && transaction.playerUid === uid) {
+      transactions[transaction.txnId] = transaction;
     }
   }
 
@@ -337,7 +345,7 @@ function readProxyTransactions(value: unknown, summary: LeagueSummary): LeagueTr
     const transaction = readTransaction(raw);
     if (
       transaction &&
-      transaction.txnId === txnId &&
+      keyMatchesId(txnId, transaction.txnId) &&
       transaction.enteredByUid === summary.commissionerUid &&
       activeUids.has(transaction.playerUid) &&
       summary.league.members[transaction.playerUid]?.playerId === transaction.playerId
@@ -691,7 +699,7 @@ function readCommissionerEventsFromRoot(
 
   for (const [eventId, raw] of Object.entries(rawEvents)) {
     const event = readCommissionerEvent(raw);
-    if (event && event.eventId === eventId && event.commissionerUid === commissionerUid) {
+    if (event && keyMatchesId(eventId, event.eventId) && event.commissionerUid === commissionerUid) {
       events.push(event);
     }
   }
